@@ -1,0 +1,17 @@
+{
+  "name": "@peritoz/smart-view",
+  "author": "diorbert.pereira",
+  "repository": "github:Peritoz/smart-view",
+  "version": "0.1.0",
+  "description": "Advanced automatic layout generator for better graph visualization",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "license": "MPLv2",
+  "keywords": [
+  ]
+}
