@@ -11,7 +11,7 @@
   "scripts": {
     "test": "mocha"
   },
-  "license": "MIT",
+  "license": "MPLv2",
   "keywords": [
   ]
 }
