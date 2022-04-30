@@ -1,6 +1,6 @@
-const NestedLayoutProcessor = require("./layoutProcessor/specializedLayoutProcessors/LinearLayoutProcessor/HierarchicalLayoutProcessor/specializedLayout/nested_layout_processor");
-const HierarchyLayoutProcessor = require("./layoutProcessor/specializedLayoutProcessors/LinearLayoutProcessor/HierarchicalLayoutProcessor/specializedLayout/hierarchy_layout_processor");
-const SemanticEngine = require("./semanticEngine/semantic_engine");
+const NestedLayoutEngine = require("./layout_engine/specialized_layout_engines/linear_layout_engines/hierarchical_layout_engines/specialized_layout_engines/nested_layout_engine");
+const HierarchyLayoutEngine = require("./layout_engine/specialized_layout_engines/linear_layout_engines/hierarchical_layout_engines/specialized_layout_engines/hierarchy_layout_engine");
+const SemanticEngine = require("./semantic_engine/semantic_engine");
 const {LAYOUT_TYPES} = require("./common/layout_constants");
 
 function layoutToCode(layout) {
@@ -23,7 +23,7 @@ class SmartViewEngine {
 
     async generateView(paths, title) {
         try {
-            let layoutProcessor;
+            let layoutEngine;
             let semanticEngine;
             let settings = {
                 layoutType: this.layoutType,
@@ -33,21 +33,21 @@ class SmartViewEngine {
 
             switch (this.layoutType) {
                 case LAYOUT_TYPES.NESTED:
-                    layoutProcessor = new NestedLayoutProcessor(settings);
+                    layoutEngine = new NestedLayoutEngine(settings);
                     break;
                 case LAYOUT_TYPES.HIERARCHY:
-                    layoutProcessor = new HierarchyLayoutProcessor(settings);
+                    layoutEngine = new HierarchyLayoutEngine(settings);
                     break;
                 default:
-                    layoutProcessor = new NestedLayoutProcessor(settings);
+                    layoutEngine = new NestedLayoutEngine(settings);
             }
 
             semanticEngine = new SemanticEngine(paths);
             semanticEngine.processPaths();
 
-            let view = layoutProcessor.convertToView(semanticEngine, title || "Unknown");
+            let view = layoutEngine.convertToView(semanticEngine, title || "Unknown");
 
-            layoutProcessor.processLayout(view);
+            layoutEngine.processLayout(view);
 
             // IMPORTANT: Sorting to put upper level nodes first because of the diagram rendering logic
             view.sortViewNodesParentsFirst();

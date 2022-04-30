@@ -1,7 +1,8 @@
 const {SIZE_REFERENCE} = require("../../../../../common/layout_constants");
-const HierarchicalLayoutProcessor = require("../hierarchical_layout_processor");
+const HierarchicalLayoutEngine = require("../hierarchical_layout_engine");
+const PlotCursor = require("../../../../plot_cursor");
 
-class NestedLayoutProcessor extends HierarchicalLayoutProcessor {
+class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
     constructor(settings) {
         super(settings);
     }
@@ -33,6 +34,7 @@ class NestedLayoutProcessor extends HierarchicalLayoutProcessor {
         let result = {
             width: 0,
             height: SIZE_REFERENCE.INNER_TOP_PADDING_Y,
+            verticalCoverage: SIZE_REFERENCE.INNER_TOP_PADDING_Y,
             maxColumnCount: 0
         };
         let cursorX = 0;
@@ -49,7 +51,11 @@ class NestedLayoutProcessor extends HierarchicalLayoutProcessor {
                 nestedDimensions = this._processDimensionsByContent(node.children, node, maxColumnsConstraint);
                 columnCount += nestedDimensions.maxColumnCount;
             } else { // It's a leaf
-                nestedDimensions = {width: SIZE_REFERENCE.DEFAULT_WIDTH, height: SIZE_REFERENCE.DEFAULT_HEIGHT};
+                nestedDimensions = {
+                    width: SIZE_REFERENCE.DEFAULT_WIDTH,
+                    height: SIZE_REFERENCE.DEFAULT_HEIGHT,
+                    verticalCoverage: SIZE_REFERENCE.DEFAULT_HEIGHT
+                };
                 columnCount++;
             }
 
@@ -59,39 +65,48 @@ class NestedLayoutProcessor extends HierarchicalLayoutProcessor {
             }
 
             // Incrementing horizontal cursor
-            cursorX += nestedDimensions.width + SIZE_REFERENCE.PADDING_X;
+            cursorX += nestedDimensions.width;
 
-            if (cursorX + SIZE_REFERENCE.PADDING_X > result.width) {
-                result.width = cursorX + SIZE_REFERENCE.PADDING_X;
+            if (cursorX > result.width) {
+                result.width = cursorX;
             }
 
             // Setting the current node dimensions
             node.width = nestedDimensions.width;
-            node.height = nestedDimensions.height;
+            node.verticalCoverage = nestedDimensions.verticalCoverage;
 
-            if (nestedDimensions.height + SIZE_REFERENCE.PADDING_Y > rowHeight) {
-                rowHeight = nestedDimensions.height + SIZE_REFERENCE.PADDING_Y;
+            if (nestedDimensions.verticalCoverage + SIZE_REFERENCE.PADDING_Y > rowHeight) {
+                rowHeight = nestedDimensions.verticalCoverage + SIZE_REFERENCE.PADDING_Y;
             }
 
             // Row break (new row) or last element (final row)
             if ((columnCount >= maxColumns) || i === sortedNestedTree.length - 1) {
-                result.height += rowHeight;
+                result.verticalCoverage += rowHeight;
 
                 cursorX = 0;
                 columnCount = 0;
                 rowHeight = 0;
+            } else {
+                // Incrementing horizontal cursor
+                cursorX += SIZE_REFERENCE.MARGIN_X;
             }
         }
 
         // Adding final padding
-        result.height += SIZE_REFERENCE.INNER_BOTTOM_PADDING_Y;
+        result.verticalCoverage += SIZE_REFERENCE.INNER_BOTTOM_PADDING_Y;
 
         return result;
     }
 
     _renderRows(nestedTree, index, maxColumns, initialX, initialY) {
+        const elementSizeReference = SIZE_REFERENCE.DEFAULT_WIDTH + 2 * SIZE_REFERENCE.MARGIN_X;
         let sortedNestedTree = nestedTree.sort((a, b) => b.nestedcount - a.nestedcount);
-        let cursorX = initialX, cursorY = initialY;
+        let cursor = new PlotCursor(initialX, initialY, maxColumns * elementSizeReference, 100000, {
+            leftPadding: 0,
+            rightPadding: SIZE_REFERENCE.MARGIN_X,
+            topPadding: 0,
+            bottomPadding: SIZE_REFERENCE.MARGIN_Y
+        });
         let maxColumnCount = 0;
         let maxHeight = 0;
         let maxWidth = 0;
@@ -99,44 +114,25 @@ class NestedLayoutProcessor extends HierarchicalLayoutProcessor {
 
         for (let i = 0; i < sortedNestedTree.length; i++) {
             let node = sortedNestedTree[i];
+            const hierarchyDepth = Math.ceil(node.children.length / this.maxHorizontalCount);
 
-            node.x = cursorX;
-            node.y = cursorY;
+            let position = cursor.calculatePosition(
+                {
+                    width: node.width,
+                    height: node.height + hierarchyDepth * (SIZE_REFERENCE.DEFAULT_HEIGHT + SIZE_REFERENCE.MARGIN_Y)
+                }
+            );
+
+            node.x = position.x;
+            node.y = position.y;
 
             if (node.children.length > 0) { // It is not a leaf
                 let maxColumnsConstraint = node.nestedcount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
-                let nestedPositionResult = this._renderRows(node.children, i, maxColumnsConstraint, SIZE_REFERENCE.PADDING_X, SIZE_REFERENCE.INNER_TOP_PADDING_Y);
+                let nestedPositionResult = this._renderRows(node.children, i, maxColumnsConstraint, 0, node.height + SIZE_REFERENCE.MARGIN_Y);
 
                 columnCount += nestedPositionResult.maxColumnCount;
             } else { // It's a leaf
                 columnCount++;
-            }
-
-            // Setting the maximum value of column count
-            if (columnCount > maxColumnCount) {
-                maxColumnCount = columnCount;
-            }
-
-            // Discovering the maximum height (reference height for the row). Will be used when breaking the line
-            let yIncrement = node.height + SIZE_REFERENCE.PADDING_Y;
-
-            if (yIncrement > maxHeight) {
-                maxHeight = yIncrement;
-            }
-
-            // Incrementing X or breaking the line
-            if (node.nestedcount > maxColumns || (columnCount >= maxColumns)) {
-                cursorY += maxHeight;
-                cursorX = SIZE_REFERENCE.PADDING_X;
-
-                columnCount = 0;
-                maxHeight = 0;
-            } else {
-                cursorX += node.width + SIZE_REFERENCE.PADDING_X;
-
-                if (cursorX > maxWidth) {
-                    maxWidth = cursorX;
-                }
             }
         }
 
@@ -144,4 +140,4 @@ class NestedLayoutProcessor extends HierarchicalLayoutProcessor {
     }
 }
 
-module.exports = NestedLayoutProcessor;
+module.exports = HierarchyLayoutEngine;

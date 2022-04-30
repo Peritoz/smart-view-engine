@@ -1,6 +1,6 @@
-const LayoutProcessor = require("../../../layout_processor");
+const LayoutEngine = require("../../../layout_engine");
 
-class HierarchicalLayoutProcessor extends LayoutProcessor {
+class HierarchicalLayoutEngine extends LayoutEngine {
     constructor(settings) {
         super(settings);
     }
@@ -65,4 +65,4 @@ class HierarchicalLayoutProcessor extends LayoutProcessor {
     }
 }
 
-module.exports = HierarchicalLayoutProcessor;
+module.exports = HierarchicalLayoutEngine;

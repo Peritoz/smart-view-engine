@@ -1,7 +1,7 @@
 const {LAYOUT_TYPES} = require("../common/layout_constants");
-const View = require("../viewFactory/view");
+const View = require("../view_factory/view");
 
-class LayoutProcessor {
+class LayoutEngine {
     constructor(settings) {
         this.layoutType = settings && settings.layoutType ? settings.layoutType : LAYOUT_TYPES.NESTED;
         this.maxHorizontalCount = settings && settings.maxHorizontalCount ? settings.maxHorizontalCount : 5;
@@ -65,4 +65,4 @@ class LayoutProcessor {
     };
 }
 
-module.exports = LayoutProcessor;
+module.exports = LayoutEngine;

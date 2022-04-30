@@ -1,6 +1,6 @@
 const chai = require('chai');
 
-const PlotCursor = require("../../src/libs/layoutProcessor/plot_cursor");
+const PlotCursor = require("../../src/libs/layout_engine/plot_cursor");
 
 describe('Smart View Rendering', () => {
     describe('Position Plotting - Sequential - Default Settings', () => {
