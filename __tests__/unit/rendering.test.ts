@@ -1,6 +1,4 @@
-const chai = require('chai');
-
-const PlotCursor = require("../../src/libs/layout_engine/plot_cursor");
+import {PlotCursor} from "../../src/libs/layout_engine/plot_cursor";
 
 describe('Smart View Rendering', () => {
     describe('Position Plotting - Sequential - Default Settings', () => {
@@ -9,7 +7,7 @@ describe('Smart View Rendering', () => {
 
             const pos = plot.calculatePosition({width: 20, height: 10});
 
-            chai.expect(pos).to.be.eql({x: 5, y: 5});
+            expect(pos).toMatchObject({x: 5, y: 5});
 
             done();
         });
@@ -21,7 +19,7 @@ describe('Smart View Rendering', () => {
             plot.calculatePosition({width: 20, height: 10});
             const pos = plot.calculatePosition({width: 20, height: 10});
 
-            chai.expect(pos).to.be.eql({x: 65, y: 5});
+            expect(pos).toMatchObject({x: 65, y: 5});
 
             done();
         });
@@ -35,7 +33,7 @@ describe('Smart View Rendering', () => {
             plot.calculatePosition({width: 20, height: 10});
             const pos = plot.calculatePosition({width: 20, height: 10});
 
-            chai.expect(pos).to.be.eql({x: 35, y: 25});
+            expect(pos).toMatchObject({x: 35, y: 25});
 
             done();
         });
@@ -53,7 +51,7 @@ describe('Smart View Rendering', () => {
             plot.calculatePosition({width: 20, height: 10});
             const pos = plot.calculatePosition({width: 20, height: 10});
 
-            chai.expect(pos).to.be.eql({x: 5, y: 65});
+            expect(pos).toMatchObject({x: 5, y: 65});
 
             done();
         });
@@ -71,7 +69,7 @@ describe('Smart View Rendering', () => {
             plot.calculatePosition({width: 40, height: 20});
             const pos = plot.calculatePosition({width: 20, height: 10});
 
-            chai.expect(pos).to.be.eql({x: 5, y: 80});
+            expect(pos).toMatchObject({x: 5, y: 80});
 
             done();
         });
@@ -90,7 +88,7 @@ describe('Smart View Rendering', () => {
 
             const pos = plot.calculatePosition({width: 20, height: 10});
 
-            chai.expect(pos).to.be.eql({x: 0, y: 0});
+            expect(pos).toMatchObject({x: 0, y: 0});
 
             done();
         });
@@ -102,7 +100,7 @@ describe('Smart View Rendering', () => {
             plot.calculatePosition({width: 20, height: 10});
             const pos = plot.calculatePosition({width: 20, height: 10});
 
-            chai.expect(pos).to.be.eql({x: 40, y: 0});
+            expect(pos).toMatchObject({x: 40, y: 0});
 
             done();
         });
@@ -116,7 +114,7 @@ describe('Smart View Rendering', () => {
             plot.calculatePosition({width: 20, height: 10});
             const pos = plot.calculatePosition({width: 20, height: 10});
 
-            chai.expect(pos).to.be.eql({x: 80, y: 0});
+            expect(pos).toMatchObject({x: 80, y: 0});
 
             done();
         });
@@ -134,7 +132,7 @@ describe('Smart View Rendering', () => {
             plot.calculatePosition({width: 20, height: 10});
             const pos = plot.calculatePosition({width: 20, height: 10});
 
-            chai.expect(pos).to.be.eql({x: 20, y: 20});
+            expect(pos).toMatchObject({x: 20, y: 20});
 
             done();
         });
@@ -152,7 +150,7 @@ describe('Smart View Rendering', () => {
             plot.calculatePosition({width: 40, height: 20});
             const pos = plot.calculatePosition({width: 20, height: 10});
 
-            chai.expect(pos).to.be.eql({x: 0, y: 35});
+            expect(pos).toMatchObject({x: 0, y: 35});
 
             done();
         });

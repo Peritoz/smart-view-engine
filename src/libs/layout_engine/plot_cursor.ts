@@ -1,7 +1,17 @@
 const {SIZE_REFERENCE} = require("../common/layout_constants");
 
-class PlotCursor {
-    constructor(initialX, initialY, pageWidth, pageHeight, settings) {
+export class PlotCursor {
+    protected settings: {leftPadding: number, rightPadding: number, topPadding: number, bottomPadding: number};
+    protected initialX: number;
+    protected initialY: number;
+    protected x: number;
+    protected y: number;
+    protected maximumWidth: number;
+    protected maximumHeight: number;
+    protected pageWidth: number;
+    protected pageHeight: number;
+
+    constructor(initialX, initialY, pageWidth, pageHeight, settings?) {
         this.settings = {
             leftPadding: settings && settings.leftPadding !== undefined ? settings.leftPadding : SIZE_REFERENCE.DEFAULT_PADDING,
             rightPadding: settings && settings.rightPadding !== undefined ? settings.rightPadding : SIZE_REFERENCE.DEFAULT_PADDING,
@@ -87,5 +97,3 @@ class PlotCursor {
         return {x: this.x, y: this.y};
     }
 }
-
-module.exports = PlotCursor;

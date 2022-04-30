@@ -103,6 +103,5 @@ dist
 # TernJS port file
 .tern-port
 
-# IDE Elements
-.idea/modules.xml
-.idea/smart-view.iml
+# JetBrains IDE
+.idea/
