@@ -109,8 +109,8 @@ class View {
         return this.view.viewNodes;
     }
 
-    getViewNode(viewElementId) {
-        if (viewElementId && typeof viewElementId === "string") {
+    getViewNode(viewElementId: string) {
+        if (viewElementId) {
             return this.hash.nodes[viewElementId];
         }
 
@@ -121,11 +121,11 @@ class View {
         return this.view.viewNodes.length;
     }
 
-    getSimilarNodes(modelNodeId) {
+    getSimilarNodes(modelNodeId: string) {
         return this.hash.similar[modelNodeId];
     }
 
-    copyViewNodeAndItsChildren(viewNode) {
+    copyViewNodeAndItsChildren(viewNode: any) {
         const similarNodes = this.getSimilarNodes(viewNode.modelNodeId);
         const similarNodesCount = similarNodes && Array.isArray(similarNodes) ? similarNodes.length : 0;
 

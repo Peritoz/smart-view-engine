@@ -1,12 +1,4 @@
 module.exports = {
-    LAYOUT_TYPES: Object.freeze({
-        NESTED: 10,
-        STACK: 20,
-        PROCESS_FLOW: 30,
-        HIERARCHY: 40,
-        INTERACTION: 50,
-    }),
-
     SIZE_REFERENCE: Object.freeze({
         DEFAULT_PADDING: 5,
         INNER_TOP_PADDING_Y: 38,

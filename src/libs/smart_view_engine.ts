@@ -1,26 +1,27 @@
+import {LayoutTypes} from "./common/layout_types.enum";
+
 const NestedLayoutEngine = require("./layout_engine/specialized_layout_engines/linear_layout_engines/hierarchical_layout_engines/specialized_layout_engines/nested_layout_engine");
 const HierarchyLayoutEngine = require("./layout_engine/specialized_layout_engines/linear_layout_engines/hierarchical_layout_engines/specialized_layout_engines/hierarchy_layout_engine");
 const SemanticEngine = require("./semantic_engine/semantic_engine");
-const {LAYOUT_TYPES} = require("./common/layout_constants");
 
 function layoutToCode(layout) {
     switch (layout.toLowerCase()) {
         case "nested":
-            return LAYOUT_TYPES.NESTED;
+            return LayoutTypes.NESTED;
         case "hierarchy":
-            return LAYOUT_TYPES.HIERARCHY;
+            return LayoutTypes.HIERARCHY;
         default:
-            return LAYOUT_TYPES.NESTED;
+            return LayoutTypes.NESTED;
     }
 }
 
 class SmartViewEngine {
-    protected layoutType: number;
+    protected layoutType: string;
     protected maxHorizontalCount: number;
     protected maxChildHorizontalCount: number;
 
     constructor(settings) {
-        this.layoutType = settings && settings.layoutType ? layoutToCode(settings.layoutType) : LAYOUT_TYPES.NESTED;
+        this.layoutType = settings && settings.layoutType ? layoutToCode(settings.layoutType) : LayoutTypes.NESTED;
         this.maxHorizontalCount = settings && settings.maxHorizontalCount ? settings.maxHorizontalCount : 5;
         this.maxChildHorizontalCount = settings && settings.maxChildHorizontalCount ? settings.maxChildHorizontalCount : 2;
     }
@@ -36,10 +37,10 @@ class SmartViewEngine {
             };
 
             switch (this.layoutType) {
-                case LAYOUT_TYPES.NESTED:
+                case LayoutTypes.NESTED:
                     layoutEngine = new NestedLayoutEngine(settings);
                     break;
-                case LAYOUT_TYPES.HIERARCHY:
+                case LayoutTypes.HIERARCHY:
                     layoutEngine = new HierarchyLayoutEngine(settings);
                     break;
                 default:
