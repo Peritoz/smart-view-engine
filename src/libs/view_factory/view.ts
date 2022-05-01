@@ -1,6 +1,22 @@
 const {SIZE_REFERENCE} = require("../common/layout_constants");
 
 class View {
+    protected view: {
+        viewRelationships: any[];
+        viewNodes: any[];
+        name: string;
+        bounds: {
+            horizontal: { min: number; max: number };
+            vertical: { min: number; max: number }
+        };
+        id: string
+    };
+    private hash: {
+        similar: {[key: string]: Array<object>};
+        nodes: {[key: string]: object};
+        children: {[key: string]: Array<string>}
+    };
+
     constructor(id, name) {
         this.view = {
             id: id,
@@ -62,6 +78,7 @@ class View {
             childViewNode.parent = parent.viewElementId;
 
             if (this.hash.children[parent.viewElementId]) {
+                // @ts-ignore
                 this.hash.children[parent.viewElementId] = [...new Set([...this.hash.children[parent.viewElementId], childViewNode.viewElementId])];
             } else {
                 this.hash.children[parent.viewElementId] = [childViewNode.viewElementId];

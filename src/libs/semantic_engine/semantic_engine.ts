@@ -1,4 +1,8 @@
 class SemanticEngine {
+    protected paths: any;
+    protected modelElements: any[];
+    protected hash: { nodes: { [key: string]: object }; parents: { [key: string]: Array<string> } };
+    protected leaves: any[];
 
     constructor(queryResult) {
         this.paths = queryResult;
@@ -68,7 +72,10 @@ class SemanticEngine {
 
                     // Mapping parents
                     if (this.hash.parents[secondElement.identifier]) {
-                        this.hash.parents[secondElement.identifier] = [...new Set([...this.hash.parents[secondElement.identifier], firstElement.identifier])];
+                        // @ts-ignore
+                        this.hash.parents[secondElement.identifier] = [...new Set([
+                            ...this.hash.parents[secondElement.identifier], firstElement.identifier])
+                        ];
                     } else {
                         this.hash.parents[secondElement.identifier] = [firstElement.identifier];
                     }

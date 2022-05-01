@@ -15,6 +15,10 @@ function layoutToCode(layout) {
 }
 
 class SmartViewEngine {
+    protected layoutType: number;
+    protected maxHorizontalCount: number;
+    protected maxChildHorizontalCount: number;
+
     constructor(settings) {
         this.layoutType = settings && settings.layoutType ? layoutToCode(settings.layoutType) : LAYOUT_TYPES.NESTED;
         this.maxHorizontalCount = settings && settings.maxHorizontalCount ? settings.maxHorizontalCount : 5;
@@ -54,9 +58,7 @@ class SmartViewEngine {
 
             return view.getView();
         } catch (e) {
-            console.log(e);
-
-            throw e;
+            throw new Error("Unable to render smart view");
         }
     }
 }
