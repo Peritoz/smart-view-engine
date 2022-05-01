@@ -1,4 +1,4 @@
-const {SIZE_REFERENCE} = require("../../../../../common/layout_constants");
+const {SIZE_REFERENCE} = require("../../../../../common/size_reference.const");
 const HierarchicalLayoutEngine = require("../hierarchical_layout_engine");
 
 class NestedLayoutEngine extends HierarchicalLayoutEngine {

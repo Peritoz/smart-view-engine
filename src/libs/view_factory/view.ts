@@ -1,4 +1,4 @@
-const {SIZE_REFERENCE} = require("../common/layout_constants");
+const {SIZE_REFERENCE} = require("../common/size_reference.const");
 
 class View {
     protected view: {

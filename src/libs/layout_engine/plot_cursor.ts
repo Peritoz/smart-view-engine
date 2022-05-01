@@ -1,4 +1,4 @@
-const {SIZE_REFERENCE} = require("../common/layout_constants");
+const {SIZE_REFERENCE} = require("../common/size_reference.const");
 
 export class PlotCursor {
     protected settings: {leftPadding: number, rightPadding: number, topPadding: number, bottomPadding: number};
