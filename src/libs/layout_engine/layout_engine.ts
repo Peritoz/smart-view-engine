@@ -1,19 +1,20 @@
 import {LayoutTypes} from "../common/layout_types.enum";
+import {LayoutSettings} from "@libs/layout_engine/layout_settings";
 
 const View = require("../view_factory/view");
 
 class LayoutEngine {
-    protected layoutType: number;
+    protected layoutType: LayoutTypes;
     protected maxHorizontalCount: number;
     protected maxChildHorizontalCount: number;
 
-    constructor(settings) {
+    constructor(settings: Partial<LayoutSettings>) {
         this.layoutType = settings && settings.layoutType ? settings.layoutType : LayoutTypes.NESTED;
         this.maxHorizontalCount = settings && settings.maxHorizontalCount ? settings.maxHorizontalCount : 5;
         this.maxChildHorizontalCount = settings && settings.maxChildHorizontalCount ? settings.maxChildHorizontalCount : 2;
     }
 
-    _generateView = (view, lowerElements, semanticEngine) => {
+    _generateView = (view: View, lowerElements, semanticEngine) => {
         if (lowerElements) {
             lowerElements.forEach((childViewNode) => {
                 let parents = semanticEngine.getParents(childViewNode.modelNodeId);
