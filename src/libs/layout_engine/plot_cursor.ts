@@ -1,7 +1,14 @@
 const {SIZE_REFERENCE} = require("../common/size_reference.const");
 
+export interface LayoutSettings {
+    leftPadding?: number;
+    rightPadding?: number;
+    topPadding?: number;
+    bottomPadding?: number;
+}
+
 export class PlotCursor {
-    protected settings: {leftPadding: number, rightPadding: number, topPadding: number, bottomPadding: number};
+    protected settings: { leftPadding: number, rightPadding: number, topPadding: number, bottomPadding: number };
     protected initialX: number;
     protected initialY: number;
     protected x: number;
@@ -11,7 +18,7 @@ export class PlotCursor {
     protected pageWidth: number;
     protected pageHeight: number;
 
-    constructor(initialX, initialY, pageWidth, pageHeight, settings?) {
+    constructor(initialX: number, initialY: number, pageWidth: number, pageHeight: number, settings?: LayoutSettings) {
         this.settings = {
             leftPadding: settings && settings.leftPadding !== undefined ? settings.leftPadding : SIZE_REFERENCE.DEFAULT_PADDING,
             rightPadding: settings && settings.rightPadding !== undefined ? settings.rightPadding : SIZE_REFERENCE.DEFAULT_PADDING,
@@ -28,7 +35,7 @@ export class PlotCursor {
         this.pageHeight = pageHeight;
     }
 
-    addPadding(position) {
+    addPadding(position: { x: number; y: number; }) {
         return {x: position.x + this.settings.leftPadding, y: position.y + this.settings.topPadding};
     }
 
@@ -40,19 +47,19 @@ export class PlotCursor {
         this.maximumHeight = -1;
     }
 
-    setMaximumWidth(value) {
+    setMaximumWidth(value: number) {
         if (value > this.maximumWidth) {
             this.maximumWidth = value;
         }
     }
 
-    setMaximumHeight(value) {
+    setMaximumHeight(value: number) {
         if (value > this.maximumHeight) {
             this.maximumHeight = value;
         }
     }
 
-    calculatePositionAfter({width, height}) {
+    calculatePositionAfter({width = 0, height = 0}) {
         const xIncrement = this.settings.leftPadding + width + this.settings.rightPadding;
         const yIncrement = this.settings.topPadding + height + this.settings.bottomPadding;
 
@@ -74,7 +81,7 @@ export class PlotCursor {
         return this.getNextPosition();
     }
 
-    calculatePosition({width, height}) {
+    calculatePosition({width = 0, height = 0}) {
         const currentPosition = this.getNextPosition();
         const nextPosition = this.calculatePositionAfter({width, height});
         let position;
