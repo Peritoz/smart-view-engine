@@ -1,18 +1,21 @@
 import {SIZE_REFERENCE} from "../../../../../common/size_reference.const";
-const HierarchicalLayoutEngine = require("../hierarchical_layout_engine");
-const PlotCursor = require("../../../../plot_cursor");
+import {SemanticEngine} from "@libs/semantic_engine/semantic_engine";
+import {LayoutSettings} from "@libs/layout_engine/settings";
+import {HydratedViewNode, View} from "@libs/view_factory/view";
+import {HierarchicalLayoutEngine} from "../hierarchical_layout_engine";
+import {PlotCursor} from "../../../../plot_cursor";
 
 class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
-    constructor(settings) {
-        super(settings);
+    constructor(settings: LayoutSettings, semanticEngine: SemanticEngine) {
+        super(settings, semanticEngine);
     }
 
-    processLayout(view) {
+    processLayout(view: View) {
         // Generating a tree of nested elements
-        let nestedTree = this._groupParentNodes(view.getViewNodes());
+        let nestedTree = this.groupParentNodes(view.getViewNodes());
 
         // Processing element width and height
-        let bounds = this._processDimensionsByContent(nestedTree, null, this.maxHorizontalCount);
+        let bounds = this.processDimensionsByContent(nestedTree, null, this.maxHorizontalCount);
 
         // Setting the "paper" dimension
         view.setBounds(bounds.width, bounds.height);
@@ -28,7 +31,11 @@ class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
      * @param maxColumns
      * @returns Element dimensions as {width: #, height: #}
      */
-    _processDimensionsByContent(nestedSubTree, parentNode, maxColumns) {
+    protected processDimensionsByContent(
+        nestedSubTree: Array<HydratedViewNode>,
+        parentNode: HydratedViewNode,
+        maxColumns: number
+    ) {
         let sortedNestedTree = nestedSubTree.sort((a, b) => b.nestedCount - a.nestedCount);
 
         let result = {
@@ -48,7 +55,7 @@ class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
             if (node.children.length > 0) { // It is not a leaf
                 let maxColumnsConstraint = node.nestedCount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
 
-                nestedDimensions = this._processDimensionsByContent(node.children, node, maxColumnsConstraint);
+                nestedDimensions = this.processDimensionsByContent(node.children, node, maxColumnsConstraint);
                 columnCount += nestedDimensions.maxColumnCount;
             } else { // It's a leaf
                 nestedDimensions = {

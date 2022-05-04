@@ -1,4 +1,4 @@
-class SemanticEngine {
+export class SemanticEngine {
     protected paths: any;
     protected modelElements: any[];
     protected hash: { nodes: { [key: string]: object }; parents: { [key: string]: Array<string> } };
@@ -144,5 +144,3 @@ class SemanticEngine {
         return leaves;
     }
 }
-
-module.exports = SemanticEngine;

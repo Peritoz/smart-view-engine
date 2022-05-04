@@ -1,8 +1,11 @@
-const LayoutEngine = require("../../../layout_engine");
+import {LayoutEngine} from "../../../layout_engine";
+import {LayoutSettings} from "@libs/layout_engine/settings";
+import {SemanticEngine} from "@libs/semantic_engine/semantic_engine";
+import {HydratedViewNode} from "@libs/view_factory/view";
 
-class HierarchicalLayoutEngine extends LayoutEngine {
-    constructor(settings) {
-        super(settings);
+export class HierarchicalLayoutEngine extends LayoutEngine {
+    constructor(settings: LayoutSettings, semanticEngine: SemanticEngine) {
+        super(settings, semanticEngine);
     }
 
     /**
@@ -10,7 +13,7 @@ class HierarchicalLayoutEngine extends LayoutEngine {
      * @param viewNodes View Nodes subset
      * @returns Tree representing the elements grouping
      */
-    _groupParentNodes = (viewNodes) => {
+    groupParentNodes = (viewNodes: Array<HydratedViewNode>) => {
         let map = {}, node, roots = [];
 
         // First pass: Creates an object that represents a hash table of indexes
@@ -35,19 +38,19 @@ class HierarchicalLayoutEngine extends LayoutEngine {
         }
 
         // Third pass: Calculates nested count
-        this._calculateNestedCount(roots);
+        this.calculateNestedCount(roots);
 
         return roots;
     };
 
-    _calculateNestedCount(nestedTree) {
+    private calculateNestedCount(nestedTree) {
         let upperNestedCount = 0;
 
         for (let i = 0; i < nestedTree.length; i++) {
             let node = nestedTree[i];
 
             if (node.children.length > 0) {
-                let lowerNestedCount = this._calculateNestedCount(node.children);
+                let lowerNestedCount = this.calculateNestedCount(node.children);
 
                 if (node.nestedCount) {
                     node.nestedCount += lowerNestedCount;
@@ -64,5 +67,3 @@ class HierarchicalLayoutEngine extends LayoutEngine {
         return upperNestedCount;
     }
 }
-
-module.exports = HierarchicalLayoutEngine;

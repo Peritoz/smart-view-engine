@@ -1,29 +1,31 @@
 import {LayoutTypes} from "../common/layout_types.enum";
-import {LayoutSettings} from "@libs/layout_engine/layout_settings";
+import {LayoutSettings} from "@libs/layout_engine/settings";
+import {HydratedViewNode, View} from "../view_factory/view";
+import {SemanticEngine} from "@libs/semantic_engine/semantic_engine";
 
-const View = require("../view_factory/view");
-
-class LayoutEngine {
+export class LayoutEngine {
     protected layoutType: LayoutTypes;
     protected maxHorizontalCount: number;
     protected maxChildHorizontalCount: number;
+    protected semanticEngine: SemanticEngine;
 
-    constructor(settings: Partial<LayoutSettings>) {
+    constructor(settings: Partial<LayoutSettings>, semanticEngine: SemanticEngine) {
         this.layoutType = settings && settings.layoutType ? settings.layoutType : LayoutTypes.NESTED;
         this.maxHorizontalCount = settings && settings.maxHorizontalCount ? settings.maxHorizontalCount : 5;
         this.maxChildHorizontalCount = settings && settings.maxChildHorizontalCount ? settings.maxChildHorizontalCount : 2;
+        this.semanticEngine = semanticEngine;
     }
 
-    _generateView = (view: View, lowerElements, semanticEngine) => {
+    private generateView = (view: View, lowerElements: Array<HydratedViewNode>) => {
         if (lowerElements) {
             lowerElements.forEach((childViewNode) => {
-                let parents = semanticEngine.getParents(childViewNode.modelNodeId);
-                let upperElements = [];
+                let parents = this.semanticEngine.getParents(childViewNode.modelNodeId);
+                let upperElements: Array<HydratedViewNode> = [];
 
                 // Creating parents (viewNodes)
                 if (parents) {
                     parents.forEach((parent) => {
-                        let parentViewNode = view.createViewNode( parent.identifier, parent.identifier, parent.name, parent.type, 0, 0);
+                        let parentViewNode = view.createViewNode(parent.identifier, parent.identifier, parent.name, parent.type, 0, 0);
                         let copyChildViewNode = childViewNode;
 
                         view.addViewNode(parentViewNode);
@@ -38,17 +40,17 @@ class LayoutEngine {
                         view.nestViewNode(parentViewNode, copyChildViewNode);
                     });
 
-                    this._generateView(view, upperElements, semanticEngine);
+                    this.generateView(view, upperElements);
                 }
             });
         }
     };
 
-    convertToView = (semanticEngine, viewName) => {
+    convertToView = (viewName: string) => {
         try {
             let view = new View(viewName, viewName);
-            let leaves = semanticEngine.getLeaves();
-            let lowerElements = [];
+            let leaves = this.semanticEngine.getLeaves();
+            let lowerElements: Array<HydratedViewNode> = [];
 
             // Initializing the creation of all leaves (viewNodes)
             if (leaves) {
@@ -62,7 +64,7 @@ class LayoutEngine {
             }
 
             // Recursive processing for create View
-            this._generateView(view, lowerElements, semanticEngine);
+            this.generateView(view, lowerElements);
 
             return view;
         } catch (e) {
@@ -70,5 +72,3 @@ class LayoutEngine {
         }
     };
 }
-
-module.exports = LayoutEngine;

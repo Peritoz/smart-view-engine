@@ -1,4 +1,4 @@
-import {PaddingSettings} from "@libs/layout_engine/layout_settings";
+import {PaddingSettings} from "@libs/layout_engine/settings";
 
 const {SIZE_REFERENCE} = require("../common/size_reference.const");
 

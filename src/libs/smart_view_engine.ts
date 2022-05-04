@@ -29,7 +29,7 @@ class SmartViewEngine {
     async generateView(paths, title) {
         try {
             let layoutEngine;
-            let semanticEngine;
+            let semanticEngine = new SemanticEngine(paths);;
             let settings = {
                 layoutType: this.layoutType,
                 maxHorizontalCount: this.maxHorizontalCount,
@@ -38,19 +38,18 @@ class SmartViewEngine {
 
             switch (this.layoutType) {
                 case LayoutTypes.NESTED:
-                    layoutEngine = new NestedLayoutEngine(settings);
+                    layoutEngine = new NestedLayoutEngine(settings, semanticEngine);
                     break;
                 case LayoutTypes.HIERARCHY:
-                    layoutEngine = new HierarchyLayoutEngine(settings);
+                    layoutEngine = new HierarchyLayoutEngine(settings, semanticEngine);
                     break;
                 default:
-                    layoutEngine = new NestedLayoutEngine(settings);
+                    layoutEngine = new NestedLayoutEngine(settings, semanticEngine);
             }
 
-            semanticEngine = new SemanticEngine(paths);
             semanticEngine.processPaths();
 
-            let view = layoutEngine.convertToView(semanticEngine, title || "Unknown");
+            let view = layoutEngine.convertToView(title || "Unknown");
 
             layoutEngine.processLayout(view);
 

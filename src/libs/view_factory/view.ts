@@ -1,6 +1,6 @@
 import {SIZE_REFERENCE} from "../common/size_reference.const";
 
-interface ViewNode {
+export interface ViewNode {
     modelNodeId: string;
     viewNodeId: string;
     name: string;
@@ -12,7 +12,7 @@ interface ViewNode {
     parent: string | null;
 }
 
-interface ViewRelationship {
+export interface ViewRelationship {
     modelRelationshipId: string;
     sourceId: string;
     targetId: string;
@@ -21,7 +21,7 @@ interface ViewRelationship {
     bendpoints: Array<{ x: number, y: number }>;
 }
 
-type HydratedViewNode = ViewNode & { nestedCount: number };
+export type HydratedViewNode = ViewNode & { children: Array<HydratedViewNode>, nestedCount: number };
 
 export class View {
     protected view: {
@@ -71,7 +71,7 @@ export class View {
         type: string,
         x: number,
         y: number,
-        parentId: string | null
+        parentId?: string | null
     ): HydratedViewNode {
         return {
             "modelNodeId": identifier,
@@ -83,7 +83,8 @@ export class View {
             "width": SIZE_REFERENCE.DEFAULT_WIDTH,
             "height": SIZE_REFERENCE.DEFAULT_HEIGHT,
             "parent": parentId || null,
-            "nestedCount": 0
+            "children": [],
+            "nestedCount": 0,
         };
     }
 
