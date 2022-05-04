@@ -1,10 +1,12 @@
+import {PathElement} from "@libs/smart_view_engine";
+
 export class SemanticEngine {
     protected paths: any;
     protected modelElements: any[];
-    protected hash: { nodes: { [key: string]: object }; parents: { [key: string]: Array<string> } };
+    protected hash: { nodes: { [key: string]: PathElement }; parents: { [key: string]: Array<string> } };
     protected leaves: any[];
 
-    constructor(queryResult) {
+    constructor(queryResult: Array<Array<PathElement>>) {
         this.paths = queryResult;
         this.modelElements = [];
         this.hash = {
@@ -27,23 +29,20 @@ export class SemanticEngine {
      * @returns {[]}
      */
     processPaths = () => {
-        let objectMap = {};
+        let objectMap: { [key: string]: number } = {};
         let indexFirstElementFound, indexSecondElementFound, indexChildFound;
 
         // Separates parent nodes, with its children
-        this.paths.forEach((path, i) => {
+        this.paths.forEach((path: Array<PathElement>) => {
             if (path.length >= 2) {
                 for (let j = 0; j < path.length - 1; j++) {
-                    let firstElement = path[j];
-                    let secondElement = path[j + 1];
+                    let firstElement: PathElement = path[j];
+                    let secondElement: PathElement = path[j + 1];
 
                     indexFirstElementFound = objectMap[firstElement.identifier];
                     indexSecondElementFound = objectMap[secondElement.identifier];
 
                     if (indexFirstElementFound === undefined) {
-                        delete firstElement._id;
-                        delete firstElement.isPatternNode;
-
                         objectMap[firstElement.identifier] = this.modelElements.length;
 
                         this.modelElements.push({
@@ -63,7 +62,9 @@ export class SemanticEngine {
                             this.hash.nodes[firstElement.identifier] = firstElement;
                         }
                     } else {
-                        indexChildFound = this.modelElements[indexFirstElementFound].children.findIndex((e) => e.identifier === secondElement.identifier);
+                        indexChildFound = this.modelElements[indexFirstElementFound].children.findIndex(
+                            (e: PathElement) => e.identifier === secondElement.identifier
+                        );
 
                         if (indexChildFound === -1) {
                             this.modelElements[indexFirstElementFound].children.push(secondElement);
@@ -81,9 +82,6 @@ export class SemanticEngine {
                     }
 
                     if (indexSecondElementFound === undefined) {
-                        delete secondElement._id;
-                        delete secondElement.isPatternNode;
-
                         objectMap[secondElement.identifier] = this.modelElements.length;
 
                         this.modelElements.push({
@@ -110,9 +108,9 @@ export class SemanticEngine {
         return this.modelElements;
     }
 
-    getParents = (identifier) => {
+    getParents = (identifier: string) => {
         let parentsIds = this.hash.parents[identifier];
-        let parents = [];
+        let parents: Array<PathElement> = [];
 
         if (parentsIds) {
             parentsIds.forEach((parentId) => {
@@ -129,7 +127,7 @@ export class SemanticEngine {
 
     getLeaves = () => {
         let leavesIds = this.leaves;
-        let leaves = [];
+        let leaves: Array<PathElement> = [];
 
         if (leavesIds) {
             leavesIds.forEach((leafId) => {

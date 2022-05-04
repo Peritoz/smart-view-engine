@@ -1,10 +1,17 @@
 import {LayoutTypes} from "./common/layout_types.enum";
+import {LayoutSettings} from "@libs/layout_engine/settings";
 
 const NestedLayoutEngine = require("./layout_engine/specialized_layout_engines/linear_layout_engines/hierarchical_layout_engines/specialized_layout_engines/nested_layout_engine");
 const HierarchyLayoutEngine = require("./layout_engine/specialized_layout_engines/linear_layout_engines/hierarchical_layout_engines/specialized_layout_engines/hierarchy_layout_engine");
 const SemanticEngine = require("./semantic_engine/semantic_engine");
 
-function layoutToCode(layout) {
+export interface PathElement {
+    identifier: string,
+    name: string,
+    type: string
+}
+
+function layoutToCode(layout: string) {
     switch (layout.toLowerCase()) {
         case "nested":
             return LayoutTypes.NESTED;
@@ -20,16 +27,16 @@ class SmartViewEngine {
     protected maxHorizontalCount: number;
     protected maxChildHorizontalCount: number;
 
-    constructor(settings) {
+    constructor(settings: LayoutSettings) {
         this.layoutType = settings && settings.layoutType ? layoutToCode(settings.layoutType) : LayoutTypes.NESTED;
         this.maxHorizontalCount = settings && settings.maxHorizontalCount ? settings.maxHorizontalCount : 5;
         this.maxChildHorizontalCount = settings && settings.maxChildHorizontalCount ? settings.maxChildHorizontalCount : 2;
     }
 
-    async generateView(paths, title) {
+    async generateView(paths: Array<Array<PathElement>>, title: string) {
         try {
             let layoutEngine;
-            let semanticEngine = new SemanticEngine(paths);;
+            let semanticEngine = new SemanticEngine(paths);
             let settings = {
                 layoutType: this.layoutType,
                 maxHorizontalCount: this.maxHorizontalCount,
