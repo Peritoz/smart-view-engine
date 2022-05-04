@@ -1,4 +1,4 @@
-const {SIZE_REFERENCE} = require("../../../../../common/size_reference.const");
+import {SIZE_REFERENCE} from "../../../../../common/size_reference.const";
 const HierarchicalLayoutEngine = require("../hierarchical_layout_engine");
 const PlotCursor = require("../../../../plot_cursor");
 
@@ -29,7 +29,7 @@ class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
      * @returns Element dimensions as {width: #, height: #}
      */
     _processDimensionsByContent(nestedSubTree, parentNode, maxColumns) {
-        let sortedNestedTree = nestedSubTree.sort((a, b) => b.nestedcount - a.nestedcount);
+        let sortedNestedTree = nestedSubTree.sort((a, b) => b.nestedCount - a.nestedCount);
 
         let result = {
             width: 0,
@@ -46,7 +46,7 @@ class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
             let nestedDimensions;
 
             if (node.children.length > 0) { // It is not a leaf
-                let maxColumnsConstraint = node.nestedcount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
+                let maxColumnsConstraint = node.nestedCount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
 
                 nestedDimensions = this._processDimensionsByContent(node.children, node, maxColumnsConstraint);
                 columnCount += nestedDimensions.maxColumnCount;
@@ -100,7 +100,7 @@ class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
 
     _renderRows(nestedTree, index, maxColumns, initialX, initialY) {
         const elementSizeReference = SIZE_REFERENCE.DEFAULT_WIDTH + 2 * SIZE_REFERENCE.MARGIN_X;
-        let sortedNestedTree = nestedTree.sort((a, b) => b.nestedcount - a.nestedcount);
+        let sortedNestedTree = nestedTree.sort((a, b) => b.nestedCount - a.nestedCount);
         let cursor = new PlotCursor(initialX, initialY, maxColumns * elementSizeReference, 100000, {
             leftPadding: 0,
             rightPadding: SIZE_REFERENCE.MARGIN_X,
@@ -127,7 +127,7 @@ class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
             node.y = position.y;
 
             if (node.children.length > 0) { // It is not a leaf
-                let maxColumnsConstraint = node.nestedcount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
+                let maxColumnsConstraint = node.nestedCount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
                 let nestedPositionResult = this._renderRows(node.children, i, maxColumnsConstraint, 0, node.height + SIZE_REFERENCE.MARGIN_Y);
 
                 columnCount += nestedPositionResult.maxColumnCount;

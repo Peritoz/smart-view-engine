@@ -1,9 +1,32 @@
-const {SIZE_REFERENCE} = require("../common/size_reference.const");
+import {SIZE_REFERENCE} from "../common/size_reference.const";
 
-class View {
+interface ViewNode {
+    modelNodeId: string;
+    viewNodeId: string;
+    name: string;
+    type: string;
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+    parent: string | null;
+}
+
+interface ViewRelationship {
+    modelRelationshipId: string;
+    sourceId: string;
+    targetId: string;
+    viewRelationshipId: string;
+    type: string;
+    bendpoints: Array<{ x: number, y: number }>;
+}
+
+type HydratedViewNode = ViewNode & { nestedCount: number };
+
+export class View {
     protected view: {
-        viewRelationships: any[];
-        viewNodes: any[];
+        viewRelationships: Array<ViewRelationship>;
+        viewNodes: Array<HydratedViewNode>;
         name: string;
         bounds: {
             horizontal: { min: number; max: number };
@@ -12,12 +35,12 @@ class View {
         id: string
     };
     private hash: {
-        similar: {[key: string]: Array<object>};
-        nodes: {[key: string]: object};
-        children: {[key: string]: Array<string>}
+        similar: { [key: string]: Array<HydratedViewNode> };
+        nodes: { [key: string]: HydratedViewNode };
+        children: { [key: string]: Array<string> }
     };
 
-    constructor(id, name) {
+    constructor(id: string, name: string) {
         this.view = {
             id: id,
             name: name,
@@ -41,28 +64,35 @@ class View {
         }
     }
 
-    createViewNode(arktectId, identifier, viewElementId, name, type, x, y, parentId) {
+    createViewNode(
+        identifier: string,
+        viewNodeId: string,
+        name: string,
+        type: string,
+        x: number,
+        y: number,
+        parentId: string | null
+    ): HydratedViewNode {
         return {
-            "_id": arktectId,
             "modelNodeId": identifier,
-            "viewElementId": viewElementId,
+            "viewNodeId": viewNodeId,
             "name": name,
             "type": type,
             "x": x,
             "y": y,
             "width": SIZE_REFERENCE.DEFAULT_WIDTH,
             "height": SIZE_REFERENCE.DEFAULT_HEIGHT,
-            "parent": parentId || null
+            "parent": parentId || null,
+            "nestedCount": 0
         };
     }
 
-    addViewNode(viewNode) {
-        if (viewNode.viewElementId && typeof viewNode.viewElementId === "string" &&
-            viewNode.modelNodeId && typeof viewNode.modelNodeId === "string") {
-            if (!this.hash.nodes[viewNode.viewElementId]) { // Avoiding to add duplicated viewNodes
+    addViewNode(viewNode: HydratedViewNode) {
+        if (viewNode.viewNodeId && viewNode.modelNodeId) {
+            if (!this.hash.nodes[viewNode.viewNodeId]) { // Avoiding to add duplicated viewNodes
                 this.view.viewNodes.push(viewNode);
 
-                this.hash.nodes[viewNode.viewElementId] = viewNode;
+                this.hash.nodes[viewNode.viewNodeId] = viewNode;
 
                 if (this.hash.similar[viewNode.modelNodeId]) {
                     this.hash.similar[viewNode.modelNodeId].push(viewNode);
@@ -73,31 +103,26 @@ class View {
         }
     }
 
-    nestViewNode(parent, childViewNode) {
-        if (childViewNode && parent.viewElementId) {
-            childViewNode.parent = parent.viewElementId;
+    nestViewNode(parent: HydratedViewNode, childViewNode: HydratedViewNode) {
+        if (childViewNode && parent.viewNodeId) {
+            childViewNode.parent = parent.viewNodeId;
 
-            if (this.hash.children[parent.viewElementId]) {
-                // @ts-ignore
-                this.hash.children[parent.viewElementId] = [...new Set([...this.hash.children[parent.viewElementId], childViewNode.viewElementId])];
+            if (this.hash.children[parent.viewNodeId]) {
+                this.hash.children[parent.viewNodeId] = [...new Set([...this.hash.children[parent.viewNodeId], childViewNode.viewNodeId])];
             } else {
-                this.hash.children[parent.viewElementId] = [childViewNode.viewElementId];
+                this.hash.children[parent.viewNodeId] = [childViewNode.viewNodeId];
             }
         }
     }
 
-    addViewRelationship() {
-
-    }
-
-    setBounds(horizontalMax, verticalMax) {
+    setBounds(horizontalMax: number, verticalMax: number) {
         this.view.bounds.horizontal.max = horizontalMax;
         this.view.bounds.vertical.max = verticalMax;
     }
 
     sortViewNodesParentsFirst() {
         this.view.viewNodes = this.view.viewNodes.sort((a, b) => {
-            return b.nestedcount - a.nestedcount
+            return b.nestedCount - a.nestedCount
         });
     }
 
@@ -109,30 +134,25 @@ class View {
         return this.view.viewNodes;
     }
 
-    getViewNode(viewElementId: string) {
-        if (viewElementId) {
-            return this.hash.nodes[viewElementId];
+    getViewNode(viewNodeId: string): HydratedViewNode | null {
+        if (viewNodeId) {
+            return this.hash.nodes[viewNodeId];
         }
 
-        return undefined;
-    }
-
-    getViewNodesCount() {
-        return this.view.viewNodes.length;
+        return null;
     }
 
     getSimilarNodes(modelNodeId: string) {
         return this.hash.similar[modelNodeId];
     }
 
-    copyViewNodeAndItsChildren(viewNode: any) {
+    copyViewNodeAndItsChildren(viewNode: HydratedViewNode) {
         const similarNodes = this.getSimilarNodes(viewNode.modelNodeId);
         const similarNodesCount = similarNodes && Array.isArray(similarNodes) ? similarNodes.length : 0;
 
         let viewNodeCopy = this.createViewNode(
-            viewNode._id,
             viewNode.modelNodeId,
-            `${viewNode.viewElementId}_${similarNodesCount + 1}`,
+            `${viewNode.viewNodeId}_${similarNodesCount + 1}`,
             viewNode.name,
             viewNode.type,
             viewNode.x,
@@ -142,19 +162,20 @@ class View {
 
         this.addViewNode(viewNodeCopy);
 
-        let children = this.hash.children[viewNode.viewElementId];
+        let children = this.hash.children[viewNode.viewNodeId];
 
         if (children) {
-            children.forEach((childId) => {
-                let child = this.getViewNode(childId);
-                let childCopy = this.copyViewNodeAndItsChildren(child);
+            children.forEach((childId: string) => {
+                let child: HydratedViewNode | null = this.getViewNode(childId);
 
-                this.nestViewNode(viewNodeCopy, childCopy);
+                if (child) {
+                    let childCopy = this.copyViewNodeAndItsChildren(child);
+
+                    this.nestViewNode(viewNodeCopy, childCopy);
+                }
             });
         }
 
         return viewNodeCopy;
     }
 }
-
-module.exports = View;

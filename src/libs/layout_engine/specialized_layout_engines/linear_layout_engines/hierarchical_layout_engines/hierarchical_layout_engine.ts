@@ -15,9 +15,9 @@ class HierarchicalLayoutEngine extends LayoutEngine {
 
         // First pass: Creates an object that represents a hash table of indexes
         for (let i = 0; i < viewNodes.length; i++) {
-            map[viewNodes[i].viewElementId] = i; // Initialize the map
+            map[viewNodes[i].viewNodeId] = i; // Initialize the map
             viewNodes[i].children = []; // Initialize children
-            viewNodes[i].nestedcount = 0; // Initialize nested counter
+            viewNodes[i].nestedCount = 0; // Initialize nested counter
         }
 
         // Second pass: Creates the tree
@@ -49,10 +49,10 @@ class HierarchicalLayoutEngine extends LayoutEngine {
             if (node.children.length > 0) {
                 let lowerNestedCount = this._calculateNestedCount(node.children);
 
-                if (node.nestedcount) {
-                    node.nestedcount += lowerNestedCount;
+                if (node.nestedCount) {
+                    node.nestedCount += lowerNestedCount;
                 } else {
-                    node.nestedcount = lowerNestedCount;
+                    node.nestedCount = lowerNestedCount;
                 }
 
                 upperNestedCount += lowerNestedCount + 1;

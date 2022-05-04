@@ -28,7 +28,7 @@ class NestedLayoutEngine extends HierarchicalLayoutEngine {
      * @returns Element dimensions as {width: #, height: #}
      */
     _processDimensionsByContent(nestedSubTree, parentNode, maxColumns) {
-        let sortedNestedTree = nestedSubTree.sort((a, b) => b.nestedcount - a.nestedcount);
+        let sortedNestedTree = nestedSubTree.sort((a, b) => b.nestedCount - a.nestedCount);
 
         let result = {
             width: 0,
@@ -44,7 +44,7 @@ class NestedLayoutEngine extends HierarchicalLayoutEngine {
             let nestedDimensions;
 
             if (node.children.length > 0) { // It is not a leaf
-                let maxColumnsConstraint = node.nestedcount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
+                let maxColumnsConstraint = node.nestedCount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
 
                 nestedDimensions = this._processDimensionsByContent(node.children, node, maxColumnsConstraint);
                 columnCount += nestedDimensions.maxColumnCount;
@@ -90,7 +90,7 @@ class NestedLayoutEngine extends HierarchicalLayoutEngine {
     }
 
     _renderRows(nestedTree, index, maxColumns, initialX, initialY) {
-        let sortedNestedTree = nestedTree.sort((a, b) => b.nestedcount - a.nestedcount);
+        let sortedNestedTree = nestedTree.sort((a, b) => b.nestedCount - a.nestedCount);
         let cursorX = initialX, cursorY = initialY;
         let maxColumnCount = 0;
         let maxHeight = 0;
@@ -104,7 +104,7 @@ class NestedLayoutEngine extends HierarchicalLayoutEngine {
             node.y = cursorY;
 
             if (node.children.length > 0) { // It is not a leaf
-                let maxColumnsConstraint = node.nestedcount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
+                let maxColumnsConstraint = node.nestedCount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
                 let nestedPositionResult = this._renderRows(node.children, i, maxColumnsConstraint, SIZE_REFERENCE.PADDING_X, SIZE_REFERENCE.INNER_TOP_PADDING_Y);
 
                 columnCount += nestedPositionResult.maxColumnCount;
@@ -125,7 +125,7 @@ class NestedLayoutEngine extends HierarchicalLayoutEngine {
             }
 
             // Incrementing X or breaking the line
-            if (node.nestedcount > maxColumns || (columnCount >= maxColumns)) {
+            if (node.nestedCount > maxColumns || (columnCount >= maxColumns)) {
                 cursorY += maxHeight;
                 cursorX = SIZE_REFERENCE.PADDING_X;
 

@@ -23,7 +23,7 @@ class LayoutEngine {
                 // Creating parents (viewNodes)
                 if (parents) {
                     parents.forEach((parent) => {
-                        let parentViewNode = view.createViewNode(null, parent.identifier, parent.identifier, parent.name, parent.type, 0, 0);
+                        let parentViewNode = view.createViewNode( parent.identifier, parent.identifier, parent.name, parent.type, 0, 0);
                         let copyChildViewNode = childViewNode;
 
                         view.addViewNode(parentViewNode);
@@ -53,7 +53,7 @@ class LayoutEngine {
             // Initializing the creation of all leaves (viewNodes)
             if (leaves) {
                 leaves.forEach((leaf) => {
-                    let viewNode = view.createViewNode(null, leaf.identifier, `${leaf.identifier}_1`, leaf.name, leaf.type, 0, 0);
+                    let viewNode = view.createViewNode(leaf.identifier, `${leaf.identifier}_1`, leaf.name, leaf.type, 0, 0);
 
                     view.addViewNode(viewNode);
 
