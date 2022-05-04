@@ -21,7 +21,13 @@ export interface ViewRelationship {
     bendpoints: Array<{ x: number, y: number }>;
 }
 
-export type HydratedViewNode = ViewNode & { children: Array<HydratedViewNode>, nestedCount: number };
+export interface TreeElement {
+    verticalCoverage: number,
+    children: Array<HydratedViewNode>,
+    nestedCount: number
+}
+
+export type HydratedViewNode = ViewNode & TreeElement;
 
 export class View {
     protected view: {
@@ -83,6 +89,7 @@ export class View {
             "width": SIZE_REFERENCE.DEFAULT_WIDTH,
             "height": SIZE_REFERENCE.DEFAULT_HEIGHT,
             "parent": parentId || null,
+            "verticalCoverage": 0,
             "children": [],
             "nestedCount": 0,
         };

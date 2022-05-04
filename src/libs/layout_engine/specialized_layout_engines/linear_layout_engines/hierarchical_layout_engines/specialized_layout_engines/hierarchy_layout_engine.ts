@@ -21,7 +21,7 @@ class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
         view.setBounds(bounds.width, bounds.height);
 
         // Rendering element positions
-        this._renderRows(nestedTree, 0, this.maxHorizontalCount, SIZE_REFERENCE.PADDING_X, SIZE_REFERENCE.PADDING_Y);
+        this.renderRows(nestedTree, 0, this.maxHorizontalCount, SIZE_REFERENCE.PADDING_X, SIZE_REFERENCE.PADDING_Y);
     }
 
     /**
@@ -33,7 +33,7 @@ class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
      */
     protected processDimensionsByContent(
         nestedSubTree: Array<HydratedViewNode>,
-        parentNode: HydratedViewNode,
+        parentNode: HydratedViewNode | null,
         maxColumns: number
     ) {
         let sortedNestedTree = nestedSubTree.sort((a, b) => b.nestedCount - a.nestedCount);
@@ -105,7 +105,13 @@ class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
         return result;
     }
 
-    _renderRows(nestedTree, index, maxColumns, initialX, initialY) {
+    renderRows(
+        nestedTree: Array<HydratedViewNode>,
+        index: number,
+        maxColumns: number,
+        initialX: number,
+        initialY: number
+    ) {
         const elementSizeReference = SIZE_REFERENCE.DEFAULT_WIDTH + 2 * SIZE_REFERENCE.MARGIN_X;
         let sortedNestedTree = nestedTree.sort((a, b) => b.nestedCount - a.nestedCount);
         let cursor = new PlotCursor(initialX, initialY, maxColumns * elementSizeReference, 100000, {
@@ -135,7 +141,7 @@ class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
 
             if (node.children.length > 0) { // It is not a leaf
                 let maxColumnsConstraint = node.nestedCount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
-                let nestedPositionResult = this._renderRows(node.children, i, maxColumnsConstraint, 0, node.height + SIZE_REFERENCE.MARGIN_Y);
+                let nestedPositionResult = this.renderRows(node.children, i, maxColumnsConstraint, 0, node.height + SIZE_REFERENCE.MARGIN_Y);
 
                 columnCount += nestedPositionResult.maxColumnCount;
             } else { // It's a leaf

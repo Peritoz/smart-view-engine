@@ -20,7 +20,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
         view.setBounds(bounds.width, bounds.height);
 
         // Rendering element positions
-        this._renderRows(nestedTree, 0, this.maxHorizontalCount, SIZE_REFERENCE.PADDING_X, SIZE_REFERENCE.PADDING_Y);
+        this.renderRows(nestedTree, 0, this.maxHorizontalCount, SIZE_REFERENCE.PADDING_X, SIZE_REFERENCE.PADDING_Y);
     }
 
     /**
@@ -32,7 +32,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
      */
     protected processDimensionsByContent(
         nestedSubTree: Array<HydratedViewNode>,
-        parentNode: HydratedViewNode,
+        parentNode: HydratedViewNode | null,
         maxColumns: number
     ) {
         let sortedNestedTree = nestedSubTree.sort((a, b) => b.nestedCount - a.nestedCount);
@@ -96,7 +96,13 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
         return result;
     }
 
-    _renderRows(nestedTree, index, maxColumns, initialX, initialY) {
+    renderRows(
+        nestedTree: Array<HydratedViewNode>,
+        index: number,
+        maxColumns: number,
+        initialX: number,
+        initialY: number
+    ) {
         let sortedNestedTree = nestedTree.sort((a, b) => b.nestedCount - a.nestedCount);
         let cursorX = initialX, cursorY = initialY;
         let maxColumnCount = 0;
@@ -112,7 +118,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
 
             if (node.children.length > 0) { // It is not a leaf
                 let maxColumnsConstraint = node.nestedCount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
-                let nestedPositionResult = this._renderRows(node.children, i, maxColumnsConstraint, SIZE_REFERENCE.PADDING_X, SIZE_REFERENCE.INNER_TOP_PADDING_Y);
+                let nestedPositionResult = this.renderRows(node.children, i, maxColumnsConstraint, SIZE_REFERENCE.PADDING_X, SIZE_REFERENCE.INNER_TOP_PADDING_Y);
 
                 columnCount += nestedPositionResult.maxColumnCount;
             } else { // It's a leaf

@@ -14,7 +14,9 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
      * @returns Tree representing the elements grouping
      */
     groupParentNodes = (viewNodes: Array<HydratedViewNode>) => {
-        let map = {}, node, roots = [];
+        let map: { [key: string]: number } = {};
+        let node: HydratedViewNode;
+        let roots: Array<HydratedViewNode> = [];
 
         // First pass: Creates an object that represents a hash table of indexes
         for (let i = 0; i < viewNodes.length; i++) {
@@ -43,7 +45,7 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
         return roots;
     };
 
-    private calculateNestedCount(nestedTree) {
+    private calculateNestedCount(nestedTree: Array<HydratedViewNode>) {
         let upperNestedCount = 0;
 
         for (let i = 0; i < nestedTree.length; i++) {
