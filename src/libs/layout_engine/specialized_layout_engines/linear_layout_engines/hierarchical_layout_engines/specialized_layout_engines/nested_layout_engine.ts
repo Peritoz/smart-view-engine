@@ -1,5 +1,5 @@
 import {HydratedViewNode, View} from "@libs/view_factory/view";
-import {SIZE_REFERENCE} from "../../../../../common/size_reference.const";
+import {SIZE_REFERENCE} from "@libs/common/size_reference.const";
 import {HierarchicalLayoutEngine} from "../hierarchical_layout_engine";
 import {LayoutSettings} from "@libs/layout_engine/settings";
 import {SemanticEngine} from "@libs/semantic_engine/semantic_engine";

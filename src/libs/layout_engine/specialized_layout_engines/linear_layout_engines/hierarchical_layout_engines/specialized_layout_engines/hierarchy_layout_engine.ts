@@ -1,4 +1,4 @@
-import {SIZE_REFERENCE} from "../../../../../common/size_reference.const";
+import {SIZE_REFERENCE} from "@libs/common/size_reference.const";
 import {SemanticEngine} from "@libs/semantic_engine/semantic_engine";
 import {LayoutSettings} from "@libs/layout_engine/settings";
 import {HydratedViewNode, View} from "@libs/view_factory/view";
