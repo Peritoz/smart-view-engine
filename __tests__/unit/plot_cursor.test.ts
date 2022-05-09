@@ -1,6 +1,6 @@
 import {PlotCursor} from "../../src/libs/layout_engine/plot_cursor";
 
-describe('Smart View Rendering', () => {
+describe('Plot Cursor Rendering', () => {
     describe('Position Plotting - Sequential - Default Settings', () => {
         it('Initial element plotting', done => {
             const plot = new PlotCursor(0, 0, 100, 100);
