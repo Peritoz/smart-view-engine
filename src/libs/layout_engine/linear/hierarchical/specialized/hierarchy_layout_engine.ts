@@ -1,16 +1,16 @@
 import {SIZE_REFERENCE} from "@libs/common/size_reference.const";
 import {SemanticEngine} from "@libs/semantic_engine/semantic_engine";
 import {LayoutSettings} from "@libs/layout_engine/settings";
-import {HydratedViewNode, View} from "@libs/view_factory/view";
+import {HydratedViewNode, HydratedView} from "@libs/view/hydrated_view";
 import {HierarchicalLayoutEngine} from "../hierarchical_layout_engine";
-import {PlotCursor} from "../../../../plot_cursor";
+import {PlotCursor} from "../../../plot_cursor";
 
-class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
+export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
     constructor(settings: LayoutSettings, semanticEngine: SemanticEngine) {
         super(settings, semanticEngine);
     }
 
-    processLayout(view: View) {
+    processLayout(view: HydratedView) {
         // Generating a tree of nested elements
         let nestedTree = this.groupParentNodes(view.getViewNodes());
 
@@ -152,5 +152,3 @@ class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
         return {maxColumnCount, maxWidth, maxHeight};
     }
 }
-
-module.exports = HierarchyLayoutEngine;

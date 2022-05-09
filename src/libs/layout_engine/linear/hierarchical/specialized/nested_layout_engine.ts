@@ -1,4 +1,4 @@
-import {HydratedViewNode, View} from "@libs/view_factory/view";
+import {HydratedViewNode, HydratedView} from "@libs/view/hydrated_view";
 import {SIZE_REFERENCE} from "@libs/common/size_reference.const";
 import {HierarchicalLayoutEngine} from "../hierarchical_layout_engine";
 import {LayoutSettings} from "@libs/layout_engine/settings";
@@ -9,7 +9,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
         super(settings, semanticEngine);
     }
 
-    processLayout(view: View) {
+    processLayout(view: HydratedView) {
         // Generating a tree of nested elements
         let nestedTree = this.groupParentNodes(view.getViewNodes());
 

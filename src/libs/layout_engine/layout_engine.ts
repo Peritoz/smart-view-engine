@@ -1,6 +1,6 @@
 import {LayoutTypes} from "../common/layout_types.enum";
 import {LayoutSettings} from "@libs/layout_engine/settings";
-import {HydratedViewNode, View} from "../view_factory/view";
+import {HydratedViewNode, HydratedView} from "../view/hydrated_view";
 import {SemanticEngine} from "@libs/semantic_engine/semantic_engine";
 
 export class LayoutEngine {
@@ -16,7 +16,7 @@ export class LayoutEngine {
         this.semanticEngine = semanticEngine;
     }
 
-    private generateView = (view: View, lowerElements: Array<HydratedViewNode>) => {
+    private generateView = (view: HydratedView, lowerElements: Array<HydratedViewNode>) => {
         if (lowerElements) {
             lowerElements.forEach((childViewNode) => {
                 let parents = this.semanticEngine.getParents(childViewNode.modelNodeId);
@@ -48,7 +48,7 @@ export class LayoutEngine {
 
     convertToView = (viewName: string) => {
         try {
-            let view = new View(viewName, viewName);
+            let view = new HydratedView(viewName, viewName);
             let leaves = this.semanticEngine.getLeaves();
             let lowerElements: Array<HydratedViewNode> = [];
 
