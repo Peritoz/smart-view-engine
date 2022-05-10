@@ -1,9 +1,7 @@
-import {PaddingSettings} from "@libs/layout_engine/settings";
-
-const {SIZE_REFERENCE} = require("../common/size_reference.const");
+import {Settings} from "@libs/engine/layout_engine/settings";
 
 export class PlotCursor {
-    protected settings: PaddingSettings;
+    protected settings: Settings;
     protected initialX: number;
     protected initialY: number;
     protected x: number;
@@ -13,13 +11,8 @@ export class PlotCursor {
     protected pageWidth: number;
     protected pageHeight: number;
 
-    constructor(initialX: number, initialY: number, pageWidth: number, pageHeight: number, settings?: Partial<PaddingSettings>) {
-        this.settings = {
-            leftPadding: settings && settings.leftPadding !== undefined ? settings.leftPadding : SIZE_REFERENCE.DEFAULT_PADDING,
-            rightPadding: settings && settings.rightPadding !== undefined ? settings.rightPadding : SIZE_REFERENCE.DEFAULT_PADDING,
-            topPadding: settings && settings.topPadding !== undefined ? settings.topPadding : SIZE_REFERENCE.DEFAULT_PADDING,
-            bottomPadding: settings && settings.bottomPadding !== undefined ? settings.bottomPadding : SIZE_REFERENCE.DEFAULT_PADDING,
-        };
+    constructor(initialX: number, initialY: number, pageWidth: number, pageHeight: number, settings: Settings) {
+        this.settings = settings;
         this.initialX = initialX;
         this.initialY = initialY;
         this.x = initialX;

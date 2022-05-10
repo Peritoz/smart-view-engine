@@ -1,10 +1,10 @@
 import {LayoutEngine} from "../../layout_engine";
-import {LayoutSettings} from "@libs/layout_engine/settings";
-import {SemanticEngine} from "@libs/semantic_engine/semantic_engine";
-import {HydratedViewNode} from "@libs/view/hydrated_view";
+import {Settings} from "@libs/engine/layout_engine/settings";
+import {SemanticEngine} from "@libs/engine/semantic_engine/semantic_engine";
+import {HydratedViewNode} from "@libs/model/hydrated_view";
 
 export class HierarchicalLayoutEngine extends LayoutEngine {
-    constructor(settings: LayoutSettings, semanticEngine: SemanticEngine) {
+    constructor(settings: Settings, semanticEngine: SemanticEngine) {
         super(settings, semanticEngine);
     }
 

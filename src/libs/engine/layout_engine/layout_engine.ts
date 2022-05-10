@@ -1,18 +1,13 @@
-import {LayoutTypes} from "../common/layout_types.enum";
-import {LayoutSettings} from "@libs/layout_engine/settings";
-import {HydratedViewNode, HydratedView} from "../view/hydrated_view";
-import {SemanticEngine} from "@libs/semantic_engine/semantic_engine";
+import {Settings} from "@libs/engine/layout_engine/settings";
+import {HydratedViewNode, HydratedView} from "../../model/hydrated_view";
+import {SemanticEngine} from "@libs/engine/semantic_engine/semantic_engine";
 
 export class LayoutEngine {
-    protected layoutType: LayoutTypes;
-    protected maxHorizontalCount: number;
-    protected maxChildHorizontalCount: number;
+    protected settings: Settings;
     protected semanticEngine: SemanticEngine;
 
-    constructor(settings: Partial<LayoutSettings>, semanticEngine: SemanticEngine) {
-        this.layoutType = settings && settings.layoutType ? settings.layoutType : LayoutTypes.NESTED;
-        this.maxHorizontalCount = settings && settings.maxHorizontalCount ? settings.maxHorizontalCount : 5;
-        this.maxChildHorizontalCount = settings && settings.maxChildHorizontalCount ? settings.maxChildHorizontalCount : 2;
+    constructor(settings: Settings, semanticEngine: SemanticEngine) {
+        this.settings = settings;
         this.semanticEngine = semanticEngine;
     }
 

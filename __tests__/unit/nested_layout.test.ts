@@ -1,6 +1,6 @@
 import { LayoutTypes } from "../../src/libs/common/layout_types.enum";
-import { SmartViewEngine } from "../../src/libs/smart_view_engine";
-import { View, ViewNode } from "../../src/libs/view/hydrated_view";
+import { SmartViewEngine } from "../../src/libs/engine/smart_view_engine";
+import { View, ViewNode } from "../../src/libs/model/hydrated_view";
 
 describe("Nested Layout Rendering", () => {
   describe("Homogeneous Input", () => {

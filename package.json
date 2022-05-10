@@ -25,18 +25,21 @@
     "url": "https://github.com/Peritoz/smart-view-engine/issues"
   },
   "homepage": "https://github.com/Peritoz/smart-view-engine#readme",
+  "dependencies": {
+    "uniqid": "^5.4.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.16.5",
     "@babel/preset-env": "^7.16.5",
     "@babel/preset-typescript": "^7.16.5",
     "@types/jest": "^27.4.0",
     "@types/node": "^17.0.5",
+    "@types/uniqid": "^5.3.2",
     "babel-plugin-module-resolver": "^4.1.0",
     "jest": "^27.4.7",
     "ts-jest": "^27.1.2",
     "tscpaths": "^0.0.9",
     "typescript": "^4.5.4"
   },
-  "keywords": [
-  ]
+  "keywords": []
 }

@@ -1,4 +1,4 @@
-import { SIZE_REFERENCE } from "../common/size_reference.const";
+import { DEFAULT } from "../common/size_reference.const";
 
 export interface ViewNode {
   modelNodeId: string;
@@ -88,8 +88,8 @@ export class HydratedView {
       type: type,
       x: x,
       y: y,
-      width: SIZE_REFERENCE.DEFAULT_WIDTH,
-      height: SIZE_REFERENCE.DEFAULT_HEIGHT,
+      width: DEFAULT.DEFAULT_WIDTH,
+      height: DEFAULT.DEFAULT_HEIGHT,
       parent: parentId || null,
       verticalCoverage: 0,
       children: [],

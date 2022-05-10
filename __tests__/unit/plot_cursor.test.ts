@@ -1,9 +1,10 @@
-import {PlotCursor} from "../../src/libs/layout_engine/plot_cursor";
+import {PlotCursor} from "../../src/libs/engine/layout_engine/plot_cursor";
+import {Settings} from "../../src/libs/engine/layout_engine/settings";
 
 describe('Plot Cursor Rendering', () => {
     describe('Position Plotting - Sequential - Default Settings', () => {
         it('Initial element plotting', done => {
-            const plot = new PlotCursor(0, 0, 100, 100);
+            const plot = new PlotCursor(0, 0, 100, 100, new Settings({}));
 
             const pos = plot.calculatePosition({width: 20, height: 10});
 
@@ -13,7 +14,7 @@ describe('Plot Cursor Rendering', () => {
         });
 
         it('Simple row plotting', done => {
-            const plot = new PlotCursor(0, 0, 100, 100);
+            const plot = new PlotCursor(0, 0, 100, 100, new Settings({}));
 
             plot.calculatePosition({width: 20, height: 10});
             plot.calculatePosition({width: 20, height: 10});
@@ -25,7 +26,7 @@ describe('Plot Cursor Rendering', () => {
         });
 
         it('Break line', done => {
-            const plot = new PlotCursor(0, 0, 100, 100);
+            const plot = new PlotCursor(0, 0, 100, 100, new Settings({}));
 
             plot.calculatePosition({width: 20, height: 10});
             plot.calculatePosition({width: 20, height: 10});
@@ -39,7 +40,7 @@ describe('Plot Cursor Rendering', () => {
         });
 
         it('Blocks with different width and many lines', done => {
-            const plot = new PlotCursor(0, 0, 100, 100);
+            const plot = new PlotCursor(0, 0, 100, 100, new Settings({}));
 
             plot.calculatePosition({width: 45, height: 10});
             plot.calculatePosition({width: 20, height: 10});
@@ -57,7 +58,7 @@ describe('Plot Cursor Rendering', () => {
         });
 
         it('Blocks with different width and height, and many lines', done => {
-            const plot = new PlotCursor(0, 0, 100, 100);
+            const plot = new PlotCursor(0, 0, 100, 100, new Settings({}));
 
             plot.calculatePosition({width: 45, height: 15});
             plot.calculatePosition({width: 30, height: 10});

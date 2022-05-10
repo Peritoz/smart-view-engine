@@ -1,12 +1,12 @@
-import {SIZE_REFERENCE} from "@libs/common/size_reference.const";
-import {SemanticEngine} from "@libs/semantic_engine/semantic_engine";
-import {LayoutSettings} from "@libs/layout_engine/settings";
-import {HydratedViewNode, HydratedView} from "@libs/view/hydrated_view";
+import {DEFAULT} from "@libs/common/size_reference.const";
+import {SemanticEngine} from "@libs/engine/semantic_engine/semantic_engine";
+import {Settings} from "@libs/engine/layout_engine/settings";
+import {HydratedViewNode, HydratedView} from "@libs/model/hydrated_view";
 import {HierarchicalLayoutEngine} from "../hierarchical_layout_engine";
 import {PlotCursor} from "../../../plot_cursor";
 
 export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
-    constructor(settings: LayoutSettings, semanticEngine: SemanticEngine) {
+    constructor(settings: Settings, semanticEngine: SemanticEngine) {
         super(settings, semanticEngine);
     }
 
@@ -21,7 +21,7 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
         view.setBounds(bounds.width, bounds.height);
 
         // Rendering element positions
-        this.renderRows(nestedTree, 0, this.maxHorizontalCount, SIZE_REFERENCE.PADDING_X, SIZE_REFERENCE.PADDING_Y);
+        this.renderRows(nestedTree, 0, this.maxHorizontalCount, DEFAULT.PADDING_X, DEFAULT.PADDING_Y);
     }
 
     /**
@@ -40,8 +40,8 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
 
         let result = {
             width: 0,
-            height: SIZE_REFERENCE.INNER_TOP_PADDING_Y,
-            verticalCoverage: SIZE_REFERENCE.INNER_TOP_PADDING_Y,
+            height: DEFAULT.INNER_TOP_PADDING_Y,
+            verticalCoverage: DEFAULT.INNER_TOP_PADDING_Y,
             maxColumnCount: 0
         };
         let cursorX = 0;
@@ -59,9 +59,9 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
                 columnCount += nestedDimensions.maxColumnCount;
             } else { // It's a leaf
                 nestedDimensions = {
-                    width: SIZE_REFERENCE.DEFAULT_WIDTH,
-                    height: SIZE_REFERENCE.DEFAULT_HEIGHT,
-                    verticalCoverage: SIZE_REFERENCE.DEFAULT_HEIGHT
+                    width: DEFAULT.DEFAULT_WIDTH,
+                    height: DEFAULT.DEFAULT_HEIGHT,
+                    verticalCoverage: DEFAULT.DEFAULT_HEIGHT
                 };
                 columnCount++;
             }
@@ -82,8 +82,8 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
             node.width = nestedDimensions.width;
             node.verticalCoverage = nestedDimensions.verticalCoverage;
 
-            if (nestedDimensions.verticalCoverage + SIZE_REFERENCE.PADDING_Y > rowHeight) {
-                rowHeight = nestedDimensions.verticalCoverage + SIZE_REFERENCE.PADDING_Y;
+            if (nestedDimensions.verticalCoverage + DEFAULT.PADDING_Y > rowHeight) {
+                rowHeight = nestedDimensions.verticalCoverage + DEFAULT.PADDING_Y;
             }
 
             // Row break (new row) or last element (final row)
@@ -95,12 +95,12 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
                 rowHeight = 0;
             } else {
                 // Incrementing horizontal cursor
-                cursorX += SIZE_REFERENCE.MARGIN_X;
+                cursorX += DEFAULT.MARGIN_X;
             }
         }
 
         // Adding final padding
-        result.verticalCoverage += SIZE_REFERENCE.INNER_BOTTOM_PADDING_Y;
+        result.verticalCoverage += DEFAULT.INNER_BOTTOM_PADDING_Y;
 
         return result;
     }
@@ -112,13 +112,13 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
         initialX: number,
         initialY: number
     ) {
-        const elementSizeReference = SIZE_REFERENCE.DEFAULT_WIDTH + 2 * SIZE_REFERENCE.MARGIN_X;
+        const elementSizeReference = DEFAULT.DEFAULT_WIDTH + 2 * DEFAULT.MARGIN_X;
         let sortedNestedTree = nestedTree.sort((a, b) => b.nestedCount - a.nestedCount);
         let cursor = new PlotCursor(initialX, initialY, maxColumns * elementSizeReference, 100000, {
             leftPadding: 0,
-            rightPadding: SIZE_REFERENCE.MARGIN_X,
+            rightPadding: DEFAULT.MARGIN_X,
             topPadding: 0,
-            bottomPadding: SIZE_REFERENCE.MARGIN_Y
+            bottomPadding: DEFAULT.MARGIN_Y
         });
         let maxColumnCount = 0;
         let maxHeight = 0;
@@ -132,7 +132,7 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
             let position = cursor.calculatePosition(
                 {
                     width: node.width,
-                    height: node.height + hierarchyDepth * (SIZE_REFERENCE.DEFAULT_HEIGHT + SIZE_REFERENCE.MARGIN_Y)
+                    height: node.height + hierarchyDepth * (DEFAULT.DEFAULT_HEIGHT + DEFAULT.MARGIN_Y)
                 }
             );
 
@@ -141,7 +141,7 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
 
             if (node.children.length > 0) { // It is not a leaf
                 let maxColumnsConstraint = node.nestedCount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
-                let nestedPositionResult = this.renderRows(node.children, i, maxColumnsConstraint, 0, node.height + SIZE_REFERENCE.MARGIN_Y);
+                let nestedPositionResult = this.renderRows(node.children, i, maxColumnsConstraint, 0, node.height + DEFAULT.MARGIN_Y);
 
                 columnCount += nestedPositionResult.maxColumnCount;
             } else { // It's a leaf

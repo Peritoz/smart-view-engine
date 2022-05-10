@@ -1,4 +1,4 @@
-import { PathElement } from "@libs/smart_view_engine";
+import { PathElement } from "@libs/engine/smart_view_engine";
 
 export interface SemanticElement {
   parent: PathElement;
