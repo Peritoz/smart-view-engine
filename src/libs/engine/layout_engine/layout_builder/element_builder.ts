@@ -1,8 +1,7 @@
 import {Settings} from "@libs/engine/layout_engine/settings";
 import {DEFAULT} from "@libs/common/size_reference.const";
 import {ViewNode} from "@libs/model/view_node";
-
-const BaseElement = require("../../../model/base_element");
+import {BaseElement} from "@libs/model/base_element";
 
 class ElementBuilder {
     protected sizeUnit: number;
@@ -11,15 +10,15 @@ class ElementBuilder {
         this.sizeUnit = settings.sizeUnit ? settings.sizeUnit : DEFAULT.SIZE_UNIT;
     }
 
-    buildElement(node: ViewNode) {
+    buildElement(node: ViewNode): BaseElement {
         return new BaseElement(node);
     }
 
-    buildTinyElement(name: string, type: string) {
+    buildTinyElement(name: string, type: string): BaseElement {
         return new BaseElement({name, type, width: this.sizeUnit, height: this.sizeUnit, x: 0, y: 0});
     }
 
-    buildSmallElement(name: string, type: string, verticalOrientation: boolean) {
+    buildSmallElement(name: string, type: string, verticalOrientation: boolean): BaseElement {
         if (verticalOrientation) {
             return new BaseElement({name, type, width: this.sizeUnit, height: 2 * this.sizeUnit, x: 0, y: 0});
         } else {
@@ -27,7 +26,7 @@ class ElementBuilder {
         }
     }
 
-    buildMediumElement(name: string, type: string, verticalOrientation: boolean) {
+    buildMediumElement(name: string, type: string, verticalOrientation: boolean): BaseElement {
         if (verticalOrientation) {
             return new BaseElement({name, type, width: this.sizeUnit, height: 3 * this.sizeUnit, x: 0, y: 0});
         } else {
@@ -35,7 +34,7 @@ class ElementBuilder {
         }
     }
 
-    buildBigElement(name: string, type: string, verticalOrientation: boolean) {
+    buildBigElement(name: string, type: string, verticalOrientation: boolean): BaseElement {
         if (verticalOrientation) {
             return new BaseElement({name, type, width: this.sizeUnit, height: 4 * this.sizeUnit, x: 0, y: 0});
         } else {

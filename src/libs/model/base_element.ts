@@ -1,11 +1,11 @@
 import uniqId from 'uniqid';
-import {ViewNode} from "@libs/model/view_node";
+import {NodeBlock} from "@libs/model/view_node";
 
-class BaseElement {
+export class BaseElement {
     protected id: string;
-    protected node: ViewNode;
+    protected node: NodeBlock;
 
-    constructor(viewNode: ViewNode) {
+    constructor(viewNode: NodeBlock) {
         this.id = uniqId();
         this.node = viewNode;
     }
@@ -59,5 +59,3 @@ class BaseElement {
         this.setY(this.getY() + deltaY);
     }
 }
-
-module.exports = BaseElement;

@@ -1,9 +1,10 @@
 import {Alignment} from "@libs/common/alignment.enum";
 import {Settings} from "@libs/engine/layout_engine/settings";
+import {BaseElement} from "@libs/model/base_element";
 
 const uniqId = require('uniqid');
 
-class LayoutElementGroup {
+export class LayoutElementGroup {
     protected id: string;
     protected parentId: string;
     protected settings: Settings;
@@ -86,8 +87,8 @@ class LayoutElementGroup {
      * @param getCrossLengthIncrement
      */
     adjustDimensionsToChildren(
-        getMainLengthIncrement: (child: object) => number,
-        getCrossLengthIncrement: (child: object) => number
+        getMainLengthIncrement: (child: BaseElement | LayoutElementGroup) => number,
+        getCrossLengthIncrement: (child: BaseElement | LayoutElementGroup) => number
     ) {
         let notEmptyChildCount = 0;
         this.resetElementLength();
@@ -257,6 +258,16 @@ class LayoutElementGroup {
             return 0;
         }
     }
-}
 
-module.exports = LayoutElementGroup;
+    // TODO: Calculate total width
+    getWidth(): number {
+        return 0;
+    };
+
+    // TODO: Calculate total height
+    getHeight(): number {
+        return 0;
+    };
+
+    applyDistribution(): void {}
+}

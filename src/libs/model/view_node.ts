@@ -1,12 +1,15 @@
-export interface ViewNode {
-    modelNodeId: string;
-    viewNodeId: string;
+export interface NodeBlock {
     name: string;
     type: string;
     x: number;
     y: number;
     width: number;
     height: number;
+}
+
+export interface ViewNode extends NodeBlock {
+    modelNodeId: string;
+    viewNodeId: string;
     parent: string | null;
 }
 
