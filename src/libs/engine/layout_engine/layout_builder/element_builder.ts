@@ -2,7 +2,7 @@ import {Settings} from "@libs/engine/layout_engine/settings";
 import {DEFAULT} from "@libs/common/size_reference.const";
 import {ViewNode} from "@libs/model/view_node";
 
-const BaseElement = require("../../../../model/base_element");
+const BaseElement = require("../../../model/base_element");
 
 class ElementBuilder {
     protected sizeUnit: number;

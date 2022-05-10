@@ -18,11 +18,5 @@ export const DEFAULT = Object.freeze({
     X_LARGE_SIZE_INCREMENT: 8,
     HUGE_SIZE_INCREMENT: 16,
     OTHER_SIZE_INCREMENT: 32,
-    ALIGNMENT: Object.freeze({
-        START: 10,
-        END: 20,
-        CENTER: 30,
-        EXPANDED: 40,
-    }),
     SIZE_UNIT: 20
 });
