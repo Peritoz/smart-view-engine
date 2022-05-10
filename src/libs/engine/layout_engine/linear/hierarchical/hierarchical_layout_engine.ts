@@ -1,7 +1,7 @@
 import {LayoutEngine} from "../../layout_engine";
 import {Settings} from "@libs/engine/layout_engine/settings";
 import {SemanticEngine} from "@libs/engine/semantic_engine/semantic_engine";
-import {HydratedViewNode} from "@libs/model/hydrated_view";
+import {HydratedViewNode} from "@libs/model/view_node";
 
 export class HierarchicalLayoutEngine extends LayoutEngine {
     constructor(settings: Settings, semanticEngine: SemanticEngine) {

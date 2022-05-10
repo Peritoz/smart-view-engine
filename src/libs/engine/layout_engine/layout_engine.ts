@@ -1,6 +1,7 @@
 import {Settings} from "@libs/engine/layout_engine/settings";
-import {HydratedViewNode, HydratedView} from "../../model/hydrated_view";
+import {HydratedView} from "../../model/hydrated_view";
 import {SemanticEngine} from "@libs/engine/semantic_engine/semantic_engine";
+import {HydratedViewNode} from "@libs/model/view_node";
 
 export class LayoutEngine {
     protected settings: Settings;

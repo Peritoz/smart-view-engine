@@ -1,8 +1,9 @@
-import {HydratedViewNode, HydratedView} from "@libs/model/hydrated_view";
+import {HydratedView} from "@libs/model/hydrated_view";
 import {DEFAULT} from "@libs/common/size_reference.const";
 import {HierarchicalLayoutEngine} from "../hierarchical_layout_engine";
 import {Settings} from "@libs/engine/layout_engine/settings";
 import {SemanticEngine} from "@libs/engine/semantic_engine/semantic_engine";
+import {HydratedViewNode} from "@libs/model/view_node";
 
 export class NestedLayoutEngine extends HierarchicalLayoutEngine {
     constructor(settings: Settings, semanticEngine: SemanticEngine) {

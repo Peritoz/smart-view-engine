@@ -1,44 +1,6 @@
-import { DEFAULT } from "../common/size_reference.const";
-
-export interface ViewNode {
-  modelNodeId: string;
-  viewNodeId: string;
-  name: string;
-  type: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  parent: string | null;
-}
-
-export interface ViewRelationship {
-  modelRelationshipId: string;
-  sourceId: string;
-  targetId: string;
-  viewRelationshipId: string;
-  type: string;
-  bendpoints: Array<{ x: number; y: number }>;
-}
-
-export interface TreeElement {
-  verticalCoverage: number;
-  children: Array<HydratedViewNode>;
-  nestedCount: number;
-}
-
-export type HydratedViewNode = ViewNode & TreeElement;
-
-export interface View {
-  viewRelationships: Array<ViewRelationship>;
-  viewNodes: Array<HydratedViewNode>;
-  name: string;
-  bounds: {
-    horizontal: { min: number; max: number };
-    vertical: { min: number; max: number };
-  };
-  id: string;
-}
+import {DEFAULT} from "../common/size_reference.const";
+import {View} from "@libs/model/view";
+import {HydratedViewNode} from "@libs/model/view_node";
 
 export class HydratedView {
   protected view: View;

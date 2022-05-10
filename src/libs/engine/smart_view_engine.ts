@@ -1,9 +1,9 @@
 import {LayoutTypes} from "../common/layout_types.enum";
 import {Settings} from "@libs/engine/layout_engine/settings";
-import {View} from "@libs/model/hydrated_view";
 import {NestedLayoutEngine} from "./layout_engine/linear/hierarchical/specialized/nested_layout_engine";
 import {HierarchyLayoutEngine} from "./layout_engine/linear/hierarchical/specialized/hierarchy_layout_engine";
 import {SemanticEngine} from "./semantic_engine/semantic_engine";
+import {View} from "@libs/model/view";
 
 export interface PathElement {
     identifier: string;
