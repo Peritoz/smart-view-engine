@@ -9,13 +9,13 @@ import {VisibleLayoutRow} from "@libs/engine/layout_engine/layout_builder/visibl
 
 export class LayoutSet {
     protected settings: Settings;
-    protected layoutSet: LayoutElementGroup | null;
+    protected set: LayoutElementGroup | null;
     protected navigationHistory: any[];
     protected containerMap: Map<string, BaseElement | LayoutElementGroup>;
 
     constructor(settings: Settings) {
         this.settings = settings;
-        this.layoutSet = null;
+        this.set = null;
         this.navigationHistory = [];
         this.containerMap = new Map();
     }
@@ -25,9 +25,9 @@ export class LayoutSet {
      * @param layoutGroup: A valid LayoutElementGroup element (Row, Col, VisibleRow or Visible Col)
      */
     private initializeLayoutSet(layoutGroup: LayoutElementGroup) {
-        if (this.layoutSet === null) {
+        if (this.set === null) {
             if (layoutGroup instanceof LayoutRow || layoutGroup instanceof LayoutCol) {
-                this.layoutSet = layoutGroup;
+                this.set = layoutGroup;
             } else {
                 throw new Error("LayoutSets can only be initialize with LayoutGroups");
             }
@@ -36,8 +36,8 @@ export class LayoutSet {
         }
     }
 
-    getLayoutSet() {
-        return this.layoutSet;
+    getLayoutSet(): LayoutElementGroup {
+        return this.set!;
     }
 
     /**
@@ -92,7 +92,7 @@ export class LayoutSet {
      * Calculates the absolute position for layout groups that aren't rendered elements (Rows and Cols)
      */
     toAbsolutePosition() {
-        this.layoutSet!.translatePosition(0, 0);
+        this.set!.translatePosition(0, 0);
     }
 
     getCurrentLayoutGroup() {
@@ -179,10 +179,10 @@ export class LayoutSet {
     }
 
     getPageWidth() {
-        return this.layoutSet ? this.layoutSet.getWidth() : 0;
+        return this.set ? this.set.getWidth() : 0;
     }
 
     getPageHeight() {
-        return this.layoutSet ? this.layoutSet.getHeight() : 0;
+        return this.set ? this.set.getHeight() : 0;
     }
 }
