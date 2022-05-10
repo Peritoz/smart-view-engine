@@ -3,7 +3,7 @@ import {DEFAULT} from "@libs/common/size_reference.const";
 import {ViewNode} from "@libs/model/view_node";
 import {BaseElement} from "@libs/model/base_element";
 
-class ElementBuilder {
+export class ElementBuilder {
     protected sizeUnit: number;
 
     constructor(settings: Settings) {
@@ -42,5 +42,3 @@ class ElementBuilder {
         }
     }
 }
-
-module.exports = ElementBuilder;
