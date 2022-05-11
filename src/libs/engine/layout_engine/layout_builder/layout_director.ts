@@ -100,9 +100,7 @@ export class LayoutDirector {
     }
 
     navigateToParent(jumpsUpward: number) {
-        const jumps = jumpsUpward !== undefined ? jumpsUpward : 1;
-
-        for (let i = 0; i < jumps; i++) {
+        for (let i = 0; i < jumpsUpward; i++) {
             this.layoutSet.navigateToParent();
         }
     }

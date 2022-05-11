@@ -1,159 +1,43 @@
-import {HydratedView} from "@libs/model/hydrated_view";
-import {DEFAULT} from "@libs/common/size_reference.const";
-import {HierarchicalLayoutEngine} from "../hierarchical_layout_engine";
-import {Settings} from "@libs/engine/layout_engine/settings";
-import {SemanticEngine} from "@libs/engine/semantic_engine/semantic_engine";
-import {HydratedViewNode} from "@libs/model/view_node";
+import { HierarchicalLayoutEngine } from "../hierarchical_layout_engine";
+import { Settings } from "@libs/engine/layout_engine/settings";
+import { SemanticEngine } from "@libs/engine/semantic_engine/semantic_engine";
+import { HydratedViewNode } from "@libs/model/view_node";
+import { LayoutDirector } from "@libs/engine/layout_engine/layout_builder/layout_director";
+import { Alignment } from "@libs/common/alignment.enum";
 
 export class NestedLayoutEngine extends HierarchicalLayoutEngine {
-    constructor(settings: Settings, semanticEngine: SemanticEngine) {
-        super(settings, semanticEngine);
-    }
+  constructor(settings: Settings, semanticEngine: SemanticEngine) {
+    super(settings, semanticEngine);
+  }
 
-    processLayout(view: HydratedView) {
-        // Generating a tree of nested elements
-        let nestedTree = this.groupParentNodes(view.getViewNodes());
+  renderElements(
+    nestedTree: Array<HydratedViewNode>,
+    layoutDirector: LayoutDirector
+  ) {
+    if (nestedTree && nestedTree.length > 0) {
+      for (let i = 0; i < nestedTree.length; i++) {
+        const child = nestedTree[i];
 
-        // Processing element width and height
-        let bounds = this.processDimensionsByContent(nestedTree, null, this.maxHorizontalCount);
+        if (child.children && child.children.length > 0) {
+          layoutDirector.newVisibleRow(
+            child.name,
+            child.type,
+            Alignment.START,
+            Alignment.EXPANDED,
+            false
+          );
 
-        // Setting the "paper" dimension
-        view.setBounds(bounds.width, bounds.height);
-
-        // Rendering element positions
-        this.renderRows(nestedTree, 0, this.maxHorizontalCount, DEFAULT.PADDING_X, DEFAULT.PADDING_Y);
-    }
-
-    /**
-     * Calculates the dimensions of each element of the nested tree
-     * @param nestedSubTree Tree organizing all nested elements
-     * @param parentNode
-     * @param maxColumns
-     * @returns Element dimensions as {width: #, height: #}
-     */
-    protected processDimensionsByContent(
-        nestedSubTree: Array<HydratedViewNode>,
-        parentNode: HydratedViewNode | null,
-        maxColumns: number
-    ) {
-        let sortedNestedTree = nestedSubTree.sort((a, b) => b.nestedCount - a.nestedCount);
-
-        let result = {
-            width: 0,
-            height: DEFAULT.INNER_TOP_PADDING_Y,
-            maxColumnCount: 0
-        };
-        let cursorX = 0;
-        let columnCount = 0;
-        let rowHeight = 0;
-
-        for (let i = 0; i < sortedNestedTree.length; i++) {
-            let node = sortedNestedTree[i];
-            let nestedDimensions;
-
-            if (node.children.length > 0) { // It is not a leaf
-                let maxColumnsConstraint = node.nestedCount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
-
-                nestedDimensions = this.processDimensionsByContent(node.children, node, maxColumnsConstraint);
-                columnCount += nestedDimensions.maxColumnCount;
-            } else { // It's a leaf
-                nestedDimensions = {width: DEFAULT.DEFAULT_WIDTH, height: DEFAULT.DEFAULT_HEIGHT};
-                columnCount++;
-            }
-
-            // Setting the maximum value of column count
-            if (columnCount > result.maxColumnCount) {
-                result.maxColumnCount = columnCount;
-            }
-
-            // Incrementing horizontal cursor
-            cursorX += nestedDimensions.width + DEFAULT.PADDING_X;
-
-            if (cursorX + DEFAULT.PADDING_X > result.width) {
-                result.width = cursorX + DEFAULT.PADDING_X;
-            }
-
-            // Setting the current node dimensions
-            node.width = nestedDimensions.width;
-            node.height = nestedDimensions.height;
-
-            if (nestedDimensions.height + DEFAULT.PADDING_Y > rowHeight) {
-                rowHeight = nestedDimensions.height + DEFAULT.PADDING_Y;
-            }
-
-            // Row break (new row) or last element (final row)
-            if ((columnCount >= maxColumns) || i === sortedNestedTree.length - 1) {
-                result.height += rowHeight;
-
-                cursorX = 0;
-                columnCount = 0;
-                rowHeight = 0;
-            }
+          this.renderElements(child.children, layoutDirector);
+        } else {
+          layoutDirector.addMediumElementToCurrent(
+            child.name,
+            child.type,
+            false
+          );
         }
+      }
 
-        // Adding final padding
-        result.height += DEFAULT.INNER_BOTTOM_PADDING_Y;
-
-        return result;
+      layoutDirector.navigateToParent(1);
     }
-
-    renderRows(
-        nestedTree: Array<HydratedViewNode>,
-        index: number,
-        maxColumns: number,
-        initialX: number,
-        initialY: number
-    ) {
-        let sortedNestedTree = nestedTree.sort((a, b) => b.nestedCount - a.nestedCount);
-        let cursorX = initialX, cursorY = initialY;
-        let maxColumnCount = 0;
-        let maxHeight = 0;
-        let maxWidth = 0;
-        let columnCount = 0;
-
-        for (let i = 0; i < sortedNestedTree.length; i++) {
-            let node = sortedNestedTree[i];
-
-            node.x = cursorX;
-            node.y = cursorY;
-
-            if (node.children.length > 0) { // It is not a leaf
-                let maxColumnsConstraint = node.nestedCount > maxColumns ? maxColumns - columnCount : this.maxChildHorizontalCount;
-                let nestedPositionResult = this.renderRows(node.children, i, maxColumnsConstraint, DEFAULT.PADDING_X, DEFAULT.INNER_TOP_PADDING_Y);
-
-                columnCount += nestedPositionResult.maxColumnCount;
-            } else { // It's a leaf
-                columnCount++;
-            }
-
-            // Setting the maximum value of column count
-            if (columnCount > maxColumnCount) {
-                maxColumnCount = columnCount;
-            }
-
-            // Discovering the maximum height (reference height for the row). Will be used when breaking the line
-            let yIncrement = node.height + DEFAULT.PADDING_Y;
-
-            if (yIncrement > maxHeight) {
-                maxHeight = yIncrement;
-            }
-
-            // Incrementing X or breaking the line
-            if (node.nestedCount > maxColumns || (columnCount >= maxColumns)) {
-                cursorY += maxHeight;
-                cursorX = DEFAULT.PADDING_X;
-
-                columnCount = 0;
-                maxHeight = 0;
-            } else {
-                cursorX += node.width + DEFAULT.PADDING_X;
-
-                if (cursorX > maxWidth) {
-                    maxWidth = cursorX;
-                }
-            }
-        }
-
-        return {maxColumnCount, maxWidth, maxHeight};
-    }
+  }
 }
