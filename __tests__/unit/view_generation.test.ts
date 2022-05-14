@@ -64,14 +64,14 @@ describe("Smart View Rendering", () => {
 
             const view = smartView.generateView(basicPaths, "T1");
 
-            const A = view.viewnodes.find((n) => n.name === "A");
-            const B = view.viewnodes.find((n) => n.name === "B");
-            const B1 = view.viewnodes.find((n) => n.name === "B1");
-            const B11 = view.viewnodes.find((n) => n.name === "B1-1");
-            const B2 = view.viewnodes.find((n) => n.name === "B2");
-            const B21 = view.viewnodes.find((n) => n.name === "B2-1");
-            const C = view.viewnodes.find((n) => n.name === "C");
-            const C1 = view.viewnodes.find((n) => n.name === "C1");
+            const A = view.viewNodes.find((n) => n.name === "A");
+            const B = view.viewNodes.find((n) => n.name === "B");
+            const B1 = view.viewNodes.find((n) => n.name === "B1");
+            const B11 = view.viewNodes.find((n) => n.name === "B1-1");
+            const B2 = view.viewNodes.find((n) => n.name === "B2");
+            const B21 = view.viewNodes.find((n) => n.name === "B2-1");
+            const C = view.viewNodes.find((n) => n.name === "C");
+            const C1 = view.viewNodes.find((n) => n.name === "C1");
 
             expect(A).toBeDefined();
             expect(B).toBeDefined();
@@ -130,17 +130,17 @@ describe("Smart View Rendering", () => {
 
             const view = smartView.generateView(complexPaths, "T1");
 
-            const Analyst = view.viewnodes.find((n) => n.name === "Analyst");
-            const Guest = view.viewnodes.find((n) => n.name === "Guest");
-            const PerformAnalysis = view.viewnodes.find(
+            const Analyst = view.viewNodes.find((n) => n.name === "Analyst");
+            const Guest = view.viewNodes.find((n) => n.name === "Guest");
+            const PerformAnalysis = view.viewNodes.find(
                 (n) => n.name === "Perform Corporative Analysis"
             );
-            const ProvideData = view.viewnodes.find(
+            const ProvideData = view.viewNodes.find(
                 (n) => n.name === "Provide Updated Data"
             );
-            const Archi = view.viewnodes.find((n) => n.name === "Archi");
-            const GitClient = view.viewnodes.find((n) => n.name === "Git Client");
-            const Arktect = view.viewnodes.find((n) => n.name === "Arktect");
+            const Archi = view.viewNodes.find((n) => n.name === "Archi");
+            const GitClient = view.viewNodes.find((n) => n.name === "Git Client");
+            const Arktect = view.viewNodes.find((n) => n.name === "Arktect");
 
             expect(Analyst).toBeDefined();
             expect(Guest).toBeDefined();
@@ -208,14 +208,14 @@ describe("Smart View Rendering", () => {
 
             const view = smartView.generateView(basicPaths, "T1");
 
-            const A = view.viewnodes.find((n) => n.name === "A");
-            const B = view.viewnodes.find((n) => n.name === "B");
-            const B1 = view.viewnodes.find((n) => n.name === "B1");
-            const B11 = view.viewnodes.find((n) => n.name === "B1-1");
-            const B2 = view.viewnodes.find((n) => n.name === "B2");
-            const B21 = view.viewnodes.find((n) => n.name === "B2-1");
-            const C = view.viewnodes.find((n) => n.name === "C");
-            const C1 = view.viewnodes.find((n) => n.name === "C1");
+            const A = view.viewNodes.find((n) => n.name === "A");
+            const B = view.viewNodes.find((n) => n.name === "B");
+            const B1 = view.viewNodes.find((n) => n.name === "B1");
+            const B11 = view.viewNodes.find((n) => n.name === "B1-1");
+            const B2 = view.viewNodes.find((n) => n.name === "B2");
+            const B21 = view.viewNodes.find((n) => n.name === "B2-1");
+            const C = view.viewNodes.find((n) => n.name === "C");
+            const C1 = view.viewNodes.find((n) => n.name === "C1");
 
             expect(A).toBeDefined();
             expect(B).toBeDefined();
@@ -274,17 +274,17 @@ describe("Smart View Rendering", () => {
 
             const view = smartView.generateView(complexPaths, "T1");
 
-            const Analyst = view.viewnodes.find((n) => n.name === "Analyst");
-            const Guest = view.viewnodes.find((n) => n.name === "Guest");
-            const PerformAnalysis = view.viewnodes.find(
+            const Analyst = view.viewNodes.find((n) => n.name === "Analyst");
+            const Guest = view.viewNodes.find((n) => n.name === "Guest");
+            const PerformAnalysis = view.viewNodes.find(
                 (n) => n.name === "Perform Corporative Analysis"
             );
-            const ProvideData = view.viewnodes.find(
+            const ProvideData = view.viewNodes.find(
                 (n) => n.name === "Provide Updated Data"
             );
-            const Archi = view.viewnodes.find((n) => n.name === "Archi");
-            const GitClient = view.viewnodes.find((n) => n.name === "Git Client");
-            const Arktect = view.viewnodes.find((n) => n.name === "Arktect");
+            const Archi = view.viewNodes.find((n) => n.name === "Archi");
+            const GitClient = view.viewNodes.find((n) => n.name === "Git Client");
+            const Arktect = view.viewNodes.find((n) => n.name === "Arktect");
 
             expect(Analyst).toBeDefined();
             expect(Guest).toBeDefined();
