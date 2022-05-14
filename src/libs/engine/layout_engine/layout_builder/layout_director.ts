@@ -81,19 +81,19 @@ export class LayoutDirector {
         return element;
     }
 
-    addSmallElementToCurrent(name: string, type: string, verticalOrientation: boolean) {
+    addSmallElementToCurrent(name: string, type: string, verticalOrientation: boolean = false) {
         const element = this.builder.buildSmallElement(name, type, verticalOrientation);
         this.addToCurrentGroup(element);
         return element;
     }
 
-    addMediumElementToCurrent(name: string, type: string, verticalOrientation: boolean) {
+    addMediumElementToCurrent(name: string, type: string, verticalOrientation: boolean = false) {
         const element = this.builder.buildMediumElement(name, type, verticalOrientation);
         this.addToCurrentGroup(element);
         return element;
     }
 
-    addBigElementToCurrent(name: string, type: string, verticalOrientation: boolean) {
+    addBigElementToCurrent(name: string, type: string, verticalOrientation: boolean = false) {
         const element = this.builder.buildBigElement(name, type, verticalOrientation);
         this.addToCurrentGroup(element);
         return element;
