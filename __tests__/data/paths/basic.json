@@ -1,0 +1,85 @@
+[
+  [
+    {
+      "_id": "",
+      "identifier": "2cdb720a",
+      "name": "A",
+      "maintype": "businessactor",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "46f5e647",
+      "name": "B",
+      "maintype": "businessprocess",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "11fec68d",
+      "name": "B1",
+      "maintype": "applicationcomponent",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "10fec68d",
+      "name": "B1-1",
+      "maintype": "artifact",
+      "ispatternnode": true
+    }
+  ],
+  [
+    {
+      "_id": "",
+      "identifier": "2cdb720a",
+      "name": "A",
+      "maintype": "businessactor",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "46f5e647",
+      "name": "B",
+      "maintype": "businessprocess",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "a1fec68a",
+      "name": "B2",
+      "maintype": "applicationcomponent",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "a2fec68b",
+      "name": "B2-1",
+      "maintype": "artifact",
+      "ispatternnode": true
+    }
+  ],
+  [
+    {
+      "_id": "",
+      "identifier": "2cdb720a",
+      "name": "A",
+      "maintype": "businessactor",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "46f5e646",
+      "name": "C",
+      "maintype": "businessprocess",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "9722d024",
+      "name": "C1",
+      "maintype": "applicationcomponent",
+      "ispatternnode": true
+    }
+  ]
+]

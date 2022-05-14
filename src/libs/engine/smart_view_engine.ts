@@ -18,10 +18,10 @@ export class SmartViewEngine {
         this.settings = settings;
     }
 
-    async generateView(
+    generateView(
         paths: Array<Array<PathElement>>,
         title: string
-    ): Promise<View> {
+    ): View {
         try {
             let layoutEngine;
             let semanticEngine = new SemanticEngine(paths);

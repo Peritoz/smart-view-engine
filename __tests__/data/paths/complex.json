@@ -1,0 +1,181 @@
+[
+  [
+    {
+      "_id": "",
+      "identifier": "cf933aa8",
+      "name": "Analyst",
+      "maintype": "businessrole",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "fe87eaab",
+      "name": "Perform Corporative Analysis",
+      "maintype": "businessprocess",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "d5ce0709",
+      "name": "Archi",
+      "maintype": "applicationcomponent",
+      "ispatternnode": true
+    }
+  ],
+  [
+    {
+      "_id": "",
+      "identifier": "cf933aa8",
+      "name": "Analyst",
+      "maintype": "businessrole",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "fe87eaab",
+      "name": "Perform Corporative Analysis",
+      "maintype": "businessprocess",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "d361cefb",
+      "name": "Git Client",
+      "maintype": "applicationcomponent",
+      "ispatternnode": true
+    }
+  ],
+  [
+    {
+      "_id": "",
+      "identifier": "cf933aa8",
+      "name": "Analyst",
+      "maintype": "businessrole",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "fe87eaab",
+      "name": "Perform Corporative Analysis",
+      "maintype": "businessprocess",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "63a1ccd0",
+      "name": "Arktect",
+      "maintype": "applicationcomponent",
+      "ispatternnode": true
+    }
+  ],
+  [
+    {
+      "_id": "",
+      "identifier": "89e202e0",
+      "name": "Guest",
+      "maintype": "businessrole",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "fe87eaab",
+      "name": "Perform Corporative Analysis",
+      "maintype": "businessprocess",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "d5ce0709",
+      "name": "Archi",
+      "maintype": "applicationcomponent",
+      "ispatternnode": true
+    }
+  ],
+  [
+    {
+      "_id": "",
+      "identifier": "89e202e0",
+      "name": "Guest",
+      "maintype": "businessrole",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "fe87eaab",
+      "name": "Perform Corporative Analysis",
+      "maintype": "businessprocess",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "d361cefb",
+      "name": "Git Client",
+      "maintype": "applicationcomponent",
+      "ispatternnode": true
+    }
+  ],
+  [
+    {
+      "_id": "",
+      "identifier": "89e202e0",
+      "name": "Guest",
+      "maintype": "businessrole",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "fe87eaab",
+      "name": "Perform Corporative Analysis",
+      "maintype": "businessprocess",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "63a1ccd0",
+      "name": "Arktect",
+      "maintype": "applicationcomponent",
+      "ispatternnode": true
+    }
+  ],
+  [
+    {
+      "_id": "",
+      "identifier": "cf933aa8",
+      "name": "Analyst",
+      "maintype": "businessrole",
+      "ispatternnode": true
+    }
+  ],
+  [
+    {
+      "_id": "",
+      "identifier": "cf933aa8",
+      "name": "Analyst",
+      "maintype": "businessrole",
+      "ispatternnode": true
+    }
+  ],
+  [
+    {
+      "_id": "",
+      "identifier": "cf933aa8",
+      "name": "Analyst",
+      "maintype": "businessrole",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "7c4941eb",
+      "name": "Provide Updated Data",
+      "maintype": "businessprocess",
+      "ispatternnode": true
+    },
+    {
+      "_id": "",
+      "identifier": "63a1ccd0",
+      "name": "Arktect",
+      "maintype": "applicationcomponent",
+      "ispatternnode": true
+    }
+  ]
+]
