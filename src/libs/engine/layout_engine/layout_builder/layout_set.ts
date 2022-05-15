@@ -123,7 +123,7 @@ export class LayoutSet {
         if (parentId) {
             const parent = this.containerMap.get(parentId);
 
-            if (parent instanceof LayoutElementGroup) {
+            if (parent instanceof LayoutRow || parent instanceof LayoutCol) {
                 parent.adjustDimensionsToChildren();
                 parent.applyDistribution();
 

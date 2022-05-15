@@ -116,11 +116,17 @@ export class LayoutRow extends LayoutElementGroup {
         this.applyCrossAxisDistribution();
     }
 
+    /**
+     * Distributes children over the element area, considering Main Axis and Cross Axis alignment options
+     */
     applyDistribution() {
         this.applyMainAxisDistribution();
         this.applyCrossAxisDistribution();
     }
 
+    /**
+     * Distributes children over the element area, considering Main Axis alignment option
+     */
     applyMainAxisDistribution() {
         const refSize = super.getOptimalSize();
         const refPadding = super.getOptimalPadding();
@@ -150,6 +156,9 @@ export class LayoutRow extends LayoutElementGroup {
         }
     }
 
+    /**
+     * Distributes children over the element area, considering Cross Axis alignment option
+     */
     applyCrossAxisDistribution() {
         // Adjusting size and position for all children
         for (let i = 0; i < this.children.length; i++) {
