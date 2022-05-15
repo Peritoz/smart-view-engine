@@ -99,8 +99,10 @@ export class LayoutDirector {
         return element;
     }
 
-    navigateToParent(jumpsUpward: number) {
-        for (let i = 0; i < jumpsUpward; i++) {
+    navigateToParent(jumpsUpward: number | undefined) {
+        const hoops: number = jumpsUpward ? jumpsUpward : 1;
+
+        for (let i = 0; i < hoops; i++) {
             this.layoutSet.navigateToParent();
         }
     }
