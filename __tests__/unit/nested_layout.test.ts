@@ -1,5 +1,5 @@
-import { LayoutTypes } from "../../src/libs/common/layout_types.enum";
-import { SmartViewEngine } from "../../src";
+import {LayoutTypes} from "../../src/libs/common/layout_types.enum";
+import {SmartViewEngine} from "../../src";
 import {View} from "../../src/libs/model/view";
 import {ViewNode} from "../../src/libs/model/view_node";
 
