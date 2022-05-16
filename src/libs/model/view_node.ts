@@ -5,12 +5,12 @@ export interface NodeBlock {
     y: number;
     width: number;
     height: number;
+    parentId: string | null;
 }
 
 export interface ViewNode extends NodeBlock {
     modelNodeId: string;
     viewNodeId: string;
-    parent: string | null;
 }
 
 export interface TreeElement {

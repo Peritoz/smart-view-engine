@@ -1,4 +1,4 @@
-import uniqId from 'uniqid';
+import uniqId from "uniqid";
 import {NodeBlock} from "@libs/model/view_node";
 
 export class BaseElement {
@@ -52,6 +52,14 @@ export class BaseElement {
 
     setY(y: number) {
         this.node.y = y;
+    }
+
+    getParentId(): string | null {
+        return this.node.parentId;
+    }
+
+    setParentId(id: string) {
+        this.node.parentId = id;
     }
 
     translatePosition(deltaX: number, deltaY: number) {
