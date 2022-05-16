@@ -4,6 +4,7 @@ import {NestedLayoutEngine} from "./layout_engine/linear/hierarchical/specialize
 import {HierarchyLayoutEngine} from "./layout_engine/linear/hierarchical/specialized/hierarchy_layout_engine";
 import {SemanticEngine} from "./semantic_engine/semantic_engine";
 import {View} from "@libs/model/view";
+import {HydratedView} from "@libs/model/hydrated_view";
 
 export interface PathElement {
     identifier: string;
@@ -18,10 +19,7 @@ export class SmartViewEngine {
         this.settings = settings;
     }
 
-    generateView(
-        paths: Array<Array<PathElement>>,
-        title: string
-    ): View {
+    generateView(paths: Array<Array<PathElement>>, title: string): View | null {
         try {
             let layoutEngine;
             let semanticEngine = new SemanticEngine(paths);
@@ -31,7 +29,10 @@ export class SmartViewEngine {
                     layoutEngine = new NestedLayoutEngine(this.settings, semanticEngine);
                     break;
                 case LayoutTypes.HIERARCHY:
-                    layoutEngine = new HierarchyLayoutEngine(this.settings, semanticEngine);
+                    layoutEngine = new HierarchyLayoutEngine(
+                        this.settings,
+                        semanticEngine
+                    );
                     break;
                 default:
                     layoutEngine = new NestedLayoutEngine(this.settings, semanticEngine);
@@ -39,14 +40,21 @@ export class SmartViewEngine {
 
             semanticEngine.processPaths();
 
-            let view = layoutEngine.convertToView(title || "Unknown");
+            const view = layoutEngine.convertToView(title || "Unknown");
+            const hydratedView: HydratedView | undefined =
+                layoutEngine.processLayout(view);
 
-            layoutEngine.processLayout(view);
+            if (hydratedView !== undefined) {
+                // Sort all view nodes hierarchically
+                hydratedView.sortViewNodesParentsFirst();
 
-            // IMPORTANT: Sorting to put upper level nodes first because of the diagram rendering logic
-            view.sortViewNodesParentsFirst();
+                // Validates and removes inconsistences
+                hydratedView.clear();
 
-            return view.getView();
+                return hydratedView.getView();
+            } else {
+                return null;
+            }
         } catch (e) {
             throw new Error("Unable to render smart view");
         }
