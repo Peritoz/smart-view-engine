@@ -8,7 +8,7 @@ export class LayoutCol extends LayoutElementGroup {
         mainAxisAlignment: Alignment,
         crossAxisAlignment: Alignment,
         settings: Settings,
-        parentId: string,
+        parentId: string | null,
         withoutMargin: boolean
     ) {
         super(mainAxisAlignment, crossAxisAlignment, settings, parentId, withoutMargin);
@@ -93,6 +93,7 @@ export class LayoutCol extends LayoutElementGroup {
             if (container instanceof BaseElement) {
                 this.applyMainAxisDistribution();
                 this.applyCrossAxisDistribution();
+                container.setParentId(this.id);
             }
         }
     }
