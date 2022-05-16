@@ -13,7 +13,7 @@ export class VisibleLayoutCol extends LayoutCol {
         mainAxisAlignment: Alignment,
         crossAxisAlignment: Alignment,
         settings: Settings,
-        parentId: string,
+        parentId: string | null,
         name: string,
         type: string,
         lateralLabel: boolean

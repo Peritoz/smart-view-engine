@@ -13,7 +13,7 @@ export class VisibleLayoutRow extends LayoutRow {
         mainAxisAlignment: Alignment,
         crossAxisAlignment: Alignment,
         settings: Settings,
-        parentId: string,
+        parentId: string | null,
         name: string,
         type: string,
         lateralLabel: boolean

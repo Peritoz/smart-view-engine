@@ -6,7 +6,7 @@ const uniqId = require('uniqid');
 
 export class LayoutElementGroup {
     protected id: string;
-    protected parentId: string;
+    protected parentId: string | null;
     protected settings: Settings;
     protected mainAxisAlignment: Alignment;
     protected crossAxisAlignment: Alignment;
@@ -26,7 +26,7 @@ export class LayoutElementGroup {
         mainAxisAlignment: Alignment,
         crossAxisAlignment: Alignment,
         settings: Settings,
-        parentId: string,
+        parentId: string | null,
         withoutMargin: boolean
     ) {
         this.id = uniqId();
@@ -269,5 +269,6 @@ export class LayoutElementGroup {
         return 0;
     };
 
-    applyDistribution(): void {}
+    applyDistribution(): void {
+    }
 }

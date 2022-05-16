@@ -26,7 +26,10 @@ export class LayoutSet {
      */
     private initializeLayoutSet(layoutGroup: LayoutElementGroup) {
         if (this.set === null) {
-            if (layoutGroup instanceof LayoutRow || layoutGroup instanceof LayoutCol) {
+            if (
+                layoutGroup instanceof LayoutRow ||
+                layoutGroup instanceof LayoutCol
+            ) {
                 this.set = layoutGroup;
             } else {
                 throw new Error("LayoutSets can only be initialize with LayoutGroups");
@@ -41,14 +44,17 @@ export class LayoutSet {
     }
 
     /**
-     * Creates a new elementGroup based on a builder callback
-     * @param elementBuilder
-     * @returns {*}
+     * Creates a new Element Group based on a builder callback
+     * @param buildElement Callback function to build a LayoutElementGroup. It receives the parent id
+     * as parameter (which can be null)
+     * @returns LayoutElementGroup
      */
-    private newElementGroup(elementBuilder: (parentId: string) => LayoutElementGroup) {
+    private newElementGroup(
+        buildElement: (parentId: string | null) => LayoutElementGroup
+    ): LayoutElementGroup {
         const parentLayoutGroup = this.getCurrentLayoutGroup();
         const parentId = parentLayoutGroup ? parentLayoutGroup.getId() : null;
-        const elementGroup = elementBuilder(parentId);
+        const elementGroup = buildElement(parentId);
         const currentLayoutGroup = this.getCurrentLayoutGroup();
 
         if (currentLayoutGroup) {
@@ -63,28 +69,75 @@ export class LayoutSet {
         return elementGroup;
     }
 
-    newRow(mainAxisAlignment: Alignment, crossAxisAlignment: Alignment, withoutMargin: boolean) {
-        return this.newElementGroup((parentId: string) => {
-            return new LayoutRow(mainAxisAlignment, crossAxisAlignment, this.settings, parentId, withoutMargin)
+    newRow(
+        mainAxisAlignment: Alignment,
+        crossAxisAlignment: Alignment,
+        withoutMargin: boolean
+    ) {
+        return this.newElementGroup((parentId: string | null) => {
+            return new LayoutRow(
+                mainAxisAlignment,
+                crossAxisAlignment,
+                this.settings,
+                parentId,
+                withoutMargin
+            );
         });
     }
 
-    newCol(mainAxisAlignment: Alignment, crossAxisAlignment: Alignment, withoutMargin: boolean) {
-        return this.newElementGroup((parentId: string) => {
-            return new LayoutCol(mainAxisAlignment, crossAxisAlignment, this.settings, parentId, withoutMargin)
+    newCol(
+        mainAxisAlignment: Alignment,
+        crossAxisAlignment: Alignment,
+        withoutMargin: boolean
+    ) {
+        return this.newElementGroup((parentId: string | null) => {
+            return new LayoutCol(
+                mainAxisAlignment,
+                crossAxisAlignment,
+                this.settings,
+                parentId,
+                withoutMargin
+            );
         });
     }
 
-    newVisibleRow(name: string, type: string, mainAxisAlignment: Alignment, crossAxisAlignment: Alignment, lateralLabel: boolean) {
-        return this.newElementGroup((parentId: string) => {
-            return new VisibleLayoutRow(mainAxisAlignment, crossAxisAlignment, this.settings, parentId, name, type, lateralLabel);
+    newVisibleRow(
+        name: string,
+        type: string,
+        mainAxisAlignment: Alignment,
+        crossAxisAlignment: Alignment,
+        lateralLabel: boolean
+    ) {
+        return this.newElementGroup((parentId: string | null) => {
+            return new VisibleLayoutRow(
+                mainAxisAlignment,
+                crossAxisAlignment,
+                this.settings,
+                parentId,
+                name,
+                type,
+                lateralLabel
+            );
         });
     }
 
-
-    newVisibleCol(name: string, type: string, mainAxisAlignment: Alignment, crossAxisAlignment: Alignment, lateralLabel: boolean) {
-        return this.newElementGroup((parentId: string) => {
-            return new VisibleLayoutCol(mainAxisAlignment, crossAxisAlignment, this.settings, parentId, name, type, lateralLabel);
+    newVisibleCol(
+        name: string,
+        type: string,
+        mainAxisAlignment: Alignment,
+        crossAxisAlignment: Alignment,
+        lateralLabel: boolean
+    ) {
+        return this.newElementGroup((parentId: string | null) => {
+            return new VisibleLayoutCol(
+                mainAxisAlignment,
+                crossAxisAlignment,
+                this.settings,
+                parentId,
+                name,
+                type,
+                lateralLabel
+            );
         });
     }
 

@@ -15,30 +15,98 @@ export class ElementBuilder {
     }
 
     buildTinyElement(name: string, type: string): BaseElement {
-        return new BaseElement({name, type, width: this.sizeUnit, height: this.sizeUnit, x: 0, y: 0});
+        return new BaseElement({
+            name,
+            type,
+            width: this.sizeUnit,
+            height: this.sizeUnit,
+            x: 0,
+            y: 0,
+            parentId: null,
+        });
     }
 
-    buildSmallElement(name: string, type: string, verticalOrientation: boolean): BaseElement {
+    buildSmallElement(
+        name: string,
+        type: string,
+        verticalOrientation: boolean
+    ): BaseElement {
         if (verticalOrientation) {
-            return new BaseElement({name, type, width: this.sizeUnit, height: 2 * this.sizeUnit, x: 0, y: 0});
+            return new BaseElement({
+                name,
+                type,
+                width: this.sizeUnit,
+                height: 2 * this.sizeUnit,
+                x: 0,
+                y: 0,
+                parentId: null,
+            });
         } else {
-            return new BaseElement({name, type, width: 2 * this.sizeUnit, height: this.sizeUnit, x: 0, y: 0});
+            return new BaseElement({
+                name,
+                type,
+                width: 2 * this.sizeUnit,
+                height: this.sizeUnit,
+                x: 0,
+                y: 0,
+                parentId: null,
+            });
         }
     }
 
-    buildMediumElement(name: string, type: string, verticalOrientation: boolean): BaseElement {
+    buildMediumElement(
+        name: string,
+        type: string,
+        verticalOrientation: boolean
+    ): BaseElement {
         if (verticalOrientation) {
-            return new BaseElement({name, type, width: this.sizeUnit, height: 3 * this.sizeUnit, x: 0, y: 0});
+            return new BaseElement({
+                name,
+                type,
+                width: this.sizeUnit,
+                height: 3 * this.sizeUnit,
+                x: 0,
+                y: 0,
+                parentId: null,
+            });
         } else {
-            return new BaseElement({name, type, width: 3 * this.sizeUnit, height: this.sizeUnit, x: 0, y: 0});
+            return new BaseElement({
+                name,
+                type,
+                width: 3 * this.sizeUnit,
+                height: this.sizeUnit,
+                x: 0,
+                y: 0,
+                parentId: null,
+            });
         }
     }
 
-    buildBigElement(name: string, type: string, verticalOrientation: boolean): BaseElement {
+    buildBigElement(
+        name: string,
+        type: string,
+        verticalOrientation: boolean
+    ): BaseElement {
         if (verticalOrientation) {
-            return new BaseElement({name, type, width: this.sizeUnit, height: 4 * this.sizeUnit, x: 0, y: 0});
+            return new BaseElement({
+                name,
+                type,
+                width: this.sizeUnit,
+                height: 4 * this.sizeUnit,
+                x: 0,
+                y: 0,
+                parentId: null,
+            });
         } else {
-            return new BaseElement({name, type, width: 4 * this.sizeUnit, height: this.sizeUnit, x: 0, y: 0});
+            return new BaseElement({
+                name,
+                type,
+                width: 4 * this.sizeUnit,
+                height: this.sizeUnit,
+                x: 0,
+                y: 0,
+                parentId: null,
+            });
         }
     }
 }

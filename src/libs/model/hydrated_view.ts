@@ -54,7 +54,7 @@ export class HydratedView {
             y: y || 0,
             width: width || DEFAULT.DEFAULT_WIDTH,
             height: height || DEFAULT.DEFAULT_HEIGHT,
-            parent: parentId || null,
+            parentId: parentId || null,
             verticalCoverage: 0,
             children: [],
             nestedCount: 0,
@@ -80,7 +80,7 @@ export class HydratedView {
 
     nestViewNode(parent: HydratedViewNode, childViewNode: HydratedViewNode) {
         if (childViewNode && parent.viewNodeId) {
-            childViewNode.parent = parent.viewNodeId;
+            childViewNode.parentId = parent.viewNodeId;
 
             if (this.hash.children[parent.viewNodeId]) {
                 this.hash.children[parent.viewNodeId] = [
@@ -150,7 +150,7 @@ export class HydratedView {
             viewNode.type,
             viewNode.x,
             viewNode.y,
-            viewNode.parent,
+            viewNode.parentId,
             viewNode.width,
             viewNode.height
         );
@@ -180,5 +180,23 @@ export class HydratedView {
 
     getVerticalBounds() {
         return this.view.bounds.vertical;
+    }
+
+    /**
+     * Validates and removes all inconsistences from the view
+     * @return void
+     */
+    clear(): void {
+        // Cleaning missing parents
+        for (let i = 0; i < this.view.viewNodes.length; i++) {
+            const node = this.view.viewNodes[i];
+            if (node.parentId) {
+                const parent = this.getViewNode(node.parentId);
+
+                if (!parent) {
+                    node.parentId = null;
+                }
+            }
+        }
     }
 }
