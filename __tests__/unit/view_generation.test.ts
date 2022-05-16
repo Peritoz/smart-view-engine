@@ -5,6 +5,7 @@ import {
 import {HydratedView} from "../../src/libs/model/hydrated_view";
 import {Settings} from "../../src/libs/engine/layout_engine/settings";
 import {SmartViewEngine} from "../../src";
+import {HydratedViewNode} from "../../src/libs/model/view_node";
 
 const basicPaths = require("../data/paths/basic.json");
 const complexPaths = require("../data/paths/complex.json");
@@ -26,7 +27,8 @@ describe("Smart View Rendering", () => {
             });
 
             const hierarchyLayoutProcessor = new HierarchyLayoutEngine(
-                layoutSettings, new SemanticEngine([])
+                layoutSettings,
+                new SemanticEngine([])
             );
             const view = new HydratedView("1", "test");
 
@@ -64,14 +66,18 @@ describe("Smart View Rendering", () => {
 
             const view = smartView.generateView(basicPaths, "T1");
 
-            const A = view.viewNodes.find((n) => n.name === "A");
-            const B = view.viewNodes.find((n) => n.name === "B");
-            const B1 = view.viewNodes.find((n) => n.name === "B1");
-            const B11 = view.viewNodes.find((n) => n.name === "B1-1");
-            const B2 = view.viewNodes.find((n) => n.name === "B2");
-            const B21 = view.viewNodes.find((n) => n.name === "B2-1");
-            const C = view.viewNodes.find((n) => n.name === "C");
-            const C1 = view.viewNodes.find((n) => n.name === "C1");
+            const A = view.viewNodes.find((n: HydratedViewNode) => n.name === "A");
+            const B = view.viewNodes.find((n: HydratedViewNode) => n.name === "B");
+            const B1 = view.viewNodes.find((n: HydratedViewNode) => n.name === "B1");
+            const B11 = view.viewNodes.find(
+                (n: HydratedViewNode) => n.name === "B1-1"
+            );
+            const B2 = view.viewNodes.find((n: HydratedViewNode) => n.name === "B2");
+            const B21 = view.viewNodes.find(
+                (n: HydratedViewNode) => n.name === "B2-1"
+            );
+            const C = view.viewNodes.find((n: HydratedViewNode) => n.name === "C");
+            const C1 = view.viewNodes.find((n: HydratedViewNode) => n.name === "C1");
 
             expect(A).toBeDefined();
             expect(B).toBeDefined();
@@ -130,17 +136,27 @@ describe("Smart View Rendering", () => {
 
             const view = smartView.generateView(complexPaths, "T1");
 
-            const Analyst = view.viewNodes.find((n) => n.name === "Analyst");
-            const Guest = view.viewNodes.find((n) => n.name === "Guest");
+            const Analyst = view.viewNodes.find(
+                (n: HydratedViewNode) => n.name === "Analyst"
+            );
+            const Guest = view.viewNodes.find(
+                (n: HydratedViewNode) => n.name === "Guest"
+            );
             const PerformAnalysis = view.viewNodes.find(
-                (n) => n.name === "Perform Corporative Analysis"
+                (n: HydratedViewNode) => n.name === "Perform Corporative Analysis"
             );
             const ProvideData = view.viewNodes.find(
-                (n) => n.name === "Provide Updated Data"
+                (n: HydratedViewNode) => n.name === "Provide Updated Data"
             );
-            const Archi = view.viewNodes.find((n) => n.name === "Archi");
-            const GitClient = view.viewNodes.find((n) => n.name === "Git Client");
-            const Arktect = view.viewNodes.find((n) => n.name === "Arktect");
+            const Archi = view.viewNodes.find(
+                (n: HydratedViewNode) => n.name === "Archi"
+            );
+            const GitClient = view.viewNodes.find(
+                (n: HydratedViewNode) => n.name === "Git Client"
+            );
+            const Arktect = view.viewNodes.find(
+                (n: HydratedViewNode) => n.name === "Arktect"
+            );
 
             expect(Analyst).toBeDefined();
             expect(Guest).toBeDefined();
@@ -208,14 +224,18 @@ describe("Smart View Rendering", () => {
 
             const view = smartView.generateView(basicPaths, "T1");
 
-            const A = view.viewNodes.find((n) => n.name === "A");
-            const B = view.viewNodes.find((n) => n.name === "B");
-            const B1 = view.viewNodes.find((n) => n.name === "B1");
-            const B11 = view.viewNodes.find((n) => n.name === "B1-1");
-            const B2 = view.viewNodes.find((n) => n.name === "B2");
-            const B21 = view.viewNodes.find((n) => n.name === "B2-1");
-            const C = view.viewNodes.find((n) => n.name === "C");
-            const C1 = view.viewNodes.find((n) => n.name === "C1");
+            const A = view.viewNodes.find((n: HydratedViewNode) => n.name === "A");
+            const B = view.viewNodes.find((n: HydratedViewNode) => n.name === "B");
+            const B1 = view.viewNodes.find((n: HydratedViewNode) => n.name === "B1");
+            const B11 = view.viewNodes.find(
+                (n: HydratedViewNode) => n.name === "B1-1"
+            );
+            const B2 = view.viewNodes.find((n: HydratedViewNode) => n.name === "B2");
+            const B21 = view.viewNodes.find(
+                (n: HydratedViewNode) => n.name === "B2-1"
+            );
+            const C = view.viewNodes.find((n: HydratedViewNode) => n.name === "C");
+            const C1 = view.viewNodes.find((n: HydratedViewNode) => n.name === "C1");
 
             expect(A).toBeDefined();
             expect(B).toBeDefined();
@@ -274,17 +294,27 @@ describe("Smart View Rendering", () => {
 
             const view = smartView.generateView(complexPaths, "T1");
 
-            const Analyst = view.viewNodes.find((n) => n.name === "Analyst");
-            const Guest = view.viewNodes.find((n) => n.name === "Guest");
+            const Analyst = view.viewNodes.find(
+                (n: HydratedViewNode) => n.name === "Analyst"
+            );
+            const Guest = view.viewNodes.find(
+                (n: HydratedViewNode) => n.name === "Guest"
+            );
             const PerformAnalysis = view.viewNodes.find(
-                (n) => n.name === "Perform Corporative Analysis"
+                (n: HydratedViewNode) => n.name === "Perform Corporative Analysis"
             );
             const ProvideData = view.viewNodes.find(
-                (n) => n.name === "Provide Updated Data"
+                (n: HydratedViewNode) => n.name === "Provide Updated Data"
             );
-            const Archi = view.viewNodes.find((n) => n.name === "Archi");
-            const GitClient = view.viewNodes.find((n) => n.name === "Git Client");
-            const Arktect = view.viewNodes.find((n) => n.name === "Arktect");
+            const Archi = view.viewNodes.find(
+                (n: HydratedViewNode) => n.name === "Archi"
+            );
+            const GitClient = view.viewNodes.find(
+                (n: HydratedViewNode) => n.name === "Git Client"
+            );
+            const Arktect = view.viewNodes.find(
+                (n: HydratedViewNode) => n.name === "Arktect"
+            );
 
             expect(Analyst).toBeDefined();
             expect(Guest).toBeDefined();
