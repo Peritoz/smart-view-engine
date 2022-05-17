@@ -27,7 +27,11 @@ export class BaseElement {
     }
 
     setWidth(width: number) {
-        this.node.width = width;
+        if (width >= 0) {
+            this.node.width = width;
+        } else {
+            throw new Error("Width cannot be nagative");
+        }
     }
 
     getHeight() {
@@ -35,7 +39,11 @@ export class BaseElement {
     }
 
     setHeight(height: number) {
-        this.node.height = height;
+        if (height >= 0) {
+            this.node.height = height;
+        } else {
+            throw new Error("Height cannot be nagative");
+        }
     }
 
     getX() {
@@ -58,7 +66,7 @@ export class BaseElement {
         return this.node.parentId;
     }
 
-    setParentId(id: string) {
+    setParentId(id: string | null) {
         this.node.parentId = id;
     }
 

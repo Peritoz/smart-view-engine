@@ -35,7 +35,7 @@ export class HydratedView {
     }
 
     createViewNode(
-        identifier: string,
+        modelNodeId: string,
         viewNodeId: string,
         name: string,
         type: string,
@@ -46,7 +46,7 @@ export class HydratedView {
         height?: number
     ): HydratedViewNode {
         return {
-            modelNodeId: identifier,
+            modelNodeId: modelNodeId,
             viewNodeId: viewNodeId,
             name: name,
             type: type,
@@ -62,17 +62,17 @@ export class HydratedView {
     }
 
     addViewNode(viewNode: HydratedViewNode) {
-        if (viewNode.viewNodeId && viewNode.modelNodeId) {
+        if (viewNode.viewNodeId) {
             if (!this.hash.nodes[viewNode.viewNodeId]) {
                 // Avoiding to add duplicated viewNodes
                 this.view.viewNodes.push(viewNode);
 
                 this.hash.nodes[viewNode.viewNodeId] = viewNode;
 
-                if (this.hash.similar[viewNode.modelNodeId]) {
-                    this.hash.similar[viewNode.modelNodeId].push(viewNode);
+                if (this.hash.similar[viewNode.viewNodeId]) {
+                    this.hash.similar[viewNode.viewNodeId].push(viewNode);
                 } else {
-                    this.hash.similar[viewNode.modelNodeId] = [viewNode];
+                    this.hash.similar[viewNode.viewNodeId] = [viewNode];
                 }
             }
         }
@@ -130,16 +130,32 @@ export class HydratedView {
         return null;
     }
 
+    getViewNodeChildren(viewNodeId: string): Array<HydratedViewNode> {
+        let children: Array<HydratedViewNode> = [];
+        let childrenIds = this.hash.children[viewNodeId];
+
+        for (let i = 0; i < childrenIds.length; i++) {
+            const id = childrenIds[i];
+            const child = this.getViewNode(id);
+
+            if (child) {
+                children.push(child);
+            }
+        }
+
+        return children;
+    }
+
     getViewNodesCount() {
         return this.view.viewNodes.length;
     }
 
-    getSimilarNodes(modelNodeId: string) {
-        return this.hash.similar[modelNodeId];
+    getSimilarNodes(viewNodeId: string) {
+        return this.hash.similar[viewNodeId];
     }
 
-    copyViewNodeAndItsChildren(viewNode: HydratedViewNode) {
-        const similarNodes = this.getSimilarNodes(viewNode.modelNodeId);
+    copyViewNodeAndItsChildren(viewNode: HydratedViewNode): HydratedViewNode {
+        const similarNodes = this.getSimilarNodes(viewNode.viewNodeId);
         const similarNodesCount =
             similarNodes && Array.isArray(similarNodes) ? similarNodes.length : 0;
 
