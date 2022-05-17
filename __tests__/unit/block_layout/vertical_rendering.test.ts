@@ -1,8 +1,8 @@
 // @ts-nocheck
-import {Settings} from "../../src/libs/engine/layout_engine/settings";
-import {Alignment} from "../../src/libs/common/alignment.enum";
-import {LayoutCol} from "../../src/libs/engine/layout_engine/layout_builder/layout_col";
-import {ElementBuilder} from "../../src/libs/engine/layout_engine/layout_builder/element_builder";
+import {Settings} from "../../../src/libs/engine/layout_engine/settings";
+import {Alignment} from "../../../src/libs/common/alignment.enum";
+import {LayoutCol} from "../../../src/libs/engine/layout_engine/layout_builder/layout_col";
+import {ElementBuilder} from "../../../src/libs/engine/layout_engine/layout_builder/element_builder";
 
 const settings = new Settings(
     {

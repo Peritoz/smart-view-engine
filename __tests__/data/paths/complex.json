@@ -17,7 +17,7 @@
     {
       "_id": "",
       "identifier": "d5ce0709",
-      "name": "Archi",
+      "name": "Modelling Tool",
       "type": "applicationcomponent",
       "ispatternnode": true
     }
@@ -63,7 +63,7 @@
     {
       "_id": "",
       "identifier": "63a1ccd0",
-      "name": "Arktect",
+      "name": "Company",
       "type": "applicationcomponent",
       "ispatternnode": true
     }
@@ -86,7 +86,7 @@
     {
       "_id": "",
       "identifier": "d5ce0709",
-      "name": "Archi",
+      "name": "Modelling Tool",
       "type": "applicationcomponent",
       "ispatternnode": true
     }
@@ -132,7 +132,7 @@
     {
       "_id": "",
       "identifier": "63a1ccd0",
-      "name": "Arktect",
+      "name": "Company",
       "type": "applicationcomponent",
       "ispatternnode": true
     }
@@ -173,7 +173,7 @@
     {
       "_id": "",
       "identifier": "63a1ccd0",
-      "name": "Arktect",
+      "name": "Company",
       "type": "applicationcomponent",
       "ispatternnode": true
     }
