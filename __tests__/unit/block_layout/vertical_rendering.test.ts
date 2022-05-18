@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {Settings} from "../../../src/libs/engine/layout_engine/settings";
 import {Alignment} from "../../../src/libs/common/alignment.enum";
 import {LayoutCol} from "../../../src/libs/engine/layout_engine/layout_builder/layout_col";
@@ -21,9 +20,9 @@ describe('Vertical Rendering', () => {
     it('Vertical - Main Axis - Start Alignment', async () => {
         let group = new LayoutCol(Alignment.START, Alignment.START, settings, null, false);
 
-        group.addContainer(elementBuilder.buildElement({width: 25, height: 50, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 50, height: 100, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 60, height: 150, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "A", width: 25, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "B", width: 50, height: 100, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "C", width: 60, height: 150, x: 0, y: 0}));
 
         group.setMaximumMainLength(500);
 
@@ -40,9 +39,9 @@ describe('Vertical Rendering', () => {
     it('Vertical - Main Axis - End Alignment', async () => {
         let group = new LayoutCol(Alignment.END, Alignment.START, settings, null, false);
 
-        group.addContainer(elementBuilder.buildElement({width: 25, height: 50, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 50, height: 100, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 60, height: 150, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "A", width: 25, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "B", width: 50, height: 100, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "C", width: 60, height: 150, x: 0, y: 0}));
 
         group.setMaximumMainLength(500);
 
@@ -59,9 +58,9 @@ describe('Vertical Rendering', () => {
     it('Vertical - Main Axis - Center Alignment', async () => {
         let group = new LayoutCol(Alignment.CENTER, Alignment.START, settings, null, false);
 
-        group.addContainer(elementBuilder.buildElement({width: 25, height: 50, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 50, height: 50, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 60, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "A", width: 25, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "B", width: 50, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "C", width: 60, height: 50, x: 0, y: 0}));
 
         group.setMaximumMainLength(500);
 
@@ -78,9 +77,9 @@ describe('Vertical Rendering', () => {
     it('Vertical - Main Axis - Space Between Alignment', async () => {
         let group = new LayoutCol(Alignment.EXPANDED, Alignment.EXPANDED, settings, null, false);
 
-        group.addContainer(elementBuilder.buildElement({width: 25, height: 50, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 50, height: 100, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 60, height: 150, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "A", width: 25, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "B", width: 50, height: 100, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "C", width: 60, height: 150, x: 0, y: 0}));
 
         group.setMaximumMainLength(400);
 
@@ -97,9 +96,9 @@ describe('Vertical Rendering', () => {
     it('Vertical - Cross Axis - Start Alignment', async () => {
         let group = new LayoutCol(Alignment.START, Alignment.START, settings, null, false);
 
-        group.addContainer(elementBuilder.buildElement({width: 25, height: 50, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 50, height: 50, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 60, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "A", width: 25, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "B", width: 50, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "C", width: 60, height: 50, x: 0, y: 0}));
 
         group.setMaximumMainLength(500);
 
@@ -116,9 +115,9 @@ describe('Vertical Rendering', () => {
     it('Vertical - Cross Axis - End Alignment', async () => {
         let group = new LayoutCol(Alignment.START, Alignment.END, settings, null, false);
 
-        group.addContainer(elementBuilder.buildElement({width: 25, height: 50, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 50, height: 50, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 60, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "A", width: 25, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "B", width: 50, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "C", width: 60, height: 50, x: 0, y: 0}));
 
         group.setMaximumMainLength(500);
 
@@ -135,9 +134,9 @@ describe('Vertical Rendering', () => {
     it('Vertical - Cross Axis - Center Alignment', async () => {
         let group = new LayoutCol(Alignment.START, Alignment.CENTER, settings, null, false);
 
-        group.addContainer(elementBuilder.buildElement({width: 25, height: 50, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 50, height: 50, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 60, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "A", width: 25, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "B", width: 50, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "C", width: 60, height: 50, x: 0, y: 0}));
 
         group.setMaximumMainLength(500);
 
@@ -154,9 +153,9 @@ describe('Vertical Rendering', () => {
     it('Vertical - Cross Axis - Space Between Alignment', async () => {
         let group = new LayoutCol(Alignment.START, Alignment.EXPANDED, settings, null, false);
 
-        group.addContainer(elementBuilder.buildElement({width: 25, height: 50, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 50, height: 50, x: 0, y: 0}));
-        group.addContainer(elementBuilder.buildElement({width: 60, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "A", width: 25, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "B", width: 50, height: 50, x: 0, y: 0}));
+        group.addContainer(elementBuilder.buildElement({name: "C", width: 60, height: 50, x: 0, y: 0}));
 
         group.setMaximumMainLength(500);
 

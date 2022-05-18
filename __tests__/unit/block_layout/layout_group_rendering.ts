@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {LayoutDirector} from "../../../src/libs/engine/layout_engine/layout_builder/layout_director";
 import {Settings} from "../../../src/libs/engine/layout_engine/settings";
 import {Alignment} from "../../../src/libs/common/alignment.enum";

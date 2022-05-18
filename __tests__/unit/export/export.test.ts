@@ -23,14 +23,14 @@ describe('Complex Rendering', () => {
         director.newRow(Alignment.START, Alignment.START, true);
         director.newCol(Alignment.START, Alignment.START, false);
 
-        director.addToCurrentGroup(elementBuilder.buildElement({width: 50, height: 25, x: 0, y: 0}));
-        director.addToCurrentGroup(elementBuilder.buildElement({width: 60, height: 50, x: 0, y: 0}));
+        director.addToCurrentGroup(elementBuilder.buildElement({name: "A", width: 50, height: 25, x: 0, y: 0}));
+        director.addToCurrentGroup(elementBuilder.buildElement({name: "B", width: 60, height: 50, x: 0, y: 0}));
 
         director.navigateToParent();
         director.newCol(Alignment.START, Alignment.START, false);
 
-        director.addToCurrentGroup(elementBuilder.buildElement({width: 25, height: 60, x: 0, y: 0}));
-        director.addToCurrentGroup(elementBuilder.buildElement({width: 50, height: 40, x: 0, y: 0}));
+        director.addToCurrentGroup(elementBuilder.buildElement({name: "C", width: 25, height: 60, x: 0, y: 0}));
+        director.addToCurrentGroup(elementBuilder.buildElement({name: "D", width: 50, height: 40, x: 0, y: 0}));
 
         director.toAbsolutePosition();
 
