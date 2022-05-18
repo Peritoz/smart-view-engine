@@ -1,13 +1,28 @@
 import uniqId from "uniqid";
 import {NodeBlock} from "@libs/model/view_node";
+import {DEFAULT} from "@libs/common/size_reference.const";
 
 export class BaseElement {
     protected id: string;
     protected node: NodeBlock;
 
-    constructor(viewNode: NodeBlock) {
+    constructor(viewNode: Partial<NodeBlock>) {
+        if (!viewNode.name) {
+            throw new Error("Name is required when creating Base Element");
+        }
+
+        const node: NodeBlock = {
+            name: viewNode.name,
+            type: viewNode.type || "",
+            x: viewNode.x || 0,
+            y: viewNode.y || 0,
+            width: viewNode.width || DEFAULT.DEFAULT_WIDTH, // TODO: Get from a singleton the set default value
+            height: viewNode.height || DEFAULT.DEFAULT_HEIGHT, // TODO: Get from a singleton the set default value
+            parentId: viewNode.parentId || null,
+        };
+
         this.id = uniqId();
-        this.node = viewNode;
+        this.node = node;
     }
 
     getId() {
