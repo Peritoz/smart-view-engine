@@ -2,7 +2,7 @@ import {Alignment} from "@libs/common/alignment.enum";
 import {Settings} from "@libs/engine/layout_engine/settings";
 import {BaseElement} from "@libs/model/base_element";
 
-const uniqId = require('uniqid');
+const uniqId = require("uniqid");
 
 export class LayoutElementGroup {
     protected id: string;
@@ -17,6 +17,7 @@ export class LayoutElementGroup {
     protected mainLength: number;
     protected crossLength: number;
     protected virtualMainLength: number;
+    protected virtualCrossLength: number;
     protected sizeReference: number;
     protected maxChildSize: number;
     protected subTreeCounting: number;
@@ -40,7 +41,8 @@ export class LayoutElementGroup {
         this.y = 0;
         this.mainLength = 0; // Not the length of Children, but refers to the real size (in points) of the group
         this.crossLength = 0;
-        this.virtualMainLength = 0; // Related to arbitrary group's Main Length
+        this.virtualMainLength = 0; // Related to arbitrary (non derived from children dimensions) group's Main Length
+        this.virtualCrossLength = 0; // Related to arbitrary (non derived from children dimensions) group's Cross Length
         this.sizeReference = 0; // Represents the size of each element (without padding between) that fulfill the group length
         this.maxChildSize = 0; // Represents the size of the biggest child (related to the main length)
         this.subTreeCounting = -1; // Total number of elements inside the subtree formed by its children. Starts with -1 to not consider the element itself
@@ -73,7 +75,8 @@ export class LayoutElementGroup {
         if (container) {
             this.children.push(container);
 
-            this.hasNestedGroup = this.hasNestedGroup || container instanceof LayoutElementGroup;
+            this.hasNestedGroup =
+                this.hasNestedGroup || container instanceof LayoutElementGroup;
         }
     }
 
@@ -113,7 +116,8 @@ export class LayoutElementGroup {
 
         // Adding space between
         if (notEmptyChildCount > 0) {
-            const spaceBetweenTotalIncrement = (notEmptyChildCount - 1) * this.settings.spaceBetween;
+            const spaceBetweenTotalIncrement =
+                (notEmptyChildCount - 1) * this.settings.spaceBetween;
 
             this.incrementMainLength(spaceBetweenTotalIncrement);
         }
@@ -143,15 +147,12 @@ export class LayoutElementGroup {
      * @param deltaY
      */
     translatePosition(deltaX: number, deltaY: number) {
-        const paddingX = this.withoutMargin ? 0 : this.settings.leftPadding;
-        const paddingY = this.withoutMargin ? 0 : this.settings.topPadding;
-
         this.translateElementGroupPosition(deltaX, deltaY);
 
         for (let i = 0; i < this.children.length; i++) {
             const child = this.children[i];
 
-            child.translatePosition(this.getX() + paddingX, this.getY() + paddingY);
+            child.translatePosition(this.getX(), this.getY());
         }
     }
 
@@ -193,7 +194,9 @@ export class LayoutElementGroup {
 
     setMaximumCrossLength(value: number) {
         if (value > this.crossLength) {
-            this.crossLength = value;
+            this.virtualCrossLength = value;
+
+            this.updateSizeReference();
         }
     }
 
@@ -206,8 +209,11 @@ export class LayoutElementGroup {
     }
 
     updateSizeReference() {
-        const virtualLengthWithoutPadding = this.virtualMainLength - ((this.children.length - 1) * this.getOptimalPadding());
-        const potentialOptimalSize = virtualLengthWithoutPadding / this.children.length;
+        const virtualLengthWithoutPadding =
+            this.virtualMainLength -
+            (this.children.length - 1) * this.getOptimalPadding();
+        const potentialOptimalSize =
+            virtualLengthWithoutPadding / this.children.length;
 
         if (potentialOptimalSize <= this.maxChildSize && this.hasNestedGroup) {
             this.sizeReference = this.maxChildSize;
@@ -244,30 +250,15 @@ export class LayoutElementGroup {
         return this.settings.spaceBetween;
     }
 
-    /**
-     * Based on alignment, returns the optimal start position for children
-     * @returns {number}
-     */
-    getOptimalStartPosition() {
-        if (this.mainAxisAlignment === Alignment.END) {
-            return this.virtualMainLength;
-        } else if (this.mainAxisAlignment === Alignment.CENTER) {
-            const centerPoint = this.virtualMainLength / 2;
-            return centerPoint - this.mainLength / 2;
-        } else {
-            return 0;
-        }
-    }
-
     // TODO: Calculate total width
     getWidth(): number {
         return 0;
-    };
+    }
 
     // TODO: Calculate total height
     getHeight(): number {
         return 0;
-    };
+    }
 
     applyDistribution(): void {
     }

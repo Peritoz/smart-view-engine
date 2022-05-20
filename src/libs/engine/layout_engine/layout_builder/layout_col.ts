@@ -78,6 +78,38 @@ export class LayoutCol extends LayoutElementGroup {
         this.setUsefulHeight(value, 0);
     }
 
+    /**
+     * Based on alignment, returns the optimal the initial X position for children
+     * @returns Initial X position
+     */
+    getInitialXPosition(): number {
+        if (this.crossAxisAlignment === Alignment.END) {
+            return this.virtualCrossLength;
+        } else if (this.crossAxisAlignment === Alignment.CENTER) {
+            const centerPoint = this.virtualCrossLength / 2;
+            return centerPoint - this.crossLength / 2;
+        } else {
+            // START
+            return this.settings.leftPadding;
+        }
+    }
+
+    /**
+     * Based on alignment, returns the optimal the initial Y position for children
+     * @returns Initial Y position
+     */
+    getInitialYPosition(): number {
+        if (this.mainAxisAlignment === Alignment.END) {
+            return this.virtualMainLength;
+        } else if (this.mainAxisAlignment === Alignment.CENTER) {
+            const centerPoint = this.virtualMainLength / 2;
+            return centerPoint - this.mainLength / 2;
+        } else {
+            // START
+            return this.settings.topPadding;
+        }
+    }
+
     addContainer(container: BaseElement | LayoutElementGroup) {
         if (container) {
             super.addContainer(container);
@@ -131,7 +163,7 @@ export class LayoutCol extends LayoutElementGroup {
     applyMainAxisDistribution() {
         const refSize = super.getOptimalSize();
         const refPadding = super.getOptimalPadding();
-        let refPosition = super.getOptimalStartPosition(); // Setting the initial cursor position
+        let refPosition = this.getInitialYPosition(); // Setting the initial cursor position
 
         // Adjusting size and position for all children
         for (let i = 0; i < this.children.length; i++) {
