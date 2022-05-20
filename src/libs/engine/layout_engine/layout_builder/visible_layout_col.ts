@@ -72,8 +72,8 @@ export class VisibleLayoutCol extends LayoutCol {
     }
 
     translatePosition(deltaX: number, deltaY: number) {
-        const marginX = this.withoutMargin ? 0 : this.settings.marginX;
-        const marginY = this.withoutMargin ? 0 : this.settings.marginY;
+        const paddingX = this.withoutMargin ? 0 : this.settings.leftPadding;
+        const paddingY = this.withoutMargin ? 0 : this.settings.topPadding;
 
         this.translateElementGroupPosition(deltaX, deltaY);
 
@@ -81,11 +81,11 @@ export class VisibleLayoutCol extends LayoutCol {
         let childrenStartY;
 
         if (this.lateralLabel) {
-            childrenStartX = this.getX() + marginX + this.labelAreaWidth + this.settings.spaceToOuterLabel;
-            childrenStartY = this.getY() + marginY;
+            childrenStartX = this.getX() + paddingX + this.labelAreaWidth + this.settings.spaceToOuterLabel;
+            childrenStartY = this.getY() + paddingY;
         } else {
-            childrenStartX = this.getX() + marginX;
-            childrenStartY = this.getY() + marginY + this.labelAreaHeight + this.settings.spaceToOuterLabel;
+            childrenStartX = this.getX() + paddingX;
+            childrenStartY = this.getY() + paddingY + this.labelAreaHeight + this.settings.spaceToOuterLabel;
         }
 
         for (let i = 0; i < this.children.length; i++) {

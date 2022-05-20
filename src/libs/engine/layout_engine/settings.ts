@@ -22,12 +22,6 @@ interface SettingsObject {
     bottomPadding: number;
     defaultWidth: number;
     defaultHeight: number;
-    paddingX: number;
-    paddingY: number;
-    marginX: number;
-    marginY: number;
-    innerTopPaddingY: number;
-    innerBottomPaddingY: number;
     pageWidth: number;
     spaceBetween: number;
     spaceToOuterLabel: number;
@@ -46,12 +40,6 @@ export class Settings {
     bottomPadding: number;
     defaultWidth: number;
     defaultHeight: number;
-    paddingX: number;
-    paddingY: number;
-    marginX: number;
-    marginY: number;
-    innerTopPaddingY: number;
-    innerBottomPaddingY: number;
     pageWidth: number;
     spaceBetween: number;
     spaceToOuterLabel: number;
@@ -69,12 +57,6 @@ export class Settings {
                     bottomPadding,
                     defaultWidth,
                     defaultHeight,
-                    paddingX,
-                    paddingY,
-                    marginX,
-                    marginY,
-                    innerTopPaddingY,
-                    innerBottomPaddingY,
                     pageWidth,
                     spaceBetween,
                     spaceToOuterLabel,
@@ -92,12 +74,6 @@ export class Settings {
         this.bottomPadding = bottomPadding || DEFAULT.DEFAULT_PADDING;
         this.defaultWidth = defaultWidth || DEFAULT.DEFAULT_WIDTH;
         this.defaultHeight = defaultHeight || DEFAULT.DEFAULT_HEIGHT;
-        this.paddingX = paddingX || DEFAULT.PADDING_X;
-        this.paddingY = paddingY || DEFAULT.PADDING_Y;
-        this.marginX = marginX || DEFAULT.MARGIN_X;
-        this.marginY = marginY || DEFAULT.MARGIN_Y;
-        this.innerTopPaddingY = innerTopPaddingY || DEFAULT.INNER_TOP_PADDING_Y;
-        this.innerBottomPaddingY = innerBottomPaddingY || DEFAULT.INNER_BOTTOM_PADDING_Y;
         this.labelWidth = labelWidth || DEFAULT.LABEL_WIDTH;
         this.labelHeight = labelHeight || DEFAULT.LABEL_HEIGHT;
         this.spaceToOuterLabel = spaceToOuterLabel || DEFAULT.INNER_BOTTOM_PADDING_Y;

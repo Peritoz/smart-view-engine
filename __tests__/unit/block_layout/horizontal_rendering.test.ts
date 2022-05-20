@@ -12,8 +12,10 @@ const settings = new Settings(
         maxHorizontalCount: 4,
         maxChildHorizontalCount: 2,
         spaceBetween: 5,
-        marginX: 5,
-        marginY: 5,
+        leftPadding: 5,
+        rightPadding: 5,
+        topPadding: 5,
+        bottomPadding: 5,
         spaceToOuterLabel: 10
     }
 );
@@ -256,8 +258,10 @@ describe('Horizontal Rendering', () => {
                 maxChildHorizontalCount: 2,
                 spaceBetween: 2,
                 sizeUnit: 5,
-                marginX: 1,
-                marginY: 1,
+                leftPadding: 1,
+                rightPadding: 1,
+                topPadding: 1,
+                bottomPadding: 1,
                 spaceToOuterLabel: 1,
                 labelWidth: 4,
                 labelHeight: 2
@@ -291,8 +295,10 @@ describe('Horizontal Rendering', () => {
                 maxChildHorizontalCount: 2,
                 spaceBetween: 2,
                 sizeUnit: 5,
-                marginX: 1,
-                marginY: 1,
+                leftPadding: 1,
+                rightPadding: 1,
+                topPadding: 1,
+                bottomPadding: 1,
                 spaceToOuterLabel: 1,
                 labelWidth: 4,
                 labelHeight: 2

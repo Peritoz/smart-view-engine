@@ -19,7 +19,7 @@ export class LayoutRow extends LayoutElementGroup {
             if (this.withoutMargin) {
                 return this.virtualMainLength;
             } else {
-                return this.virtualMainLength + 2 * this.settings.marginX;
+                return this.virtualMainLength + this.settings.leftPadding + this.settings.rightPadding;
             }
         } else {
             return 0;
@@ -31,7 +31,7 @@ export class LayoutRow extends LayoutElementGroup {
             if (this.withoutMargin) {
                 return this.crossLength;
             } else {
-                return this.crossLength + 2 * this.settings.marginY;
+                return this.crossLength + this.settings.topPadding + this.settings.bottomPadding;
             }
         } else {
             return 0;
@@ -42,7 +42,7 @@ export class LayoutRow extends LayoutElementGroup {
         const currentWidth = this.getWidth();
 
         if (value > currentWidth) {
-            const totalMargin = this.withoutMargin ? 0 : 2 * this.settings.marginX;
+            const totalMargin = this.withoutMargin ? 0 : this.settings.leftPadding + this.settings.rightPadding;
 
             if (value > totalMargin) {
                 this.setMaximumMainLength(value - totalMargin - extraWidth);
@@ -58,7 +58,7 @@ export class LayoutRow extends LayoutElementGroup {
         const currentHeight = this.getHeight();
 
         if (value > currentHeight) {
-            const totalMargin = this.withoutMargin ? 0 : 2 * this.settings.marginY;
+            const totalMargin = this.withoutMargin ? 0 : this.settings.topPadding + this.settings.bottomPadding;
 
             if (value > totalMargin) {
                 this.setMaximumCrossLength(value - totalMargin - extraHeight);

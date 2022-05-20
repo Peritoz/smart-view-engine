@@ -17,13 +17,15 @@ export class LayoutEngine {
         lowerElements: Array<HydratedViewNode>
     ) => {
         if (lowerElements) {
-            lowerElements.forEach((childViewNode) => {
+            for (let i = 0; i < lowerElements.length; i++) {
+                const childViewNode = lowerElements[i];
                 let parents = this.semanticEngine.getParents(childViewNode.modelNodeId);
                 let upperElements: Array<HydratedViewNode> = [];
 
                 // Creating parents (viewNodes)
                 if (parents) {
-                    parents.forEach((parent) => {
+                    for (let j = 0; j < parents.length; j++) {
+                        const parent = parents[j];
                         let parentViewNode = view.createViewNode(
                             parent.identifier,
                             parent.identifier,
@@ -47,11 +49,11 @@ export class LayoutEngine {
 
                         // Relating with parent
                         view.nestViewNode(parentViewNode, copyChildViewNode);
-                    });
+                    }
 
                     this.generateView(view, upperElements);
                 }
-            });
+            }
         }
     };
 

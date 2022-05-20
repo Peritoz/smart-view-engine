@@ -143,15 +143,15 @@ export class LayoutElementGroup {
      * @param deltaY
      */
     translatePosition(deltaX: number, deltaY: number) {
-        const marginX = this.withoutMargin ? 0 : this.settings.marginX;
-        const marginY = this.withoutMargin ? 0 : this.settings.marginY;
+        const paddingX = this.withoutMargin ? 0 : this.settings.leftPadding;
+        const paddingY = this.withoutMargin ? 0 : this.settings.topPadding;
 
         this.translateElementGroupPosition(deltaX, deltaY);
 
         for (let i = 0; i < this.children.length; i++) {
             const child = this.children[i];
 
-            child.translatePosition(this.getX() + marginX, this.getY() + marginY);
+            child.translatePosition(this.getX() + paddingX, this.getY() + paddingY);
         }
     }
 

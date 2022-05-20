@@ -1,4 +1,3 @@
-// @ts-nocheck
 import {LayoutDirector} from "../../../src/libs/engine/layout_engine/layout_builder/layout_director";
 import {Settings} from "../../../src/libs/engine/layout_engine/settings";
 import {Alignment} from "../../../src/libs/common/alignment.enum";
@@ -10,8 +9,10 @@ const settings = new Settings(
         maxHorizontalCount: 4,
         maxChildHorizontalCount: 2,
         spaceBetween: 5,
-        marginX: 5,
-        marginY: 5,
+        leftPadding: 5,
+        rightPadding: 5,
+        topPadding: 5,
+        bottomPadding: 5,
         spaceToOuterLabel: 10
     }
 );

@@ -78,7 +78,7 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
         renderAsCol: boolean
     ) {
         throw new Error(
-            "Base class can't render Hierarchy properly. Use specialized classes instead."
+            "Base class can't render Hierarchy properly. Use specialized class instead."
         );
     }
 
