@@ -158,14 +158,6 @@ export class LayoutSet {
     }
   }
 
-  getCurrentLayoutGroupMainLength() {
-    return this.getCurrentLayoutGroup().getMainLength();
-  }
-
-  getCurrentLayoutGroupCrossLength() {
-    return this.getCurrentLayoutGroup().getCrossLength();
-  }
-
   applyGlobalDistribution(initialGroup: LayoutElementGroup) {
     const parentId = initialGroup.getParentId();
 

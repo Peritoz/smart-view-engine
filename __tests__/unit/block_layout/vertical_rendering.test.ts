@@ -208,9 +208,9 @@ describe("Vertical Rendering", () => {
     expect(children[0].getY()).toBe(0);
     expect(children[1].getY()).toBe(135);
     expect(children[2].getY()).toBe(270);
-    expect(children[0].getWidth()).toBe(group.getCrossLength());
-    expect(children[1].getWidth()).toBe(group.getCrossLength());
-    expect(children[2].getWidth()).toBe(group.getCrossLength());
+    expect(children[0].getWidth()).toBe(group.getUsedHeight());
+    expect(children[1].getWidth()).toBe(group.getUsedHeight());
+    expect(children[2].getWidth()).toBe(group.getUsedHeight());
   });
 
   it("Vertical - Cross Axis - Start Alignment", async () => {
@@ -404,8 +404,8 @@ describe("Vertical Rendering", () => {
     expect(children[0].getX()).toBe(0);
     expect(children[1].getX()).toBe(0);
     expect(children[2].getX()).toBe(0);
-    expect(children[0].getWidth()).toBe(group.getCrossLength());
-    expect(children[1].getWidth()).toBe(group.getCrossLength());
-    expect(children[2].getWidth()).toBe(group.getCrossLength());
+    expect(children[0].getWidth()).toBe(group.getUsedHeight());
+    expect(children[1].getWidth()).toBe(group.getUsedHeight());
+    expect(children[2].getWidth()).toBe(group.getUsedHeight());
   });
 });

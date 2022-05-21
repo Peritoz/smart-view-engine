@@ -31,6 +31,14 @@ export class VisibleLayoutCol extends LayoutCol {
       topLeft: { x: this.getInitialXPosition(), y: this.getInitialYPosition() },
       bottomRight: { x: settings.rightPadding, y: settings.bottomPadding },
     };
+
+    // Initializing col dimensions
+    this.setWidth(
+        this.contentBox.topLeft.x + settings.rightPadding
+    );
+    this.setHeight(
+        this.contentBox.topLeft.y + settings.bottomPadding
+    );
   }
 
   getName() {

@@ -211,9 +211,9 @@ describe("Horizontal Rendering", () => {
     expect(children[0].getX()).toBe(0);
     expect(children[1].getX()).toBe(135);
     expect(children[2].getX()).toBe(270);
-    expect(children[0].getHeight()).toBe(group.getCrossLength());
-    expect(children[1].getHeight()).toBe(group.getCrossLength());
-    expect(children[2].getHeight()).toBe(group.getCrossLength());
+    expect(children[0].getHeight()).toBe(group.getUsedHeight());
+    expect(children[1].getHeight()).toBe(group.getUsedHeight());
+    expect(children[2].getHeight()).toBe(group.getUsedHeight());
   });
 
   it("Horizontal - Cross Axis - Start Alignment", async () => {
@@ -407,9 +407,9 @@ describe("Horizontal Rendering", () => {
     expect(children[0].getY()).toBe(0);
     expect(children[1].getY()).toBe(0);
     expect(children[2].getY()).toBe(0);
-    expect(children[0].getHeight()).toBe(group.getCrossLength());
-    expect(children[1].getHeight()).toBe(group.getCrossLength());
-    expect(children[2].getHeight()).toBe(group.getCrossLength());
+    expect(children[0].getHeight()).toBe(group.getUsedHeight());
+    expect(children[1].getHeight()).toBe(group.getUsedHeight());
+    expect(children[2].getHeight()).toBe(group.getUsedHeight());
   });
 
   it("Horizontal - Row Resizing - Elements Adjust to the Size", async () => {
@@ -457,9 +457,9 @@ describe("Horizontal Rendering", () => {
     expect(children[0].getX()).toBe(0);
     expect(children[1].getX()).toBe(135);
     expect(children[2].getX()).toBe(270);
-    expect(children[0].getHeight()).toBe(group.getCrossLength());
-    expect(children[1].getHeight()).toBe(group.getCrossLength());
-    expect(children[2].getHeight()).toBe(group.getCrossLength());
+    expect(children[0].getHeight()).toBe(group.getUsedHeight());
+    expect(children[1].getHeight()).toBe(group.getUsedHeight());
+    expect(children[2].getHeight()).toBe(group.getUsedHeight());
     expect(group.getHeight()).toBe(100);
     expect(group.getWidth()).toBe(410);
   });
@@ -524,9 +524,9 @@ describe("Horizontal Rendering", () => {
 
     expect(row1.getHeight()).toBe(100);
     expect(row1.getWidth()).toBe(120);
-    expect(col1Children[0].getWidth()).toBe(col1.getCrossLength());
-    expect(col1Children[1].getWidth()).toBe(col1.getCrossLength());
-    expect(col2Children[0].getWidth()).toBe(col2.getCrossLength());
+    expect(col1Children[0].getWidth()).toBe(col1.getUsedHeight());
+    expect(col1Children[1].getWidth()).toBe(col1.getUsedHeight());
+    expect(col2Children[0].getWidth()).toBe(col2.getUsedHeight());
   });
 
   it("Horizontal - Row Resizing - Imposed Size", async () => {
@@ -596,9 +596,9 @@ describe("Horizontal Rendering", () => {
     expect(col1Children[0].getHeight()).toBe(50);
     expect(col1Children[1].getHeight()).toBe(50);
     expect(col2Children[0].getHeight()).toBe(105);
-    expect(col1Children[0].getWidth()).toBe(col1.getCrossLength());
-    expect(col1Children[1].getWidth()).toBe(col1.getCrossLength());
-    expect(col2Children[0].getWidth()).toBe(col2.getCrossLength());
+    expect(col1Children[0].getWidth()).toBe(col1.getUsedHeight());
+    expect(col1Children[1].getWidth()).toBe(col1.getUsedHeight());
+    expect(col2Children[0].getWidth()).toBe(col2.getUsedHeight());
     expect(row1.getHeight()).toBe(125);
     expect(row1.getWidth()).toBe(200);
   });

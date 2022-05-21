@@ -33,10 +33,10 @@ export class VisibleLayoutRow extends LayoutRow {
     };
 
     // Initializing row dimensions
-    this.setMaximumMainLength(
+    this.setWidth(
       this.contentBox.topLeft.x + settings.rightPadding
     );
-    this.setMaximumCrossLength(
+    this.setHeight(
       this.contentBox.topLeft.y + settings.bottomPadding
     );
   }
