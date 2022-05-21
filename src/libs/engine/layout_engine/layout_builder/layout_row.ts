@@ -8,29 +8,23 @@ export class LayoutRow extends LayoutElementGroup {
     mainAxisAlignment: Alignment,
     crossAxisAlignment: Alignment,
     settings: Settings,
-    parentId: string | null,
-    withoutPadding: boolean
+    parentId: string | null
   ) {
     super(
       mainAxisAlignment,
       crossAxisAlignment,
       settings,
-      parentId,
-      withoutPadding
+      parentId
     );
   }
 
   getWidth() {
     if (this.children.length > 0) {
-      if (this.withoutPadding) {
-        return this.virtualMainLength;
-      } else {
-        return (
-          this.virtualMainLength +
-          this.settings.leftPadding +
-          this.settings.rightPadding
-        );
-      }
+      return (
+        this.virtualMainLength +
+        this.settings.leftPadding +
+        this.settings.rightPadding
+      );
     } else {
       return 0;
     }
@@ -38,15 +32,11 @@ export class LayoutRow extends LayoutElementGroup {
 
   getHeight() {
     if (this.children.length > 0) {
-      if (this.withoutPadding) {
-        return this.crossLength;
-      } else {
-        return (
-          this.crossLength +
-          this.settings.topPadding +
-          this.settings.bottomPadding
-        );
-      }
+      return (
+        this.crossLength +
+        this.settings.topPadding +
+        this.settings.bottomPadding
+      );
     } else {
       return 0;
     }
@@ -56,9 +46,8 @@ export class LayoutRow extends LayoutElementGroup {
     const currentWidth = this.getWidth();
 
     if (value > currentWidth) {
-      const totalMargin = this.withoutPadding
-        ? 0
-        : this.settings.leftPadding + this.settings.rightPadding;
+      const totalMargin =
+        this.settings.leftPadding + this.settings.rightPadding;
 
       if (value > totalMargin) {
         this.setMaximumMainLength(value - totalMargin - extraWidth);
@@ -74,9 +63,7 @@ export class LayoutRow extends LayoutElementGroup {
     const currentHeight = this.getHeight();
 
     if (value > currentHeight) {
-      const totalMargin = this.withoutPadding
-        ? 0
-        : this.settings.topPadding + this.settings.bottomPadding;
+      const totalMargin = this.settings.topPadding + this.settings.bottomPadding;
 
       if (value > totalMargin) {
         this.setMaximumCrossLength(value - totalMargin - extraHeight);
@@ -94,44 +81,6 @@ export class LayoutRow extends LayoutElementGroup {
 
   setHeight(value: number) {
     this.setUsefulHeight(value, 0);
-  }
-
-  /**
-   * Based on alignment, returns the optimal the initial X position for children
-   * @returns Initial X position
-   */
-  getInitialXPosition(): number {
-    if (this.mainAxisAlignment === Alignment.END) {
-      return this.virtualMainLength;
-    } else if (this.mainAxisAlignment === Alignment.CENTER) {
-      const centerPoint = this.virtualMainLength / 2;
-      return centerPoint - this.mainLength / 2;
-    } else if (!this.withoutPadding) {
-      // START with padding
-      return this.settings.leftPadding;
-    } else {
-      // START without padding
-      return 0;
-    }
-  }
-
-  /**
-   * Based on alignment, returns the optimal the initial Y position for children
-   * @returns Initial Y position
-   */
-  getInitialYPosition(): number {
-    if (this.crossAxisAlignment === Alignment.END) {
-      return this.virtualCrossLength;
-    } else if (this.crossAxisAlignment === Alignment.CENTER) {
-      const centerPoint = this.virtualCrossLength / 2;
-      return centerPoint - this.crossLength / 2;
-    } else if (!this.withoutPadding) {
-      // START with padding
-      return this.settings.topPadding;
-    } else {
-      // START without padding
-      return 0;
-    }
   }
 
   addContainer(container: BaseElement | LayoutElementGroup) {
@@ -189,7 +138,7 @@ export class LayoutRow extends LayoutElementGroup {
   applyMainAxisDistribution() {
     const refSize = super.getOptimalSize();
     const refPadding = super.getOptimalPadding();
-    let refPosition = this.getInitialXPosition(); // Setting the initial cursor position
+    let refPosition = this.contentBox.topLeft.x; // Setting the initial cursor position
 
     // Adjusting size and position for all children
     for (let i = 0; i < this.children.length; i++) {
@@ -229,9 +178,9 @@ export class LayoutRow extends LayoutElementGroup {
 
       if (this.crossAxisAlignment === Alignment.EXPANDED) {
         child.setHeight(super.getCrossLength());
-        child.setY(0);
+        child.setY(this.contentBox.topLeft.y);
       } else if (this.crossAxisAlignment === Alignment.START) {
-        child.setY(0);
+        child.setY(this.contentBox.topLeft.y);
       } else if (this.crossAxisAlignment === Alignment.CENTER) {
         child.setY(super.getCrossLength() / 2 - mainSize / 2);
       } else if (this.crossAxisAlignment === Alignment.END) {

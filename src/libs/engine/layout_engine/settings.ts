@@ -12,24 +12,6 @@ function layoutToCode(layout: string) {
   }
 }
 
-interface SettingsObject {
-  layoutType: LayoutTypes;
-  maxHorizontalCount: number;
-  maxChildHorizontalCount: number;
-  leftPadding: number;
-  rightPadding: number;
-  topPadding: number;
-  bottomPadding: number;
-  defaultWidth: number;
-  defaultHeight: number;
-  pageWidth: number;
-  spaceBetween: number;
-  spaceToOuterLabel: number;
-  labelWidth: number;
-  labelHeight: number;
-  sizeUnit: number;
-}
-
 export class Settings {
   layoutType: LayoutTypes;
   maxHorizontalCount: number;
@@ -45,6 +27,7 @@ export class Settings {
   spaceToOuterLabel: number;
   labelWidth: number;
   labelHeight: number;
+  lateralLabel: boolean;
   sizeUnit: number;
 
   constructor({
@@ -62,8 +45,9 @@ export class Settings {
     spaceToOuterLabel,
     labelWidth,
     labelHeight,
+    lateralLabel,
     sizeUnit,
-  }: Partial<SettingsObject>) {
+  }: Partial<Settings>) {
     this.layoutType = layoutType
       ? layoutToCode(layoutType)
       : LayoutTypes.NESTED;
@@ -80,6 +64,7 @@ export class Settings {
     this.defaultHeight = defaultHeight || DEFAULT.DEFAULT_HEIGHT;
     this.labelWidth = labelWidth || DEFAULT.LABEL_WIDTH;
     this.labelHeight = labelHeight || DEFAULT.LABEL_HEIGHT;
+    this.lateralLabel = lateralLabel || false;
     this.spaceToOuterLabel =
       spaceToOuterLabel || DEFAULT.INNER_BOTTOM_PADDING_Y;
     this.pageWidth = pageWidth || 1200;

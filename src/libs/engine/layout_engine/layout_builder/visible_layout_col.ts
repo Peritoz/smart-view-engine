@@ -18,13 +18,19 @@ export class VisibleLayoutCol extends LayoutCol {
     type: string,
     lateralLabel: boolean
   ) {
-    super(mainAxisAlignment, crossAxisAlignment, settings, parentId, false);
+    super(mainAxisAlignment, crossAxisAlignment, settings, parentId);
 
     this.name = name;
     this.type = type;
     this.labelAreaWidth = settings.labelWidth;
     this.labelAreaHeight = settings.labelHeight;
     this.lateralLabel = lateralLabel;
+
+    // Initializing content box
+    this.contentBox = {
+      topLeft: { x: this.getInitialXPosition(), y: this.getInitialYPosition() },
+      bottomRight: { x: settings.rightPadding, y: settings.bottomPadding },
+    };
   }
 
   getName() {
@@ -83,9 +89,45 @@ export class VisibleLayoutCol extends LayoutCol {
     }
   }
 
+  /**
+   * Based on alignment, returns the optimal the initial X position for nested children
+   * @returns Initial X position
+   */
+  getInitialXPosition(): number {
+    const { leftPadding, labelWidth, spaceToOuterLabel, lateralLabel } =
+      this.settings;
+    // Considering the label area
+    const labelOffset = lateralLabel ? labelWidth + spaceToOuterLabel : 0;
+
+    return super.getInitialNestedPosition(
+      this.virtualCrossLength,
+      this.crossLength,
+      this.crossAxisAlignment,
+      labelOffset + leftPadding
+    );
+  }
+
+  /**
+   * Based on alignment, returns the optimal the initial Y position for nested children
+   * @returns Initial Y position
+   */
+  getInitialYPosition(): number {
+    const { topPadding, labelHeight, spaceToOuterLabel, lateralLabel } =
+      this.settings;
+    // Considering the label area
+    const labelOffset = !lateralLabel ? labelHeight + spaceToOuterLabel : 0;
+
+    return super.getInitialNestedPosition(
+      this.virtualMainLength,
+      this.mainLength,
+      this.mainAxisAlignment,
+      labelOffset + topPadding
+    );
+  }
+
   translatePosition(deltaX: number, deltaY: number) {
-    const paddingX = this.withoutPadding ? 0 : this.settings.leftPadding;
-    const paddingY = this.withoutPadding ? 0 : this.settings.topPadding;
+    const paddingX = this.settings.leftPadding;
+    const paddingY = this.settings.topPadding;
 
     this.translateElementGroupPosition(deltaX, deltaY);
 

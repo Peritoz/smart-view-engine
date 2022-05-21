@@ -4,13 +4,17 @@ import { BaseElement } from "@libs/model/base_element";
 
 const uniqId = require("uniqid");
 
+interface Point {
+  x: number;
+  y: number;
+}
+
 export class LayoutElementGroup {
   protected id: string;
   protected parentId: string | null;
   protected settings: Settings;
   protected mainAxisAlignment: Alignment;
   protected crossAxisAlignment: Alignment;
-  protected withoutPadding: boolean;
   protected children: any[];
   protected x: number;
   protected y: number;
@@ -18,6 +22,7 @@ export class LayoutElementGroup {
   protected crossLength: number;
   protected virtualMainLength: number;
   protected virtualCrossLength: number;
+  protected contentBox: { topLeft: Point; bottomRight: Point };
   protected sizeReference: number;
   protected maxChildSize: number;
   protected subTreeCounting: number;
@@ -27,15 +32,13 @@ export class LayoutElementGroup {
     mainAxisAlignment: Alignment,
     crossAxisAlignment: Alignment,
     settings: Settings,
-    parentId: string | null,
-    withoutPadding: boolean
+    parentId: string | null
   ) {
     this.id = uniqId();
     this.parentId = parentId;
     this.settings = settings;
     this.mainAxisAlignment = mainAxisAlignment;
     this.crossAxisAlignment = crossAxisAlignment;
-    this.withoutPadding = withoutPadding;
     this.children = [];
     this.x = 0;
     this.y = 0;
@@ -43,6 +46,7 @@ export class LayoutElementGroup {
     this.crossLength = 0;
     this.virtualMainLength = 0; // Related to arbitrary (non derived from children dimensions) group's Main Length
     this.virtualCrossLength = 0; // Related to arbitrary (non derived from children dimensions) group's Cross Length
+    this.contentBox = { topLeft: { x: 0, y: 0 }, bottomRight: { x: 0, y: 0 } }; // Content box limits
     this.sizeReference = 0; // Represents the size of each element (without padding between) that fulfill the group length
     this.maxChildSize = 0; // Represents the size of the biggest child (related to the main length)
     this.subTreeCounting = -1; // Total number of elements inside the subtree formed by its children. Starts with -1 to not consider the element itself
@@ -170,6 +174,27 @@ export class LayoutElementGroup {
 
   getY() {
     return this.y;
+  }
+
+  /**
+   * Based on alignment and offset, returns the optimal the initial position for nested children
+   * @returns Initial position
+   */
+  getInitialNestedPosition(
+    virtualLength: number,
+    usedLength: number,
+    alignment: Alignment,
+    offset: number = 0
+  ): number {
+    if (alignment === Alignment.END) {
+      return virtualLength;
+    } else if (alignment === Alignment.CENTER) {
+      const centerPoint = (virtualLength - offset) / 2 + offset;
+      return centerPoint - usedLength / 2;
+    } else {
+      // START or EXPANDED with padding
+      return offset;
+    }
   }
 
   resetElementLength() {

@@ -62,25 +62,21 @@ export class LayoutDirector {
 
   newRow(
     mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment,
-    withoutPadding: boolean
+    crossAxisAlignment: Alignment
   ) {
     return this.layoutSet.newRow(
       mainAxisAlignment,
-      crossAxisAlignment,
-      withoutPadding
+      crossAxisAlignment
     );
   }
 
   newCol(
     mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment,
-    withoutPadding: boolean
+    crossAxisAlignment: Alignment
   ) {
     return this.layoutSet.newCol(
       mainAxisAlignment,
-      crossAxisAlignment,
-      withoutPadding
+      crossAxisAlignment
     );
   }
 

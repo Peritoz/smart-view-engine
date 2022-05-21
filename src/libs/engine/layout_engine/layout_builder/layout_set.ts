@@ -71,32 +71,28 @@ export class LayoutSet {
 
   newRow(
     mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment,
-    withoutPadding: boolean
+    crossAxisAlignment: Alignment
   ) {
     return this.newElementGroup((parentId: string | null) => {
       return new LayoutRow(
         mainAxisAlignment,
         crossAxisAlignment,
         this.settings,
-        parentId,
-        withoutPadding
+        parentId
       );
     });
   }
 
   newCol(
     mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment,
-    withoutPadding: boolean
+    crossAxisAlignment: Alignment
   ) {
     return this.newElementGroup((parentId: string | null) => {
       return new LayoutCol(
         mainAxisAlignment,
         crossAxisAlignment,
         this.settings,
-        parentId,
-        withoutPadding
+        parentId
       );
     });
   }
