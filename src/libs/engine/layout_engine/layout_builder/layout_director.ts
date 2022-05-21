@@ -61,37 +61,37 @@ export class LayoutDirector {
   }
 
   newRow(
-    mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment
   ) {
     return this.layoutSet.newRow(
-      mainAxisAlignment,
-      crossAxisAlignment
+      horizontalAlignment,
+      verticalAlignment
     );
   }
 
   newCol(
-    mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment
   ) {
     return this.layoutSet.newCol(
-      mainAxisAlignment,
-      crossAxisAlignment
+      horizontalAlignment,
+      verticalAlignment
     );
   }
 
   newVisibleRow(
     name: string,
     type: string,
-    mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment,
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment,
     lateralLabel: boolean
   ) {
     return this.layoutSet.newVisibleRow(
       name,
       type,
-      mainAxisAlignment,
-      crossAxisAlignment,
+      horizontalAlignment,
+      verticalAlignment,
       lateralLabel
     );
   }
@@ -99,15 +99,15 @@ export class LayoutDirector {
   newVisibleCol(
     name: string,
     type: string,
-    mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment,
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment,
     lateralLabel: boolean
   ) {
     return this.layoutSet.newVisibleCol(
       name,
       type,
-      mainAxisAlignment,
-      crossAxisAlignment,
+      horizontalAlignment,
+      verticalAlignment,
       lateralLabel
     );
   }

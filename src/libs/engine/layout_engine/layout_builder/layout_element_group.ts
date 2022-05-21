@@ -1,6 +1,7 @@
 import { Alignment } from "@libs/common/alignment.enum";
 import { Settings } from "@libs/engine/layout_engine/settings";
 import { BaseElement } from "@libs/model/base_element";
+import { Direction } from "@libs/common/distribution.enum";
 
 const uniqId = require("uniqid");
 
@@ -13,42 +14,47 @@ export class LayoutElementGroup {
   protected id: string;
   protected parentId: string | null;
   protected settings: Settings;
-  protected mainAxisAlignment: Alignment;
-  protected crossAxisAlignment: Alignment;
+  protected horizontalAlignment: Alignment;
+  protected verticalAlignment: Alignment;
   protected children: any[];
   protected x: number;
   protected y: number;
-  protected mainLength: number;
-  protected crossLength: number;
-  protected virtualMainLength: number;
-  protected virtualCrossLength: number;
+  protected childrenDirection: Direction;
+  protected usedWidth: number;
+  protected usedHeight: number;
+  protected width: number;
+  protected height: number;
   protected contentBox: { topLeft: Point; bottomRight: Point };
   protected sizeReference: number;
-  protected maxChildSize: number;
+  protected maxChildWidth: number;
+  protected maxChildHeight: number;
   protected subTreeCounting: number;
   protected hasNestedGroup: boolean;
 
   constructor(
-    mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment,
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment,
+    distribution: Direction,
     settings: Settings,
     parentId: string | null
   ) {
     this.id = uniqId();
     this.parentId = parentId;
     this.settings = settings;
-    this.mainAxisAlignment = mainAxisAlignment;
-    this.crossAxisAlignment = crossAxisAlignment;
+    this.horizontalAlignment = horizontalAlignment;
+    this.verticalAlignment = verticalAlignment;
     this.children = [];
     this.x = 0;
     this.y = 0;
-    this.mainLength = 0; // Not the length of Children, but refers to the real size (in points) of the group
-    this.crossLength = 0;
-    this.virtualMainLength = 0; // Related to arbitrary (non derived from children dimensions) group's Main Length
-    this.virtualCrossLength = 0; // Related to arbitrary (non derived from children dimensions) group's Cross Length
+    this.childrenDirection = distribution;
+    this.usedWidth = 0; // Not the length of Children, but refers to the real width (in points) of the group
+    this.usedHeight = 0; // Not the length of Children, but refers to the real height (in points) of the group
+    this.width = 0; // Related to arbitrary (non derived from children dimensions) group's Main Length
+    this.height = 0; // Related to arbitrary (non derived from children dimensions) group's Cross Length
     this.contentBox = { topLeft: { x: 0, y: 0 }, bottomRight: { x: 0, y: 0 } }; // Content box limits
     this.sizeReference = 0; // Represents the size of each element (without padding between) that fulfill the group length
-    this.maxChildSize = 0; // Represents the size of the biggest child (related to the main length)
+    this.maxChildWidth = 0; // Represents the width of the biggest child
+    this.maxChildHeight = 0; // Represents the height of the biggest child
     this.subTreeCounting = -1; // Total number of elements inside the subtree formed by its children. Starts with -1 to not consider the element itself
     this.hasNestedGroup = false; // Indicates if the element has as child another LayoutElementGroup
   }
@@ -89,7 +95,7 @@ export class LayoutElementGroup {
   }
 
   /**
-   * Updates the size of the element based on it`s content, considering children`s width and height
+   * Updates the size of the element based on its content, considering children`s width and height
    * @param getMainLengthIncrement
    * @param getCrossLengthIncrement
    */
@@ -107,14 +113,14 @@ export class LayoutElementGroup {
 
       // Counting just not empty child (with elements below in the hierarchy)
       if (mainLengthIncrement > 0) {
-        this.incrementMainLength(mainLengthIncrement);
+        this.incrementUsedWidth(mainLengthIncrement);
 
         notEmptyChildCount++;
       }
 
       // Updating cross length if needed
-      if (crossLengthIncrement > this.crossLength) {
-        this.crossLength = crossLengthIncrement;
+      if (crossLengthIncrement > this.usedHeight) {
+        this.usedHeight = crossLengthIncrement;
       }
     }
 
@@ -123,12 +129,12 @@ export class LayoutElementGroup {
       const spaceBetweenTotalIncrement =
         (notEmptyChildCount - 1) * this.settings.spaceBetween;
 
-      this.incrementMainLength(spaceBetweenTotalIncrement);
+      this.incrementUsedWidth(spaceBetweenTotalIncrement);
     }
 
     // Replacing virtualLength if needed
-    if (this.mainLength > this.virtualMainLength) {
-      this.virtualMainLength = this.mainLength;
+    if (this.usedWidth > this.width) {
+      this.width = this.usedWidth;
     }
   }
 
@@ -146,7 +152,7 @@ export class LayoutElementGroup {
   }
 
   /**
-   * Applies translation over the position of the element and it's nested children
+   * Applies translation over the position of the element and its nested children
    * @param deltaX
    * @param deltaY
    */
@@ -176,6 +182,14 @@ export class LayoutElementGroup {
     return this.y;
   }
 
+  updateHorizontalContentBoxAxis() {
+    this.contentBox.bottomRight.x = this.width - this.settings.rightPadding;
+  }
+
+  updateVerticalContentBoxAxis() {
+    this.contentBox.bottomRight.y = this.height - this.settings.bottomPadding;
+  }
+
   /**
    * Based on alignment and offset, returns the optimal the initial position for nested children
    * @returns Initial position
@@ -198,36 +212,57 @@ export class LayoutElementGroup {
   }
 
   resetElementLength() {
-    this.mainLength = 0;
-    this.crossLength = 0;
+    this.usedWidth = 0;
+    this.usedHeight = 0;
   }
 
-  incrementMainLength(value: number) {
-    this.mainLength += value;
+  incrementUsedWidth(value: number) {
+    this.usedWidth += value;
 
-    if (this.mainLength > this.virtualMainLength) {
-      this.virtualMainLength = this.mainLength;
+    if (this.usedWidth > this.width) {
+      this.width = this.usedWidth;
     }
 
-    // Updating maximum element main length size
-    if (value > this.maxChildSize) {
-      this.maxChildSize = value;
+    // Updating maximum element width
+    if (value > this.maxChildWidth) {
+      this.maxChildWidth = value;
     }
 
     this.updateSizeReference();
+
+    // Updating content box limit
+    this.updateHorizontalContentBoxAxis();
+  }
+
+  incrementUsedHeight(value: number) {
+    this.usedHeight += value;
+
+    if (this.usedHeight > this.height) {
+      this.height = this.usedHeight;
+    }
+
+    // Updating maximum element height
+    if (value > this.maxChildHeight) {
+      this.maxChildHeight = value;
+    }
+
+    this.updateSizeReference();
+
+    // Updating content box limit
+    this.updateVerticalContentBoxAxis();
   }
 
   setMaximumCrossLength(value: number) {
-    if (value > this.crossLength) {
-      this.virtualCrossLength = value;
+    if (value > this.usedHeight) {
+      this.height = value;
 
       this.updateSizeReference();
     }
   }
 
   setMaximumMainLength(value: number) {
-    if (value > this.mainLength) {
-      this.virtualMainLength = value;
+    if (value > this.usedWidth) {
+      this.width = value;
 
       this.updateSizeReference();
     }
@@ -235,24 +270,23 @@ export class LayoutElementGroup {
 
   updateSizeReference() {
     const virtualLengthWithoutPadding =
-      this.virtualMainLength -
-      (this.children.length - 1) * this.getOptimalPadding();
+      this.width - (this.children.length - 1) * this.getOptimalPadding();
     const potentialOptimalSize =
       virtualLengthWithoutPadding / this.children.length;
 
-    if (potentialOptimalSize <= this.maxChildSize && this.hasNestedGroup) {
-      this.sizeReference = this.maxChildSize;
+    if (potentialOptimalSize <= this.maxChildWidth && this.hasNestedGroup) {
+      this.sizeReference = this.maxChildWidth;
     } else {
       this.sizeReference = potentialOptimalSize;
     }
   }
 
   getMainLength(virtual: boolean) {
-    return virtual ? this.virtualMainLength : this.mainLength;
+    return virtual ? this.width : this.usedWidth;
   }
 
   getCrossLength() {
-    return this.crossLength;
+    return this.usedHeight;
   }
 
   getChildrenLength() {
@@ -283,6 +317,28 @@ export class LayoutElementGroup {
   // TODO: Calculate total height
   getHeight(): number {
     return 0;
+  }
+
+  setWidth(value: number) {
+    if (value > this.width) {
+      this.width = value;
+
+      // Updating content box limit
+      this.updateHorizontalContentBoxAxis();
+    } else {
+      throw new Error("The new Width can´t be smaller than current Width");
+    }
+  }
+
+  setHeight(value: number) {
+    if (value > this.height) {
+      this.height = value;
+
+      // Updating content box limit
+      this.updateVerticalContentBoxAxis();
+    } else {
+      throw new Error("The new Height can´t be smaller than current Height");
+    }
   }
 
   applyDistribution(): void {}

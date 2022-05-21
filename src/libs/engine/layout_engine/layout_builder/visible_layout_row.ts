@@ -10,15 +10,15 @@ export class VisibleLayoutRow extends LayoutRow {
   protected lateralLabel: boolean;
 
   constructor(
-    mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment,
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment,
     settings: Settings,
     parentId: string | null,
     name: string,
     type: string,
     lateralLabel: boolean
   ) {
-    super(mainAxisAlignment, crossAxisAlignment, settings, parentId);
+    super(horizontalAlignment, verticalAlignment, settings, parentId);
 
     this.name = name;
     this.type = type;

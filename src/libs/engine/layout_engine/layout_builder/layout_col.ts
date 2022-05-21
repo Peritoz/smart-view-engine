@@ -2,23 +2,28 @@ import { Alignment } from "@libs/common/Alignment.enum";
 import { Settings } from "@libs/engine/layout_engine/settings";
 import { BaseElement } from "@libs/model/base_element";
 import { LayoutElementGroup } from "@libs/engine/layout_engine/layout_builder/layout_element_group";
+import { Direction } from "@libs/common/distribution.enum";
 
 export class LayoutCol extends LayoutElementGroup {
   constructor(
-    mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment,
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment,
     settings: Settings,
     parentId: string | null
   ) {
-    super(mainAxisAlignment, crossAxisAlignment, settings, parentId);
+    super(
+      horizontalAlignment,
+      verticalAlignment,
+      Direction.VERTICAL,
+      settings,
+      parentId
+    );
   }
 
   getWidth() {
     if (this.children.length > 0) {
       return (
-        this.crossLength +
-        this.settings.topPadding +
-        this.settings.bottomPadding
+        this.usedHeight + this.settings.topPadding + this.settings.bottomPadding
       );
     } else {
       return 0;
@@ -28,46 +33,11 @@ export class LayoutCol extends LayoutElementGroup {
   getHeight() {
     if (this.children.length > 0) {
       return (
-        this.virtualMainLength +
-        this.settings.leftPadding +
-        this.settings.rightPadding
+        this.width + this.settings.leftPadding + this.settings.rightPadding
       );
     } else {
       return 0;
     }
-  }
-
-  setWidth(value: number) {
-    if (value > this.getWidth()) {
-      this.setMaximumCrossLength(value);
-    } else {
-      throw new Error("The new Width can´t be smaller than current Width");
-    }
-  }
-
-  setHeight(value: number) {
-    if (value > this.getHeight()) {
-      this.setMaximumMainLength(value);
-    } else {
-      throw new Error("The new Height can´t be smaller than current Height");
-    }
-  }
-
-  updateContentBoxMainAxis() {
-    this.contentBox.bottomRight.y =
-      this.virtualCrossLength - this.settings.bottomPadding;
-  }
-
-  updateContentBoxCrossAxis() {
-    this.contentBox.bottomRight.x =
-      this.virtualMainLength - this.settings.rightPadding;
-  }
-
-  incrementMainLength(value: number) {
-    super.incrementMainLength(value);
-
-    // Updating content box limit
-    this.updateContentBoxMainAxis();
   }
 
   addContainer(container: BaseElement | LayoutElementGroup) {
@@ -75,11 +45,11 @@ export class LayoutCol extends LayoutElementGroup {
       super.addContainer(container);
 
       if (this.children.length > 1) {
-        this.incrementMainLength(
+        this.incrementUsedWidth(
           this.getOptimalPadding() + container.getHeight()
         );
       } else {
-        this.incrementMainLength(container.getHeight());
+        this.incrementUsedWidth(container.getHeight());
       }
 
       super.setMaximumCrossLength(container.getWidth());
@@ -105,7 +75,7 @@ export class LayoutCol extends LayoutElementGroup {
     this.applyMainAxisDistribution();
 
     // Updating content box limit
-    this.updateContentBoxMainAxis();
+    super.updateVerticalContentBoxAxis();
   }
 
   setMaximumCrossLength(value: number) {
@@ -114,7 +84,7 @@ export class LayoutCol extends LayoutElementGroup {
     this.applyCrossAxisDistribution();
 
     // Updating content box limit
-    this.updateContentBoxCrossAxis();
+    super.updateHorizontalContentBoxAxis();
   }
 
   /**
@@ -138,19 +108,19 @@ export class LayoutCol extends LayoutElementGroup {
       const child = this.children[i];
       const mainSize = child.getHeight();
 
-      if (this.mainAxisAlignment === Alignment.EXPANDED) {
+      if (this.horizontalAlignment === Alignment.EXPANDED) {
         child.setHeight(refSize);
         child.setY(refPosition);
 
         refPosition += refSize + refPadding;
       } else if (
-        this.mainAxisAlignment === Alignment.START ||
-        this.mainAxisAlignment === Alignment.CENTER
+        this.horizontalAlignment === Alignment.START ||
+        this.horizontalAlignment === Alignment.CENTER
       ) {
         child.setY(refPosition);
 
         refPosition += mainSize + refPadding;
-      } else if (this.mainAxisAlignment === Alignment.END) {
+      } else if (this.horizontalAlignment === Alignment.END) {
         refPosition -= mainSize;
 
         child.setY(refPosition);
@@ -169,14 +139,14 @@ export class LayoutCol extends LayoutElementGroup {
       const child = this.children[i];
       const mainSize = child.getWidth();
 
-      if (this.crossAxisAlignment === Alignment.EXPANDED) {
+      if (this.verticalAlignment === Alignment.EXPANDED) {
         child.setWidth(super.getCrossLength());
         child.setX(this.contentBox.topLeft.x);
-      } else if (this.crossAxisAlignment === Alignment.START) {
+      } else if (this.verticalAlignment === Alignment.START) {
         child.setX(this.contentBox.topLeft.x);
-      } else if (this.crossAxisAlignment === Alignment.CENTER) {
+      } else if (this.verticalAlignment === Alignment.CENTER) {
         child.setX(super.getCrossLength() / 2 - mainSize / 2);
-      } else if (this.crossAxisAlignment === Alignment.END) {
+      } else if (this.verticalAlignment === Alignment.END) {
         child.setX(super.getCrossLength() - mainSize);
       }
     }

@@ -70,13 +70,13 @@ export class LayoutSet {
   }
 
   newRow(
-    mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment
   ) {
     return this.newElementGroup((parentId: string | null) => {
       return new LayoutRow(
-        mainAxisAlignment,
-        crossAxisAlignment,
+        horizontalAlignment,
+        verticalAlignment,
         this.settings,
         parentId
       );
@@ -84,13 +84,13 @@ export class LayoutSet {
   }
 
   newCol(
-    mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment
   ) {
     return this.newElementGroup((parentId: string | null) => {
       return new LayoutCol(
-        mainAxisAlignment,
-        crossAxisAlignment,
+        horizontalAlignment,
+        verticalAlignment,
         this.settings,
         parentId
       );
@@ -100,14 +100,14 @@ export class LayoutSet {
   newVisibleRow(
     name: string,
     type: string,
-    mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment,
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment,
     lateralLabel: boolean
   ) {
     return this.newElementGroup((parentId: string | null) => {
       return new VisibleLayoutRow(
-        mainAxisAlignment,
-        crossAxisAlignment,
+        horizontalAlignment,
+        verticalAlignment,
         this.settings,
         parentId,
         name,
@@ -120,14 +120,14 @@ export class LayoutSet {
   newVisibleCol(
     name: string,
     type: string,
-    mainAxisAlignment: Alignment,
-    crossAxisAlignment: Alignment,
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment,
     lateralLabel: boolean
   ) {
     return this.newElementGroup((parentId: string | null) => {
       return new VisibleLayoutCol(
-        mainAxisAlignment,
-        crossAxisAlignment,
+        horizontalAlignment,
+        verticalAlignment,
         this.settings,
         parentId,
         name,
