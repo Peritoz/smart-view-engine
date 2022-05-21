@@ -2,6 +2,7 @@ import { Settings } from "../../../src/libs/engine/layout_engine/settings";
 import { Alignment } from "../../../src/libs/common/alignment.enum";
 import { BaseElement } from "../../../src/libs/model/base_element";
 import { VisibleLayoutRow } from "../../../src/libs/engine/layout_engine/layout_builder/visible_layout_row";
+import { LayoutDirector } from "../../../src/libs/engine/layout_engine/layout_builder/layout_director";
 
 const settings = new Settings({
   layoutType: "nested",
@@ -291,6 +292,134 @@ describe("Visible Layout Row", () => {
       expect(children[2].getY()).toBe(15);
 
       done();
+    });
+  });
+
+  describe("Content Box - Top Label", function () {
+    const director = new LayoutDirector(settings);
+    const row: VisibleLayoutRow = director.newVisibleRow(
+      "R1",
+      "T",
+      Alignment.START,
+      Alignment.START,
+      false
+    );
+
+    it("Should initialize and update main length content box reference", async () => {
+      row.setWidth(100);
+
+      expect(row.contentBox.topLeft.x).toBe(5);
+      expect(row.contentBox.bottomRight.x).toBe(95);
+    });
+
+    it("Should initialize and update cross length content box reference", async () => {
+      row.setHeight(100);
+
+      expect(row.contentBox.topLeft.y).toBe(25);
+      expect(row.contentBox.bottomRight.y).toBe(95);
+    });
+  });
+
+  describe("Content Box - Lateral Label", function () {
+    const director = new LayoutDirector(settings);
+    const row: VisibleLayoutRow = director.newVisibleRow(
+        "R1",
+        "T",
+        Alignment.START,
+        Alignment.START,
+        true
+    );
+
+    it("Should initialize and update main length content box reference", async () => {
+      row.setWidth(100);
+
+      expect(row.contentBox.topLeft.x).toBe(45);
+      expect(row.contentBox.bottomRight.x).toBe(95);
+    });
+
+    it("Should initialize and update cross length content box reference", async () => {
+      row.setHeight(100);
+
+      expect(row.contentBox.topLeft.y).toBe(5);
+      expect(row.contentBox.bottomRight.y).toBe(95);
+    });
+  });
+
+  describe("Row Alignment Test", () => {
+    it("Initial Element Position - Main Axis START - Cross Axis START", async () => {
+      const director = new LayoutDirector(settings);
+      const row: VisibleLayoutRow = director.newVisibleRow(
+        "R1",
+        "T",
+        Alignment.START,
+        Alignment.START,
+        true
+      );
+
+      row.setWidth(100);
+      director.addTinyElementToCurrent("A", "T");
+
+      const children = row.getChildren();
+
+      expect(children[0].getX()).toBe(5);
+      expect(children[0].getY()).toBe(25);
+    });
+
+    it("Initial Element Position - Main Axis END - Cross Axis START", async () => {
+      const director = new LayoutDirector(settings);
+      const row: VisibleLayoutRow = director.newVisibleRow(
+        "R1",
+        "T",
+        Alignment.END,
+        Alignment.START,
+        true
+      );
+
+      row.setWidth(100);
+      director.addTinyElementToCurrent("A", "T");
+
+      const children = row.getChildren();
+
+      expect(children[0].getX()).toBe(90);
+      expect(children[0].getY()).toBe(25);
+    });
+
+    it("Initial Element Position - Main Axis CENTER - Cross Axis START", async () => {
+      const director = new LayoutDirector(settings);
+      const row: VisibleLayoutRow = director.newVisibleRow(
+        "R1",
+        "T",
+        Alignment.CENTER,
+        Alignment.START,
+        true
+      );
+
+      row.setWidth(100);
+      director.addTinyElementToCurrent("A", "T");
+
+      const children = row.getChildren();
+
+      expect(children[0].getX()).toBe(47.5);
+      expect(children[0].getY()).toBe(25);
+    });
+
+    it("Initial Element Position - Main Axis EXPANDED - Cross Axis START", async () => {
+      const director = new LayoutDirector(settings);
+      const row: VisibleLayoutRow = director.newVisibleRow(
+        "R1",
+        "T",
+        Alignment.EXPANDED,
+        Alignment.START,
+        true
+      );
+
+      row.setWidth(100);
+      director.addTinyElementToCurrent("A", "T");
+
+      const children = row.getChildren();
+
+      expect(children[0].getX()).toBe(5);
+      expect(children[0].getY()).toBe(25);
     });
   });
 });

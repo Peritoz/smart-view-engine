@@ -37,46 +37,37 @@ export class LayoutCol extends LayoutElementGroup {
     }
   }
 
-  setUsefulWidth(value: number, extraWidth: number) {
-    const currentWidth = this.getWidth();
-
-    if (value > currentWidth) {
-      const totalMargin =
-        this.settings.leftPadding + this.settings.rightPadding;
-
-      if (value > totalMargin) {
-        this.setMaximumCrossLength(value - totalMargin - extraWidth);
-      } else {
-        throw new Error("Empty useful area");
-      }
-    } else if (value < currentWidth) {
+  setWidth(value: number) {
+    if (value > this.getWidth()) {
+      this.setMaximumCrossLength(value);
+    } else {
       throw new Error("The new Width can´t be smaller than current Width");
     }
   }
 
-  setUsefulHeight(value: number, extraHeight: number) {
-    const currentHeight = this.getHeight();
-
-    if (value > currentHeight) {
-      const totalMargin =
-        this.settings.topPadding + this.settings.bottomPadding;
-
-      if (value > totalMargin) {
-        this.setMaximumMainLength(value - totalMargin - extraHeight);
-      } else {
-        throw new Error("Empty useful area");
-      }
-    } else if (value < currentHeight) {
+  setHeight(value: number) {
+    if (value > this.getHeight()) {
+      this.setMaximumMainLength(value);
+    } else {
       throw new Error("The new Height can´t be smaller than current Height");
     }
   }
 
-  setWidth(value: number) {
-    this.setUsefulWidth(value, 0);
+  updateContentBoxMainAxis() {
+    this.contentBox.bottomRight.y =
+      this.virtualCrossLength - this.settings.bottomPadding;
   }
 
-  setHeight(value: number) {
-    this.setUsefulHeight(value, 0);
+  updateContentBoxCrossAxis() {
+    this.contentBox.bottomRight.x =
+      this.virtualMainLength - this.settings.rightPadding;
+  }
+
+  incrementMainLength(value: number) {
+    super.incrementMainLength(value);
+
+    // Updating content box limit
+    this.updateContentBoxMainAxis();
   }
 
   addContainer(container: BaseElement | LayoutElementGroup) {
@@ -84,11 +75,11 @@ export class LayoutCol extends LayoutElementGroup {
       super.addContainer(container);
 
       if (this.children.length > 1) {
-        super.incrementMainLength(
+        this.incrementMainLength(
           this.getOptimalPadding() + container.getHeight()
         );
       } else {
-        super.incrementMainLength(container.getHeight());
+        this.incrementMainLength(container.getHeight());
       }
 
       super.setMaximumCrossLength(container.getWidth());
@@ -112,12 +103,18 @@ export class LayoutCol extends LayoutElementGroup {
     super.setMaximumMainLength(value);
 
     this.applyMainAxisDistribution();
+
+    // Updating content box limit
+    this.updateContentBoxMainAxis();
   }
 
   setMaximumCrossLength(value: number) {
     super.setMaximumCrossLength(value);
 
     this.applyCrossAxisDistribution();
+
+    // Updating content box limit
+    this.updateContentBoxCrossAxis();
   }
 
   /**

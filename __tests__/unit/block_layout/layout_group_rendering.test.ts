@@ -4,6 +4,7 @@ import { Alignment } from "../../../src/libs/common/alignment.enum";
 import { DEFAULT } from "../../../src/libs/common/size_reference.const";
 import { LayoutSet } from "../../../src/libs/engine/layout_engine/layout_builder/layout_set";
 import { ElementBuilder } from "../../../src/libs/engine/layout_engine/layout_builder/element_builder";
+import { VisibleLayoutRow } from "../../../src/libs/engine/layout_engine/layout_builder/visible_layout_row";
 
 const settings = new Settings({
   layoutType: "hierarchy",
@@ -55,20 +56,44 @@ describe("Layout Group", () => {
     const col1 = set.newCol(Alignment.START, Alignment.START, false);
 
     set.addToCurrentGroup(
-      elementBuilder.buildElement({ width: 50, height: 25, x: 0, y: 0 })
+      elementBuilder.buildElement({
+        name: "A",
+        width: 50,
+        height: 25,
+        x: 0,
+        y: 0,
+      })
     );
     set.addToCurrentGroup(
-      elementBuilder.buildElement({ width: 60, height: 50, x: 0, y: 0 })
+      elementBuilder.buildElement({
+        name: "B",
+        width: 60,
+        height: 50,
+        x: 0,
+        y: 0,
+      })
     );
 
     set.navigateToParent();
     const col2 = set.newCol(Alignment.START, Alignment.START, false);
 
     set.addToCurrentGroup(
-      elementBuilder.buildElement({ width: 25, height: 60, x: 0, y: 0 })
+      elementBuilder.buildElement({
+        name: "C",
+        width: 25,
+        height: 60,
+        x: 0,
+        y: 0,
+      })
     );
     set.addToCurrentGroup(
-      elementBuilder.buildElement({ width: 50, height: 40, x: 0, y: 0 })
+      elementBuilder.buildElement({
+        name: "D",
+        width: 50,
+        height: 40,
+        x: 0,
+        y: 0,
+      })
     );
 
     set.navigateToParent();
@@ -81,10 +106,22 @@ describe("Layout Group", () => {
     );
 
     set.addToCurrentGroup(
-      elementBuilder.buildElement({ width: 20, height: 20, x: 0, y: 0 })
+      elementBuilder.buildElement({
+        name: "E",
+        width: 20,
+        height: 20,
+        x: 0,
+        y: 0,
+      })
     );
     set.addToCurrentGroup(
-      elementBuilder.buildElement({ width: 30, height: 50, x: 0, y: 0 })
+      elementBuilder.buildElement({
+        name: "F",
+        width: 30,
+        height: 50,
+        x: 0,
+        y: 0,
+      })
     );
 
     set.navigateToParent();
@@ -97,10 +134,22 @@ describe("Layout Group", () => {
     );
 
     set.addToCurrentGroup(
-      elementBuilder.buildElement({ width: 20, height: 20, x: 0, y: 0 })
+      elementBuilder.buildElement({
+        name: "G",
+        width: 20,
+        height: 20,
+        x: 0,
+        y: 0,
+      })
     );
     set.addToCurrentGroup(
-      elementBuilder.buildElement({ width: 30, height: 50, x: 0, y: 0 })
+      elementBuilder.buildElement({
+        name: "H",
+        width: 30,
+        height: 50,
+        x: 0,
+        y: 0,
+      })
     );
 
     set.toAbsolutePosition();

@@ -29,8 +29,16 @@ export class VisibleLayoutRow extends LayoutRow {
     // Initializing content box
     this.contentBox = {
       topLeft: { x: this.getInitialXPosition(), y: this.getInitialYPosition() },
-      bottomRight: { x: settings.rightPadding, y: settings.bottomPadding },
+      bottomRight: { x: 0, y: 0 }, // Will be set in dimensions initialization
     };
+
+    // Initializing row dimensions
+    this.setMaximumMainLength(
+      this.contentBox.topLeft.x + settings.rightPadding
+    );
+    this.setMaximumCrossLength(
+      this.contentBox.topLeft.y + settings.bottomPadding
+    );
   }
 
   getName() {
@@ -63,66 +71,30 @@ export class VisibleLayoutRow extends LayoutRow {
     }
   }
 
-  setWidth(value: number) {
-    if (this.lateralLabel) {
-      if (value > this.labelAreaWidth) {
-        this.setUsefulWidth(
-          value,
-          this.labelAreaWidth + this.settings.spaceToOuterLabel
-        );
-      }
-    } else {
-      super.setWidth(value);
-    }
-  }
-
-  setHeight(value: number) {
-    if (!this.lateralLabel) {
-      if (value > this.labelAreaHeight) {
-        this.setUsefulHeight(
-          value,
-          this.labelAreaHeight + this.settings.spaceToOuterLabel
-        );
-      }
-    } else {
-      super.setHeight(value);
-    }
-  }
-
   /**
-   * Based on alignment, returns the optimal the initial X position for nested children
+   * Returns the optimal the initial X position for nested children
    * @returns Initial X position
    */
   getInitialXPosition(): number {
-    const { leftPadding, labelWidth, spaceToOuterLabel, lateralLabel } =
-      this.settings;
+    const { leftPadding, labelWidth, spaceToOuterLabel } = this.settings;
     // Considering the label area
-    const labelOffset = lateralLabel ? labelWidth + spaceToOuterLabel : 0;
+    const labelOffset = this.lateralLabel ? labelWidth + spaceToOuterLabel : 0;
 
-    return super.getInitialNestedPosition(
-      this.virtualMainLength,
-      this.mainLength,
-      this.mainAxisAlignment,
-      labelOffset + leftPadding
-    );
+    return labelOffset + leftPadding;
   }
 
   /**
-   * Based on alignment, returns the optimal the initial Y position for nested children
+   * Returns the optimal the initial Y position for nested children
    * @returns Initial Y position
    */
   getInitialYPosition(): number {
-    const { topPadding, labelHeight, spaceToOuterLabel, lateralLabel } =
-      this.settings;
+    const { topPadding, labelHeight, spaceToOuterLabel } = this.settings;
     // Considering the label area
-    const labelOffset = !lateralLabel ? labelHeight + spaceToOuterLabel : 0;
+    const labelOffset = !this.lateralLabel
+      ? labelHeight + spaceToOuterLabel
+      : 0;
 
-    return super.getInitialNestedPosition(
-      this.virtualCrossLength,
-      this.crossLength,
-      this.crossAxisAlignment,
-      labelOffset + topPadding
-    );
+    return labelOffset + topPadding;
   }
 
   translatePosition(deltaX: number, deltaY: number) {

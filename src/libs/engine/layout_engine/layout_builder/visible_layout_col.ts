@@ -63,66 +63,31 @@ export class VisibleLayoutCol extends LayoutCol {
     }
   }
 
-  setWidth(value: number) {
-    if (this.lateralLabel) {
-      if (value > this.labelAreaWidth) {
-        this.setUsefulWidth(
-          value,
-          this.labelAreaWidth + this.settings.spaceToOuterLabel
-        );
-      }
-    } else {
-      super.setWidth(value);
-    }
-  }
-
-  setHeight(value: number) {
-    if (!this.lateralLabel) {
-      if (value > this.labelAreaHeight) {
-        this.setUsefulHeight(
-          value,
-          this.labelAreaHeight + this.settings.spaceToOuterLabel
-        );
-      }
-    } else {
-      super.setHeight(value);
-    }
-  }
-
   /**
-   * Based on alignment, returns the optimal the initial X position for nested children
+   * Returns the optimal the initial X position for nested children
    * @returns Initial X position
    */
   getInitialXPosition(): number {
-    const { leftPadding, labelWidth, spaceToOuterLabel, lateralLabel } =
+    const { leftPadding, labelWidth, spaceToOuterLabel } =
       this.settings;
-    // Considering the label area
-    const labelOffset = lateralLabel ? labelWidth + spaceToOuterLabel : 0;
 
-    return super.getInitialNestedPosition(
-      this.virtualCrossLength,
-      this.crossLength,
-      this.crossAxisAlignment,
-      labelOffset + leftPadding
-    );
+    // Considering the label area
+    const labelOffset = this.lateralLabel ? labelWidth + spaceToOuterLabel : 0;
+
+    return labelOffset + leftPadding;
   }
 
   /**
-   * Based on alignment, returns the optimal the initial Y position for nested children
+   * Returns the optimal the initial Y position for nested children
    * @returns Initial Y position
    */
   getInitialYPosition(): number {
-    const { topPadding, labelHeight, spaceToOuterLabel, lateralLabel } =
+    const { topPadding, labelHeight, spaceToOuterLabel } =
       this.settings;
     // Considering the label area
-    const labelOffset = !lateralLabel ? labelHeight + spaceToOuterLabel : 0;
+    const labelOffset = !this.lateralLabel ? labelHeight + spaceToOuterLabel : 0;
 
-    return super.getInitialNestedPosition(
-      this.virtualMainLength,
-      this.mainLength,
-      this.mainAxisAlignment,
-      labelOffset + topPadding
-    );
+    return labelOffset + topPadding;
   }
 
   translatePosition(deltaX: number, deltaY: number) {
