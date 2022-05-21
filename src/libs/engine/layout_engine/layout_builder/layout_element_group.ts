@@ -10,7 +10,7 @@ export class LayoutElementGroup {
   protected settings: Settings;
   protected mainAxisAlignment: Alignment;
   protected crossAxisAlignment: Alignment;
-  protected withoutMargin: boolean;
+  protected withoutPadding: boolean;
   protected children: any[];
   protected x: number;
   protected y: number;
@@ -28,14 +28,14 @@ export class LayoutElementGroup {
     crossAxisAlignment: Alignment,
     settings: Settings,
     parentId: string | null,
-    withoutMargin: boolean
+    withoutPadding: boolean
   ) {
     this.id = uniqId();
     this.parentId = parentId;
     this.settings = settings;
     this.mainAxisAlignment = mainAxisAlignment;
     this.crossAxisAlignment = crossAxisAlignment;
-    this.withoutMargin = withoutMargin;
+    this.withoutPadding = withoutPadding;
     this.children = [];
     this.x = 0;
     this.y = 0;

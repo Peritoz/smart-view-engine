@@ -84,8 +84,8 @@ export class VisibleLayoutCol extends LayoutCol {
   }
 
   translatePosition(deltaX: number, deltaY: number) {
-    const paddingX = this.withoutMargin ? 0 : this.settings.leftPadding;
-    const paddingY = this.withoutMargin ? 0 : this.settings.topPadding;
+    const paddingX = this.withoutPadding ? 0 : this.settings.leftPadding;
+    const paddingY = this.withoutPadding ? 0 : this.settings.topPadding;
 
     this.translateElementGroupPosition(deltaX, deltaY);
 

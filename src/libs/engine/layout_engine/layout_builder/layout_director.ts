@@ -63,24 +63,24 @@ export class LayoutDirector {
   newRow(
     mainAxisAlignment: Alignment,
     crossAxisAlignment: Alignment,
-    withoutMargin: boolean
+    withoutPadding: boolean
   ) {
     return this.layoutSet.newRow(
       mainAxisAlignment,
       crossAxisAlignment,
-      withoutMargin
+      withoutPadding
     );
   }
 
   newCol(
     mainAxisAlignment: Alignment,
     crossAxisAlignment: Alignment,
-    withoutMargin: boolean
+    withoutPadding: boolean
   ) {
     return this.layoutSet.newCol(
       mainAxisAlignment,
       crossAxisAlignment,
-      withoutMargin
+      withoutPadding
     );
   }
 

@@ -72,7 +72,7 @@ export class LayoutSet {
   newRow(
     mainAxisAlignment: Alignment,
     crossAxisAlignment: Alignment,
-    withoutMargin: boolean
+    withoutPadding: boolean
   ) {
     return this.newElementGroup((parentId: string | null) => {
       return new LayoutRow(
@@ -80,7 +80,7 @@ export class LayoutSet {
         crossAxisAlignment,
         this.settings,
         parentId,
-        withoutMargin
+        withoutPadding
       );
     });
   }
@@ -88,7 +88,7 @@ export class LayoutSet {
   newCol(
     mainAxisAlignment: Alignment,
     crossAxisAlignment: Alignment,
-    withoutMargin: boolean
+    withoutPadding: boolean
   ) {
     return this.newElementGroup((parentId: string | null) => {
       return new LayoutCol(
@@ -96,7 +96,7 @@ export class LayoutSet {
         crossAxisAlignment,
         this.settings,
         parentId,
-        withoutMargin
+        withoutPadding
       );
     });
   }

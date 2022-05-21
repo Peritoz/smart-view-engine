@@ -9,20 +9,20 @@ export class LayoutRow extends LayoutElementGroup {
     crossAxisAlignment: Alignment,
     settings: Settings,
     parentId: string | null,
-    withoutMargin: boolean
+    withoutPadding: boolean
   ) {
     super(
       mainAxisAlignment,
       crossAxisAlignment,
       settings,
       parentId,
-      withoutMargin
+      withoutPadding
     );
   }
 
   getWidth() {
     if (this.children.length > 0) {
-      if (this.withoutMargin) {
+      if (this.withoutPadding) {
         return this.virtualMainLength;
       } else {
         return (
@@ -38,7 +38,7 @@ export class LayoutRow extends LayoutElementGroup {
 
   getHeight() {
     if (this.children.length > 0) {
-      if (this.withoutMargin) {
+      if (this.withoutPadding) {
         return this.crossLength;
       } else {
         return (
@@ -56,7 +56,7 @@ export class LayoutRow extends LayoutElementGroup {
     const currentWidth = this.getWidth();
 
     if (value > currentWidth) {
-      const totalMargin = this.withoutMargin
+      const totalMargin = this.withoutPadding
         ? 0
         : this.settings.leftPadding + this.settings.rightPadding;
 
@@ -74,7 +74,7 @@ export class LayoutRow extends LayoutElementGroup {
     const currentHeight = this.getHeight();
 
     if (value > currentHeight) {
-      const totalMargin = this.withoutMargin
+      const totalMargin = this.withoutPadding
         ? 0
         : this.settings.topPadding + this.settings.bottomPadding;
 
@@ -106,9 +106,12 @@ export class LayoutRow extends LayoutElementGroup {
     } else if (this.mainAxisAlignment === Alignment.CENTER) {
       const centerPoint = this.virtualMainLength / 2;
       return centerPoint - this.mainLength / 2;
-    } else {
-      // START
+    } else if (!this.withoutPadding) {
+      // START with padding
       return this.settings.leftPadding;
+    } else {
+      // START without padding
+      return 0;
     }
   }
 
@@ -122,9 +125,12 @@ export class LayoutRow extends LayoutElementGroup {
     } else if (this.crossAxisAlignment === Alignment.CENTER) {
       const centerPoint = this.virtualCrossLength / 2;
       return centerPoint - this.crossLength / 2;
-    } else {
-      // START
+    } else if (!this.withoutPadding) {
+      // START with padding
       return this.settings.topPadding;
+    } else {
+      // START without padding
+      return 0;
     }
   }
 
