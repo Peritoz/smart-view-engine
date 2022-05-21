@@ -52,7 +52,7 @@ describe("Visible Layout Row", () => {
           name: "A",
           type: "T",
           width: 10,
-          height: 10
+          height: 10,
         })
       );
       group.addContainer(
@@ -60,7 +60,7 @@ describe("Visible Layout Row", () => {
           name: "B",
           type: "T",
           width: 20,
-          height: 5
+          height: 5,
         })
       );
       group.addContainer(
@@ -68,7 +68,7 @@ describe("Visible Layout Row", () => {
           name: "C",
           type: "T",
           width: 30,
-          height: 15
+          height: 15,
         })
       );
 
@@ -178,28 +178,28 @@ describe("Visible Layout Row", () => {
 
     it("Should Add 3 Nodes", (done) => {
       group.addContainer(
-          new BaseElement({
-            name: "A",
-            type: "T",
-            width: 10,
-            height: 10
-          })
+        new BaseElement({
+          name: "A",
+          type: "T",
+          width: 10,
+          height: 10,
+        })
       );
       group.addContainer(
-          new BaseElement({
-            name: "B",
-            type: "T",
-            width: 20,
-            height: 5
-          })
+        new BaseElement({
+          name: "B",
+          type: "T",
+          width: 20,
+          height: 5,
+        })
       );
       group.addContainer(
-          new BaseElement({
-            name: "C",
-            type: "T",
-            width: 30,
-            height: 15
-          })
+        new BaseElement({
+          name: "C",
+          type: "T",
+          width: 30,
+          height: 15,
+        })
       );
 
       children = group.getChildren();

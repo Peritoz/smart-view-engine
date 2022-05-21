@@ -98,7 +98,7 @@ describe("Base Element", () => {
   });
 
   it("Should translate position - Positive Delta X and Delta Y", (done) => {
-    baseElement.translatePosition(10,5);
+    baseElement.translatePosition(10, 5);
 
     expect(baseElement.getX()).toBe(20);
     expect(baseElement.getY()).toBe(25);
@@ -107,7 +107,7 @@ describe("Base Element", () => {
   });
 
   it("Should translate position - Negative Delta X and Delta Y", (done) => {
-    baseElement.translatePosition(-10,-5);
+    baseElement.translatePosition(-10, -5);
 
     expect(baseElement.getX()).toBe(10);
     expect(baseElement.getY()).toBe(20);

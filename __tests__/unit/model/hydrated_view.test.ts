@@ -116,10 +116,10 @@ describe("Hydrated View", () => {
 
   it("Should create, add and nest a second child", (done) => {
     const node: HydratedViewNode = view.createViewNode(
-        "4",
-        "5",
-        "Node 4",
-        "T4"
+      "4",
+      "5",
+      "Node 4",
+      "T4"
     );
     view.addViewNode(node);
 
@@ -147,7 +147,9 @@ describe("Hydrated View", () => {
   });
 
   it("Should copy a View Node and its Children", (done) => {
-    const node: HydratedViewNode = view.copyViewNodeAndItsChildren(view.getViewNode("2"));
+    const node: HydratedViewNode = view.copyViewNodeAndItsChildren(
+      view.getViewNode("2")
+    );
     const children = view.getViewNodeChildren("2");
 
     expect(view.getViewNodesCount()).toBe(7);

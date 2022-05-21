@@ -1,3 +1,3 @@
-import {SmartViewEngine} from "@libs/engine/smart_view_engine";
+import { SmartViewEngine } from "@libs/engine/smart_view_engine";
 
-export {SmartViewEngine};
+export { SmartViewEngine };

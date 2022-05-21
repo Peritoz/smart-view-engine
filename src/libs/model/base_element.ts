@@ -1,92 +1,92 @@
 import uniqId from "uniqid";
-import {NodeBlock} from "@libs/model/view_node";
-import {DEFAULT} from "@libs/common/size_reference.const";
+import { NodeBlock } from "@libs/model/view_node";
+import { DEFAULT } from "@libs/common/size_reference.const";
 
 export class BaseElement {
-    protected id: string;
-    protected node: NodeBlock;
+  protected id: string;
+  protected node: NodeBlock;
 
-    constructor(viewNode: Partial<NodeBlock>) {
-        if (!viewNode.name) {
-            throw new Error("Name is required when creating Base Element");
-        }
-
-        const node: NodeBlock = {
-            name: viewNode.name,
-            type: viewNode.type || "",
-            x: viewNode.x || 0,
-            y: viewNode.y || 0,
-            width: viewNode.width || DEFAULT.DEFAULT_WIDTH, // TODO: Get from a singleton the set default value
-            height: viewNode.height || DEFAULT.DEFAULT_HEIGHT, // TODO: Get from a singleton the set default value
-            parentId: viewNode.parentId || null,
-        };
-
-        this.id = uniqId();
-        this.node = node;
+  constructor(viewNode: Partial<NodeBlock>) {
+    if (!viewNode.name) {
+      throw new Error("Name is required when creating Base Element");
     }
 
-    getId() {
-        return this.id;
-    }
+    const node: NodeBlock = {
+      name: viewNode.name,
+      type: viewNode.type || "",
+      x: viewNode.x || 0,
+      y: viewNode.y || 0,
+      width: viewNode.width || DEFAULT.DEFAULT_WIDTH, // TODO: Get from a singleton the set default value
+      height: viewNode.height || DEFAULT.DEFAULT_HEIGHT, // TODO: Get from a singleton the set default value
+      parentId: viewNode.parentId || null,
+    };
 
-    getName() {
-        return this.node.name;
-    }
+    this.id = uniqId();
+    this.node = node;
+  }
 
-    getType() {
-        return this.node.type;
-    }
+  getId() {
+    return this.id;
+  }
 
-    getWidth() {
-        return this.node.width;
-    }
+  getName() {
+    return this.node.name;
+  }
 
-    setWidth(width: number) {
-        if (width >= 0) {
-            this.node.width = width;
-        } else {
-            throw new Error("Width cannot be nagative");
-        }
-    }
+  getType() {
+    return this.node.type;
+  }
 
-    getHeight() {
-        return this.node.height;
-    }
+  getWidth() {
+    return this.node.width;
+  }
 
-    setHeight(height: number) {
-        if (height >= 0) {
-            this.node.height = height;
-        } else {
-            throw new Error("Height cannot be nagative");
-        }
+  setWidth(width: number) {
+    if (width >= 0) {
+      this.node.width = width;
+    } else {
+      throw new Error("Width cannot be nagative");
     }
+  }
 
-    getX() {
-        return this.node.x;
-    }
+  getHeight() {
+    return this.node.height;
+  }
 
-    setX(x: number) {
-        this.node.x = x;
+  setHeight(height: number) {
+    if (height >= 0) {
+      this.node.height = height;
+    } else {
+      throw new Error("Height cannot be nagative");
     }
+  }
 
-    getY() {
-        return this.node.y;
-    }
+  getX() {
+    return this.node.x;
+  }
 
-    setY(y: number) {
-        this.node.y = y;
-    }
+  setX(x: number) {
+    this.node.x = x;
+  }
 
-    getParentId(): string | null {
-        return this.node.parentId;
-    }
+  getY() {
+    return this.node.y;
+  }
 
-    setParentId(id: string | null) {
-        this.node.parentId = id;
-    }
+  setY(y: number) {
+    this.node.y = y;
+  }
 
-    translatePosition(deltaX: number, deltaY: number) {
-        this.setX(this.getX() + deltaX);
-        this.setY(this.getY() + deltaY);
-    }
+  getParentId(): string | null {
+    return this.node.parentId;
+  }
+
+  setParentId(id: string | null) {
+    this.node.parentId = id;
+  }
+
+  translatePosition(deltaX: number, deltaY: number) {
+    this.setX(this.getX() + deltaX);
+    this.setY(this.getY() + deltaY);
+  }
 }

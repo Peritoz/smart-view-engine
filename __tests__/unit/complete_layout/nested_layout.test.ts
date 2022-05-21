@@ -1,10 +1,10 @@
-import {LayoutTypes} from "../../../src/libs/common/layout_types.enum";
-import {SmartViewEngine} from "../../../src";
-import {View} from "../../../src/libs/model/view";
-import {HydratedViewNode, ViewNode} from "../../../src/libs/model/view_node";
-import {Settings} from "../../../src/libs/engine/layout_engine/settings";
-import {LayoutDirector} from "../../../src/libs/engine/layout_engine/layout_builder/layout_director";
-import {Alignment} from "../../../src/libs/common/alignment.enum";
+import { LayoutTypes } from "../../../src/libs/common/layout_types.enum";
+import { SmartViewEngine } from "../../../src";
+import { View } from "../../../src/libs/model/view";
+import { HydratedViewNode, ViewNode } from "../../../src/libs/model/view_node";
+import { Settings } from "../../../src/libs/engine/layout_engine/settings";
+import { LayoutDirector } from "../../../src/libs/engine/layout_engine/layout_builder/layout_director";
+import { Alignment } from "../../../src/libs/common/alignment.enum";
 
 const basicPaths = require("../../data/paths/basic.json");
 const complexPaths = require("../../data/paths/complex.json");
@@ -26,7 +26,7 @@ describe("Nested Layout Rendering", () => {
   });
 
   describe("Homogeneous Input", () => {
-    it("Case A: One row",  (done) => {
+    it("Case A: One row", (done) => {
       const paths = [
         [
           { identifier: "A", name: "A", type: "T1" },
@@ -87,13 +87,9 @@ describe("Nested Layout Rendering", () => {
     const A = view.viewNodes.find((n: HydratedViewNode) => n.name === "A");
     const B = view.viewNodes.find((n: HydratedViewNode) => n.name === "B");
     const B1 = view.viewNodes.find((n: HydratedViewNode) => n.name === "B1");
-    const B11 = view.viewNodes.find(
-        (n: HydratedViewNode) => n.name === "B1-1"
-    );
+    const B11 = view.viewNodes.find((n: HydratedViewNode) => n.name === "B1-1");
     const B2 = view.viewNodes.find((n: HydratedViewNode) => n.name === "B2");
-    const B21 = view.viewNodes.find(
-        (n: HydratedViewNode) => n.name === "B2-1"
-    );
+    const B21 = view.viewNodes.find((n: HydratedViewNode) => n.name === "B2-1");
     const C = view.viewNodes.find((n: HydratedViewNode) => n.name === "C");
     const C1 = view.viewNodes.find((n: HydratedViewNode) => n.name === "C1");
 
@@ -155,25 +151,25 @@ describe("Nested Layout Rendering", () => {
     const view = smartView.generateView(complexPaths, "T1");
 
     const Analyst = view.viewNodes.find(
-        (n: HydratedViewNode) => n.name === "Analyst"
+      (n: HydratedViewNode) => n.name === "Analyst"
     );
     const Guest = view.viewNodes.find(
-        (n: HydratedViewNode) => n.name === "Guest"
+      (n: HydratedViewNode) => n.name === "Guest"
     );
     const PerformAnalysis = view.viewNodes.find(
-        (n: HydratedViewNode) => n.name === "Perform Corporative Analysis"
+      (n: HydratedViewNode) => n.name === "Perform Corporative Analysis"
     );
     const ProvideData = view.viewNodes.find(
-        (n: HydratedViewNode) => n.name === "Provide Updated Data"
+      (n: HydratedViewNode) => n.name === "Provide Updated Data"
     );
     const ModellingTool = view.viewNodes.find(
-        (n: HydratedViewNode) => n.name === "Modelling Tool"
+      (n: HydratedViewNode) => n.name === "Modelling Tool"
     );
     const GitClient = view.viewNodes.find(
-        (n: HydratedViewNode) => n.name === "Git Client"
+      (n: HydratedViewNode) => n.name === "Git Client"
     );
     const Company = view.viewNodes.find(
-        (n: HydratedViewNode) => n.name === "Company"
+      (n: HydratedViewNode) => n.name === "Company"
     );
 
     expect(Analyst).toBeDefined();
@@ -222,23 +218,53 @@ describe("Nested Layout Rendering", () => {
     done();
   });
 
-  it('Complex View Construction - Long Nested Chain', async () => {
+  it("Complex View Construction - Long Nested Chain", async () => {
     const director = new LayoutDirector(layoutSettings);
 
     const rowA1 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED, true);
-    const A = director.newVisibleRow("A", "T", Alignment.START, Alignment.EXPANDED, false);
-    const B = director.newVisibleRow("B", "T", Alignment.START, Alignment.EXPANDED, false);
-    const B1 = director.newVisibleRow("B1", "T", Alignment.START, Alignment.EXPANDED, false);
+    const A = director.newVisibleRow(
+      "A",
+      "T",
+      Alignment.START,
+      Alignment.EXPANDED,
+      false
+    );
+    const B = director.newVisibleRow(
+      "B",
+      "T",
+      Alignment.START,
+      Alignment.EXPANDED,
+      false
+    );
+    const B1 = director.newVisibleRow(
+      "B1",
+      "T",
+      Alignment.START,
+      Alignment.EXPANDED,
+      false
+    );
     const B11 = director.addMediumElementToCurrent("B1-1", "T", false);
 
     director.navigateToParent(1);
 
-    const B2 = director.newVisibleRow("B2", "T", Alignment.START, Alignment.EXPANDED, false);
+    const B2 = director.newVisibleRow(
+      "B2",
+      "T",
+      Alignment.START,
+      Alignment.EXPANDED,
+      false
+    );
     const B21 = director.addMediumElementToCurrent("B2-1", "T", false);
 
     director.navigateToParent(2);
 
-    const C = director.newVisibleRow("C", "T", Alignment.START, Alignment.EXPANDED, false);
+    const C = director.newVisibleRow(
+      "C",
+      "T",
+      Alignment.START,
+      Alignment.EXPANDED,
+      false
+    );
     const C1 = director.addMediumElementToCurrent("C1", "T", false);
 
     director.toAbsolutePosition();
@@ -263,7 +289,7 @@ describe("Nested Layout Rendering", () => {
     expect(B1.getY()).toBe(8);
 
     expect(B21.getWidth()).toBe(15);
-    expect(B21.getHeight()).toBe(5)
+    expect(B21.getHeight()).toBe(5);
     expect(B21.getX()).toBe(22);
     expect(B21.getY()).toBe(12);
 

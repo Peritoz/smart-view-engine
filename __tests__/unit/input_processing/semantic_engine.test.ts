@@ -1,5 +1,5 @@
-import {SemanticEngine} from "../../../src/libs/engine/semantic_engine/semantic_engine";
-import {PathElement} from "../../../src/libs/engine/smart_view_engine";
+import { SemanticEngine } from "../../../src/libs/engine/semantic_engine/semantic_engine";
+import { PathElement } from "../../../src/libs/engine/smart_view_engine";
 
 function validateSemanticTree(
   paths: Array<Array<PathElement>>,

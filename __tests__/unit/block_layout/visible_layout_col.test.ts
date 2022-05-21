@@ -52,7 +52,7 @@ describe("Visible Layout Col", () => {
           name: "A",
           type: "T",
           width: 10,
-          height: 5
+          height: 5,
         })
       );
       group.addContainer(
@@ -60,7 +60,7 @@ describe("Visible Layout Col", () => {
           name: "B",
           type: "T",
           width: 20,
-          height: 5
+          height: 5,
         })
       );
       group.addContainer(
@@ -68,7 +68,7 @@ describe("Visible Layout Col", () => {
           name: "C",
           type: "T",
           width: 25,
-          height: 5
+          height: 5,
         })
       );
 
@@ -182,7 +182,7 @@ describe("Visible Layout Col", () => {
           name: "A",
           type: "T",
           width: 10,
-          height: 5
+          height: 5,
         })
       );
       group.addContainer(
@@ -190,7 +190,7 @@ describe("Visible Layout Col", () => {
           name: "B",
           type: "T",
           width: 20,
-          height: 5
+          height: 5,
         })
       );
       group.addContainer(
@@ -198,7 +198,7 @@ describe("Visible Layout Col", () => {
           name: "C",
           type: "T",
           width: 25,
-          height: 5
+          height: 5,
         })
       );
 
