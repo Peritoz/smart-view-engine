@@ -388,7 +388,7 @@ describe("Horizontal Rendering", () => {
       })
     );
 
-    group.setWidth(410);
+    group.setWidth(400);
     group.setHeight(100);
 
     const children = group.getChildren();
@@ -400,6 +400,6 @@ describe("Horizontal Rendering", () => {
     expect(children[1].getHeight()).toBe(group.getUsedHeight());
     expect(children[2].getHeight()).toBe(group.getUsedHeight());
     expect(group.getHeight()).toBe(100);
-    expect(group.getWidth()).toBe(410);
+    expect(group.getWidth()).toBe(400);
   });
 });

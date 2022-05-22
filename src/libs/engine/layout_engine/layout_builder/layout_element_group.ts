@@ -66,10 +66,6 @@ export class LayoutElementGroup extends Block {
     return this.subTreeCounting;
   }
 
-  isEmpty(): boolean {
-    return this.children.length === 0;
-  }
-
   getChildAtIndex(index: number) {
     if (this.children.length > index) {
       return this.children[index];
@@ -113,9 +109,15 @@ export class LayoutElementGroup extends Block {
       this.updateSizeReference();
 
       // Distributing and aligning elements
-      if(this.childrenDirection === Direction.HORIZONTAL) {
+      if (this.childrenDirection === Direction.HORIZONTAL) {
         this.applyDistribution();
-      }else{
+      } else {
+        // Expanded alignment forces the used width to maximum
+        if(this.horizontalAlignment === Alignment.EXPANDED){
+          this.setUsedWidth(value);
+        }
+
+        // Aligning elements
         this.applyAlignment();
       }
     } else {
@@ -136,9 +138,15 @@ export class LayoutElementGroup extends Block {
       this.updateSizeReference();
 
       // Distributing and aligning elements
-      if(this.childrenDirection === Direction.HORIZONTAL){
+      if (this.childrenDirection === Direction.HORIZONTAL) {
+        // Expanded alignment forces the used height to maximum
+        if(this.verticalAlignment === Alignment.EXPANDED){
+          this.setUsedHeight(value);
+        }
+
+        // Aligning elements
         this.applyAlignment();
-      }else{
+      } else {
         this.applyDistribution();
       }
     } else {
@@ -215,12 +223,22 @@ export class LayoutElementGroup extends Block {
       : (value: number) => this.incrementUsedHeight(value);
     const setCrossDimension: (value: number) => void = isHorizontal
       ? (value: number) => {
-          this.setHeight(value);
-          this.setUsedHeight(value);
+          if (
+            this.horizontalAlignment !== Alignment.EXPANDED &&
+            value > this.getUsedHeight()
+          ) {
+            this.setHeight(value);
+            this.setUsedHeight(value);
+          }
         }
       : (value: number) => {
-          this.setWidth(value);
-          this.setUsedWidth(value);
+          if (
+            this.verticalAlignment !== Alignment.EXPANDED &&
+            value > this.getUsedWidth()
+          ) {
+            this.setWidth(value);
+            this.setUsedWidth(value);
+          }
         };
     let mainIncrementValue: number = isHorizontal
       ? container.getWidth()
@@ -230,22 +248,28 @@ export class LayoutElementGroup extends Block {
       : container.getWidth();
 
     if (container) {
+      // Adding container as child
       this.children.push(container);
 
       this.hasNestedGroup =
         this.hasNestedGroup || container instanceof LayoutElementGroup;
 
+      // Incrementing main size length
       if (this.children.length > 1) {
         mainIncrementValue += this.settings.spaceBetween;
       }
 
       incrementUsedMainLength(mainIncrementValue);
+
+      // Adjusting cross length size
       setCrossDimension(crossIncrementValue);
 
-      if (container instanceof BaseElement) {
-        this.applyDistribution();
-        this.applyAlignment();
+      // Arranging elements
+      this.applyDistribution();
+      this.applyAlignment();
 
+      // Setting parent
+      if (container instanceof BaseElement) {
         container.setParentId(this.id);
       }
     }
