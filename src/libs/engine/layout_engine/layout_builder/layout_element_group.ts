@@ -113,8 +113,11 @@ export class LayoutElementGroup extends Block {
       this.updateSizeReference();
 
       // Distributing and aligning elements
-      this.applyDistribution();
-      this.applyAlignment();
+      if(this.childrenDirection === Direction.HORIZONTAL) {
+        this.applyDistribution();
+      }else{
+        this.applyAlignment();
+      }
     } else {
       throw new Error("The new Width can´t be smaller than current Width");
     }
@@ -133,8 +136,11 @@ export class LayoutElementGroup extends Block {
       this.updateSizeReference();
 
       // Distributing and aligning elements
-      this.applyDistribution();
-      this.applyAlignment();
+      if(this.childrenDirection === Direction.HORIZONTAL){
+        this.applyAlignment();
+      }else{
+        this.applyDistribution();
+      }
     } else {
       throw new Error("The new Height can´t be smaller than current Height");
     }
@@ -334,7 +340,7 @@ export class LayoutElementGroup extends Block {
 
     // Setting the initial cursor position
     if (alignment === Alignment.END) {
-      cursor = offsetAfter;
+      cursor = totalSize - offsetAfter;
     } else if (alignment === Alignment.CENTER) {
       cursor = totalSize / 2 - usedSize / 2;
     } else {
