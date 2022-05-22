@@ -16,8 +16,8 @@ export abstract class Block implements PositionalElement {
   protected constructor({ x, y, width, height }: Partial<PositionalElement>) {
     this.x = x || 0;
     this.y = y || 0;
-    this.width = width || DEFAULT.DEFAULT_WIDTH; // TODO: Get from a singleton the set default value
-    this.height = height || DEFAULT.DEFAULT_HEIGHT; // TODO: Get from a singleton the set default value
+    this.width = width !== undefined ? width : DEFAULT.DEFAULT_WIDTH; // TODO: Get from a singleton the set default value
+    this.height = height !== undefined ? height : DEFAULT.DEFAULT_HEIGHT; // TODO: Get from a singleton the set default value
   }
 
   getWidth() {

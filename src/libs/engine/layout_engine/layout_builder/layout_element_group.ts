@@ -2,6 +2,7 @@ import { Alignment } from "@libs/common/alignment.enum";
 import { Settings } from "@libs/engine/layout_engine/settings";
 import { BaseElement } from "@libs/model/base_element";
 import { Direction } from "@libs/common/distribution.enum";
+import { Block } from "@libs/model/block";
 
 const uniqId = require("uniqid");
 
@@ -10,20 +11,16 @@ interface Point {
   y: number;
 }
 
-export class LayoutElementGroup {
+export class LayoutElementGroup extends Block {
   protected id: string;
   protected parentId: string | null;
   protected settings: Settings;
   protected horizontalAlignment: Alignment;
   protected verticalAlignment: Alignment;
   protected children: Array<LayoutElementGroup | BaseElement>;
-  protected x: number;
-  protected y: number;
   protected childrenDirection: Direction;
   protected usedWidth: number;
   protected usedHeight: number;
-  protected width: number;
-  protected height: number;
   protected contentBox: { topLeft: Point; bottomRight: Point };
   protected sizeReference: number;
   protected maxChildWidth: number;
@@ -38,19 +35,17 @@ export class LayoutElementGroup {
     settings: Settings,
     parentId: string | null
   ) {
+    super({ x: 0, y: 0, width: 0, height: 0 });
+
     this.id = uniqId();
     this.parentId = parentId;
     this.settings = settings;
     this.horizontalAlignment = horizontalAlignment;
     this.verticalAlignment = verticalAlignment;
     this.children = [];
-    this.x = 0;
-    this.y = 0;
     this.childrenDirection = distribution;
     this.usedWidth = 0; // Not the length of Children, but refers to the real width (in points) of the group
     this.usedHeight = 0; // Not the length of Children, but refers to the real height (in points) of the group
-    this.width = 0; // Related to arbitrary (non derived from children dimensions) group's Main Length
-    this.height = 0; // Related to arbitrary (non derived from children dimensions) group's Cross Length
     this.contentBox = { topLeft: { x: 0, y: 0 }, bottomRight: { x: 0, y: 0 } }; // Content box limits
     this.sizeReference = 0; // Represents the size of each element (without padding between) that fulfill the group length
     this.maxChildWidth = 0; // Represents the width of the biggest child
@@ -97,33 +92,11 @@ export class LayoutElementGroup {
     return this.children;
   }
 
-  setX(value: number) {
-    this.x = value;
-  }
-
-  setY(value: number) {
-    this.y = value;
-  }
-
-  getX() {
-    return this.x;
-  }
-
-  getY() {
-    return this.y;
-  }
-
-  getWidth(): number {
-    return this.width;
-  }
-
-  getHeight(): number {
-    return this.height;
-  }
-
   setWidth(value: number) {
-    if (value > this.width) {
-      this.width = value;
+    const currentWidth = this.getWidth();
+
+    if (value > currentWidth) {
+      super.setWidth(value);
 
       // Updating content box limit
       this.updateHorizontalContentBoxAxis();
@@ -136,8 +109,10 @@ export class LayoutElementGroup {
   }
 
   setHeight(value: number) {
-    if (value > this.height) {
-      this.height = value;
+    const currentHeight = this.getHeight();
+
+    if (value > currentHeight) {
+      super.setHeight(value);
 
       // Updating content box limit
       this.updateVerticalContentBoxAxis();
@@ -235,11 +210,11 @@ export class LayoutElementGroup {
   addContainer(container: BaseElement | LayoutElementGroup) {
     const isHorizontal = this.childrenDirection === Direction.HORIZONTAL;
     const incrementUsedMainLength: (value: number) => void = isHorizontal
-      ? this.incrementUsedWidth
-      : this.incrementUsedHeight;
+      ? (value: number) => this.incrementUsedWidth(value)
+      : (value: number) => this.incrementUsedHeight(value);
     const setCrossDimension: (value: number) => void = isHorizontal
-      ? this.setWidth
-      : this.setHeight;
+      ? (value: number) => this.setHeight(value)
+      : (value: number) => this.setWidth(value);
     let mainIncrementValue: number = isHorizontal
       ? container.getWidth()
       : container.getHeight();

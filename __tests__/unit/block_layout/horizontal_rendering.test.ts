@@ -57,7 +57,7 @@ describe("Horizontal Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(500);
+    group.setWidth(500);
 
     const children = group.getChildren();
 
@@ -106,7 +106,7 @@ describe("Horizontal Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(500);
+    group.setWidth(500);
 
     const children = group.getChildren();
 
@@ -155,7 +155,7 @@ describe("Horizontal Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(500);
+    group.setWidth(500);
 
     const children = group.getChildren();
 
@@ -204,7 +204,7 @@ describe("Horizontal Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(400);
+    group.setWidth(400);
 
     const children = group.getChildren();
 
@@ -253,7 +253,7 @@ describe("Horizontal Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(500);
+    group.setWidth(500);
 
     const children = group.getChildren();
 
@@ -302,7 +302,7 @@ describe("Horizontal Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(500);
+    group.setWidth(500);
 
     const children = group.getChildren();
 
@@ -351,7 +351,7 @@ describe("Horizontal Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(500);
+    group.setWidth(500);
 
     const children = group.getChildren();
 
@@ -400,7 +400,7 @@ describe("Horizontal Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(500);
+    group.setWidth(500);
 
     const children = group.getChildren();
 
