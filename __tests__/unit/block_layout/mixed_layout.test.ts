@@ -3,8 +3,144 @@ import { LayoutDirector } from "../../../src/libs/engine/layout_engine/layout_bu
 import { Alignment } from "../../../src/libs/common/alignment.enum";
 import { LayoutSet } from "../../../src/libs/engine/layout_engine/layout_builder/layout_set";
 import { ElementBuilder } from "../../../src/libs/engine/layout_engine/layout_builder/element_builder";
+import { LayoutRow } from "../../../src/libs/engine/layout_engine/layout_builder/layout_row";
+import { LayoutCol } from "../../../src/libs/engine/layout_engine/layout_builder/layout_col";
 
-describe("Horizontal Rendering", () => {
+describe("Mixed Rendering", () => {
+  const settings = new Settings({
+    layoutType: "hierarchy",
+    maxHorizontalCount: 4,
+    maxChildHorizontalCount: 2,
+    spaceBetween: 5,
+    leftPadding: 5,
+    rightPadding: 5,
+    topPadding: 5,
+    bottomPadding: 5,
+    spaceToOuterLabel: 10,
+  });
+  const elementBuilder = new ElementBuilder(settings);
+
+  it("Horizontal - Row Resizing - After Insert Cols", async () => {
+    let row1 = new LayoutRow(
+      Alignment.EXPANDED,
+      Alignment.EXPANDED,
+      settings,
+      null
+    );
+    let col1 = new LayoutCol(
+      Alignment.EXPANDED,
+      Alignment.EXPANDED,
+      settings,
+      null
+    );
+    let col2 = new LayoutCol(
+      Alignment.EXPANDED,
+      Alignment.EXPANDED,
+      settings,
+      null
+    );
+
+    col1.addContainer(
+      elementBuilder.buildElement({
+        name: "A",
+        width: 50,
+        height: 25,
+      })
+    );
+    col1.addContainer(
+      elementBuilder.buildElement({
+        name: "B",
+        width: 60,
+        height: 50,
+      })
+    );
+    col2.addContainer(
+      elementBuilder.buildElement({
+        name: "C",
+        width: 25,
+        height: 60,
+      })
+    );
+
+    row1.addContainer(col1);
+    row1.addContainer(col2);
+
+    const cols = row1.getChildren();
+    const col1Children = cols[0].getChildren();
+    const col2Children = cols[1].getChildren();
+
+    expect(row1.getHeight()).toBe(100);
+    expect(row1.getWidth()).toBe(120);
+    expect(col1Children[0].getWidth()).toBe(col1.getUsedHeight());
+    expect(col1Children[1].getWidth()).toBe(col1.getUsedHeight());
+    expect(col2Children[0].getWidth()).toBe(col2.getUsedHeight());
+  });
+
+  it("Horizontal - Row Resizing - Imposed Size", async () => {
+    let row1 = new LayoutRow(
+      Alignment.EXPANDED,
+      Alignment.EXPANDED,
+      settings,
+      null
+    );
+    let col1 = new LayoutCol(
+      Alignment.EXPANDED,
+      Alignment.EXPANDED,
+      settings,
+      null
+    );
+    let col2 = new LayoutCol(
+      Alignment.EXPANDED,
+      Alignment.EXPANDED,
+      settings,
+      null
+    );
+
+    col1.addContainer(
+      elementBuilder.buildElement({
+        name: "A",
+        width: 50,
+        height: 25,
+      })
+    );
+    col1.addContainer(
+      elementBuilder.buildElement({
+        name: "B",
+        width: 60,
+        height: 50,
+      })
+    );
+    col2.addContainer(
+      elementBuilder.buildElement({
+        name: "C",
+        width: 25,
+        height: 60,
+      })
+    );
+
+    row1.addContainer(col1);
+    row1.addContainer(col2);
+
+    row1.setWidth(200);
+    row1.setHeight(125);
+
+    const cols = row1.getChildren();
+    const col1Children = cols[0].getChildren();
+    const col2Children = cols[1].getChildren();
+
+    expect(col1Children[0].getY()).toBe(0);
+    expect(col1Children[1].getY()).toBe(55);
+    expect(col2Children[0].getY()).toBe(0);
+    expect(col1Children[0].getHeight()).toBe(50);
+    expect(col1Children[1].getHeight()).toBe(50);
+    expect(col2Children[0].getHeight()).toBe(105);
+    expect(col1Children[0].getWidth()).toBe(col1.getUsedHeight());
+    expect(col1Children[1].getWidth()).toBe(col1.getUsedHeight());
+    expect(col2Children[0].getWidth()).toBe(col2.getUsedHeight());
+    expect(row1.getHeight()).toBe(125);
+    expect(row1.getWidth()).toBe(200);
+  });
+
   it("Horizontal and Vertical - Simple Resizing", async () => {
     const layoutSettings = new Settings({
       maxHorizontalCount: 4,
@@ -81,18 +217,6 @@ describe("Horizontal Rendering", () => {
   });
 
   it("Horizontal - Insertion Resize (Global Distribution)", async () => {
-    const settings = new Settings({
-      layoutType: "hierarchy",
-      maxHorizontalCount: 4,
-      maxChildHorizontalCount: 2,
-      spaceBetween: 5,
-      leftPadding: 5,
-      rightPadding: 5,
-      topPadding: 5,
-      bottomPadding: 5,
-      spaceToOuterLabel: 10,
-    });
-    const elementBuilder = new ElementBuilder(settings);
     const set = new LayoutSet(settings);
 
     const row1 = set.newRow(Alignment.START, Alignment.EXPANDED);

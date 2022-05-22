@@ -148,27 +148,6 @@ export class LayoutElementGroup extends Block {
     this.contentBox.bottomRight.y = this.height;
   }
 
-  /**
-   * Based on alignment and offset, returns the optimal the initial position for nested children
-   * @returns Initial position
-   */
-  getInitialNestedPosition(
-    virtualLength: number,
-    usedLength: number,
-    alignment: Alignment,
-    offset: number = 0
-  ): number {
-    if (alignment === Alignment.END) {
-      return virtualLength;
-    } else if (alignment === Alignment.CENTER) {
-      const centerPoint = (virtualLength - offset) / 2 + offset;
-      return centerPoint - usedLength / 2;
-    } else {
-      // START or EXPANDED with padding
-      return offset;
-    }
-  }
-
   resetElementLength() {
     this.usedWidth = 0;
     this.usedHeight = 0;
@@ -267,27 +246,31 @@ export class LayoutElementGroup extends Block {
   }
 
   applyDistribution() {
+    const totalSize = this.getWidth();
+
     if (this.childrenDirection === Direction.HORIZONTAL) {
       this.distributeElements(
         this.horizontalAlignment,
-        this.getWidth(),
+        totalSize,
+        this.getUsedWidth(),
         (child) => child.getWidth(),
         (child, value) => child.setWidth(value),
         (child, value) => child.setX(value),
-        this.horizontalAlignment === Alignment.END
-          ? this.contentBox.bottomRight.x
-          : this.contentBox.topLeft.x
+        this.contentBox.topLeft.x,
+        totalSize - this.contentBox.bottomRight.x
       );
     } else {
+      const totalSize = this.getHeight();
+
       this.distributeElements(
         this.verticalAlignment,
+        totalSize,
         this.getUsedHeight(),
         (child) => child.getHeight(),
         (child, value) => child.setHeight(value),
         (child, value) => child.setY(value),
-        this.verticalAlignment === Alignment.END
-          ? this.contentBox.bottomRight.y
-          : this.contentBox.topLeft.y
+        this.contentBox.topLeft.y,
+        totalSize - this.contentBox.bottomRight.y
       );
     }
   }
@@ -298,7 +281,7 @@ export class LayoutElementGroup extends Block {
 
       this.alignElements(
         this.verticalAlignment,
-        this.getHeight(),
+        totalSize,
         (child) => child.getHeight(),
         (child, value) => child.setY(value),
         this.contentBox.topLeft.y,
@@ -321,15 +304,18 @@ export class LayoutElementGroup extends Block {
   /**
    * Distributes children over the element area, considering alignment option
    * @param alignment Alignment option to be applied
-   * @param totalSize Container dimension length to be considered
+   * @param totalSize Total container dimension length
+   * @param usedSize Container's used length
    * @param getChildSize Callback to get the child dimension length
    * @param setChildSize Callback to set the child dimension length
    * @param setChildPosition Callback to set the child position
-   * @param offset Offset to be considered when calculating position
+   * @param offsetBefore Offset before element area
+   * @param offsetAfter Offset after element area
    */
   distributeElements(
     alignment: Alignment,
     totalSize: number,
+    usedSize: number,
     getChildSize: (child: LayoutElementGroup | BaseElement) => number,
     setChildSize: (
       child: LayoutElementGroup | BaseElement,
@@ -339,11 +325,21 @@ export class LayoutElementGroup extends Block {
       child: LayoutElementGroup | BaseElement,
       value: number
     ) => void,
-    offset: number = 0
+    offsetBefore: number = 0,
+    offsetAfter: number = 0
   ) {
     const refSize = this.sizeReference;
     const spaceBetween = this.settings.spaceBetween;
-    let cursor = offset; // Setting the initial cursor position
+    let cursor;
+
+    // Setting the initial cursor position
+    if (alignment === Alignment.END) {
+      cursor = offsetAfter;
+    } else if (alignment === Alignment.CENTER) {
+      cursor = totalSize / 2 - usedSize / 2;
+    } else {
+      cursor = offsetBefore;
+    }
 
     // Adjusting size and position for all children
     for (let i = 0; i < this.children.length; i++) {
