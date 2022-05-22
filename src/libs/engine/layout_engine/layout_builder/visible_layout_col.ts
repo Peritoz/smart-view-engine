@@ -49,28 +49,6 @@ export class VisibleLayoutCol extends LayoutCol {
     return this.type;
   }
 
-  getWidth() {
-    if (this.lateralLabel) {
-      return (
-        super.getWidth() + this.labelAreaWidth + this.settings.spaceToOuterLabel
-      );
-    } else {
-      return super.getWidth();
-    }
-  }
-
-  getHeight() {
-    if (!this.lateralLabel) {
-      return (
-        super.getHeight() +
-        this.labelAreaHeight +
-        this.settings.spaceToOuterLabel
-      );
-    } else {
-      return super.getHeight();
-    }
-  }
-
   updateHorizontalContentBoxAxis() {
     this.contentBox.bottomRight.x = this.getWidth() - this.settings.rightPadding;
   }

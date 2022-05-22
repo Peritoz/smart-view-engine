@@ -295,56 +295,6 @@ describe("Visible Layout Row", () => {
     });
   });
 
-  describe("Content Box - Top Label", function () {
-    const director = new LayoutDirector(settings);
-    const row: VisibleLayoutRow = director.newVisibleRow(
-      "R1",
-      "T",
-      Alignment.START,
-      Alignment.START,
-      false
-    );
-
-    it("Should initialize and update main length content box reference", async () => {
-      row.setWidth(100);
-
-      expect(row.contentBox.topLeft.x).toBe(5);
-      expect(row.contentBox.bottomRight.x).toBe(95);
-    });
-
-    it("Should initialize and update cross length content box reference", async () => {
-      row.setHeight(100);
-
-      expect(row.contentBox.topLeft.y).toBe(25);
-      expect(row.contentBox.bottomRight.y).toBe(95);
-    });
-  });
-
-  describe("Content Box - Lateral Label", function () {
-    const director = new LayoutDirector(settings);
-    const row: VisibleLayoutRow = director.newVisibleRow(
-        "R1",
-        "T",
-        Alignment.START,
-        Alignment.START,
-        true
-    );
-
-    it("Should initialize and update main length content box reference", async () => {
-      row.setWidth(100);
-
-      expect(row.contentBox.topLeft.x).toBe(45);
-      expect(row.contentBox.bottomRight.x).toBe(95);
-    });
-
-    it("Should initialize and update cross length content box reference", async () => {
-      row.setHeight(100);
-
-      expect(row.contentBox.topLeft.y).toBe(5);
-      expect(row.contentBox.bottomRight.y).toBe(95);
-    });
-  });
-
   describe("Row Alignment Test", () => {
     it("Initial Element Position - Main Axis START - Cross Axis START", async () => {
       const director = new LayoutDirector(settings);
