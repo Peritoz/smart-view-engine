@@ -1,28 +1,24 @@
 import uniqId from "uniqid";
 import { NodeBlock } from "@libs/model/view_node";
-import { DEFAULT } from "@libs/common/size_reference.const";
+import { Block } from "@libs/model/block";
 
-export class BaseElement {
-  protected id: string;
-  protected node: NodeBlock;
+export class BaseElement extends Block implements NodeBlock {
+  id: string;
+  name: string;
+  type: string;
+  parentId: string | null;
 
   constructor(viewNode: Partial<NodeBlock>) {
     if (!viewNode.name) {
       throw new Error("Name is required when creating Base Element");
     }
 
-    const node: NodeBlock = {
-      name: viewNode.name,
-      type: viewNode.type || "",
-      x: viewNode.x || 0,
-      y: viewNode.y || 0,
-      width: viewNode.width || DEFAULT.DEFAULT_WIDTH, // TODO: Get from a singleton the set default value
-      height: viewNode.height || DEFAULT.DEFAULT_HEIGHT, // TODO: Get from a singleton the set default value
-      parentId: viewNode.parentId || null,
-    };
+    super(viewNode);
 
+    this.name = viewNode.name;
+    this.type = viewNode.type || "";
+    this.parentId = viewNode.parentId || null;
     this.id = uniqId();
-    this.node = node;
   }
 
   getId() {
@@ -30,59 +26,19 @@ export class BaseElement {
   }
 
   getName() {
-    return this.node.name;
+    return this.name;
   }
 
   getType() {
-    return this.node.type;
-  }
-
-  getWidth() {
-    return this.node.width;
-  }
-
-  setWidth(width: number) {
-    if (width >= 0) {
-      this.node.width = width;
-    } else {
-      throw new Error("Width cannot be nagative");
-    }
-  }
-
-  getHeight() {
-    return this.node.height;
-  }
-
-  setHeight(height: number) {
-    if (height >= 0) {
-      this.node.height = height;
-    } else {
-      throw new Error("Height cannot be nagative");
-    }
-  }
-
-  getX() {
-    return this.node.x;
-  }
-
-  setX(x: number) {
-    this.node.x = x;
-  }
-
-  getY() {
-    return this.node.y;
-  }
-
-  setY(y: number) {
-    this.node.y = y;
+    return this.type;
   }
 
   getParentId(): string | null {
-    return this.node.parentId;
+    return this.parentId;
   }
 
   setParentId(id: string | null) {
-    this.node.parentId = id;
+    this.parentId = id;
   }
 
   translatePosition(deltaX: number, deltaY: number) {

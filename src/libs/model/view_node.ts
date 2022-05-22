@@ -1,10 +1,8 @@
-export interface NodeBlock {
+import {PositionalElement} from "@libs/model/block";
+
+export interface NodeBlock extends PositionalElement{
   name: string;
   type: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
   parentId: string | null;
 }
 

@@ -68,7 +68,7 @@ describe("Base Element", () => {
   it("Should get error when setting negative Width", (done) => {
     expect(() => {
       baseElement.setWidth(-10);
-    }).toThrow("Width cannot be nagative");
+    }).toThrow("Width cannot be negative");
 
     done();
   });
@@ -84,7 +84,7 @@ describe("Base Element", () => {
   it("Should get error when setting negative Height", (done) => {
     expect(() => {
       baseElement.setHeight(-10);
-    }).toThrow("Height cannot be nagative");
+    }).toThrow("Height cannot be negative");
 
     done();
   });
