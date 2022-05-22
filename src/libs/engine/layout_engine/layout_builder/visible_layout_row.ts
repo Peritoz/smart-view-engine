@@ -71,6 +71,14 @@ export class VisibleLayoutRow extends LayoutRow {
     }
   }
 
+  updateHorizontalContentBoxAxis() {
+    this.contentBox.bottomRight.x = this.getWidth() - this.settings.rightPadding;
+  }
+
+  updateVerticalContentBoxAxis() {
+    this.contentBox.bottomRight.y = this.getHeight() - this.settings.bottomPadding;
+  }
+
   /**
    * Returns the optimal the initial X position for nested children
    * @returns Initial X position

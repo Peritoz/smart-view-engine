@@ -12,23 +12,45 @@ function layoutToCode(layout: string) {
   }
 }
 
-export class Settings {
+export interface LayoutSettings {
   layoutType: LayoutTypes;
   maxHorizontalCount: number;
   maxChildHorizontalCount: number;
-  leftPadding: number;
-  rightPadding: number;
-  topPadding: number;
-  bottomPadding: number;
   defaultWidth: number;
   defaultHeight: number;
   pageWidth: number;
   spaceBetween: number;
   spaceToOuterLabel: number;
+  sizeUnit: number;
+}
+
+export interface VisibleGroupSettings {
+  leftPadding: number;
+  rightPadding: number;
+  topPadding: number;
+  bottomPadding: number;
   labelWidth: number;
   labelHeight: number;
   lateralLabel: boolean;
+}
+
+export class Settings implements LayoutSettings, VisibleGroupSettings {
+  layoutType: LayoutTypes;
+  maxHorizontalCount: number;
+  maxChildHorizontalCount: number;
+  defaultWidth: number;
+  defaultHeight: number;
+  pageWidth: number;
+  spaceBetween: number;
+  spaceToOuterLabel: number;
   sizeUnit: number;
+  leftPadding: number;
+  rightPadding: number;
+  topPadding: number;
+  bottomPadding: number;
+  labelWidth: number;
+  labelHeight: number;
+  lateralLabel: boolean;
 
   constructor({
     layoutType,

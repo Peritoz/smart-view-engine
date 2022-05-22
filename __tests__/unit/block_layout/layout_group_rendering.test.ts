@@ -4,7 +4,6 @@ import { Alignment } from "../../../src/libs/common/alignment.enum";
 import { DEFAULT } from "../../../src/libs/common/size_reference.const";
 import { LayoutSet } from "../../../src/libs/engine/layout_engine/layout_builder/layout_set";
 import { ElementBuilder } from "../../../src/libs/engine/layout_engine/layout_builder/element_builder";
-import { VisibleLayoutRow } from "../../../src/libs/engine/layout_engine/layout_builder/visible_layout_row";
 
 const settings = new Settings({
   layoutType: "hierarchy",

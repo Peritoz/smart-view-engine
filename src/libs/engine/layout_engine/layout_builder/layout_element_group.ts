@@ -92,6 +92,14 @@ export class LayoutElementGroup extends Block {
     return this.children;
   }
 
+  setUsedWidth(value: number) {
+    this.usedWidth = value;
+  }
+
+  setUsedHeight(value: number) {
+    this.usedHeight = value;
+  }
+
   setWidth(value: number) {
     const currentWidth = this.getWidth();
 
@@ -103,6 +111,10 @@ export class LayoutElementGroup extends Block {
 
       // Updating reference element size
       this.updateSizeReference();
+
+      // Distributing and aligning elements
+      this.applyDistribution();
+      this.applyAlignment();
     } else {
       throw new Error("The new Width can´t be smaller than current Width");
     }
@@ -119,17 +131,21 @@ export class LayoutElementGroup extends Block {
 
       // Updating reference element size
       this.updateSizeReference();
+
+      // Distributing and aligning elements
+      this.applyDistribution();
+      this.applyAlignment();
     } else {
       throw new Error("The new Height can´t be smaller than current Height");
     }
   }
 
   updateHorizontalContentBoxAxis() {
-    this.contentBox.bottomRight.x = this.width - this.settings.rightPadding;
+    this.contentBox.bottomRight.x = this.width;
   }
 
   updateVerticalContentBoxAxis() {
-    this.contentBox.bottomRight.y = this.height - this.settings.bottomPadding;
+    this.contentBox.bottomRight.y = this.height;
   }
 
   /**
@@ -213,8 +229,14 @@ export class LayoutElementGroup extends Block {
       ? (value: number) => this.incrementUsedWidth(value)
       : (value: number) => this.incrementUsedHeight(value);
     const setCrossDimension: (value: number) => void = isHorizontal
-      ? (value: number) => this.setHeight(value)
-      : (value: number) => this.setWidth(value);
+      ? (value: number) => {
+          this.setHeight(value);
+          this.setUsedHeight(value);
+        }
+      : (value: number) => {
+          this.setWidth(value);
+          this.setUsedWidth(value);
+        };
     let mainIncrementValue: number = isHorizontal
       ? container.getWidth()
       : container.getHeight();
@@ -237,45 +259,63 @@ export class LayoutElementGroup extends Block {
 
       if (container instanceof BaseElement) {
         this.applyDistribution();
+        this.applyAlignment();
+
         container.setParentId(this.id);
       }
     }
   }
 
-  applyDistribution(): void {
-    this.applyHorizontalDistribution();
-    this.applyVerticalDistribution();
+  applyDistribution() {
+    if (this.childrenDirection === Direction.HORIZONTAL) {
+      this.distributeElements(
+        this.horizontalAlignment,
+        this.getWidth(),
+        (child) => child.getWidth(),
+        (child, value) => child.setWidth(value),
+        (child, value) => child.setX(value),
+        this.horizontalAlignment === Alignment.END
+          ? this.contentBox.bottomRight.x
+          : this.contentBox.topLeft.x
+      );
+    } else {
+      this.distributeElements(
+        this.verticalAlignment,
+        this.getUsedHeight(),
+        (child) => child.getHeight(),
+        (child, value) => child.setHeight(value),
+        (child, value) => child.setY(value),
+        this.verticalAlignment === Alignment.END
+          ? this.contentBox.bottomRight.y
+          : this.contentBox.topLeft.y
+      );
+    }
   }
 
-  /**
-   * Distributes children over the element area, considering Main Axis alignment option
-   */
-  applyHorizontalDistribution() {
-    this.distributeElements(
-      this.verticalAlignment,
-      this.getWidth(),
-      (child) => child.getWidth(),
-      (child, value) => child.setWidth(value),
-      (child, value) => child.setX(value),
-      this.verticalAlignment === Alignment.END
-        ? this.contentBox.bottomRight.y
-        : this.contentBox.topLeft.y
-    );
-  }
+  applyAlignment() {
+    if (this.childrenDirection === Direction.HORIZONTAL) {
+      const totalSize = this.getHeight();
 
-  /**
-   * Distributes children over the element area, considering Cross Axis alignment option
-   */
-  applyVerticalDistribution() {
-    this.alignElements(
-      this.verticalAlignment,
-      this.getHeight(),
-      (child) => child.getHeight(),
-      (child, value) => child.setY(value),
-      this.verticalAlignment === Alignment.END
-        ? this.contentBox.bottomRight.y
-        : this.contentBox.topLeft.y
-    );
+      this.alignElements(
+        this.verticalAlignment,
+        this.getHeight(),
+        (child) => child.getHeight(),
+        (child, value) => child.setY(value),
+        this.contentBox.topLeft.y,
+        totalSize - this.contentBox.bottomRight.y
+      );
+    } else {
+      const totalSize = this.getWidth();
+
+      this.alignElements(
+        this.horizontalAlignment,
+        totalSize,
+        (child) => child.getWidth(),
+        (child, value) => child.setX(value),
+        this.contentBox.topLeft.x,
+        totalSize - this.contentBox.bottomRight.x
+      );
+    }
   }
 
   /**
@@ -308,6 +348,7 @@ export class LayoutElementGroup extends Block {
     // Adjusting size and position for all children
     for (let i = 0; i < this.children.length; i++) {
       const child = this.children[i];
+      const childSize = getChildSize(child);
 
       if (alignment === Alignment.EXPANDED) {
         setChildSize(child, refSize);
@@ -320,9 +361,9 @@ export class LayoutElementGroup extends Block {
       ) {
         setChildPosition(child, cursor);
 
-        cursor += totalSize + spaceBetween;
+        cursor += childSize + spaceBetween;
       } else if (alignment === Alignment.END) {
-        cursor -= totalSize;
+        cursor -= childSize;
 
         setChildPosition(child, cursor);
 
@@ -337,7 +378,8 @@ export class LayoutElementGroup extends Block {
    * @param totalSize Container dimension length to be considered
    * @param getChildSize Callback to get the child dimension length
    * @param setChildPosition Callback to set the child position
-   * @param offset Offset to be considered when calculating position
+   * @param offsetBefore Offset before element area
+   * @param offsetAfter Offset after element area
    */
   alignElements(
     alignment: Alignment,
@@ -347,7 +389,8 @@ export class LayoutElementGroup extends Block {
       child: LayoutElementGroup | BaseElement,
       value: number
     ) => void,
-    offset: number = 0
+    offsetBefore: number = 0,
+    offsetAfter: number = 0
   ) {
     // Adjusting size and position for all children
     for (let i = 0; i < this.children.length; i++) {
@@ -355,14 +398,14 @@ export class LayoutElementGroup extends Block {
       const childSize = getChildSize(child);
 
       if (alignment === Alignment.EXPANDED) {
-        child.setHeight(totalSize);
-        setChildPosition(child, offset);
+        child.setHeight(totalSize - offsetBefore - offsetAfter);
+        setChildPosition(child, offsetBefore);
       } else if (alignment === Alignment.START) {
-        setChildPosition(child, offset);
+        setChildPosition(child, offsetBefore);
       } else if (alignment === Alignment.CENTER) {
         setChildPosition(child, totalSize / 2 - childSize / 2);
       } else if (alignment === Alignment.END) {
-        setChildPosition(child, totalSize - offset - childSize);
+        setChildPosition(child, totalSize - offsetAfter - childSize);
       }
     }
   }
