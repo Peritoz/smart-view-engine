@@ -54,7 +54,7 @@ describe("Vertical Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(500);
+    group.setHeight(500);
 
     const children = group.getChildren();
 
@@ -68,8 +68,8 @@ describe("Vertical Rendering", () => {
 
   it("Vertical - Main Axis - End Alignment", async () => {
     let group = new LayoutCol(
-      Alignment.END,
       Alignment.START,
+      Alignment.END,
       settings,
       null,
       false
@@ -103,7 +103,7 @@ describe("Vertical Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(500);
+    group.setHeight(500);
 
     const children = group.getChildren();
 
@@ -117,8 +117,8 @@ describe("Vertical Rendering", () => {
 
   it("Vertical - Main Axis - Center Alignment", async () => {
     let group = new LayoutCol(
-      Alignment.CENTER,
       Alignment.START,
+      Alignment.CENTER,
       settings,
       null,
       false
@@ -152,7 +152,7 @@ describe("Vertical Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(500);
+    group.setHeight(500);
 
     const children = group.getChildren();
 
@@ -201,16 +201,16 @@ describe("Vertical Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(400);
+    group.setHeight(400);
 
     const children = group.getChildren();
 
     expect(children[0].getY()).toBe(0);
     expect(children[1].getY()).toBe(135);
     expect(children[2].getY()).toBe(270);
-    expect(children[0].getWidth()).toBe(group.getUsedHeight());
-    expect(children[1].getWidth()).toBe(group.getUsedHeight());
-    expect(children[2].getWidth()).toBe(group.getUsedHeight());
+    expect(children[0].getWidth()).toBe(group.getUsedWidth());
+    expect(children[1].getWidth()).toBe(group.getUsedWidth());
+    expect(children[2].getWidth()).toBe(group.getUsedWidth());
   });
 
   it("Vertical - Cross Axis - Start Alignment", async () => {
@@ -250,7 +250,7 @@ describe("Vertical Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(500);
+    group.setHeight(500);
 
     const children = group.getChildren();
 
@@ -264,8 +264,8 @@ describe("Vertical Rendering", () => {
 
   it("Vertical - Cross Axis - End Alignment", async () => {
     let group = new LayoutCol(
-      Alignment.START,
       Alignment.END,
+      Alignment.START,
       settings,
       null,
       false
@@ -299,7 +299,7 @@ describe("Vertical Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(500);
+    group.setHeight(500);
 
     const children = group.getChildren();
 
@@ -313,8 +313,8 @@ describe("Vertical Rendering", () => {
 
   it("Vertical - Cross Axis - Center Alignment", async () => {
     let group = new LayoutCol(
-      Alignment.START,
       Alignment.CENTER,
+      Alignment.START,
       settings,
       null,
       false
@@ -348,7 +348,7 @@ describe("Vertical Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(500);
+    group.setHeight(500);
 
     const children = group.getChildren();
 
@@ -362,8 +362,8 @@ describe("Vertical Rendering", () => {
 
   it("Vertical - Cross Axis - Space Between Alignment", async () => {
     let group = new LayoutCol(
-      Alignment.START,
       Alignment.EXPANDED,
+      Alignment.START,
       settings,
       null,
       false
@@ -397,15 +397,15 @@ describe("Vertical Rendering", () => {
       })
     );
 
-    group.setMaximumMainLength(500);
+    group.setHeight(500);
 
     const children = group.getChildren();
 
     expect(children[0].getX()).toBe(0);
     expect(children[1].getX()).toBe(0);
     expect(children[2].getX()).toBe(0);
-    expect(children[0].getWidth()).toBe(group.getUsedHeight());
-    expect(children[1].getWidth()).toBe(group.getUsedHeight());
-    expect(children[2].getWidth()).toBe(group.getUsedHeight());
+    expect(children[0].getWidth()).toBe(group.getUsedWidth());
+    expect(children[1].getWidth()).toBe(group.getUsedWidth());
+    expect(children[2].getWidth()).toBe(group.getUsedWidth());
   });
 });
