@@ -113,7 +113,7 @@ export class LayoutElementGroup extends Block {
         this.applyDistribution();
       } else {
         // Expanded alignment forces the used width to maximum
-        if(this.horizontalAlignment === Alignment.EXPANDED){
+        if (this.horizontalAlignment === Alignment.EXPANDED) {
           this.setUsedWidth(value);
         }
 
@@ -140,7 +140,7 @@ export class LayoutElementGroup extends Block {
       // Distributing and aligning elements
       if (this.childrenDirection === Direction.HORIZONTAL) {
         // Expanded alignment forces the used height to maximum
-        if(this.verticalAlignment === Alignment.EXPANDED){
+        if (this.verticalAlignment === Alignment.EXPANDED) {
           this.setUsedHeight(value);
         }
 
@@ -204,13 +204,16 @@ export class LayoutElementGroup extends Block {
   }
 
   updateSizeReference() {
+    const childrenLength = this.children.length;
+    const isHorizontal = this.childrenDirection === Direction.HORIZONTAL;
+    const size = isHorizontal ? this.getWidth() : this.getHeight();
+    const maxSize = isHorizontal ? this.maxChildWidth : this.maxChildHeight;
     const virtualLengthWithoutPadding =
-      this.width - (this.children.length - 1) * this.settings.spaceBetween;
-    const potentialOptimalSize =
-      virtualLengthWithoutPadding / this.children.length;
+      size - (childrenLength - 1) * this.settings.spaceBetween;
+    const potentialOptimalSize = virtualLengthWithoutPadding / childrenLength;
 
-    if (potentialOptimalSize <= this.maxChildWidth && this.hasNestedGroup) {
-      this.sizeReference = this.maxChildWidth;
+    if (potentialOptimalSize <= maxSize && this.hasNestedGroup) {
+      this.sizeReference = maxSize;
     } else {
       this.sizeReference = potentialOptimalSize;
     }
@@ -313,6 +316,7 @@ export class LayoutElementGroup extends Block {
         this.verticalAlignment,
         totalSize,
         (child) => child.getHeight(),
+        (child, value) => child.setHeight(value),
         (child, value) => child.setY(value),
         this.contentBox.topLeft.y,
         totalSize - this.contentBox.bottomRight.y
@@ -324,6 +328,7 @@ export class LayoutElementGroup extends Block {
         this.horizontalAlignment,
         totalSize,
         (child) => child.getWidth(),
+        (child, value) => child.setWidth(value),
         (child, value) => child.setX(value),
         this.contentBox.topLeft.x,
         totalSize - this.contentBox.bottomRight.x
@@ -403,6 +408,7 @@ export class LayoutElementGroup extends Block {
    * @param alignment Alignment option to be applied
    * @param totalSize Container dimension length to be considered
    * @param getChildSize Callback to get the child dimension length
+   * @param setChildSize Callback to set the child dimension length
    * @param setChildPosition Callback to set the child position
    * @param offsetBefore Offset before element area
    * @param offsetAfter Offset after element area
@@ -411,6 +417,10 @@ export class LayoutElementGroup extends Block {
     alignment: Alignment,
     totalSize: number,
     getChildSize: (child: LayoutElementGroup | BaseElement) => number,
+    setChildSize: (
+      child: LayoutElementGroup | BaseElement,
+      value: number
+    ) => void,
     setChildPosition: (
       child: LayoutElementGroup | BaseElement,
       value: number
@@ -424,7 +434,7 @@ export class LayoutElementGroup extends Block {
       const childSize = getChildSize(child);
 
       if (alignment === Alignment.EXPANDED) {
-        child.setHeight(totalSize - offsetBefore - offsetAfter);
+        setChildSize(child, totalSize - offsetBefore - offsetAfter);
         setChildPosition(child, offsetBefore);
       } else if (alignment === Alignment.START) {
         setChildPosition(child, offsetBefore);
