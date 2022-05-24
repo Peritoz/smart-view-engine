@@ -33,12 +33,8 @@ export class VisibleLayoutCol extends LayoutCol {
     };
 
     // Initializing col dimensions
-    this.setWidth(
-        this.contentBox.topLeft.x + settings.rightPadding
-    );
-    this.setHeight(
-        this.contentBox.topLeft.y + settings.bottomPadding
-    );
+    this.setWidth(this.contentBox.topLeft.x + settings.rightPadding);
+    this.setHeight(this.contentBox.topLeft.y + settings.bottomPadding);
   }
 
   getName() {
@@ -50,11 +46,13 @@ export class VisibleLayoutCol extends LayoutCol {
   }
 
   updateHorizontalContentBoxAxis() {
-    this.contentBox.bottomRight.x = this.getWidth() - this.settings.rightPadding;
+    this.contentBox.bottomRight.x =
+      this.getWidth() - this.settings.rightPadding;
   }
 
   updateVerticalContentBoxAxis() {
-    this.contentBox.bottomRight.y = this.getHeight() - this.settings.bottomPadding;
+    this.contentBox.bottomRight.y =
+      this.getHeight() - this.settings.bottomPadding;
   }
 
   /**
@@ -62,8 +60,7 @@ export class VisibleLayoutCol extends LayoutCol {
    * @returns Initial X position
    */
   getInitialXPosition(): number {
-    const { leftPadding, labelWidth, spaceToOuterLabel } =
-      this.settings;
+    const { leftPadding, labelWidth, spaceToOuterLabel } = this.settings;
 
     // Considering the label area
     const labelOffset = this.lateralLabel ? labelWidth + spaceToOuterLabel : 0;
@@ -76,43 +73,12 @@ export class VisibleLayoutCol extends LayoutCol {
    * @returns Initial Y position
    */
   getInitialYPosition(): number {
-    const { topPadding, labelHeight, spaceToOuterLabel } =
-      this.settings;
+    const { topPadding, labelHeight, spaceToOuterLabel } = this.settings;
     // Considering the label area
-    const labelOffset = !this.lateralLabel ? labelHeight + spaceToOuterLabel : 0;
+    const labelOffset = !this.lateralLabel
+      ? labelHeight + spaceToOuterLabel
+      : 0;
 
     return labelOffset + topPadding;
-  }
-
-  translatePosition(deltaX: number, deltaY: number) {
-    const paddingX = this.settings.leftPadding;
-    const paddingY = this.settings.topPadding;
-
-    this.translateElementGroupPosition(deltaX, deltaY);
-
-    let childrenStartX;
-    let childrenStartY;
-
-    if (this.lateralLabel) {
-      childrenStartX =
-        this.getX() +
-        paddingX +
-        this.labelAreaWidth +
-        this.settings.spaceToOuterLabel;
-      childrenStartY = this.getY() + paddingY;
-    } else {
-      childrenStartX = this.getX() + paddingX;
-      childrenStartY =
-        this.getY() +
-        paddingY +
-        this.labelAreaHeight +
-        this.settings.spaceToOuterLabel;
-    }
-
-    for (let i = 0; i < this.children.length; i++) {
-      const child = this.children[i];
-
-      child.translatePosition(childrenStartX, childrenStartY);
-    }
   }
 }

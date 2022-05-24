@@ -33,12 +33,8 @@ export class VisibleLayoutRow extends LayoutRow {
     };
 
     // Initializing row dimensions
-    this.setWidth(
-      this.contentBox.topLeft.x + settings.rightPadding
-    );
-    this.setHeight(
-      this.contentBox.topLeft.y + settings.bottomPadding
-    );
+    this.setWidth(this.contentBox.topLeft.x + settings.rightPadding);
+    this.setHeight(this.contentBox.topLeft.y + settings.bottomPadding);
   }
 
   getName() {
@@ -50,11 +46,13 @@ export class VisibleLayoutRow extends LayoutRow {
   }
 
   updateHorizontalContentBoxAxis() {
-    this.contentBox.bottomRight.x = this.getWidth() - this.settings.rightPadding;
+    this.contentBox.bottomRight.x =
+      this.getWidth() - this.settings.rightPadding;
   }
 
   updateVerticalContentBoxAxis() {
-    this.contentBox.bottomRight.y = this.getHeight() - this.settings.bottomPadding;
+    this.contentBox.bottomRight.y =
+      this.getHeight() - this.settings.bottomPadding;
   }
 
   /**
@@ -81,37 +79,5 @@ export class VisibleLayoutRow extends LayoutRow {
       : 0;
 
     return labelOffset + topPadding;
-  }
-
-  translatePosition(deltaX: number, deltaY: number) {
-    const paddingX = this.settings.leftPadding;
-    const paddingY = this.settings.topPadding;
-
-    this.translateElementGroupPosition(deltaX, deltaY);
-
-    let childrenStartX;
-    let childrenStartY;
-
-    if (this.lateralLabel) {
-      childrenStartX =
-        this.getX() +
-        paddingX +
-        this.labelAreaWidth +
-        this.settings.spaceToOuterLabel;
-      childrenStartY = this.getY() + paddingY;
-    } else {
-      childrenStartX = this.getX() + paddingX;
-      childrenStartY =
-        this.getY() +
-        paddingY +
-        this.labelAreaHeight +
-        this.settings.spaceToOuterLabel;
-    }
-
-    for (let i = 0; i < this.children.length; i++) {
-      const child = this.children[i];
-
-      child.translatePosition(childrenStartX, childrenStartY);
-    }
   }
 }

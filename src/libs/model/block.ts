@@ -1,13 +1,18 @@
 import { DEFAULT } from "@libs/common/size_reference.const";
 
-export interface PositionalElement {
+export interface Position {
   x: number;
   y: number;
+}
+
+export interface Dimension {
   width: number;
   height: number;
 }
 
-export abstract class Block implements PositionalElement {
+type PositionalElement = Position & Dimension;
+
+export abstract class Block implements Position, Dimension {
   x: number;
   y: number;
   width: number;
@@ -58,5 +63,15 @@ export abstract class Block implements PositionalElement {
 
   setY(y: number) {
     this.y = y;
+  }
+
+  setPosition({ x, y }: Partial<Position>) {
+    if (x !== undefined) {
+      this.setX(x);
+    }
+
+    if (y !== undefined) {
+      this.setY(y);
+    }
   }
 }

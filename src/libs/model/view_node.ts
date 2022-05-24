@@ -1,6 +1,6 @@
-import {PositionalElement} from "@libs/model/block";
+import { Position } from "@libs/model/block";
 
-export interface NodeBlock extends PositionalElement{
+export interface NodeBlock extends Position {
   name: string;
   type: string;
   parentId: string | null;

@@ -2,7 +2,7 @@ import { Alignment } from "@libs/common/alignment.enum";
 import { Settings } from "@libs/engine/layout_engine/settings";
 import { BaseElement } from "@libs/model/base_element";
 import { Direction } from "@libs/common/distribution.enum";
-import { Block } from "@libs/model/block";
+import { Block, Position } from "@libs/model/block";
 
 const uniqId = require("uniqid");
 
@@ -86,6 +86,14 @@ export class LayoutElementGroup extends Block {
 
   getChildren() {
     return this.children;
+  }
+
+  setPosition({ x, y }: Partial<Position>) {
+    const deltaX = x !== undefined ? this.getX() - x : 0;
+    const deltaY = y !== undefined ? this.getY() - y : 0;
+
+    super.setPosition({ x, y });
+    this.translateChildrenPosition(deltaX, deltaY);
   }
 
   setUsedWidth(value: number) {
@@ -226,19 +234,13 @@ export class LayoutElementGroup extends Block {
       : (value: number) => this.incrementUsedHeight(value);
     const setCrossDimension: (value: number) => void = isHorizontal
       ? (value: number) => {
-          if (
-            this.horizontalAlignment !== Alignment.EXPANDED &&
-            value > this.getUsedHeight()
-          ) {
+          if (value > this.getUsedHeight()) {
             this.setHeight(value);
             this.setUsedHeight(value);
           }
         }
       : (value: number) => {
-          if (
-            this.verticalAlignment !== Alignment.EXPANDED &&
-            value > this.getUsedWidth()
-          ) {
+          if (value > this.getUsedWidth()) {
             this.setWidth(value);
             this.setUsedWidth(value);
           }
@@ -251,6 +253,34 @@ export class LayoutElementGroup extends Block {
       : container.getWidth();
 
     if (container) {
+      const isBaseElement = container instanceof BaseElement;
+
+      // Checking horizontal alignment compatibility
+      if (!isBaseElement) {
+        if (
+          this.horizontalAlignment === Alignment.EXPANDED &&
+          (container as LayoutElementGroup).horizontalAlignment !==
+            Alignment.EXPANDED
+        ) {
+          throw new Error(
+            `Cannot insert container. The container has EXPANDED horizontal alignment and should be 
+            added only to containers with EXPANDED horizontal alignment`
+          );
+        }
+
+        // Checking vertical alignment compatibility
+        if (
+          this.verticalAlignment === Alignment.EXPANDED &&
+          (container as LayoutElementGroup).verticalAlignment !==
+            Alignment.EXPANDED
+        ) {
+          throw new Error(
+            `Cannot insert container. The container has EXPANDED vertical alignment and should be 
+            added only to containers with EXPANDED vertical alignment`
+          );
+        }
+      }
+
       // Adding container as child
       this.children.push(container);
 
@@ -272,7 +302,7 @@ export class LayoutElementGroup extends Block {
       this.applyAlignment();
 
       // Setting parent
-      if (container instanceof BaseElement) {
+      if (isBaseElement) {
         container.setParentId(this.id);
       }
     }
@@ -309,9 +339,10 @@ export class LayoutElementGroup extends Block {
   }
 
   applyAlignment() {
-    if (this.childrenDirection === Direction.HORIZONTAL) {
-      const totalSize = this.getHeight();
+    const isHorizontal = this.childrenDirection === Direction.HORIZONTAL;
+    const totalSize = isHorizontal ? this.getHeight() : this.getWidth();
 
+    if (isHorizontal) {
       this.alignElements(
         this.verticalAlignment,
         totalSize,
@@ -322,8 +353,6 @@ export class LayoutElementGroup extends Block {
         totalSize - this.contentBox.bottomRight.y
       );
     } else {
-      const totalSize = this.getWidth();
-
       this.alignElements(
         this.horizontalAlignment,
         totalSize,
@@ -451,74 +480,27 @@ export class LayoutElementGroup extends Block {
   }
 
   /**
-   * Updates the size of the element based on its content, considering children`s width and height
-   * @param getMainLengthIncrement
-   * @param getCrossLengthIncrement
+   * Applies translation over the position of children
+   * @param deltaX Number of points to be translated on the X axis
+   * @param deltaY Number of points to be translated on the Y axis
    */
-  adjustDimensionsToChildren(
-    getMainLengthIncrement: (child: BaseElement | LayoutElementGroup) => number,
-    getCrossLengthIncrement: (child: BaseElement | LayoutElementGroup) => number
-  ) {
-    let notEmptyChildCount = 0;
-    this.resetElementLength();
-
+  translateChildrenPosition(deltaX: number, deltaY: number) {
     for (let i = 0; i < this.children.length; i++) {
       const child = this.children[i];
-      const mainLengthIncrement = getMainLengthIncrement(child);
-      const crossLengthIncrement = getCrossLengthIncrement(child);
 
-      // Counting just not empty child (with elements below in the hierarchy)
-      if (mainLengthIncrement > 0) {
-        this.incrementUsedWidth(mainLengthIncrement);
-
-        notEmptyChildCount++;
-      }
-
-      // Updating cross length if needed
-      if (crossLengthIncrement > this.usedHeight) {
-        this.usedHeight = crossLengthIncrement;
-      }
+      child.translatePosition(deltaX, deltaY);
     }
-
-    // Adding space between
-    if (notEmptyChildCount > 0) {
-      const spaceBetweenTotalIncrement =
-        (notEmptyChildCount - 1) * this.settings.spaceBetween;
-
-      this.incrementUsedWidth(spaceBetweenTotalIncrement);
-    }
-
-    // Replacing virtualLength if needed
-    if (this.usedWidth > this.width) {
-      this.width = this.usedWidth;
-    }
-  }
-
-  /**
-   * Applies translation over the position of the element
-   * @param deltaX
-   * @param deltaY
-   */
-  translateElementGroupPosition(deltaX: number, deltaY: number) {
-    const newX = this.getX() + deltaX;
-    const newY = this.getY() + deltaY;
-
-    this.setX(newX);
-    this.setY(newY);
   }
 
   /**
    * Applies translation over the position of the element and its nested children
-   * @param deltaX
-   * @param deltaY
+   * @param deltaX Number of points to be translated on the X axis
+   * @param deltaY Number of points to be translated on the Y axis
    */
   translatePosition(deltaX: number, deltaY: number) {
-    this.translateElementGroupPosition(deltaX, deltaY);
+    const newX = this.getX() + deltaX;
+    const newY = this.getY() + deltaY;
 
-    for (let i = 0; i < this.children.length; i++) {
-      const child = this.children[i];
-
-      child.translatePosition(this.getX(), this.getY());
-    }
+    this.setPosition({ x: newX, y: newY });
   }
 }

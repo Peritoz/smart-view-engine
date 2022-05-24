@@ -21,7 +21,7 @@ const elementBuilder = new ElementBuilder(settings);
 describe("Layout Group", () => {
   it("Element Insertion", async () => {
     const director = new LayoutDirector(settings);
-    const row = director.newRow(Alignment.START, Alignment.START, true);
+    const row = director.newRow(Alignment.START, Alignment.START);
 
     director.addTinyElementToCurrent("el1", "t1");
     director.addSmallElementToCurrent("el2", "t1");
@@ -51,16 +51,14 @@ describe("Layout Group", () => {
 
   it("Global Position - Absolute Positioning Calculation", async () => {
     const set = new LayoutSet(settings);
-    set.newRow(Alignment.START, Alignment.START, true);
-    const col1 = set.newCol(Alignment.START, Alignment.START, false);
+    set.newRow(Alignment.START, Alignment.START);
+    const col1 = set.newCol(Alignment.START, Alignment.START);
 
     set.addToCurrentGroup(
       elementBuilder.buildElement({
         name: "A",
         width: 50,
         height: 25,
-        x: 0,
-        y: 0,
       })
     );
     set.addToCurrentGroup(
@@ -68,21 +66,17 @@ describe("Layout Group", () => {
         name: "B",
         width: 60,
         height: 50,
-        x: 0,
-        y: 0,
       })
     );
 
     set.navigateToParent();
-    const col2 = set.newCol(Alignment.START, Alignment.START, false);
+    const col2 = set.newCol(Alignment.START, Alignment.START);
 
     set.addToCurrentGroup(
       elementBuilder.buildElement({
         name: "C",
         width: 25,
         height: 60,
-        x: 0,
-        y: 0,
       })
     );
     set.addToCurrentGroup(
@@ -90,8 +84,6 @@ describe("Layout Group", () => {
         name: "D",
         width: 50,
         height: 40,
-        x: 0,
-        y: 0,
       })
     );
 
@@ -109,8 +101,6 @@ describe("Layout Group", () => {
         name: "E",
         width: 20,
         height: 20,
-        x: 0,
-        y: 0,
       })
     );
     set.addToCurrentGroup(
@@ -118,8 +108,6 @@ describe("Layout Group", () => {
         name: "F",
         width: 30,
         height: 50,
-        x: 0,
-        y: 0,
       })
     );
 
@@ -137,8 +125,6 @@ describe("Layout Group", () => {
         name: "G",
         width: 20,
         height: 20,
-        x: 0,
-        y: 0,
       })
     );
     set.addToCurrentGroup(
@@ -146,8 +132,6 @@ describe("Layout Group", () => {
         name: "H",
         width: 30,
         height: 50,
-        x: 0,
-        y: 0,
       })
     );
 
