@@ -1,7 +1,7 @@
 import { Settings } from "../../../src/libs/engine/layout_engine/settings";
 import { LayoutDirector } from "../../../src/libs/engine/layout_engine/layout_builder/layout_director";
 import { Alignment } from "../../../src/libs/common/alignment.enum";
-import { LayoutSet } from "../../../src/libs/engine/layout_engine/layout_builder/layout_set";
+import { LayoutTree } from "../../../src/libs/engine/layout_engine/layout_builder/layout_tree";
 import { ElementBuilder } from "../../../src/libs/engine/layout_engine/layout_builder/element_builder";
 import { LayoutRow } from "../../../src/libs/engine/layout_engine/layout_builder/layout_row";
 import { LayoutCol } from "../../../src/libs/engine/layout_engine/layout_builder/layout_col";
@@ -217,7 +217,7 @@ describe("Mixed Rendering", () => {
   });
 
   it("Horizontal - Insertion Resize (Global Distribution)", async () => {
-    const set = new LayoutSet(settings);
+    const set = new LayoutTree(settings);
 
     const row1 = set.newRow(Alignment.START, Alignment.EXPANDED);
     const col1 = set.newCol(Alignment.START, Alignment.EXPANDED);

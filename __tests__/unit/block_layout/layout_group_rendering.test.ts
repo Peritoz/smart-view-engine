@@ -2,7 +2,7 @@ import { LayoutDirector } from "../../../src/libs/engine/layout_engine/layout_bu
 import { Settings } from "../../../src/libs/engine/layout_engine/settings";
 import { Alignment } from "../../../src/libs/common/alignment.enum";
 import { DEFAULT } from "../../../src/libs/common/size_reference.const";
-import { LayoutSet } from "../../../src/libs/engine/layout_engine/layout_builder/layout_set";
+import { LayoutTree } from "../../../src/libs/engine/layout_engine/layout_builder/layout_tree";
 import { ElementBuilder } from "../../../src/libs/engine/layout_engine/layout_builder/element_builder";
 
 const settings = new Settings({
@@ -50,7 +50,7 @@ describe("Layout Group", () => {
   });
 
   it("Global Position - Absolute Positioning Calculation", async () => {
-    const set = new LayoutSet(settings);
+    const set = new LayoutTree(settings);
     set.newRow(Alignment.START, Alignment.START);
     const col1 = set.newCol(Alignment.START, Alignment.START);
 

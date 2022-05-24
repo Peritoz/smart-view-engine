@@ -7,7 +7,7 @@ import { LayoutCol } from "@libs/engine/layout_engine/layout_builder/layout_col"
 import { VisibleLayoutCol } from "@libs/engine/layout_engine/layout_builder/visible_layout_col";
 import { VisibleLayoutRow } from "@libs/engine/layout_engine/layout_builder/visible_layout_row";
 
-export class LayoutSet {
+export class LayoutTree {
   protected settings: Settings;
   protected set: LayoutElementGroup | null;
   protected navigationHistory: any[];
@@ -69,10 +69,7 @@ export class LayoutSet {
     return elementGroup;
   }
 
-  newRow(
-    horizontalAlignment: Alignment,
-    verticalAlignment: Alignment
-  ) {
+  newRow(horizontalAlignment: Alignment, verticalAlignment: Alignment) {
     return this.newElementGroup((parentId: string | null) => {
       return new LayoutRow(
         horizontalAlignment,
@@ -83,10 +80,7 @@ export class LayoutSet {
     });
   }
 
-  newCol(
-    horizontalAlignment: Alignment,
-    verticalAlignment: Alignment
-  ) {
+  newCol(horizontalAlignment: Alignment, verticalAlignment: Alignment) {
     return this.newElementGroup((parentId: string | null) => {
       return new LayoutCol(
         horizontalAlignment,
@@ -158,48 +152,12 @@ export class LayoutSet {
     }
   }
 
-  applyGlobalDistribution(initialGroup: LayoutElementGroup) {
-    const parentId = initialGroup.getParentId();
-
-    if (parentId) {
-      const parent = this.containerMap.get(parentId);
-
-      if (parent instanceof LayoutRow || parent instanceof LayoutCol) {
-        parent.adjustDimensionsToChildren();
-        parent.applyDistribution();
-
-        this.applyGlobalDistribution(parent);
-      }
-    }
-  }
-
-  addToGroup(groupId: string, container: BaseElement | LayoutElementGroup) {
-    if (this.containerMap.get(container.getId()) === undefined) {
-      const layoutGroup = this.containerMap.get(groupId);
-
-      if (layoutGroup instanceof LayoutElementGroup) {
-        layoutGroup.addContainer(container);
-        this.containerMap.set(container.getId(), container);
-
-        this.applyGlobalDistribution(layoutGroup);
-
-        this.updateSubTreeCountingChain();
-      } else {
-        throw new Error("Containers must be inserted in Rows or Cols");
-      }
-    } else {
-      throw new Error("It's not possible to insert the same container twice");
-    }
-  }
-
   addToCurrentGroup(container: BaseElement | LayoutElementGroup) {
     if (this.containerMap.get(container.getId()) === undefined) {
       const layoutGroup = this.getCurrentLayoutGroup();
 
       layoutGroup.addContainer(container);
       this.containerMap.set(container.getId(), container);
-
-      this.applyGlobalDistribution(layoutGroup);
 
       this.updateSubTreeCountingChain();
     } else {

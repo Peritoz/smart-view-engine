@@ -3,7 +3,7 @@ import { VisibleLayoutCol } from "@libs/engine/layout_engine/layout_builder/visi
 import { BaseElement } from "@libs/model/base_element";
 import { LayoutElementGroup } from "@libs/engine/layout_engine/layout_builder/layout_element_group";
 import { Settings } from "@libs/engine/layout_engine/settings";
-import { LayoutSet } from "@libs/engine/layout_engine/layout_builder/layout_set";
+import { LayoutTree } from "@libs/engine/layout_engine/layout_builder/layout_tree";
 import { HydratedView } from "@libs/model/hydrated_view";
 import { ElementBuilder } from "@libs/engine/layout_engine/layout_builder/element_builder";
 import { Alignment } from "@libs/common/alignment.enum";
@@ -44,12 +44,12 @@ function extractToView(
 export class LayoutDirector {
   private settings: Settings;
   private builder: ElementBuilder;
-  private layoutSet: LayoutSet;
+  private layoutSet: LayoutTree;
 
   constructor(settings: Settings) {
     this.settings = settings;
     this.builder = new ElementBuilder(settings);
-    this.layoutSet = new LayoutSet(settings);
+    this.layoutSet = new LayoutTree(settings);
   }
 
   convertToView(viewName: string, viewId: string) {
