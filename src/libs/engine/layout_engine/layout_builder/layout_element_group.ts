@@ -13,7 +13,6 @@ interface Point {
 
 export class LayoutElementGroup extends Block {
   protected id: string;
-  protected parentId: string | null;
   protected settings: Settings;
   protected horizontalAlignment: Alignment;
   protected verticalAlignment: Alignment;
@@ -32,13 +31,11 @@ export class LayoutElementGroup extends Block {
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
     distribution: Direction,
-    settings: Settings,
-    parentId: string | null
+    settings: Settings
   ) {
     super({ x: 0, y: 0, width: 0, height: 0 });
 
     this.id = uniqId();
-    this.parentId = parentId;
     this.settings = settings;
     this.horizontalAlignment = horizontalAlignment;
     this.verticalAlignment = verticalAlignment;
@@ -58,10 +55,6 @@ export class LayoutElementGroup extends Block {
     return this.id;
   }
 
-  getParentId() {
-    return this.parentId;
-  }
-
   getSubTreeCounting() {
     return this.subTreeCounting;
   }
@@ -73,11 +66,19 @@ export class LayoutElementGroup extends Block {
   }
 
   getUsedWidth() {
-    return this.usedWidth;
+    return this.contentBox.bottomRight.x - this.contentBox.topLeft.x;
   }
 
   getUsedHeight() {
-    return this.usedHeight;
+    return this.contentBox.bottomRight.y - this.contentBox.topLeft.y;
+  }
+
+  getOffsetWidth(){
+    return this.getWidth() - this.contentBox.bottomRight.x + this.contentBox.topLeft.x;
+  }
+
+  getOffsetHeight(){
+    return this.getHeight() - this.contentBox.bottomRight.y + this.contentBox.topLeft.y;
   }
 
   getChildrenLength() {
@@ -235,13 +236,13 @@ export class LayoutElementGroup extends Block {
     const setCrossDimension: (value: number) => void = isHorizontal
       ? (value: number) => {
           if (value > this.getUsedHeight()) {
-            this.setHeight(value);
+            this.setHeight(value + this.getOffsetHeight());
             this.setUsedHeight(value);
           }
         }
       : (value: number) => {
           if (value > this.getUsedWidth()) {
-            this.setWidth(value);
+            this.setWidth(value + this.getOffsetWidth());
             this.setUsedWidth(value);
           }
         };
