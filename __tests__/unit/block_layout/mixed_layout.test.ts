@@ -5,6 +5,7 @@ import { LayoutTree } from "../../../src/libs/engine/layout_engine/layout_builde
 import { ElementBuilder } from "../../../src/libs/engine/layout_engine/layout_builder/element_builder";
 import { LayoutRow } from "../../../src/libs/engine/layout_engine/layout_builder/layout_row";
 import { LayoutCol } from "../../../src/libs/engine/layout_engine/layout_builder/layout_col";
+import {DEFAULT} from "../../../src/libs/common/size_reference.const";
 
 describe("Mixed Rendering", () => {
   const settings = new Settings({
@@ -18,26 +19,23 @@ describe("Mixed Rendering", () => {
     bottomPadding: 5,
     spaceToOuterLabel: 10,
   });
-  const elementBuilder = new ElementBuilder(settings);
+  const elementBuilder = new ElementBuilder(DEFAULT.SIZE_UNIT);
 
   it("Horizontal - Row Resizing - After Insert Cols", async () => {
     let row1 = new LayoutRow(
       Alignment.EXPANDED,
       Alignment.EXPANDED,
-      settings,
-      null
+      settings
     );
     let col1 = new LayoutCol(
       Alignment.EXPANDED,
       Alignment.EXPANDED,
-      settings,
-      null
+      settings
     );
     let col2 = new LayoutCol(
       Alignment.EXPANDED,
       Alignment.EXPANDED,
-      settings,
-      null
+      settings
     );
 
     col1.addContainer(
@@ -80,20 +78,17 @@ describe("Mixed Rendering", () => {
     let row1 = new LayoutRow(
       Alignment.EXPANDED,
       Alignment.EXPANDED,
-      settings,
-      null
+      settings
     );
     let col1 = new LayoutCol(
       Alignment.EXPANDED,
       Alignment.EXPANDED,
-      settings,
-      null
+      settings
     );
     let col2 = new LayoutCol(
       Alignment.EXPANDED,
       Alignment.EXPANDED,
-      settings,
-      null
+      settings
     );
 
     col1.addContainer(

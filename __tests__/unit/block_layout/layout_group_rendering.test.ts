@@ -16,7 +16,7 @@ const settings = new Settings({
   bottomPadding: 5,
   spaceToOuterLabel: 10,
 });
-const elementBuilder = new ElementBuilder(settings);
+const elementBuilder = new ElementBuilder(DEFAULT.SIZE_UNIT);
 
 describe("Layout Group", () => {
   it("Element Insertion", async () => {

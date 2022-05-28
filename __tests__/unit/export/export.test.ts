@@ -14,13 +14,13 @@ const settings = new Settings({
   bottomPadding: 5,
   spaceToOuterLabel: 10,
 });
-const elementBuilder = new ElementBuilder(settings);
+const elementBuilder = new ElementBuilder(settings.sizeUnit);
 
 describe("Complex Rendering", () => {
   it("Export to View", async () => {
     const director = new LayoutDirector(settings);
-    director.newRow(Alignment.START, Alignment.START, true);
-    director.newCol(Alignment.START, Alignment.START, false);
+    director.newRow(Alignment.START, Alignment.START);
+    director.newCol(Alignment.START, Alignment.START);
 
     director.addToCurrentGroup(
       elementBuilder.buildElement({
@@ -42,7 +42,7 @@ describe("Complex Rendering", () => {
     );
 
     director.navigateToParent();
-    director.newCol(Alignment.START, Alignment.START, false);
+    director.newCol(Alignment.START, Alignment.START);
 
     director.addToCurrentGroup(
       elementBuilder.buildElement({
@@ -65,7 +65,7 @@ describe("Complex Rendering", () => {
 
     director.toAbsolutePosition();
 
-    const view = director.convertToView("Test");
+    const view = director.convertToView("Test", "1");
     const viewNodes = view.getViewNodes();
 
     expect(viewNodes[0].x).toBe(5);

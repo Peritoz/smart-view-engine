@@ -51,7 +51,7 @@ export class LayoutDirector {
 
   constructor(settings: Settings) {
     this.settings = settings;
-    this.builder = new ElementBuilder(settings);
+    this.builder = new ElementBuilder(settings.sizeUnit);
     this.layoutSet = new LayoutTree(settings);
   }
 
@@ -155,10 +155,8 @@ export class LayoutDirector {
     return element;
   }
 
-  navigateToParent(jumpsUpward: number | undefined) {
-    const hoops: number = jumpsUpward ? jumpsUpward : 1;
-
-    for (let i = 0; i < hoops; i++) {
+  navigateToParent(jumpsUpward: number = 1) {
+    for (let i = 0; i < jumpsUpward; i++) {
       this.layoutSet.navigateToParent();
     }
   }

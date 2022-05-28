@@ -1,14 +1,9 @@
-import { Settings } from "@libs/engine/layout_engine/settings";
 import { DEFAULT } from "@libs/common/size_reference.const";
 import { ViewNode } from "@libs/model/view_node";
 import { BaseElement } from "@libs/model/base_element";
 
 export class ElementBuilder {
-  protected sizeUnit: number;
-
-  constructor(settings: Settings) {
-    this.sizeUnit = settings.sizeUnit ? settings.sizeUnit : DEFAULT.SIZE_UNIT;
-  }
+  constructor(protected sizeUnit: number = DEFAULT.SIZE_UNIT) {}
 
   buildElement(node: ViewNode): BaseElement {
     return new BaseElement(node);

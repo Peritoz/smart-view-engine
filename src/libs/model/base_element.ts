@@ -1,14 +1,13 @@
 import uniqId from "uniqid";
-import { NodeBlock } from "@libs/model/view_node";
 import { Block } from "@libs/model/block";
 
-export class BaseElement extends Block implements NodeBlock {
+export class BaseElement extends Block {
   id: string;
   name: string;
   type: string;
   parentId: string | null;
 
-  constructor(viewNode: Partial<NodeBlock>) {
+  constructor(viewNode: Partial<BaseElement>) {
     if (!viewNode.name) {
       throw new Error("Name is required when creating Base Element");
     }

@@ -1,24 +1,21 @@
-import { Settings } from "../../../src/libs/engine/layout_engine/settings";
 import { Alignment } from "../../../src/libs/common/alignment.enum";
-import { LayoutRow } from "../../../src/libs/engine/layout_engine/layout_builder/layout_row";
 import { ElementBuilder } from "../../../src/libs/engine/layout_engine/layout_builder/element_builder";
+import { ContentBox } from "../../../src/libs/engine/layout_engine/layout_builder/content_box";
+import { Direction } from "../../../src/libs/common/distribution.enum";
+import {DEFAULT} from "../../../src/libs/common/size_reference.const";
 
-const settings = new Settings({
-  layoutType: "hierarchy",
-  maxHorizontalCount: 4,
-  maxChildHorizontalCount: 2,
-  spaceBetween: 5,
-  leftPadding: 5,
-  rightPadding: 5,
-  topPadding: 5,
-  bottomPadding: 5,
-  spaceToOuterLabel: 10,
-});
-const elementBuilder = new ElementBuilder(settings);
+const elementBuilder = new ElementBuilder(DEFAULT.SIZE_UNIT);
 
-describe("Horizontal Rendering", () => {
+describe("Horizontal Layout", () => {
   it("Horizontal - Main Axis - Start Alignment", async () => {
-    let group = new LayoutRow(Alignment.START, Alignment.START, settings, null);
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.HORIZONTAL,
+      Alignment.START,
+      Alignment.START,
+      5
+    );
 
     group.addContainer(
       elementBuilder.buildElement({
@@ -63,7 +60,14 @@ describe("Horizontal Rendering", () => {
   });
 
   it("Horizontal - Main Axis - End Alignment", async () => {
-    let group = new LayoutRow(Alignment.END, Alignment.START, settings, null);
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.HORIZONTAL,
+      Alignment.END,
+      Alignment.START,
+      5
+    );
 
     group.addContainer(
       elementBuilder.buildElement({
@@ -106,11 +110,13 @@ describe("Horizontal Rendering", () => {
   });
 
   it("Horizontal - Main Axis - Center Alignment", async () => {
-    let group = new LayoutRow(
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.HORIZONTAL,
       Alignment.CENTER,
       Alignment.START,
-      settings,
-      null
+      5
     );
 
     group.addContainer(
@@ -154,11 +160,13 @@ describe("Horizontal Rendering", () => {
   });
 
   it("Horizontal - Main Axis - Space Between Alignment", async () => {
-    let group = new LayoutRow(
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.HORIZONTAL,
       Alignment.EXPANDED,
       Alignment.EXPANDED,
-      settings,
-      null
+      5
     );
 
     group.addContainer(
@@ -202,7 +210,14 @@ describe("Horizontal Rendering", () => {
   });
 
   it("Horizontal - Cross Axis - Start Alignment", async () => {
-    let group = new LayoutRow(Alignment.START, Alignment.START, settings, null);
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.HORIZONTAL,
+      Alignment.START,
+      Alignment.START,
+      5
+    );
 
     group.addContainer(
       elementBuilder.buildElement({
@@ -245,7 +260,14 @@ describe("Horizontal Rendering", () => {
   });
 
   it("Horizontal - Cross Axis - End Alignment", async () => {
-    let group = new LayoutRow(Alignment.START, Alignment.END, settings, null);
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.HORIZONTAL,
+      Alignment.START,
+      Alignment.END,
+      5
+    );
 
     group.addContainer(
       elementBuilder.buildElement({
@@ -288,11 +310,13 @@ describe("Horizontal Rendering", () => {
   });
 
   it("Horizontal - Cross Axis - Center Alignment", async () => {
-    let group = new LayoutRow(
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.HORIZONTAL,
       Alignment.START,
       Alignment.CENTER,
-      settings,
-      null
+      5
     );
 
     group.addContainer(
@@ -336,11 +360,13 @@ describe("Horizontal Rendering", () => {
   });
 
   it("Horizontal - Cross Axis - Space Between Alignment", async () => {
-    let group = new LayoutRow(
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.HORIZONTAL,
       Alignment.START,
       Alignment.EXPANDED,
-      settings,
-      null
+      5
     );
 
     group.addContainer(
@@ -384,11 +410,13 @@ describe("Horizontal Rendering", () => {
   });
 
   it("Horizontal - Row Resizing - Elements Adjust to the Size", async () => {
-    let group = new LayoutRow(
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.HORIZONTAL,
       Alignment.EXPANDED,
       Alignment.EXPANDED,
-      settings,
-      null
+      5
     );
 
     group.addContainer(

@@ -1,29 +1,20 @@
-import { Settings } from "../../../src/libs/engine/layout_engine/settings";
 import { Alignment } from "../../../src/libs/common/alignment.enum";
-import { LayoutCol } from "../../../src/libs/engine/layout_engine/layout_builder/layout_col";
 import { ElementBuilder } from "../../../src/libs/engine/layout_engine/layout_builder/element_builder";
+import { ContentBox } from "../../../src/libs/engine/layout_engine/layout_builder/content_box";
+import { Direction } from "../../../src/libs/common/distribution.enum";
+import { DEFAULT } from "../../../src/libs/common/size_reference.const";
 
-const settings = new Settings({
-  layoutType: "hierarchy",
-  maxHorizontalCount: 4,
-  maxChildHorizontalCount: 2,
-  spaceBetween: 5,
-  leftPadding: 5,
-  rightPadding: 5,
-  topPadding: 5,
-  bottomPadding: 5,
-  spaceToOuterLabel: 10,
-});
-const elementBuilder = new ElementBuilder(settings);
+const elementBuilder = new ElementBuilder(DEFAULT.SIZE_UNIT);
 
-describe("Vertical Rendering", () => {
+describe("Vertical Layout", () => {
   it("Vertical - Main Axis - Start Alignment", async () => {
-    let group = new LayoutCol(
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.VERTICAL,
       Alignment.START,
       Alignment.START,
-      settings,
-      null,
-      false
+      5
     );
 
     group.addContainer(
@@ -31,8 +22,6 @@ describe("Vertical Rendering", () => {
         name: "A",
         width: 25,
         height: 50,
-        x: 0,
-        y: 0,
       })
     );
     group.addContainer(
@@ -40,8 +29,6 @@ describe("Vertical Rendering", () => {
         name: "B",
         width: 50,
         height: 100,
-        x: 0,
-        y: 0,
       })
     );
     group.addContainer(
@@ -49,8 +36,6 @@ describe("Vertical Rendering", () => {
         name: "C",
         width: 60,
         height: 150,
-        x: 0,
-        y: 0,
       })
     );
 
@@ -73,12 +58,13 @@ describe("Vertical Rendering", () => {
   });
 
   it("Vertical - Main Axis - End Alignment", async () => {
-    let group = new LayoutCol(
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.VERTICAL,
       Alignment.START,
       Alignment.END,
-      settings,
-      null,
-      false
+      5
     );
 
     group.addContainer(
@@ -128,12 +114,13 @@ describe("Vertical Rendering", () => {
   });
 
   it("Vertical - Main Axis - Center Alignment", async () => {
-    let group = new LayoutCol(
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.VERTICAL,
       Alignment.START,
       Alignment.CENTER,
-      settings,
-      null,
-      false
+      5
     );
 
     group.addContainer(
@@ -183,12 +170,13 @@ describe("Vertical Rendering", () => {
   });
 
   it("Vertical - Main Axis - Space Between Alignment", async () => {
-    let group = new LayoutCol(
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.VERTICAL,
       Alignment.EXPANDED,
       Alignment.EXPANDED,
-      settings,
-      null,
-      false
+      5
     );
 
     group.addContainer(
@@ -238,12 +226,13 @@ describe("Vertical Rendering", () => {
   });
 
   it("Vertical - Cross Axis - Start Alignment", async () => {
-    let group = new LayoutCol(
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.VERTICAL,
       Alignment.START,
       Alignment.START,
-      settings,
-      null,
-      false
+      5
     );
 
     group.addContainer(
@@ -293,12 +282,13 @@ describe("Vertical Rendering", () => {
   });
 
   it("Vertical - Cross Axis - End Alignment", async () => {
-    let group = new LayoutCol(
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.VERTICAL,
       Alignment.END,
       Alignment.START,
-      settings,
-      null,
-      false
+      5
     );
 
     group.addContainer(
@@ -348,12 +338,13 @@ describe("Vertical Rendering", () => {
   });
 
   it("Vertical - Cross Axis - Center Alignment", async () => {
-    let group = new LayoutCol(
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.VERTICAL,
       Alignment.CENTER,
       Alignment.START,
-      settings,
-      null,
-      false
+      5
     );
 
     group.addContainer(
@@ -403,12 +394,13 @@ describe("Vertical Rendering", () => {
   });
 
   it("Vertical - Cross Axis - Space Between Alignment", async () => {
-    let group = new LayoutCol(
+    let group: ContentBox = new ContentBox(
+      5,
+      5,
+      Direction.VERTICAL,
       Alignment.EXPANDED,
       Alignment.START,
-      settings,
-      null,
-      false
+      5
     );
 
     group.addContainer(

@@ -13,22 +13,22 @@ export class ContentBoxDimension {
   protected usedWidth: number;
   protected usedHeight: number;
   protected direction: Direction;
-  protected spaceBetweenContent: number;
+  protected spaceBetween: number;
 
   constructor(
-    top: number,
-    left: number,
-    bottom: number,
-    right: number,
-    direction: Direction,
-    spaceBetweenContent: number = DEFAULT.DEFAULT_PADDING
+    top: number = DEFAULT.DEFAULT_PADDING,
+    left: number = DEFAULT.DEFAULT_PADDING,
+    bottom: number = DEFAULT.DEFAULT_PADDING,
+    right: number = DEFAULT.DEFAULT_PADDING,
+    direction: Direction = Direction.HORIZONTAL,
+    spaceBetween: number = DEFAULT.DEFAULT_PADDING
   ) {
     this.topLeft = { x: left, y: top };
     this.bottomRight = { x: right, y: bottom };
     this.usedWidth = 0;
     this.usedHeight = 0;
     this.direction = direction;
-    this.spaceBetweenContent = spaceBetweenContent;
+    this.spaceBetween = spaceBetween;
   }
 
   getContentBoxWidth(): number {
@@ -122,7 +122,7 @@ export class ContentBoxDimension {
   addContent(content: Dimension, isFirstContent: boolean = false) {
     const currentContentWidth = this.getContentBoxWidth();
     const currentContentHeight = this.getContentBoxHeight();
-    const spaceBetween = isFirstContent ? 0 : this.spaceBetweenContent;
+    const spaceBetween = isFirstContent ? 0 : this.spaceBetween;
 
     if (this.direction === Direction.HORIZONTAL) {
       // Processing main axis size adjustments
