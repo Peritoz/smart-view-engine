@@ -15,8 +15,9 @@ function extractToView(
   const isNestedElement =
     container instanceof VisibleLayoutRow ||
     container instanceof VisibleLayoutCol;
+  const isBaseElement = container instanceof BaseElement;
 
-  if (isNestedElement || container instanceof BaseElement) {
+  if (isNestedElement || isBaseElement) {
     view.addViewNode(
       view.createViewNode(
         container.getId(),
@@ -25,7 +26,7 @@ function extractToView(
         container.getType(),
         container.getX(),
         container.getY(),
-        container.getParentId(),
+        isBaseElement ? container.getParentId() : null,
         container.getWidth(),
         container.getHeight()
       )
@@ -36,7 +37,9 @@ function extractToView(
     for (let i = 0; i < container.getChildrenLength(); i++) {
       const child = container.getChildAtIndex(i);
 
-      extractToView(view, child);
+      if (child) {
+        extractToView(view, child);
+      }
     }
   }
 }
@@ -60,24 +63,12 @@ export class LayoutDirector {
     return view;
   }
 
-  newRow(
-    horizontalAlignment: Alignment,
-    verticalAlignment: Alignment
-  ) {
-    return this.layoutSet.newRow(
-      horizontalAlignment,
-      verticalAlignment
-    );
+  newRow(horizontalAlignment: Alignment, verticalAlignment: Alignment) {
+    return this.layoutSet.newRow(horizontalAlignment, verticalAlignment);
   }
 
-  newCol(
-    horizontalAlignment: Alignment,
-    verticalAlignment: Alignment
-  ) {
-    return this.layoutSet.newCol(
-      horizontalAlignment,
-      verticalAlignment
-    );
+  newCol(horizontalAlignment: Alignment, verticalAlignment: Alignment) {
+    return this.layoutSet.newCol(horizontalAlignment, verticalAlignment);
   }
 
   newVisibleRow(

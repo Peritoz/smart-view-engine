@@ -3,13 +3,9 @@ import { Settings } from "@libs/engine/layout_engine/settings";
 import { BaseElement } from "@libs/model/base_element";
 import { Direction } from "@libs/common/distribution.enum";
 import { Block, Position } from "@libs/model/block";
+import { ContentBoxDimension } from "@libs/model/content_box_dimension";
 
 const uniqId = require("uniqid");
-
-interface Point {
-  x: number;
-  y: number;
-}
 
 export class LayoutElementGroup extends Block {
   protected id: string;
@@ -18,9 +14,9 @@ export class LayoutElementGroup extends Block {
   protected verticalAlignment: Alignment;
   protected children: Array<LayoutElementGroup | BaseElement>;
   protected childrenDirection: Direction;
-  protected usedWidth: number;
-  protected usedHeight: number;
-  protected contentBox: { topLeft: Point; bottomRight: Point };
+  protected usedContentBoxWidth: number;
+  protected usedContentBoxHeight: number;
+  protected contentBox: ContentBoxDimension;
   protected sizeReference: number;
   protected maxChildWidth: number;
   protected maxChildHeight: number;
@@ -41,9 +37,9 @@ export class LayoutElementGroup extends Block {
     this.verticalAlignment = verticalAlignment;
     this.children = [];
     this.childrenDirection = distribution;
-    this.usedWidth = 0; // Not the length of Children, but refers to the real width (in points) of the group
-    this.usedHeight = 0; // Not the length of Children, but refers to the real height (in points) of the group
-    this.contentBox = { topLeft: { x: 0, y: 0 }, bottomRight: { x: 0, y: 0 } }; // Content box limits
+    this.usedContentBoxWidth = 0; // Refers to the used width (in points) of the content box
+    this.usedContentBoxHeight = 0; // Refers to the used height (in points) of the content box
+    this.contentBox = new ContentBoxDimension(0, 0, 0, 0, distribution); // Content box limits
     this.sizeReference = 0; // Represents the size of each element (without padding between) that fulfill the group length
     this.maxChildWidth = 0; // Represents the width of the biggest child
     this.maxChildHeight = 0; // Represents the height of the biggest child
@@ -65,22 +61,6 @@ export class LayoutElementGroup extends Block {
     }
   }
 
-  getUsedWidth() {
-    return this.contentBox.bottomRight.x - this.contentBox.topLeft.x;
-  }
-
-  getUsedHeight() {
-    return this.contentBox.bottomRight.y - this.contentBox.topLeft.y;
-  }
-
-  getOffsetWidth(){
-    return this.getWidth() - this.contentBox.bottomRight.x + this.contentBox.topLeft.x;
-  }
-
-  getOffsetHeight(){
-    return this.getHeight() - this.contentBox.bottomRight.y + this.contentBox.topLeft.y;
-  }
-
   getChildrenLength() {
     return this.children.length;
   }
@@ -95,14 +75,6 @@ export class LayoutElementGroup extends Block {
 
     super.setPosition({ x, y });
     this.translateChildrenPosition(deltaX, deltaY);
-  }
-
-  setUsedWidth(value: number) {
-    this.usedWidth = value;
-  }
-
-  setUsedHeight(value: number) {
-    this.usedHeight = value;
   }
 
   setWidth(value: number) {
@@ -123,7 +95,7 @@ export class LayoutElementGroup extends Block {
       } else {
         // Expanded alignment forces the used width to maximum
         if (this.horizontalAlignment === Alignment.EXPANDED) {
-          this.setUsedWidth(value);
+          this.contentBox.setUsedWidth(value);
         }
 
         // Aligning elements
@@ -150,7 +122,7 @@ export class LayoutElementGroup extends Block {
       if (this.childrenDirection === Direction.HORIZONTAL) {
         // Expanded alignment forces the used height to maximum
         if (this.verticalAlignment === Alignment.EXPANDED) {
-          this.setUsedHeight(value);
+          this.contentBox.setUsedHeight(value);
         }
 
         // Aligning elements
@@ -164,23 +136,19 @@ export class LayoutElementGroup extends Block {
   }
 
   updateHorizontalContentBoxAxis() {
-    this.contentBox.bottomRight.x = this.width;
+    this.contentBox.setRightBoundary(this.width);
   }
 
   updateVerticalContentBoxAxis() {
-    this.contentBox.bottomRight.y = this.height;
-  }
-
-  resetElementLength() {
-    this.usedWidth = 0;
-    this.usedHeight = 0;
+    this.contentBox.setBottomBoundary(this.height);
   }
 
   incrementUsedWidth(value: number) {
-    this.usedWidth += value;
+    const usedWidth = this.contentBox.getUsedWidth();
+    this.contentBox.setUsedWidth(usedWidth + value);
 
-    if (this.usedWidth > this.width) {
-      this.width = this.usedWidth;
+    if (usedWidth > this.width) {
+      this.width = usedWidth;
     }
 
     // Updating maximum element width
@@ -188,17 +156,18 @@ export class LayoutElementGroup extends Block {
       this.maxChildWidth = value;
     }
 
-    this.updateSizeReference();
-
     // Updating content box limit
     this.updateHorizontalContentBoxAxis();
+
+    this.updateSizeReference();
   }
 
   incrementUsedHeight(value: number) {
-    this.usedHeight += value;
+    const usedHeight = this.contentBox.getUsedHeight();
+    this.contentBox.setUsedHeight(usedHeight + value);
 
-    if (this.usedHeight > this.height) {
-      this.height = this.usedHeight;
+    if (usedHeight > this.height) {
+      this.height = usedHeight;
     }
 
     // Updating maximum element height
@@ -206,16 +175,16 @@ export class LayoutElementGroup extends Block {
       this.maxChildHeight = value;
     }
 
-    this.updateSizeReference();
-
     // Updating content box limit
     this.updateVerticalContentBoxAxis();
+
+    this.updateSizeReference();
   }
 
   updateSizeReference() {
     const childrenLength = this.children.length;
     const isHorizontal = this.childrenDirection === Direction.HORIZONTAL;
-    const size = isHorizontal ? this.getWidth() : this.getHeight();
+    const size = isHorizontal ? this.contentBox.getContentBoxWidth() : this.contentBox.getContentBoxHeight();
     const maxSize = isHorizontal ? this.maxChildWidth : this.maxChildHeight;
     const virtualLengthWithoutPadding =
       size - (childrenLength - 1) * this.settings.spaceBetween;
@@ -235,15 +204,19 @@ export class LayoutElementGroup extends Block {
       : (value: number) => this.incrementUsedHeight(value);
     const setCrossDimension: (value: number) => void = isHorizontal
       ? (value: number) => {
-          if (value > this.getUsedHeight()) {
-            this.setHeight(value + this.getOffsetHeight());
-            this.setUsedHeight(value);
+          if (value > this.contentBox.getUsedHeight()) {
+            this.setHeight(
+              value + this.contentBox.getTotalHeightOffset(this.getHeight())
+            );
+            this.contentBox.setUsedHeight(value);
           }
         }
       : (value: number) => {
-          if (value > this.getUsedWidth()) {
-            this.setWidth(value + this.getOffsetWidth());
-            this.setUsedWidth(value);
+          if (value > this.contentBox.getUsedWidth()) {
+            this.setWidth(
+              value + this.contentBox.getTotalWidthOffset(this.getWidth())
+            );
+            this.contentBox.setUsedWidth(value);
           }
         };
     let mainIncrementValue: number = isHorizontal
@@ -316,12 +289,12 @@ export class LayoutElementGroup extends Block {
       this.distributeElements(
         this.horizontalAlignment,
         totalSize,
-        this.getUsedWidth(),
+        this.contentBox.getUsedWidth(),
         (child) => child.getWidth(),
         (child, value) => child.setWidth(value),
         (child, value) => child.setX(value),
-        this.contentBox.topLeft.x,
-        totalSize - this.contentBox.bottomRight.x
+        this.contentBox.getLeftBoundary(),
+        this.contentBox.getRightOffset(totalSize)
       );
     } else {
       const totalSize = this.getHeight();
@@ -329,12 +302,12 @@ export class LayoutElementGroup extends Block {
       this.distributeElements(
         this.verticalAlignment,
         totalSize,
-        this.getUsedHeight(),
+        this.contentBox.getUsedHeight(),
         (child) => child.getHeight(),
         (child, value) => child.setHeight(value),
         (child, value) => child.setY(value),
-        this.contentBox.topLeft.y,
-        totalSize - this.contentBox.bottomRight.y
+        this.contentBox.getTopBoundary(),
+        this.contentBox.getBottomOffset(totalSize)
       );
     }
   }
@@ -350,8 +323,8 @@ export class LayoutElementGroup extends Block {
         (child) => child.getHeight(),
         (child, value) => child.setHeight(value),
         (child, value) => child.setY(value),
-        this.contentBox.topLeft.y,
-        totalSize - this.contentBox.bottomRight.y
+        this.contentBox.getTopBoundary(),
+        this.contentBox.getBottomOffset(totalSize)
       );
     } else {
       this.alignElements(
@@ -360,8 +333,8 @@ export class LayoutElementGroup extends Block {
         (child) => child.getWidth(),
         (child, value) => child.setWidth(value),
         (child, value) => child.setX(value),
-        this.contentBox.topLeft.x,
-        totalSize - this.contentBox.bottomRight.x
+        this.contentBox.getLeftBoundary(),
+        this.contentBox.getRightOffset(totalSize)
       );
     }
   }

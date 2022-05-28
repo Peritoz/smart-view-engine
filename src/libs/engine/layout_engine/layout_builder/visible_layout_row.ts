@@ -1,6 +1,8 @@
 import { Alignment } from "@libs/common/alignment.enum";
 import { Settings } from "@libs/engine/layout_engine/settings";
 import { LayoutRow } from "@libs/engine/layout_engine/layout_builder/layout_row";
+import { ContentBoxDimension } from "@libs/model/content_box_dimension";
+import { Direction } from "@libs/common/distribution.enum";
 
 export class VisibleLayoutRow extends LayoutRow {
   protected name: string;
@@ -13,12 +15,11 @@ export class VisibleLayoutRow extends LayoutRow {
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
     settings: Settings,
-    parentId: string | null,
     name: string,
     type: string,
     lateralLabel: boolean
   ) {
-    super(horizontalAlignment, verticalAlignment, settings, parentId);
+    super(horizontalAlignment, verticalAlignment, settings);
 
     this.name = name;
     this.type = type;
@@ -27,14 +28,17 @@ export class VisibleLayoutRow extends LayoutRow {
     this.lateralLabel = lateralLabel;
 
     // Initializing content box
-    this.contentBox = {
-      topLeft: { x: this.getInitialXPosition(), y: this.getInitialYPosition() },
-      bottomRight: { x: 0, y: 0 }, // Will be set in dimensions initialization
-    };
+    this.contentBox = new ContentBoxDimension(
+      this.getInitialYPosition(),
+      this.getInitialXPosition(),
+      0, // Will be set in dimensions initialization
+      0, // Will be set in dimensions initialization
+      Direction.HORIZONTAL
+    );
 
     // Initializing row dimensions
-    this.setWidth(this.contentBox.topLeft.x + settings.rightPadding);
-    this.setHeight(this.contentBox.topLeft.y + settings.bottomPadding);
+    this.setWidth(this.contentBox.getLeftBoundary() + settings.rightPadding);
+    this.setHeight(this.contentBox.getTopBoundary() + settings.bottomPadding);
   }
 
   getName() {
@@ -46,13 +50,15 @@ export class VisibleLayoutRow extends LayoutRow {
   }
 
   updateHorizontalContentBoxAxis() {
-    this.contentBox.bottomRight.x =
-      this.getWidth() - this.settings.rightPadding;
+    this.contentBox.setRightBoundary(
+      this.getWidth() - this.settings.rightPadding
+    );
   }
 
   updateVerticalContentBoxAxis() {
-    this.contentBox.bottomRight.y =
-      this.getHeight() - this.settings.bottomPadding;
+    this.contentBox.setBottomBoundary(
+      this.getHeight() - this.settings.bottomPadding
+    );
   }
 
   /**

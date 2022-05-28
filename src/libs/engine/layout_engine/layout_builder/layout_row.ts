@@ -7,15 +7,13 @@ export class LayoutRow extends LayoutElementGroup {
   constructor(
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
-    settings: Settings,
-    parentId: string | null
+    settings: Settings
   ) {
     super(
       horizontalAlignment,
       verticalAlignment,
       Direction.HORIZONTAL,
-      settings,
-      parentId
+      settings
     );
   }
 }
