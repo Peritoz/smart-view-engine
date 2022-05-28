@@ -21,9 +21,7 @@ describe("Horizontal Layout", () => {
       elementBuilder.buildElement({
         name: "A",
         width: 50,
-        height: 25,
-        x: 0,
-        y: 0,
+        height: 25
       })
     );
     group.addContainer(

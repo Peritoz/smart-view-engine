@@ -74,8 +74,7 @@ export class LayoutTree {
       return new LayoutRow(
         horizontalAlignment,
         verticalAlignment,
-        this.settings,
-        parentId
+        this.settings
       );
     });
   }
@@ -85,8 +84,7 @@ export class LayoutTree {
       return new LayoutCol(
         horizontalAlignment,
         verticalAlignment,
-        this.settings,
-        parentId
+        this.settings
       );
     });
   }
@@ -103,7 +101,6 @@ export class LayoutTree {
         horizontalAlignment,
         verticalAlignment,
         this.settings,
-        parentId,
         name,
         type,
         lateralLabel
@@ -123,7 +120,6 @@ export class LayoutTree {
         horizontalAlignment,
         verticalAlignment,
         this.settings,
-        parentId,
         name,
         type,
         lateralLabel
