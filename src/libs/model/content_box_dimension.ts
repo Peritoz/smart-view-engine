@@ -1,6 +1,6 @@
-import { Direction } from "@libs/common/distribution.enum";
-import { Dimension } from "@libs/model/block";
-import { DEFAULT } from "@libs/common/size_reference.const";
+import {Direction} from "@libs/common/distribution.enum";
+import {Dimension} from "@libs/model/block";
+import {DEFAULT} from "@libs/common/size_reference.const";
 
 interface Point {
   x: number;
@@ -37,6 +37,10 @@ export class ContentBoxDimension {
 
   getContentBoxHeight(): number {
     return this.bottomRight.y - this.topLeft.y;
+  }
+
+  getSpaceBetween(): number {
+    return this.spaceBetween;
   }
 
   setContentBoxWidth(width: number) {

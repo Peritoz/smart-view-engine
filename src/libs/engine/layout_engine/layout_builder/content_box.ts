@@ -61,4 +61,130 @@ export class ContentBox {
   getHeight(): number {
     return this.dimension.getContentBoxHeight();
   }
+
+  getSizeReference(childrenCount: number): number {
+    let usefulArea = 0;
+
+    if (this.direction === Direction.HORIZONTAL) {
+      usefulArea =
+        this.dimension.getContentBoxWidth() -
+        childrenCount * this.dimension.getSpaceBetween();
+    } else {
+      usefulArea =
+        this.dimension.getContentBoxHeight() -
+        childrenCount * this.dimension.getSpaceBetween();
+    }
+
+    return Math.floor(usefulArea / childrenCount);
+  }
+
+  /**
+   * Distributes children over the element area, considering alignment option
+   * @param alignment Alignment option to be applied
+   * @param totalSize Total container dimension length
+   * @param usedSize Container's used length
+   * @param getChildSize Callback to get the child dimension length
+   * @param setChildSize Callback to set the child dimension length
+   * @param setChildPosition Callback to set the child position
+   * @param offsetBefore Offset before element area
+   * @param offsetAfter Offset after element area
+   */
+  distributeElements(
+    alignment: Alignment,
+    totalSize: number,
+    usedSize: number,
+    getChildSize: (child: LayoutElementGroup | BaseElement) => number,
+    setChildSize: (
+      child: LayoutElementGroup | BaseElement,
+      value: number
+    ) => void,
+    setChildPosition: (
+      child: LayoutElementGroup | BaseElement,
+      value: number
+    ) => void,
+    offsetBefore: number = 0,
+    offsetAfter: number = 0
+  ) {
+    const refSize = this.getSizeReference(this.children.length + 1);
+    const spaceBetween = this.dimension.getSpaceBetween();
+    let cursor;
+
+    // Setting the initial cursor position
+    if (alignment === Alignment.END) {
+      cursor = totalSize - offsetAfter;
+    } else if (alignment === Alignment.CENTER) {
+      cursor = totalSize / 2 - usedSize / 2;
+    } else {
+      cursor = offsetBefore;
+    }
+
+    // Adjusting size and position for all children
+    for (let i = 0; i < this.children.length; i++) {
+      const child = this.children[i];
+      const childSize = getChildSize(child);
+
+      if (alignment === Alignment.EXPANDED) {
+        setChildSize(child, refSize);
+        setChildPosition(child, cursor);
+
+        cursor += refSize + spaceBetween;
+      } else if (
+        alignment === Alignment.START ||
+        alignment === Alignment.CENTER
+      ) {
+        setChildPosition(child, cursor);
+
+        cursor += childSize + spaceBetween;
+      } else if (alignment === Alignment.END) {
+        cursor -= childSize;
+
+        setChildPosition(child, cursor);
+
+        cursor -= spaceBetween;
+      }
+    }
+  }
+
+  /**
+   * Aligns children over the element area, considering alignment option
+   * @param alignment Alignment option to be applied
+   * @param totalSize Container dimension length to be considered
+   * @param getChildSize Callback to get the child dimension length
+   * @param setChildSize Callback to set the child dimension length
+   * @param setChildPosition Callback to set the child position
+   * @param offsetBefore Offset before element area
+   * @param offsetAfter Offset after element area
+   */
+  alignElements(
+    alignment: Alignment,
+    totalSize: number,
+    getChildSize: (child: LayoutElementGroup | BaseElement) => number,
+    setChildSize: (
+      child: LayoutElementGroup | BaseElement,
+      value: number
+    ) => void,
+    setChildPosition: (
+      child: LayoutElementGroup | BaseElement,
+      value: number
+    ) => void,
+    offsetBefore: number = 0,
+    offsetAfter: number = 0
+  ) {
+    // Adjusting size and position for all children
+    for (let i = 0; i < this.children.length; i++) {
+      const child = this.children[i];
+      const childSize = getChildSize(child);
+
+      if (alignment === Alignment.EXPANDED) {
+        setChildSize(child, totalSize - offsetBefore - offsetAfter);
+        setChildPosition(child, offsetBefore);
+      } else if (alignment === Alignment.START) {
+        setChildPosition(child, offsetBefore);
+      } else if (alignment === Alignment.CENTER) {
+        setChildPosition(child, totalSize / 2 - childSize / 2);
+      } else if (alignment === Alignment.END) {
+        setChildPosition(child, totalSize - offsetAfter - childSize);
+      }
+    }
+  }
 }
