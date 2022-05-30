@@ -9,8 +9,8 @@ const elementBuilder = new ElementBuilder(DEFAULT.SIZE_UNIT);
 describe("Horizontal Layout", () => {
   it("Horizontal - Main Axis - Start Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.HORIZONTAL,
       Alignment.START,
       Alignment.START,
@@ -59,8 +59,8 @@ describe("Horizontal Layout", () => {
 
   it("Horizontal - Main Axis - End Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.HORIZONTAL,
       Alignment.END,
       Alignment.START,
@@ -109,8 +109,8 @@ describe("Horizontal Layout", () => {
 
   it("Horizontal - Main Axis - Center Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.HORIZONTAL,
       Alignment.CENTER,
       Alignment.START,
@@ -159,8 +159,8 @@ describe("Horizontal Layout", () => {
 
   it("Horizontal - Main Axis - Space Between Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.HORIZONTAL,
       Alignment.EXPANDED,
       Alignment.EXPANDED,
@@ -209,8 +209,8 @@ describe("Horizontal Layout", () => {
 
   it("Horizontal - Cross Axis - Start Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.HORIZONTAL,
       Alignment.START,
       Alignment.START,
@@ -259,8 +259,8 @@ describe("Horizontal Layout", () => {
 
   it("Horizontal - Cross Axis - End Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.HORIZONTAL,
       Alignment.START,
       Alignment.END,
@@ -309,8 +309,8 @@ describe("Horizontal Layout", () => {
 
   it("Horizontal - Cross Axis - Center Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.HORIZONTAL,
       Alignment.START,
       Alignment.CENTER,
@@ -359,8 +359,8 @@ describe("Horizontal Layout", () => {
 
   it("Horizontal - Cross Axis - Space Between Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.HORIZONTAL,
       Alignment.START,
       Alignment.EXPANDED,
@@ -409,8 +409,8 @@ describe("Horizontal Layout", () => {
 
   it("Horizontal - Row Resizing - Elements Adjust to the Size", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.HORIZONTAL,
       Alignment.EXPANDED,
       Alignment.EXPANDED,

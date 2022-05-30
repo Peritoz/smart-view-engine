@@ -9,8 +9,8 @@ const elementBuilder = new ElementBuilder(DEFAULT.SIZE_UNIT);
 describe("Vertical Layout", () => {
   it("Vertical - Main Axis - Start Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.VERTICAL,
       Alignment.START,
       Alignment.START,
@@ -59,8 +59,8 @@ describe("Vertical Layout", () => {
 
   it("Vertical - Main Axis - End Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.VERTICAL,
       Alignment.START,
       Alignment.END,
@@ -115,8 +115,8 @@ describe("Vertical Layout", () => {
 
   it("Vertical - Main Axis - Center Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.VERTICAL,
       Alignment.START,
       Alignment.CENTER,
@@ -171,8 +171,8 @@ describe("Vertical Layout", () => {
 
   it("Vertical - Main Axis - Space Between Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.VERTICAL,
       Alignment.EXPANDED,
       Alignment.EXPANDED,
@@ -227,8 +227,8 @@ describe("Vertical Layout", () => {
 
   it("Vertical - Cross Axis - Start Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.VERTICAL,
       Alignment.START,
       Alignment.START,
@@ -283,8 +283,8 @@ describe("Vertical Layout", () => {
 
   it("Vertical - Cross Axis - End Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.VERTICAL,
       Alignment.END,
       Alignment.START,
@@ -339,8 +339,8 @@ describe("Vertical Layout", () => {
 
   it("Vertical - Cross Axis - Center Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.VERTICAL,
       Alignment.CENTER,
       Alignment.START,
@@ -395,8 +395,8 @@ describe("Vertical Layout", () => {
 
   it("Vertical - Cross Axis - Space Between Alignment", async () => {
     let group: ContentBox = new ContentBox(
-      5,
-      5,
+      0,
+      0,
       Direction.VERTICAL,
       Alignment.EXPANDED,
       Alignment.START,

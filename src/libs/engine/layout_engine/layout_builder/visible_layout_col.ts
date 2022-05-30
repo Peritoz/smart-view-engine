@@ -3,6 +3,7 @@ import { Alignment } from "@libs/common/alignment.enum";
 import { Settings } from "@libs/engine/layout_engine/settings";
 import { ContentBoxDimension } from "@libs/model/content_box_dimension";
 import { Direction } from "@libs/common/distribution.enum";
+import { ContentBox } from "@libs/engine/layout_engine/layout_builder/content_box";
 
 export class VisibleLayoutCol extends LayoutCol {
   protected name: string;
@@ -28,12 +29,13 @@ export class VisibleLayoutCol extends LayoutCol {
     this.lateralLabel = lateralLabel;
 
     // Initializing content box
-    this.contentBox = new ContentBoxDimension(
+    this.contentBox = new ContentBox(
       this.getInitialYPosition(),
       this.getInitialXPosition(),
-      0, // Will be set in dimensions initialization
-      0, // Will be set in dimensions initialization
-      Direction.VERTICAL
+      Direction.VERTICAL,
+      horizontalAlignment,
+      verticalAlignment,
+      settings.spaceBetween
     );
 
     // Initializing col dimensions

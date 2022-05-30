@@ -1,6 +1,6 @@
-import {Direction} from "@libs/common/distribution.enum";
-import {Dimension} from "@libs/model/block";
-import {DEFAULT} from "@libs/common/size_reference.const";
+import { Direction } from "@libs/common/distribution.enum";
+import { Dimension } from "@libs/model/block";
+import { DEFAULT } from "@libs/common/size_reference.const";
 
 interface Point {
   x: number;
@@ -14,6 +14,8 @@ export class ContentBoxDimension {
   protected usedHeight: number;
   protected direction: Direction;
   protected spaceBetween: number;
+  protected maxChildWidth: number;
+  protected maxChildHeight: number;
 
   constructor(
     top: number = DEFAULT.DEFAULT_PADDING,
@@ -29,6 +31,8 @@ export class ContentBoxDimension {
     this.usedHeight = 0;
     this.direction = direction;
     this.spaceBetween = spaceBetween;
+    this.maxChildWidth = 0; // Represents the width of the biggest child
+    this.maxChildHeight = 0; // Represents the height of the biggest child
   }
 
   getContentBoxWidth(): number {
@@ -117,52 +121,62 @@ export class ContentBoxDimension {
 
   setUsedWidth(value: number) {
     this.usedWidth = value;
+
+    this.setRightBoundary(
+      this.bottomRight.x + this.usedWidth - this.getContentBoxWidth()
+    );
   }
 
   setUsedHeight(value: number) {
     this.usedHeight = value;
+
+    this.setBottomBoundary(
+      this.bottomRight.y + this.usedHeight - this.getContentBoxHeight()
+    );
+  }
+
+  getBiggestContentWidth(): number {
+    return this.maxChildWidth;
+  }
+
+  getBiggestContentHeight(): number {
+    return this.maxChildHeight;
+  }
+
+  incrementWidth(value: number, isFirstContent: boolean) {
+    const spaceBetween = isFirstContent ? 0 : this.spaceBetween;
+    this.setUsedWidth(this.usedWidth + value + spaceBetween);
+
+    // Updating maximum element width
+    if (value > this.maxChildWidth) {
+      this.maxChildWidth = value;
+    }
+  }
+
+  incrementHeight(value: number, isFirstContent: boolean) {
+    const spaceBetween = isFirstContent ? 0 : this.spaceBetween;
+    this.setUsedHeight(this.usedHeight + value + spaceBetween);
+
+    // Updating maximum element height
+    if (value > this.maxChildHeight) {
+      this.maxChildHeight = value;
+    }
   }
 
   addContent(content: Dimension, isFirstContent: boolean = false) {
-    const currentContentWidth = this.getContentBoxWidth();
-    const currentContentHeight = this.getContentBoxHeight();
-    const spaceBetween = isFirstContent ? 0 : this.spaceBetween;
+    const isHorizontal = this.direction === Direction.HORIZONTAL;
 
-    if (this.direction === Direction.HORIZONTAL) {
-      // Processing main axis size adjustments
-      this.usedWidth += content.width + spaceBetween;
+    if (isHorizontal) {
+      this.incrementWidth(content.width, isFirstContent);
 
-      if (this.usedWidth > currentContentWidth) {
-        this.setRightBoundary(
-          this.getRightBoundary() + this.usedWidth - currentContentWidth
-        );
-      }
-
-      // Setting cross axis size
-      if (content.height > this.getUsedHeight()) {
-        this.usedHeight = content.height;
-
-        this.setBottomBoundary(
-          this.getBottomBoundary() + this.usedHeight - currentContentHeight
-        );
+      if (content.height > this.usedHeight) {
+        this.setUsedHeight(content.height);
       }
     } else {
-      // Processing main axis size adjustments
-      this.usedHeight += content.height + spaceBetween;
+      this.incrementHeight(content.height, isFirstContent);
 
-      if (this.usedHeight > currentContentHeight) {
-        this.setBottomBoundary(
-          this.getBottomBoundary() + this.usedHeight - currentContentHeight
-        );
-      }
-
-      // Setting cross axis size
-      if (content.width > this.getUsedWidth()) {
-        this.usedWidth = content.width;
-
-        this.setRightBoundary(
-          this.getRightBoundary() + this.usedWidth - currentContentWidth
-        );
+      if (content.width > this.usedWidth) {
+        this.setUsedWidth(content.width);
       }
     }
   }

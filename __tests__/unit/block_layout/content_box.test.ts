@@ -1,119 +1,105 @@
-import { Settings } from "../../../src/libs/engine/layout_engine/settings";
 import { Alignment } from "../../../src/libs/common/alignment.enum";
-import { VisibleLayoutRow } from "../../../src/libs/engine/layout_engine/layout_builder/visible_layout_row";
-import { LayoutDirector } from "../../../src/libs/engine/layout_engine/layout_builder/layout_director";
-import { VisibleLayoutCol } from "../../../src/libs/engine/layout_engine/layout_builder/visible_layout_col";
-
-const settings = new Settings({
-  layoutType: "nested",
-  maxHorizontalCount: 4,
-  maxChildHorizontalCount: 2,
-  spaceBetween: 5,
-  leftPadding: 5,
-  rightPadding: 5,
-  topPadding: 5,
-  bottomPadding: 5,
-  spaceToOuterLabel: 10,
-});
+import { ContentBox } from "../../../src/libs/engine/layout_engine/layout_builder/content_box";
+import { Direction } from "../../../src/libs/common/distribution.enum";
 
 describe("Content Box", () => {
   describe("Row - Top Label", function () {
-    const director = new LayoutDirector(settings);
-    const row: VisibleLayoutRow = director.newVisibleRow(
-      "R1",
-      "T",
+    const contentBox = new ContentBox(
+      25,
+      5,
+      Direction.HORIZONTAL,
       Alignment.START,
       Alignment.START,
-      false
+      5
     );
 
     it("Should initialize and update main length content box reference", async () => {
-      row.setWidth(100);
+      contentBox.setWidth(100);
 
-      expect(row.contentBox.topLeft.x).toBe(5);
-      expect(row.contentBox.bottomRight.x).toBe(95);
+      expect(contentBox.getDimension().topLeft.x).toBe(5);
+      expect(contentBox.getDimension().bottomRight.x).toBe(105);
     });
 
     it("Should initialize and update cross length content box reference", async () => {
-      row.setHeight(100);
+      contentBox.setHeight(100);
 
-      expect(row.contentBox.topLeft.y).toBe(25);
-      expect(row.contentBox.bottomRight.y).toBe(95);
+      expect(contentBox.getDimension().topLeft.y).toBe(25);
+      expect(contentBox.getDimension().bottomRight.y).toBe(125);
     });
   });
 
   describe("Row - Lateral Label", function () {
-    const director = new LayoutDirector(settings);
-    const row: VisibleLayoutRow = director.newVisibleRow(
-      "R1",
-      "T",
+    const contentBox = new ContentBox(
+      5,
+      45,
+      Direction.HORIZONTAL,
       Alignment.START,
       Alignment.START,
-      true
+      5
     );
 
     it("Should initialize and update main length content box reference", async () => {
-      row.setWidth(100);
+      contentBox.setWidth(100);
 
-      expect(row.contentBox.topLeft.x).toBe(45);
-      expect(row.contentBox.bottomRight.x).toBe(95);
+      expect(contentBox.getDimension().topLeft.x).toBe(45);
+      expect(contentBox.getDimension().bottomRight.x).toBe(145);
     });
 
     it("Should initialize and update cross length content box reference", async () => {
-      row.setHeight(100);
+      contentBox.setHeight(100);
 
-      expect(row.contentBox.topLeft.y).toBe(5);
-      expect(row.contentBox.bottomRight.y).toBe(95);
+      expect(contentBox.getDimension().topLeft.y).toBe(5);
+      expect(contentBox.getDimension().bottomRight.y).toBe(105);
     });
   });
 
   describe("Col - Top Label", function () {
-    const director = new LayoutDirector(settings);
-    const row: VisibleLayoutCol = director.newVisibleRow(
-      "C1",
-      "T",
+    const contentBox = new ContentBox(
+      25,
+      5,
+      Direction.VERTICAL,
       Alignment.START,
       Alignment.START,
-      false
+      5
     );
 
     it("Should initialize and update main length content box reference", async () => {
-      row.setWidth(100);
+      contentBox.setWidth(100);
 
-      expect(row.contentBox.topLeft.x).toBe(5);
-      expect(row.contentBox.bottomRight.x).toBe(95);
+      expect(contentBox.getDimension().topLeft.x).toBe(5);
+      expect(contentBox.getDimension().bottomRight.x).toBe(105);
     });
 
     it("Should initialize and update cross length content box reference", async () => {
-      row.setHeight(100);
+      contentBox.setHeight(100);
 
-      expect(row.contentBox.topLeft.y).toBe(25);
-      expect(row.contentBox.bottomRight.y).toBe(95);
+      expect(contentBox.getDimension().topLeft.y).toBe(25);
+      expect(contentBox.getDimension().bottomRight.y).toBe(125);
     });
   });
 
   describe("Col - Lateral Label", function () {
-    const director = new LayoutDirector(settings);
-    const row: VisibleLayoutCol = director.newVisibleRow(
-      "C1",
-      "T",
+    const contentBox = new ContentBox(
+      5,
+      45,
+      Direction.HORIZONTAL,
       Alignment.START,
       Alignment.START,
-      true
+      5
     );
 
     it("Should initialize and update main length content box reference", async () => {
-      row.setWidth(100);
+      contentBox.setWidth(100);
 
-      expect(row.contentBox.topLeft.x).toBe(45);
-      expect(row.contentBox.bottomRight.x).toBe(95);
+      expect(contentBox.getDimension().topLeft.x).toBe(45);
+      expect(contentBox.getDimension().bottomRight.x).toBe(145);
     });
 
     it("Should initialize and update cross length content box reference", async () => {
-      row.setHeight(100);
+      contentBox.setHeight(100);
 
-      expect(row.contentBox.topLeft.y).toBe(5);
-      expect(row.contentBox.bottomRight.y).toBe(95);
+      expect(contentBox.getDimension().topLeft.y).toBe(5);
+      expect(contentBox.getDimension().bottomRight.y).toBe(105);
     });
   });
 });

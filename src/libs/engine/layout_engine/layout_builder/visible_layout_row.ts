@@ -3,6 +3,7 @@ import { Settings } from "@libs/engine/layout_engine/settings";
 import { LayoutRow } from "@libs/engine/layout_engine/layout_builder/layout_row";
 import { ContentBoxDimension } from "@libs/model/content_box_dimension";
 import { Direction } from "@libs/common/distribution.enum";
+import { ContentBox } from "@libs/engine/layout_engine/layout_builder/content_box";
 
 export class VisibleLayoutRow extends LayoutRow {
   protected name: string;
@@ -28,12 +29,13 @@ export class VisibleLayoutRow extends LayoutRow {
     this.lateralLabel = lateralLabel;
 
     // Initializing content box
-    this.contentBox = new ContentBoxDimension(
+    this.contentBox = new ContentBox(
       this.getInitialYPosition(),
       this.getInitialXPosition(),
-      0, // Will be set in dimensions initialization
-      0, // Will be set in dimensions initialization
-      Direction.HORIZONTAL
+      Direction.HORIZONTAL,
+      horizontalAlignment,
+      verticalAlignment,
+      settings.spaceBetween
     );
 
     // Initializing row dimensions

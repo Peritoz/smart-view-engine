@@ -11,6 +11,7 @@ export class ContentBox {
   protected horizontalAlignment: Alignment;
   protected verticalAlignment: Alignment;
   protected direction: Direction;
+  protected hasNestedGroup: boolean;
 
   constructor(
     topBoundary: number = DEFAULT.DEFAULT_PADDING,
@@ -32,26 +33,72 @@ export class ContentBox {
     this.horizontalAlignment = horizontalAlignment;
     this.verticalAlignment = verticalAlignment;
     this.direction = direction;
+    this.hasNestedGroup = false; // Indicates if the element has as child another LayoutElementGroup
   }
 
   getChildren(): Array<LayoutElementGroup | BaseElement> {
     return this.children;
   }
 
+  getChildAtIndex(index: number) {
+    if (this.children.length > index) {
+      return this.children[index];
+    }
+  }
+
+  getChildrenCount(): number {
+    return this.children.length;
+  }
+
+  getDimension(): ContentBoxDimension {
+    return this.dimension;
+  }
+
   addContainer(container: BaseElement | LayoutElementGroup) {
     // Adding container as child
     this.children.push(container);
 
+    this.hasNestedGroup =
+      this.hasNestedGroup || container instanceof LayoutElementGroup;
+
     // Adjusting content box dimensions
-    this.dimension.addContent(container, this.children.length === 0);
+    this.dimension.addContent(container, this.children.length === 1);
+
+    // Arranging elements
+    this.applyDistribution();
+    this.applyAlignment();
   }
 
   setWidth(value: number) {
-    this.dimension.setContentBoxWidth(value);
+    const currentWidth = this.getWidth();
+
+    if (value >= currentWidth) {
+      this.dimension.setContentBoxWidth(value);
+
+      if (this.direction === Direction.HORIZONTAL) {
+        this.applyDistribution();
+      } else {
+        this.applyAlignment();
+      }
+    } else {
+      throw new Error("The new Width can´t be smaller than current Width");
+    }
   }
 
   setHeight(value: number) {
-    this.dimension.setContentBoxHeight(value);
+    const currentHeight = this.getHeight();
+
+    if (value >= currentHeight) {
+      this.dimension.setContentBoxHeight(value);
+
+      if (this.direction === Direction.HORIZONTAL) {
+        this.applyAlignment();
+      } else {
+        this.applyDistribution();
+      }
+    } else {
+      throw new Error("The new Height can´t be smaller than current Height");
+    }
   }
 
   getWidth(): number {
@@ -62,20 +109,88 @@ export class ContentBox {
     return this.dimension.getContentBoxHeight();
   }
 
-  getSizeReference(childrenCount: number): number {
-    let usefulArea = 0;
+  getSizeReference(): number {
+    const childrenCount = this.children.length;
+    const totalSpaceBetweenLength =
+      (childrenCount - 1) * this.dimension.getSpaceBetween();
+    let totalChildrenLength: number;
+    let maxSize: number;
+    const isHorizontal = this.direction === Direction.HORIZONTAL;
 
-    if (this.direction === Direction.HORIZONTAL) {
-      usefulArea =
-        this.dimension.getContentBoxWidth() -
-        childrenCount * this.dimension.getSpaceBetween();
+    if (isHorizontal) {
+      totalChildrenLength =
+        this.dimension.getContentBoxWidth() - totalSpaceBetweenLength;
+      maxSize = this.dimension.getBiggestContentWidth();
     } else {
-      usefulArea =
-        this.dimension.getContentBoxHeight() -
-        childrenCount * this.dimension.getSpaceBetween();
+      totalChildrenLength =
+        this.dimension.getContentBoxHeight() - totalSpaceBetweenLength;
+      maxSize = this.dimension.getBiggestContentHeight();
     }
 
-    return Math.floor(usefulArea / childrenCount);
+    const potentialOptimalSize = totalChildrenLength / childrenCount;
+
+    if (potentialOptimalSize <= maxSize && this.hasNestedGroup) {
+      return maxSize;
+    } else {
+      return potentialOptimalSize;
+    }
+  }
+
+  applyDistribution() {
+    if (this.direction === Direction.HORIZONTAL) {
+      const totalSize = this.getWidth();
+
+      this.distributeElements(
+        this.horizontalAlignment,
+        totalSize,
+        this.dimension.getUsedWidth(),
+        (child) => child.getWidth(),
+        (child, value) => child.setWidth(value),
+        (child, value) => child.setX(value),
+        this.dimension.getLeftBoundary(),
+        this.dimension.getRightOffset(totalSize)
+      );
+    } else {
+      const totalSize = this.getHeight();
+
+      this.distributeElements(
+        this.verticalAlignment,
+        totalSize,
+        this.dimension.getUsedHeight(),
+        (child) => child.getHeight(),
+        (child, value) => child.setHeight(value),
+        (child, value) => child.setY(value),
+        this.dimension.getTopBoundary(),
+        this.dimension.getBottomOffset(totalSize)
+      );
+    }
+  }
+
+  applyAlignment() {
+    const isHorizontal = this.direction === Direction.HORIZONTAL;
+    const totalSize = isHorizontal ? this.getHeight() : this.getWidth();
+
+    if (isHorizontal) {
+      this.alignElements(
+        this.verticalAlignment,
+        totalSize,
+        (child) => child.getHeight(),
+        (child, value) => child.setHeight(value),
+        (child, value) => child.setY(value),
+        this.dimension.getTopBoundary(),
+        this.dimension.getBottomOffset(totalSize)
+      );
+    } else {
+      this.alignElements(
+        this.horizontalAlignment,
+        totalSize,
+        (child) => child.getWidth(),
+        (child, value) => child.setWidth(value),
+        (child, value) => child.setX(value),
+        this.dimension.getLeftBoundary(),
+        this.dimension.getRightOffset(totalSize)
+      );
+    }
   }
 
   /**
@@ -105,7 +220,6 @@ export class ContentBox {
     offsetBefore: number = 0,
     offsetAfter: number = 0
   ) {
-    const refSize = this.getSizeReference(this.children.length + 1);
     const spaceBetween = this.dimension.getSpaceBetween();
     let cursor;
 
@@ -124,6 +238,8 @@ export class ContentBox {
       const childSize = getChildSize(child);
 
       if (alignment === Alignment.EXPANDED) {
+        const refSize = this.getSizeReference();
+
         setChildSize(child, refSize);
         setChildPosition(child, cursor);
 
@@ -186,5 +302,21 @@ export class ContentBox {
         setChildPosition(child, totalSize - offsetAfter - childSize);
       }
     }
+  }
+
+  getTopBoundary(): number {
+    return this.dimension.getTopBoundary();
+  }
+
+  getLeftBoundary(): number {
+    return this.dimension.getLeftBoundary();
+  }
+
+  setBottomBoundary(value: number) {
+    this.dimension.setBottomBoundary(value);
+  }
+
+  setRightBoundary(value: number) {
+    this.dimension.setRightBoundary(value);
   }
 }

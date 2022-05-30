@@ -21,7 +21,6 @@ describe("Visible Layout Col", () => {
       Alignment.EXPANDED,
       Alignment.EXPANDED,
       settings,
-      null,
       "COL",
       "T1",
       false
@@ -78,9 +77,9 @@ describe("Visible Layout Col", () => {
       expect(children[0].getName()).toBe("A");
       expect(children[1].getName()).toBe("B");
       expect(children[2].getName()).toBe("C");
-      expect(children[0].getWidth()).toBe(30);
-      expect(children[1].getWidth()).toBe(30);
-      expect(children[2].getWidth()).toBe(30);
+      expect(children[0].getWidth()).toBe(25);
+      expect(children[1].getWidth()).toBe(25);
+      expect(children[2].getWidth()).toBe(25);
       expect(children[0].getHeight()).toBe(5);
       expect(children[1].getHeight()).toBe(5);
       expect(children[2].getHeight()).toBe(5);
@@ -169,7 +168,6 @@ describe("Visible Layout Col", () => {
       Alignment.EXPANDED,
       Alignment.EXPANDED,
       settings,
-      null,
       "COL",
       "T1",
       true

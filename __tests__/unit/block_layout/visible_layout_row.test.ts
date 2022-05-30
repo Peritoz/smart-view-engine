@@ -22,7 +22,6 @@ describe("Visible Layout Row", () => {
       Alignment.EXPANDED,
       Alignment.EXPANDED,
       settings,
-      null,
       "ROW",
       "T1",
       false
@@ -170,7 +169,6 @@ describe("Visible Layout Row", () => {
       Alignment.EXPANDED,
       Alignment.EXPANDED,
       settings,
-      null,
       "ROW",
       "T1",
       true
