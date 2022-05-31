@@ -304,19 +304,16 @@ export class ContentBox {
     }
   }
 
-  getTopBoundary(): number {
-    return this.dimension.getTopBoundary();
-  }
+  /**
+   * Applies translation over the position of children
+   * @param deltaX Number of points to be translated on the X axis
+   * @param deltaY Number of points to be translated on the Y axis
+   */
+  translateChildrenPosition(deltaX: number, deltaY: number) {
+    for (let i = 0; i < this.children.length; i++) {
+      const child = this.children[i];
 
-  getLeftBoundary(): number {
-    return this.dimension.getLeftBoundary();
-  }
-
-  setBottomBoundary(value: number) {
-    this.dimension.setBottomBoundary(value);
-  }
-
-  setRightBoundary(value: number) {
-    this.dimension.setRightBoundary(value);
+      child.translatePosition(deltaX, deltaY);
+    }
   }
 }

@@ -69,11 +69,11 @@ export class LayoutElementGroup extends Block {
   }
 
   setPosition({ x, y }: Partial<Position>) {
-    const deltaX = x !== undefined ? this.getX() - x : 0;
-    const deltaY = y !== undefined ? this.getY() - y : 0;
+    const deltaX = x !== undefined ? x - this.getX() : 0;
+    const deltaY = y !== undefined ? y - this.getY() : 0;
 
     super.setPosition({ x, y });
-    this.translateChildrenPosition(deltaX, deltaY);
+    this.contentBox.translateChildrenPosition(deltaX, deltaY);
   }
 
   /**
@@ -151,21 +151,6 @@ export class LayoutElementGroup extends Block {
 
   incrementSubTreeCounting() {
     this.subTreeCounting++;
-  }
-
-  /**
-   * Applies translation over the position of children
-   * @param deltaX Number of points to be translated on the X axis
-   * @param deltaY Number of points to be translated on the Y axis
-   */
-  translateChildrenPosition(deltaX: number, deltaY: number) {
-    const children = this.contentBox.getChildren();
-
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i];
-
-      child.translatePosition(deltaX, deltaY);
-    }
   }
 
   /**
