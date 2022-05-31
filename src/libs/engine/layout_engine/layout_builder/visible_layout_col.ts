@@ -38,9 +38,10 @@ export class VisibleLayoutCol extends LayoutCol {
       settings.spaceBetween
     );
 
+    // TODO: Initialize width and height
     // Initializing col dimensions
-    this.setWidth(this.contentBox.getLeftBoundary() + settings.rightPadding);
-    this.setHeight(this.contentBox.getTopBoundary() + settings.bottomPadding);
+    // this.setWidth(this.contentBox.getLeftBoundary() + settings.rightPadding);
+    // this.setHeight(this.contentBox.getTopBoundary() + settings.bottomPadding);
   }
 
   getName() {
@@ -51,16 +52,36 @@ export class VisibleLayoutCol extends LayoutCol {
     return this.type;
   }
 
-  updateHorizontalContentBoxAxis() {
-    this.contentBox.setRightBoundary(
-      this.getWidth() - this.settings.rightPadding
-    );
+  setWidth(value: number) {
+    const currentWidth = this.getWidth();
+
+    if (value > currentWidth) {
+      const { settings } = this;
+      const paddingOffset = settings.leftPadding + settings.rightPadding;
+      const labelOffset = this.lateralLabel
+          ? settings.labelWidth + settings.spaceToOuterLabel
+          : 0;
+
+      super.setWidth(value, paddingOffset + labelOffset);
+    } else {
+      throw new Error("The new Width can´t be smaller than current Width");
+    }
   }
 
-  updateVerticalContentBoxAxis() {
-    this.contentBox.setBottomBoundary(
-      this.getHeight() - this.settings.bottomPadding
-    );
+  setHeight(value: number) {
+    const currentHeight = this.getHeight();
+
+    if (value > currentHeight) {
+      const { settings } = this;
+      const paddingOffset = settings.topPadding + settings.bottomPadding;
+      const labelOffset = this.lateralLabel
+          ? 0
+          : settings.labelHeight + settings.spaceToOuterLabel;
+
+      super.setHeight(value, paddingOffset + labelOffset);
+    } else {
+      throw new Error("The new Height can´t be smaller than current Height");
+    }
   }
 
   /**

@@ -2,7 +2,6 @@ import { Settings } from "../../../src/libs/engine/layout_engine/settings";
 import { Alignment } from "../../../src/libs/common/alignment.enum";
 import { BaseElement } from "../../../src/libs/model/base_element";
 import { VisibleLayoutRow } from "../../../src/libs/engine/layout_engine/layout_builder/visible_layout_row";
-import { LayoutDirector } from "../../../src/libs/engine/layout_engine/layout_builder/layout_director";
 
 const settings = new Settings({
   layoutType: "nested",
@@ -258,9 +257,9 @@ describe("Visible Layout Row", () => {
       expect(children[0].getWidth()).toBe(40);
       expect(children[1].getWidth()).toBe(40);
       expect(children[2].getWidth()).toBe(40);
-      expect(children[0].getHeight()).toBe(25);
-      expect(children[1].getHeight()).toBe(25);
-      expect(children[2].getHeight()).toBe(25);
+      expect(children[0].getHeight()).toBe(70);
+      expect(children[1].getHeight()).toBe(70);
+      expect(children[2].getHeight()).toBe(70);
       expect(children[0].getX()).toBe(45);
       expect(children[1].getX()).toBe(90);
       expect(children[2].getX()).toBe(135);

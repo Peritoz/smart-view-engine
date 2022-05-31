@@ -76,37 +76,35 @@ export class LayoutElementGroup extends Block {
     this.translateChildrenPosition(deltaX, deltaY);
   }
 
-  setWidth(value: number) {
+  /**
+   * Sets the total width of the Layout Element Group
+   * @param value Total width value
+   * @param contentWidthOffset Difference between the content box width the total width
+   */
+  setWidth(value: number, contentWidthOffset: number = 0) {
     const currentWidth = this.getWidth();
 
     if (value > currentWidth) {
       super.setWidth(value);
 
-      const { settings } = this;
-      const paddingOffset = settings.leftPadding + settings.rightPadding;
-      const labelOffset = settings.lateralLabel
-        ? settings.labelWidth + settings.spaceToOuterLabel
-        : 0;
-
-      this.contentBox.setWidth(value - paddingOffset - labelOffset);
+      this.contentBox.setWidth(value - contentWidthOffset);
     } else {
       throw new Error("The new Width can´t be smaller than current Width");
     }
   }
 
-  setHeight(value: number) {
+  /**
+   * Sets the total height of the Layout Element Group
+   * @param value Total height value
+   * @param contentHeightOffset Difference between the content box height the total height
+   */
+  setHeight(value: number, contentHeightOffset: number = 0) {
     const currentHeight = this.getHeight();
 
     if (value > currentHeight) {
       super.setHeight(value);
 
-      const { settings } = this;
-      const paddingOffset = settings.topPadding + settings.bottomPadding;
-      const labelOffset = settings.lateralLabel
-        ? 0
-        : settings.labelHeight + settings.spaceToOuterLabel;
-
-      this.contentBox.setHeight(value - paddingOffset - labelOffset);
+      this.contentBox.setHeight(value - contentHeightOffset);
     } else {
       throw new Error("The new Height can´t be smaller than current Height");
     }
