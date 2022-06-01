@@ -9,15 +9,17 @@ import { VisibleLayoutRow } from "@libs/engine/layout_engine/layout_builder/visi
 
 export class LayoutTree {
   protected settings: Settings;
-  protected set: LayoutElementGroup | null;
-  protected navigationHistory: any[];
+  protected root: LayoutElementGroup | null;
+  protected plainElements: Array<BaseElement | LayoutElementGroup>;
   protected containerMap: Map<string, BaseElement | LayoutElementGroup>;
+  protected navigationHistory: any[];
 
   constructor(settings: Settings) {
     this.settings = settings;
-    this.set = null;
-    this.navigationHistory = [];
+    this.root = null;
+    this.plainElements = [];
     this.containerMap = new Map();
+    this.navigationHistory = [];
   }
 
   /**
@@ -25,12 +27,12 @@ export class LayoutTree {
    * @param layoutGroup: A valid LayoutElementGroup element (Row, Col, VisibleRow or Visible Col)
    */
   private initializeLayoutSet(layoutGroup: LayoutElementGroup) {
-    if (this.set === null) {
+    if (this.root === null) {
       if (
         layoutGroup instanceof LayoutRow ||
         layoutGroup instanceof LayoutCol
       ) {
-        this.set = layoutGroup;
+        this.root = layoutGroup;
       } else {
         throw new Error("LayoutSets can only be initialize with LayoutGroups");
       }
@@ -39,8 +41,8 @@ export class LayoutTree {
     }
   }
 
-  getLayoutSet(): LayoutElementGroup {
-    return this.set!;
+  getRoot(): LayoutElementGroup {
+    return this.root!;
   }
 
   /**
@@ -131,7 +133,16 @@ export class LayoutTree {
    * Calculates the absolute position for layout groups that aren't rendered elements (Rows and Cols)
    */
   toAbsolutePosition() {
-    this.set!.translatePosition(0, 0);
+    const plainElements = Array.from(this.containerMap.values());
+    const visibleGroups = plainElements.filter(
+      (e) => e instanceof LayoutElementGroup
+    );
+
+    for (let i = 0; i < visibleGroups.length; i++) {
+      const group = visibleGroups[i];
+
+      (group as LayoutElementGroup).toAbsolutePosition();
+    }
   }
 
   getCurrentLayoutGroup() {
@@ -174,10 +185,10 @@ export class LayoutTree {
   }
 
   getPageWidth() {
-    return this.set ? this.set.getWidth() : 0;
+    return this.root ? this.root.getWidth() : 0;
   }
 
   getPageHeight() {
-    return this.set ? this.set.getHeight() : 0;
+    return this.root ? this.root.getHeight() : 0;
   }
 }

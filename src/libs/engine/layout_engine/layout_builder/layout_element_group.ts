@@ -12,8 +12,6 @@ export class LayoutElementGroup extends Block {
   protected settings: Settings;
   protected horizontalAlignment: Alignment;
   protected verticalAlignment: Alignment;
-  protected children: Array<LayoutElementGroup | BaseElement>;
-  protected childrenDirection: Direction;
   protected usedContentBoxWidth: number;
   protected usedContentBoxHeight: number;
   protected contentBox: ContentBox;
@@ -32,8 +30,6 @@ export class LayoutElementGroup extends Block {
     this.settings = settings;
     this.horizontalAlignment = horizontalAlignment;
     this.verticalAlignment = verticalAlignment;
-    this.children = [];
-    this.childrenDirection = distribution;
     this.usedContentBoxWidth = 0; // Refers to the used width (in points) of the content box
     this.usedContentBoxHeight = 0; // Refers to the used height (in points) of the content box
     this.contentBox = new ContentBox(
@@ -163,5 +159,12 @@ export class LayoutElementGroup extends Block {
     const newY = this.getY() + deltaY;
 
     this.setPosition({ x: newX, y: newY });
+  }
+
+  /**
+   * Calculates the absolute position for layout groups that aren't rendered elements (Rows and Cols)
+   */
+  toAbsolutePosition() {
+    this.contentBox.translateChildrenPosition(this.getX(), this.getY());
   }
 }

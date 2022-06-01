@@ -58,7 +58,7 @@ export class LayoutDirector {
   convertToView(viewName: string, viewId: string) {
     const view = new HydratedView(viewId || viewName, viewName);
 
-    extractToView(view, this.layoutSet.getLayoutSet());
+    extractToView(view, this.layoutSet.getRoot());
 
     return view;
   }
