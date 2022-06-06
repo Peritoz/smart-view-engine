@@ -1,14 +1,6 @@
 import { DEFAULT } from "@libs/common/size_reference.const";
-
-export interface Position {
-  x: number;
-  y: number;
-}
-
-export interface Dimension {
-  width: number;
-  height: number;
-}
+import { Position } from "@libs/model/position";
+import { Dimension } from "@libs/model/dimension";
 
 type PositionalElement = Position & Dimension;
 

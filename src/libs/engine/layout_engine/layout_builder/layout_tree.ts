@@ -1,5 +1,5 @@
 import { Settings } from "@libs/engine/layout_engine/settings";
-import { LayoutElementGroup } from "@libs/engine/layout_engine/layout_builder/layout_element_group";
+import { LayoutGroup } from "@libs/engine/layout_engine/layout_builder/layout_group";
 import { Alignment } from "@libs/common/alignment.enum";
 import { BaseElement } from "@libs/model/base_element";
 import { LayoutRow } from "@libs/engine/layout_engine/layout_builder/layout_row";
@@ -9,9 +9,9 @@ import { VisibleLayoutRow } from "@libs/engine/layout_engine/layout_builder/visi
 
 export class LayoutTree {
   protected settings: Settings;
-  protected root: LayoutElementGroup | null;
-  protected plainElements: Array<BaseElement | LayoutElementGroup>;
-  protected containerMap: Map<string, BaseElement | LayoutElementGroup>;
+  protected root: LayoutGroup | null;
+  protected plainElements: Array<BaseElement | LayoutGroup>;
+  protected containerMap: Map<string, BaseElement | LayoutGroup>;
   protected navigationHistory: any[];
 
   constructor(settings: Settings) {
@@ -26,7 +26,7 @@ export class LayoutTree {
    * Initialize a Layout Set, if not yet, with a given Layout Group
    * @param layoutGroup: A valid LayoutElementGroup element (Row, Col, VisibleRow or Visible Col)
    */
-  private initializeLayoutSet(layoutGroup: LayoutElementGroup) {
+  private initializeLayoutSet(layoutGroup: LayoutGroup) {
     if (this.root === null) {
       if (
         layoutGroup instanceof LayoutRow ||
@@ -41,7 +41,7 @@ export class LayoutTree {
     }
   }
 
-  getRoot(): LayoutElementGroup {
+  getRoot(): LayoutGroup {
     return this.root!;
   }
 
@@ -49,11 +49,11 @@ export class LayoutTree {
    * Creates a new Element Group based on a builder callback
    * @param buildElement Callback function to build a LayoutElementGroup. It receives the parent id
    * as parameter (which can be null)
-   * @returns LayoutElementGroup
+   * @returns LayoutGroup
    */
   private newElementGroup(
-    buildElement: (parentId: string | null) => LayoutElementGroup
-  ): LayoutElementGroup {
+    buildElement: (parentId: string | null) => LayoutGroup
+  ): LayoutGroup {
     const parentLayoutGroup = this.getCurrentLayoutGroup();
     const parentId = parentLayoutGroup ? parentLayoutGroup.getId() : null;
     const elementGroup = buildElement(parentId);
@@ -135,13 +135,13 @@ export class LayoutTree {
   toAbsolutePosition() {
     const plainElements = Array.from(this.containerMap.values());
     const visibleGroups = plainElements.filter(
-      (e) => e instanceof LayoutElementGroup
+      (e) => e instanceof LayoutGroup
     );
 
     for (let i = 0; i < visibleGroups.length; i++) {
       const group = visibleGroups[i];
 
-      (group as LayoutElementGroup).toAbsolutePosition();
+      (group as LayoutGroup).toAbsolutePosition();
     }
   }
 
@@ -159,7 +159,7 @@ export class LayoutTree {
     }
   }
 
-  addToCurrentGroup(container: BaseElement | LayoutElementGroup) {
+  addToCurrentGroup(container: BaseElement | LayoutGroup) {
     if (this.containerMap.get(container.getId()) === undefined) {
       const layoutGroup = this.getCurrentLayoutGroup();
 

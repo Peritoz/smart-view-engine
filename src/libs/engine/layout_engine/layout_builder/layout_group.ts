@@ -2,21 +2,20 @@ import { Alignment } from "@libs/common/alignment.enum";
 import { Settings } from "@libs/engine/layout_engine/settings";
 import { BaseElement } from "@libs/model/base_element";
 import { Direction } from "@libs/common/distribution.enum";
-import { Block, Position } from "@libs/model/block";
+import { Block } from "@libs/model/block";
 import { ContentBox } from "@libs/engine/layout_engine/layout_builder/content_box";
+import { Offset } from "@libs/model/offset";
+import { Position } from "@libs/model/position";
 
 const uniqId = require("uniqid");
 
-export class LayoutElementGroup extends Block {
+export class LayoutGroup extends Block {
   protected id: string;
-  protected settings: Settings;
   protected horizontalAlignment: Alignment;
   protected verticalAlignment: Alignment;
-  protected usedContentBoxWidth: number;
-  protected usedContentBoxHeight: number;
   protected contentBox: ContentBox;
-  protected sizeReference: number;
   protected subTreeCounting: number;
+  protected offset: Offset;
 
   constructor(
     horizontalAlignment: Alignment,
@@ -27,11 +26,8 @@ export class LayoutElementGroup extends Block {
     super({ x: 0, y: 0, width: 0, height: 0 });
 
     this.id = uniqId();
-    this.settings = settings;
     this.horizontalAlignment = horizontalAlignment;
     this.verticalAlignment = verticalAlignment;
-    this.usedContentBoxWidth = 0; // Refers to the used width (in points) of the content box
-    this.usedContentBoxHeight = 0; // Refers to the used height (in points) of the content box
     this.contentBox = new ContentBox(
       0,
       0,
@@ -40,7 +36,12 @@ export class LayoutElementGroup extends Block {
       verticalAlignment,
       settings.spaceBetween
     ); // Content box limits
-    this.sizeReference = 0; // Represents the size of each element (without padding between) that fulfill the group length
+    this.offset = {
+      topOffset: 0,
+      leftOffset: 0,
+      bottomOffset: 0,
+      rightOffset: 0,
+    };
     this.subTreeCounting = -1; // Total number of elements inside the subtree formed by its children. Starts with -1 to not consider the element itself
   }
 
@@ -75,15 +76,16 @@ export class LayoutElementGroup extends Block {
   /**
    * Sets the total width of the Layout Element Group
    * @param value Total width value
-   * @param contentWidthOffset Difference between the content box width the total width
    */
-  setWidth(value: number, contentWidthOffset: number = 0) {
+  setWidth(value: number) {
     const currentWidth = this.getWidth();
 
     if (value > currentWidth) {
       super.setWidth(value);
 
-      this.contentBox.setWidth(value - contentWidthOffset);
+      this.contentBox.setWidth(
+        value - (this.offset.leftOffset + this.offset.rightOffset)
+      );
     } else {
       throw new Error("The new Width can´t be smaller than current Width");
     }
@@ -92,21 +94,22 @@ export class LayoutElementGroup extends Block {
   /**
    * Sets the total height of the Layout Element Group
    * @param value Total height value
-   * @param contentHeightOffset Difference between the content box height the total height
    */
-  setHeight(value: number, contentHeightOffset: number = 0) {
+  setHeight(value: number) {
     const currentHeight = this.getHeight();
 
     if (value > currentHeight) {
       super.setHeight(value);
 
-      this.contentBox.setHeight(value - contentHeightOffset);
+      this.contentBox.setHeight(
+        value - (this.offset.topOffset + this.offset.bottomOffset)
+      );
     } else {
       throw new Error("The new Height can´t be smaller than current Height");
     }
   }
 
-  addContainer(container: BaseElement | LayoutElementGroup) {
+  addContainer(container: BaseElement | LayoutGroup) {
     if (container) {
       const isBaseElement = container instanceof BaseElement;
 
@@ -114,8 +117,7 @@ export class LayoutElementGroup extends Block {
       if (!isBaseElement) {
         if (
           this.horizontalAlignment === Alignment.EXPANDED &&
-          (container as LayoutElementGroup).horizontalAlignment !==
-            Alignment.EXPANDED
+          (container as LayoutGroup).horizontalAlignment !== Alignment.EXPANDED
         ) {
           throw new Error(
             `Cannot insert container. The container has EXPANDED horizontal alignment and should be 
@@ -126,8 +128,7 @@ export class LayoutElementGroup extends Block {
         // Checking vertical alignment compatibility
         if (
           this.verticalAlignment === Alignment.EXPANDED &&
-          (container as LayoutElementGroup).verticalAlignment !==
-            Alignment.EXPANDED
+          (container as LayoutGroup).verticalAlignment !== Alignment.EXPANDED
         ) {
           throw new Error(
             `Cannot insert container. The container has EXPANDED vertical alignment and should be 

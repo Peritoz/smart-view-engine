@@ -21,6 +21,21 @@ export class VisibleLayoutRow extends LayoutRow {
   ) {
     super(horizontalAlignment, verticalAlignment, settings);
 
+    this.offset = {
+      topOffset: !lateralLabel
+          ? settings.topPadding +
+          settings.labelHeight +
+          settings.spaceToOuterLabel
+          : settings.topPadding,
+      leftOffset: lateralLabel
+          ? settings.leftPadding +
+          settings.labelWidth +
+          settings.spaceToOuterLabel
+          : settings.leftPadding,
+      bottomOffset: settings.bottomPadding,
+      rightOffset: settings.rightPadding,
+    };
+
     this.name = name;
     this.type = type;
     this.labelAreaWidth = settings.labelWidth;
@@ -51,48 +66,12 @@ export class VisibleLayoutRow extends LayoutRow {
     return this.type;
   }
 
-  setWidth(value: number) {
-    const currentWidth = this.getWidth();
-
-    if (value > currentWidth) {
-      const { settings } = this;
-      const paddingOffset = settings.leftPadding + settings.rightPadding;
-      const labelOffset = this.lateralLabel
-        ? settings.labelWidth + settings.spaceToOuterLabel
-        : 0;
-
-      super.setWidth(value, paddingOffset + labelOffset);
-    } else {
-      throw new Error("The new Width can´t be smaller than current Width");
-    }
-  }
-
-  setHeight(value: number) {
-    const currentHeight = this.getHeight();
-
-    if (value > currentHeight) {
-      const { settings } = this;
-      const paddingOffset = settings.topPadding + settings.bottomPadding;
-      const labelOffset = this.lateralLabel
-        ? 0
-        : settings.labelHeight + settings.spaceToOuterLabel;
-
-      super.setHeight(value, paddingOffset + labelOffset);
-    } else {
-      throw new Error("The new Height can´t be smaller than current Height");
-    }
-  }
-
   /**
    * Returns the optimal the initial X position for nested children
    * @returns Initial X position
    */
   getInitialXPosition(): number {
-    const { leftPadding, labelWidth, spaceToOuterLabel } = this.settings;
-    // Considering the label area
-    const labelOffset = this.lateralLabel ? labelWidth + spaceToOuterLabel : 0;
-
-    return labelOffset + leftPadding;
+    return this.offset.leftOffset;
   }
 
   /**
@@ -100,12 +79,6 @@ export class VisibleLayoutRow extends LayoutRow {
    * @returns Initial Y position
    */
   getInitialYPosition(): number {
-    const { topPadding, labelHeight, spaceToOuterLabel } = this.settings;
-    // Considering the label area
-    const labelOffset = !this.lateralLabel
-      ? labelHeight + spaceToOuterLabel
-      : 0;
-
-    return labelOffset + topPadding;
+    return this.offset.topOffset;
   }
 }

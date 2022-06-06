@@ -1,7 +1,7 @@
 import { VisibleLayoutRow } from "@libs/engine/layout_engine/layout_builder/visible_layout_row";
 import { VisibleLayoutCol } from "@libs/engine/layout_engine/layout_builder/visible_layout_col";
 import { BaseElement } from "@libs/model/base_element";
-import { LayoutElementGroup } from "@libs/engine/layout_engine/layout_builder/layout_element_group";
+import { LayoutGroup } from "@libs/engine/layout_engine/layout_builder/layout_group";
 import { Settings } from "@libs/engine/layout_engine/settings";
 import { LayoutTree } from "@libs/engine/layout_engine/layout_builder/layout_tree";
 import { HydratedView } from "@libs/model/hydrated_view";
@@ -10,7 +10,7 @@ import { Alignment } from "@libs/common/alignment.enum";
 
 function extractToView(
   view: HydratedView,
-  container: BaseElement | LayoutElementGroup
+  container: BaseElement | LayoutGroup
 ) {
   const isNestedElement =
     container instanceof VisibleLayoutRow ||
@@ -33,7 +33,7 @@ function extractToView(
     );
   }
 
-  if (container instanceof LayoutElementGroup) {
+  if (container instanceof LayoutGroup) {
     for (let i = 0; i < container.getChildrenLength(); i++) {
       const child = container.getChildAtIndex(i);
 
@@ -103,7 +103,7 @@ export class LayoutDirector {
     );
   }
 
-  addToCurrentGroup(container: BaseElement | LayoutElementGroup) {
+  addToCurrentGroup(container: BaseElement | LayoutGroup) {
     this.layoutSet.addToCurrentGroup(container);
   }
 
