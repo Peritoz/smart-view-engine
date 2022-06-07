@@ -4,6 +4,7 @@ import { Direction } from "@libs/common/distribution.enum";
 import { LayoutGroup } from "@libs/engine/layout_engine/layout_builder/layout_group";
 import { Alignment } from "@libs/common/alignment.enum";
 import { DEFAULT } from "@libs/common/size_reference.const";
+import { Dimension } from "@libs/model/dimension";
 
 export class ContentBox {
   protected dimension: ContentBoxDimension;
@@ -19,15 +20,17 @@ export class ContentBox {
     direction: Direction = Direction.HORIZONTAL,
     horizontalAlignment: Alignment = Alignment.START,
     verticalAlignment: Alignment = Alignment.START,
-    spaceBetween: number = DEFAULT.DEFAULT_PADDING
+    spaceBetween: number = DEFAULT.DEFAULT_PADDING,
+    dimension?: Partial<Dimension>
   ) {
     this.dimension = new ContentBoxDimension(
       topBoundary,
       leftBoundary,
-      topBoundary,
-      leftBoundary,
       direction,
-      spaceBetween
+      spaceBetween,
+      horizontalAlignment === Alignment.EXPANDED,
+      verticalAlignment === Alignment.EXPANDED,
+      dimension
     );
     this.children = [];
     this.horizontalAlignment = horizontalAlignment;
@@ -209,14 +212,8 @@ export class ContentBox {
     totalSize: number,
     usedSize: number,
     getChildSize: (child: LayoutGroup | BaseElement) => number,
-    setChildSize: (
-      child: LayoutGroup | BaseElement,
-      value: number
-    ) => void,
-    setChildPosition: (
-      child: LayoutGroup | BaseElement,
-      value: number
-    ) => void,
+    setChildSize: (child: LayoutGroup | BaseElement, value: number) => void,
+    setChildPosition: (child: LayoutGroup | BaseElement, value: number) => void,
     offsetBefore: number = 0,
     offsetAfter: number = 0
   ) {
@@ -275,14 +272,8 @@ export class ContentBox {
     alignment: Alignment,
     totalSize: number,
     getChildSize: (child: LayoutGroup | BaseElement) => number,
-    setChildSize: (
-      child: LayoutGroup | BaseElement,
-      value: number
-    ) => void,
-    setChildPosition: (
-      child: LayoutGroup | BaseElement,
-      value: number
-    ) => void,
+    setChildSize: (child: LayoutGroup | BaseElement, value: number) => void,
+    setChildPosition: (child: LayoutGroup | BaseElement, value: number) => void,
     offsetBefore: number = 0,
     offsetAfter: number = 0
   ) {

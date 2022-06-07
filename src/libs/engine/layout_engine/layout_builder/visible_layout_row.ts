@@ -3,6 +3,7 @@ import { Settings } from "@libs/engine/layout_engine/settings";
 import { LayoutRow } from "@libs/engine/layout_engine/layout_builder/layout_row";
 import { Direction } from "@libs/common/distribution.enum";
 import { ContentBox } from "@libs/engine/layout_engine/layout_builder/content_box";
+import { Dimension } from "@libs/model/dimension";
 
 export class VisibleLayoutRow extends LayoutRow {
   protected name: string;
@@ -17,21 +18,22 @@ export class VisibleLayoutRow extends LayoutRow {
     settings: Settings,
     name: string,
     type: string,
-    lateralLabel: boolean
+    lateralLabel: boolean,
+    initialDimension?: Dimension
   ) {
-    super(horizontalAlignment, verticalAlignment, settings);
+    super(horizontalAlignment, verticalAlignment, settings, initialDimension);
 
     this.offset = {
       topOffset: !lateralLabel
-          ? settings.topPadding +
+        ? settings.topPadding +
           settings.labelHeight +
           settings.spaceToOuterLabel
-          : settings.topPadding,
+        : settings.topPadding,
       leftOffset: lateralLabel
-          ? settings.leftPadding +
+        ? settings.leftPadding +
           settings.labelWidth +
           settings.spaceToOuterLabel
-          : settings.leftPadding,
+        : settings.leftPadding,
       bottomOffset: settings.bottomPadding,
       rightOffset: settings.rightPadding,
     };
@@ -42,6 +44,22 @@ export class VisibleLayoutRow extends LayoutRow {
     this.labelAreaHeight = settings.labelHeight;
     this.lateralLabel = lateralLabel;
 
+    let dimension: Partial<Dimension> = {};
+
+    if (initialDimension !== undefined) {
+      if (initialDimension.width !== undefined) {
+        dimension.width =
+          initialDimension.width -
+          (this.offset.leftOffset + this.offset.rightOffset);
+      }
+
+      if (initialDimension.height !== undefined) {
+        dimension.height =
+          initialDimension.height -
+          (this.offset.topOffset + this.offset.bottomOffset);
+      }
+    }
+
     // Initializing content box
     this.contentBox = new ContentBox(
       this.getInitialYPosition(),
@@ -49,13 +67,9 @@ export class VisibleLayoutRow extends LayoutRow {
       Direction.HORIZONTAL,
       horizontalAlignment,
       verticalAlignment,
-      settings.spaceBetween
+      settings.spaceBetween,
+      dimension
     );
-
-    // TODO: Initialize width and height
-    // Initializing row dimensions
-    // this.setWidth(this.contentBox.getLeftBoundary() + settings.rightPadding);
-    // this.setHeight(this.contentBox.getTopBoundary() + settings.bottomPadding);
   }
 
   getName() {

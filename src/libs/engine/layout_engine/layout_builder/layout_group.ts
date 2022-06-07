@@ -6,6 +6,7 @@ import { Block } from "@libs/model/block";
 import { ContentBox } from "@libs/engine/layout_engine/layout_builder/content_box";
 import { Offset } from "@libs/model/offset";
 import { Position } from "@libs/model/position";
+import { Dimension } from "@libs/model/dimension";
 
 const uniqId = require("uniqid");
 
@@ -21,9 +22,17 @@ export class LayoutGroup extends Block {
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
     distribution: Direction,
-    settings: Settings
+    settings: Settings,
+    offset: Offset,
+    initialDimension?: Partial<Dimension>
   ) {
-    super({ x: 0, y: 0, width: 0, height: 0 });
+    super({
+      x: 0,
+      y: 0,
+      width: initialDimension?.width !== undefined ? initialDimension.width : 0,
+      height:
+        initialDimension?.height !== undefined ? initialDimension.height : 0,
+    });
 
     this.id = uniqId();
     this.horizontalAlignment = horizontalAlignment;
@@ -34,15 +43,41 @@ export class LayoutGroup extends Block {
       distribution,
       horizontalAlignment,
       verticalAlignment,
-      settings.spaceBetween
+      settings.spaceBetween,
+      initialDimension
     ); // Content box limits
-    this.offset = {
-      topOffset: 0,
-      leftOffset: 0,
-      bottomOffset: 0,
-      rightOffset: 0,
-    };
+    this.offset = offset;
     this.subTreeCounting = -1; // Total number of elements inside the subtree formed by its children. Starts with -1 to not consider the element itself
+
+    if (initialDimension !== undefined) {
+      if (initialDimension!.width !== undefined) {
+        if (initialDimension!.width > 0) {
+          this.setWidth(initialDimension!.width);
+        } else {
+          throw new Error(
+            "Layout group initial width should be greater than 0"
+          );
+        }
+      }
+
+      if (initialDimension!.height !== undefined) {
+        if (initialDimension!.height > 0) {
+          this.setHeight(initialDimension!.height);
+        } else {
+          throw new Error(
+            "Layout group initial height should be greater than 0"
+          );
+        }
+      }
+    } else if (horizontalAlignment === Alignment.EXPANDED) {
+      throw new Error(
+        "Layout group with Expanded Horizontal Alignment. Width should be defined in the construction."
+      );
+    } else if (verticalAlignment === Alignment.EXPANDED) {
+      throw new Error(
+        "Layout group with Expanded Vertical Alignment. Height should be defined in the construction."
+      );
+    }
   }
 
   getId() {
@@ -143,6 +178,20 @@ export class LayoutGroup extends Block {
       if (isBaseElement) {
         container.setParentId(this.id);
       }
+
+      // Updating group Width
+      this.setWidth(
+        this.contentBox.getWidth() +
+          this.offset.leftOffset +
+          this.offset.rightOffset
+      );
+
+      // Updating group Height
+      this.setHeight(
+        this.contentBox.getHeight() +
+          this.offset.topOffset +
+          this.offset.bottomOffset
+      );
     }
   }
 
