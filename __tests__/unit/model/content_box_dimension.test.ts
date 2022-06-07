@@ -9,10 +9,10 @@ describe("Content Box Dimension", () => {
       contentBoxDimension = new ContentBoxDimension(
         10,
         5,
-        0,
-        0,
         Direction.HORIZONTAL,
-        5
+        5,
+        false,
+        false
       );
 
       expect(contentBoxDimension).toBeDefined();
@@ -85,15 +85,68 @@ describe("Content Box Dimension", () => {
     });
   });
 
+  describe("Fixed Horizontal", () => {
+    const MAX_WIDTH = 30;
+
+    it("Should create a Content Box Dimension", (done) => {
+      contentBoxDimension = new ContentBoxDimension(
+        5,
+        10,
+        Direction.HORIZONTAL,
+        5,
+        true,
+        false,
+        { width: MAX_WIDTH }
+      );
+
+      expect(contentBoxDimension).toBeDefined();
+      expect(contentBoxDimension.getContentBoxWidth()).toBe(MAX_WIDTH);
+
+      done();
+    });
+
+    it("Should add the first content and keep up the same height", (done) => {
+      contentBoxDimension.addContent({ width: 15, height: 10 }, true);
+
+      expect(contentBoxDimension.getUsedWidth()).toBe(15);
+      expect(contentBoxDimension.getUsedHeight()).toBe(10);
+      expect(contentBoxDimension.getBottomBoundary()).toBe(15);
+      expect(contentBoxDimension.getContentBoxWidth()).toBe(MAX_WIDTH);
+
+      done();
+    });
+
+    it("Should add the second content and update used width and height", (done) => {
+      contentBoxDimension.addContent({ width: 10, height: 15 });
+
+      expect(contentBoxDimension.getUsedWidth()).toBe(30);
+      expect(contentBoxDimension.getUsedHeight()).toBe(15);
+      expect(contentBoxDimension.getBottomBoundary()).toBe(20);
+      expect(contentBoxDimension.getContentBoxWidth()).toBe(MAX_WIDTH);
+
+      done();
+    });
+
+    it("Should throw an overflow error", (done) => {
+      expect(() => {
+        contentBoxDimension.addContent({ width: 10, height: 15 });
+      }).toThrow(
+        `Content box dimension width overflow. Maximum width is ${MAX_WIDTH}`
+      );
+
+      done();
+    });
+  });
+
   describe("Vertical", () => {
     it("Should create a Content Box Dimension", (done) => {
       contentBoxDimension = new ContentBoxDimension(
         10,
         5,
-        0,
-        0,
         Direction.VERTICAL,
-        5
+        5,
+        false,
+        false
       );
 
       expect(contentBoxDimension).toBeDefined();
@@ -161,6 +214,59 @@ describe("Content Box Dimension", () => {
       expect(contentBoxDimension.getUsedHeight()).toBe(70);
       expect(contentBoxDimension.getRightBoundary()).toBe(35);
       expect(contentBoxDimension.getBottomBoundary()).toBe(80);
+
+      done();
+    });
+  });
+
+  describe("Fixed Vertical", () => {
+    const MAX_HEIGHT = 30;
+
+    it("Should create a Content Box Dimension", (done) => {
+      contentBoxDimension = new ContentBoxDimension(
+        10,
+        5,
+        Direction.VERTICAL,
+        5,
+        false,
+        true,
+        { height: MAX_HEIGHT }
+      );
+
+      expect(contentBoxDimension).toBeDefined();
+      expect(contentBoxDimension.getContentBoxHeight()).toBe(MAX_HEIGHT);
+
+      done();
+    });
+
+    it("Should add the first content and keep up the same height", (done) => {
+      contentBoxDimension.addContent({ width: 10, height: 15 }, true);
+
+      expect(contentBoxDimension.getUsedWidth()).toBe(10);
+      expect(contentBoxDimension.getUsedHeight()).toBe(15);
+      expect(contentBoxDimension.getRightBoundary()).toBe(15);
+      expect(contentBoxDimension.getContentBoxHeight()).toBe(MAX_HEIGHT);
+
+      done();
+    });
+
+    it("Should add the second content and update used width and height", (done) => {
+      contentBoxDimension.addContent({ width: 15, height: 10 });
+
+      expect(contentBoxDimension.getUsedWidth()).toBe(15);
+      expect(contentBoxDimension.getUsedHeight()).toBe(30);
+      expect(contentBoxDimension.getRightBoundary()).toBe(20);
+      expect(contentBoxDimension.getContentBoxHeight()).toBe(MAX_HEIGHT);
+
+      done();
+    });
+
+    it("Should throw an overflow error", (done) => {
+      expect(() => {
+        contentBoxDimension.addContent({ width: 15, height: 10 });
+      }).toThrow(
+        `Content box dimension height overflow. Maximum height is ${MAX_HEIGHT}`
+      );
 
       done();
     });

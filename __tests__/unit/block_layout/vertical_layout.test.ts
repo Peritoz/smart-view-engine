@@ -176,7 +176,8 @@ describe("Vertical Layout", () => {
       Direction.VERTICAL,
       Alignment.EXPANDED,
       Alignment.EXPANDED,
-      5
+      5,
+      { width: 60, height: 400 }
     );
 
     group.addContainer(
@@ -206,8 +207,6 @@ describe("Vertical Layout", () => {
         y: 0,
       })
     );
-
-    group.setHeight(400);
 
     const children = group.getChildren();
 
@@ -400,7 +399,8 @@ describe("Vertical Layout", () => {
       Direction.VERTICAL,
       Alignment.EXPANDED,
       Alignment.START,
-      5
+      5,
+      { width: 200 }
     );
 
     group.addContainer(
@@ -430,8 +430,6 @@ describe("Vertical Layout", () => {
         y: 0,
       })
     );
-
-    group.setWidth(200);
 
     const children = group.getChildren();
 

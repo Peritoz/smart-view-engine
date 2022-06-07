@@ -18,8 +18,8 @@ const settings = new Settings({
 describe("Visible Layout Row", () => {
   describe("Simple Visible Row - Top Label - Only Base Elements", () => {
     let group = new VisibleLayoutRow(
-      Alignment.EXPANDED,
-      Alignment.EXPANDED,
+      Alignment.START,
+      Alignment.START,
       settings,
       "ROW",
       "T1",
@@ -50,8 +50,8 @@ describe("Visible Layout Row", () => {
         new BaseElement({
           name: "A",
           type: "T",
-          width: 10,
-          height: 10,
+          width: 20,
+          height: 15,
         })
       );
       group.addContainer(
@@ -59,14 +59,14 @@ describe("Visible Layout Row", () => {
           name: "B",
           type: "T",
           width: 20,
-          height: 5,
+          height: 15,
         })
       );
       group.addContainer(
         new BaseElement({
           name: "C",
           type: "T",
-          width: 30,
+          width: 20,
           height: 15,
         })
       );
@@ -101,15 +101,15 @@ describe("Visible Layout Row", () => {
       expect(children[0].getName()).toBe("A");
       expect(children[1].getName()).toBe("B");
       expect(children[2].getName()).toBe("C");
-      expect(children[0].getWidth()).toBe(40);
-      expect(children[1].getWidth()).toBe(40);
-      expect(children[2].getWidth()).toBe(40);
+      expect(children[0].getWidth()).toBe(20);
+      expect(children[1].getWidth()).toBe(20);
+      expect(children[2].getWidth()).toBe(20);
       expect(children[0].getHeight()).toBe(15);
       expect(children[1].getHeight()).toBe(15);
       expect(children[2].getHeight()).toBe(15);
       expect(children[0].getX()).toBe(5);
-      expect(children[1].getX()).toBe(50);
-      expect(children[2].getX()).toBe(95);
+      expect(children[1].getX()).toBe(30);
+      expect(children[2].getX()).toBe(55);
       expect(children[0].getY()).toBe(25);
       expect(children[1].getY()).toBe(25);
       expect(children[2].getY()).toBe(25);
@@ -165,8 +165,8 @@ describe("Visible Layout Row", () => {
 
   describe("Simple Visible Row - Lateral Label - Only Base Elements", () => {
     let group = new VisibleLayoutRow(
-      Alignment.EXPANDED,
-      Alignment.EXPANDED,
+      Alignment.START,
+      Alignment.START,
       settings,
       "ROW",
       "T1",

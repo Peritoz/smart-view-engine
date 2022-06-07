@@ -2,7 +2,7 @@ import { Alignment } from "../../../src/libs/common/alignment.enum";
 import { ElementBuilder } from "../../../src/libs/engine/layout_engine/layout_builder/element_builder";
 import { ContentBox } from "../../../src/libs/engine/layout_engine/layout_builder/content_box";
 import { Direction } from "../../../src/libs/common/distribution.enum";
-import {DEFAULT} from "../../../src/libs/common/size_reference.const";
+import { DEFAULT } from "../../../src/libs/common/size_reference.const";
 
 const elementBuilder = new ElementBuilder(DEFAULT.SIZE_UNIT);
 
@@ -21,7 +21,7 @@ describe("Horizontal Layout", () => {
       elementBuilder.buildElement({
         name: "A",
         width: 50,
-        height: 25
+        height: 25,
       })
     );
     group.addContainer(
@@ -164,7 +164,11 @@ describe("Horizontal Layout", () => {
       Direction.HORIZONTAL,
       Alignment.EXPANDED,
       Alignment.EXPANDED,
-      5
+      5,
+      {
+        width: 400,
+        height: 60,
+      }
     );
 
     group.addContainer(
@@ -188,8 +192,6 @@ describe("Horizontal Layout", () => {
         height: 60,
       })
     );
-
-    group.setWidth(400);
 
     const children = group.getChildren();
 
@@ -364,7 +366,10 @@ describe("Horizontal Layout", () => {
       Direction.HORIZONTAL,
       Alignment.START,
       Alignment.EXPANDED,
-      5
+      5,
+      {
+        height: 60,
+      }
     );
 
     group.addContainer(
@@ -414,7 +419,8 @@ describe("Horizontal Layout", () => {
       Direction.HORIZONTAL,
       Alignment.EXPANDED,
       Alignment.EXPANDED,
-      5
+      5,
+      { width: 400, height: 100 }
     );
 
     group.addContainer(
@@ -438,9 +444,6 @@ describe("Horizontal Layout", () => {
         height: 60,
       })
     );
-
-    group.setWidth(400);
-    group.setHeight(100);
 
     const children = group.getChildren();
 

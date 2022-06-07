@@ -18,8 +18,8 @@ const settings = new Settings({
 describe("Visible Layout Col", () => {
   describe("Simple Visible Col - Top Label - Only Base Elements", () => {
     let group = new VisibleLayoutCol(
-      Alignment.EXPANDED,
-      Alignment.EXPANDED,
+      Alignment.START,
+      Alignment.START,
       settings,
       "COL",
       "T1",
@@ -165,8 +165,8 @@ describe("Visible Layout Col", () => {
 
   describe("Simple Visible Col - Lateral Label - Only Base Elements", () => {
     let group = new VisibleLayoutCol(
-      Alignment.EXPANDED,
-      Alignment.EXPANDED,
+      Alignment.START,
+      Alignment.START,
       settings,
       "COL",
       "T1",
