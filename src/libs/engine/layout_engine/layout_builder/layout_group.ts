@@ -180,17 +180,17 @@ export class LayoutGroup extends Block {
       }
 
       // Updating group Width
-      this.setWidth(
-        this.contentBox.getWidth() +
-          this.offset.leftOffset +
-          this.offset.rightOffset
+      const currentWidth = this.contentBox.getWidth();
+
+      super.setWidth(
+        currentWidth + this.offset.leftOffset + this.offset.rightOffset
       );
 
       // Updating group Height
-      this.setHeight(
-        this.contentBox.getHeight() +
-          this.offset.topOffset +
-          this.offset.bottomOffset
+      const currentHeight = this.contentBox.getHeight();
+
+      super.setHeight(
+        currentHeight + this.offset.topOffset + this.offset.bottomOffset
       );
     }
   }
