@@ -47,28 +47,28 @@ describe("Visible Layout Col", () => {
 
     it("Should Add 3 Nodes", (done) => {
       group.addContainer(
-        new BaseElement({
-          name: "A",
-          type: "T",
-          width: 10,
-          height: 5,
-        })
+          new BaseElement({
+            name: "A",
+            type: "T",
+            width: 20,
+            height: 15,
+          })
       );
       group.addContainer(
-        new BaseElement({
-          name: "B",
-          type: "T",
-          width: 20,
-          height: 5,
-        })
+          new BaseElement({
+            name: "B",
+            type: "T",
+            width: 20,
+            height: 15,
+          })
       );
       group.addContainer(
-        new BaseElement({
-          name: "C",
-          type: "T",
-          width: 25,
-          height: 5,
-        })
+          new BaseElement({
+            name: "C",
+            type: "T",
+            width: 20,
+            height: 15,
+          })
       );
 
       children = group.getChildren();
@@ -77,18 +77,18 @@ describe("Visible Layout Col", () => {
       expect(children[0].getName()).toBe("A");
       expect(children[1].getName()).toBe("B");
       expect(children[2].getName()).toBe("C");
-      expect(children[0].getWidth()).toBe(25);
-      expect(children[1].getWidth()).toBe(25);
-      expect(children[2].getWidth()).toBe(25);
-      expect(children[0].getHeight()).toBe(5);
-      expect(children[1].getHeight()).toBe(5);
-      expect(children[2].getHeight()).toBe(5);
+      expect(children[0].getWidth()).toBe(20);
+      expect(children[1].getWidth()).toBe(20);
+      expect(children[2].getWidth()).toBe(20);
+      expect(children[0].getHeight()).toBe(15);
+      expect(children[1].getHeight()).toBe(15);
+      expect(children[2].getHeight()).toBe(15);
       expect(children[0].getX()).toBe(5);
       expect(children[1].getX()).toBe(5);
       expect(children[2].getX()).toBe(5);
       expect(children[0].getY()).toBe(25);
-      expect(children[1].getY()).toBe(35);
-      expect(children[2].getY()).toBe(45);
+      expect(children[1].getY()).toBe(45);
+      expect(children[2].getY()).toBe(65);
 
       done();
     });
@@ -101,33 +101,33 @@ describe("Visible Layout Col", () => {
       expect(children[0].getName()).toBe("A");
       expect(children[1].getName()).toBe("B");
       expect(children[2].getName()).toBe("C");
-      expect(children[0].getWidth()).toBe(40);
-      expect(children[1].getWidth()).toBe(40);
-      expect(children[2].getWidth()).toBe(40);
-      expect(children[0].getHeight()).toBe(5);
-      expect(children[1].getHeight()).toBe(5);
-      expect(children[2].getHeight()).toBe(5);
+      expect(children[0].getWidth()).toBe(20);
+      expect(children[1].getWidth()).toBe(20);
+      expect(children[2].getWidth()).toBe(20);
+      expect(children[0].getHeight()).toBe(15);
+      expect(children[1].getHeight()).toBe(15);
+      expect(children[2].getHeight()).toBe(15);
       expect(children[0].getX()).toBe(5);
       expect(children[1].getX()).toBe(5);
       expect(children[2].getX()).toBe(5);
       expect(children[0].getY()).toBe(25);
-      expect(children[1].getY()).toBe(35);
-      expect(children[2].getY()).toBe(45);
+      expect(children[1].getY()).toBe(45);
+      expect(children[2].getY()).toBe(65);
 
       done();
     });
 
     it("Should Adjust Height", (done) => {
-      group.setHeight(85);
+      group.setHeight(100);
 
-      expect(group.getHeight()).toBe(85);
+      expect(group.getHeight()).toBe(100);
       expect(children.length).toBe(3);
       expect(children[0].getName()).toBe("A");
       expect(children[1].getName()).toBe("B");
       expect(children[2].getName()).toBe("C");
-      expect(children[0].getWidth()).toBe(40);
-      expect(children[1].getWidth()).toBe(40);
-      expect(children[2].getWidth()).toBe(40);
+      expect(children[0].getWidth()).toBe(20);
+      expect(children[1].getWidth()).toBe(20);
+      expect(children[2].getWidth()).toBe(20);
       expect(children[0].getHeight()).toBe(15);
       expect(children[1].getHeight()).toBe(15);
       expect(children[2].getHeight()).toBe(15);
@@ -176,28 +176,28 @@ describe("Visible Layout Col", () => {
 
     it("Should Add 3 Nodes", (done) => {
       group.addContainer(
-        new BaseElement({
-          name: "A",
-          type: "T",
-          width: 10,
-          height: 5,
-        })
+          new BaseElement({
+            name: "A",
+            type: "T",
+            width: 20,
+            height: 15,
+          })
       );
       group.addContainer(
-        new BaseElement({
-          name: "B",
-          type: "T",
-          width: 20,
-          height: 5,
-        })
+          new BaseElement({
+            name: "B",
+            type: "T",
+            width: 20,
+            height: 15,
+          })
       );
       group.addContainer(
-        new BaseElement({
-          name: "C",
-          type: "T",
-          width: 25,
-          height: 5,
-        })
+          new BaseElement({
+            name: "C",
+            type: "T",
+            width: 20,
+            height: 15,
+          })
       );
 
       children = group.getChildren();
@@ -206,18 +206,18 @@ describe("Visible Layout Col", () => {
       expect(children[0].getName()).toBe("A");
       expect(children[1].getName()).toBe("B");
       expect(children[2].getName()).toBe("C");
-      expect(children[0].getWidth()).toBe(25);
-      expect(children[1].getWidth()).toBe(25);
-      expect(children[2].getWidth()).toBe(25);
-      expect(children[0].getHeight()).toBe(5);
-      expect(children[1].getHeight()).toBe(5);
-      expect(children[2].getHeight()).toBe(5);
+      expect(children[0].getWidth()).toBe(20);
+      expect(children[1].getWidth()).toBe(20);
+      expect(children[2].getWidth()).toBe(20);
+      expect(children[0].getHeight()).toBe(15);
+      expect(children[1].getHeight()).toBe(15);
+      expect(children[2].getHeight()).toBe(15);
       expect(children[0].getX()).toBe(45);
       expect(children[1].getX()).toBe(45);
       expect(children[2].getX()).toBe(45);
       expect(children[0].getY()).toBe(5);
-      expect(children[1].getY()).toBe(15);
-      expect(children[2].getY()).toBe(25);
+      expect(children[1].getY()).toBe(25);
+      expect(children[2].getY()).toBe(45);
 
       done();
     });
@@ -230,42 +230,42 @@ describe("Visible Layout Col", () => {
       expect(children[0].getName()).toBe("A");
       expect(children[1].getName()).toBe("B");
       expect(children[2].getName()).toBe("C");
-      expect(children[0].getWidth()).toBe(40);
-      expect(children[1].getWidth()).toBe(40);
-      expect(children[2].getWidth()).toBe(40);
-      expect(children[0].getHeight()).toBe(5);
-      expect(children[1].getHeight()).toBe(5);
-      expect(children[2].getHeight()).toBe(5);
+      expect(children[0].getWidth()).toBe(20);
+      expect(children[1].getWidth()).toBe(20);
+      expect(children[2].getWidth()).toBe(20);
+      expect(children[0].getHeight()).toBe(15);
+      expect(children[1].getHeight()).toBe(15);
+      expect(children[2].getHeight()).toBe(15);
       expect(children[0].getX()).toBe(45);
       expect(children[1].getX()).toBe(45);
       expect(children[2].getX()).toBe(45);
       expect(children[0].getY()).toBe(5);
-      expect(children[1].getY()).toBe(15);
-      expect(children[2].getY()).toBe(25);
+      expect(children[1].getY()).toBe(25);
+      expect(children[2].getY()).toBe(45);
 
       done();
     });
 
     it("Should Adjust Height", (done) => {
-      group.setHeight(50);
+      group.setHeight(100);
 
-      expect(group.getHeight()).toBe(50);
+      expect(group.getHeight()).toBe(100);
       expect(children.length).toBe(3);
       expect(children[0].getName()).toBe("A");
       expect(children[1].getName()).toBe("B");
       expect(children[2].getName()).toBe("C");
-      expect(children[0].getWidth()).toBe(40);
-      expect(children[1].getWidth()).toBe(40);
-      expect(children[2].getWidth()).toBe(40);
-      expect(children[0].getHeight()).toBe(10);
-      expect(children[1].getHeight()).toBe(10);
-      expect(children[2].getHeight()).toBe(10);
+      expect(children[0].getWidth()).toBe(20);
+      expect(children[1].getWidth()).toBe(20);
+      expect(children[2].getWidth()).toBe(20);
+      expect(children[0].getHeight()).toBe(15);
+      expect(children[1].getHeight()).toBe(15);
+      expect(children[2].getHeight()).toBe(15);
       expect(children[0].getX()).toBe(45);
       expect(children[1].getX()).toBe(45);
       expect(children[2].getX()).toBe(45);
       expect(children[0].getY()).toBe(5);
-      expect(children[1].getY()).toBe(20);
-      expect(children[2].getY()).toBe(35);
+      expect(children[1].getY()).toBe(25);
+      expect(children[2].getY()).toBe(45);
 
       done();
     });
@@ -285,8 +285,8 @@ describe("Visible Layout Col", () => {
       expect(children[1].getX()).toBe(55);
       expect(children[2].getX()).toBe(55);
       expect(children[0].getY()).toBe(15);
-      expect(children[1].getY()).toBe(30);
-      expect(children[2].getY()).toBe(45);
+      expect(children[1].getY()).toBe(35);
+      expect(children[2].getY()).toBe(55);
 
       done();
     });
