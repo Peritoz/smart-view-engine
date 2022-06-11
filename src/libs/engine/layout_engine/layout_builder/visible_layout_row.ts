@@ -4,6 +4,7 @@ import { LayoutRow } from "@libs/engine/layout_engine/layout_builder/layout_row"
 import { Direction } from "@libs/common/distribution.enum";
 import { ContentBox } from "@libs/engine/layout_engine/layout_builder/content_box";
 import { Dimension } from "@libs/model/dimension";
+import { LayoutGroup } from "@libs/engine/layout_engine/layout_builder/layout_group";
 
 export class VisibleLayoutRow extends LayoutRow {
   protected name: string;
@@ -19,9 +20,16 @@ export class VisibleLayoutRow extends LayoutRow {
     name: string,
     type: string,
     lateralLabel: boolean,
+    parent: LayoutGroup,
     initialDimension?: Dimension
   ) {
-    super(horizontalAlignment, verticalAlignment, settings, initialDimension);
+    super(
+      horizontalAlignment,
+      verticalAlignment,
+      settings,
+      parent,
+      initialDimension
+    );
 
     this.offset = {
       topOffset: !lateralLabel

@@ -12,6 +12,7 @@ const uniqId = require("uniqid");
 
 export class LayoutGroup extends Block {
   protected id: string;
+  protected parent: LayoutGroup;
   protected horizontalAlignment: Alignment;
   protected verticalAlignment: Alignment;
   protected contentBox: ContentBox;
@@ -24,6 +25,7 @@ export class LayoutGroup extends Block {
     distribution: Direction,
     settings: Settings,
     offset: Offset,
+    parent: LayoutGroup,
     initialDimension?: Partial<Dimension>
   ) {
     super({
@@ -35,6 +37,7 @@ export class LayoutGroup extends Block {
     });
 
     this.id = uniqId();
+    this.parent = parent;
     this.horizontalAlignment = horizontalAlignment;
     this.verticalAlignment = verticalAlignment;
     this.contentBox = new ContentBox(
@@ -180,18 +183,32 @@ export class LayoutGroup extends Block {
       }
 
       // Updating group Width
-      const currentWidth = this.contentBox.getWidth();
-
-      super.setWidth(
-        currentWidth + this.offset.leftOffset + this.offset.rightOffset
-      );
+      this.adjustWidthToContent();
 
       // Updating group Height
-      const currentHeight = this.contentBox.getHeight();
+      this.adjustHeightToContent();
+    }
+  }
 
-      super.setHeight(
-        currentHeight + this.offset.topOffset + this.offset.bottomOffset
-      );
+  adjustWidthToContent() {
+    const candidateWidth =
+      this.contentBox.getWidth() +
+      this.offset.leftOffset +
+      this.offset.rightOffset;
+
+    if (super.getWidth() !== candidateWidth) {
+      super.setWidth(candidateWidth);
+    }
+  }
+
+  adjustHeightToContent() {
+    const candidateHeight =
+      this.contentBox.getHeight() +
+      this.offset.topOffset +
+      this.offset.bottomOffset;
+
+    if (super.getHeight() !== candidateHeight) {
+      super.setHeight(candidateHeight);
     }
   }
 

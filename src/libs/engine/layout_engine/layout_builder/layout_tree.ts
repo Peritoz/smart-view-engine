@@ -47,17 +47,15 @@ export class LayoutTree {
 
   /**
    * Creates a new Element Group based on a builder callback
-   * @param buildElement Callback function to build a LayoutElementGroup. It receives the parent id
-   * as parameter (which can be null)
+   * @param buildElement Callback function to build a LayoutElementGroup. It receives the parent element
+   * as parameter
    * @returns LayoutGroup
    */
   private newElementGroup(
-    buildElement: (parentId: string | null) => LayoutGroup
+    buildElement: (parent: LayoutGroup) => LayoutGroup
   ): LayoutGroup {
-    const parentLayoutGroup = this.getCurrentLayoutGroup();
-    const parentId = parentLayoutGroup ? parentLayoutGroup.getId() : null;
-    const elementGroup = buildElement(parentId);
     const currentLayoutGroup = this.getCurrentLayoutGroup();
+    const elementGroup = buildElement(currentLayoutGroup);
 
     if (currentLayoutGroup) {
       currentLayoutGroup.addContainer(elementGroup);
@@ -72,21 +70,23 @@ export class LayoutTree {
   }
 
   newRow(horizontalAlignment: Alignment, verticalAlignment: Alignment) {
-    return this.newElementGroup((parentId: string | null) => {
+    return this.newElementGroup((parent: LayoutGroup) => {
       return new LayoutRow(
         horizontalAlignment,
         verticalAlignment,
-        this.settings
+        this.settings,
+        parent
       );
     });
   }
 
   newCol(horizontalAlignment: Alignment, verticalAlignment: Alignment) {
-    return this.newElementGroup((parentId: string | null) => {
+    return this.newElementGroup((parent: LayoutGroup) => {
       return new LayoutCol(
         horizontalAlignment,
         verticalAlignment,
-        this.settings
+        this.settings,
+        parent
       );
     });
   }
@@ -98,14 +98,15 @@ export class LayoutTree {
     verticalAlignment: Alignment,
     lateralLabel: boolean
   ) {
-    return this.newElementGroup((parentId: string | null) => {
+    return this.newElementGroup((parent: LayoutGroup) => {
       return new VisibleLayoutRow(
         horizontalAlignment,
         verticalAlignment,
         this.settings,
         name,
         type,
-        lateralLabel
+        lateralLabel,
+        parent
       );
     });
   }
@@ -117,14 +118,15 @@ export class LayoutTree {
     verticalAlignment: Alignment,
     lateralLabel: boolean
   ) {
-    return this.newElementGroup((parentId: string | null) => {
+    return this.newElementGroup((parent: LayoutGroup) => {
       return new VisibleLayoutCol(
         horizontalAlignment,
         verticalAlignment,
         this.settings,
         name,
         type,
-        lateralLabel
+        lateralLabel,
+        parent
       );
     });
   }
@@ -134,9 +136,7 @@ export class LayoutTree {
    */
   toAbsolutePosition() {
     const plainElements = Array.from(this.containerMap.values());
-    const visibleGroups = plainElements.filter(
-      (e) => e instanceof LayoutGroup
-    );
+    const visibleGroups = plainElements.filter((e) => e instanceof LayoutGroup);
 
     for (let i = 0; i < visibleGroups.length; i++) {
       const group = visibleGroups[i];
