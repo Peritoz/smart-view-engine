@@ -14,7 +14,9 @@ describe("Vertical Layout", () => {
       Direction.VERTICAL,
       Alignment.START,
       Alignment.START,
-      5
+      5,
+      () => {},
+      () => {}
     );
 
     group.addContainer(
@@ -64,7 +66,9 @@ describe("Vertical Layout", () => {
       Direction.VERTICAL,
       Alignment.START,
       Alignment.END,
-      5
+      5,
+      () => {},
+      () => {}
     );
 
     group.addContainer(
@@ -120,7 +124,9 @@ describe("Vertical Layout", () => {
       Direction.VERTICAL,
       Alignment.START,
       Alignment.CENTER,
-      5
+      5,
+      () => {},
+      () => {}
     );
 
     group.addContainer(
@@ -177,6 +183,8 @@ describe("Vertical Layout", () => {
       Alignment.EXPANDED,
       Alignment.EXPANDED,
       5,
+      () => {},
+      () => {},
       { width: 60, height: 400 }
     );
 
@@ -231,7 +239,9 @@ describe("Vertical Layout", () => {
       Direction.VERTICAL,
       Alignment.START,
       Alignment.START,
-      5
+      5,
+      () => {},
+      () => {}
     );
 
     group.addContainer(
@@ -287,7 +297,9 @@ describe("Vertical Layout", () => {
       Direction.VERTICAL,
       Alignment.END,
       Alignment.START,
-      5
+      5,
+      () => {},
+      () => {}
     );
 
     group.addContainer(
@@ -343,7 +355,9 @@ describe("Vertical Layout", () => {
       Direction.VERTICAL,
       Alignment.CENTER,
       Alignment.START,
-      5
+      5,
+      () => {},
+      () => {}
     );
 
     group.addContainer(
@@ -400,6 +414,8 @@ describe("Vertical Layout", () => {
       Alignment.EXPANDED,
       Alignment.START,
       5,
+      () => {},
+      () => {},
       { width: 200 }
     );
 

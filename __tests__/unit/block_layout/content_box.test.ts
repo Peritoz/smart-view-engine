@@ -10,7 +10,7 @@ describe("Content Box", () => {
       Direction.HORIZONTAL,
       Alignment.START,
       Alignment.START,
-      5
+      5,()=>{},()=>{},
     );
 
     it("Should initialize and update main length content box reference", async () => {
@@ -35,7 +35,7 @@ describe("Content Box", () => {
       Direction.HORIZONTAL,
       Alignment.START,
       Alignment.START,
-      5
+      5,()=>{},()=>{},
     );
 
     it("Should initialize and update main length content box reference", async () => {
@@ -60,7 +60,7 @@ describe("Content Box", () => {
       Direction.VERTICAL,
       Alignment.START,
       Alignment.START,
-      5
+      5,()=>{},()=>{},
     );
 
     it("Should initialize and update main length content box reference", async () => {
@@ -85,7 +85,9 @@ describe("Content Box", () => {
       Direction.HORIZONTAL,
       Alignment.START,
       Alignment.START,
-      5
+      5,
+      () => {},
+      () => {}
     );
 
     it("Should initialize and update main length content box reference", async () => {

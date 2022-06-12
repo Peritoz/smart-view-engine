@@ -76,6 +76,12 @@ export class VisibleLayoutRow extends LayoutRow {
       horizontalAlignment,
       verticalAlignment,
       settings.spaceBetween,
+      () => {
+        this.adjustWidthToContent();
+      },
+      () => {
+        this.adjustHeightToContent();
+      },
       dimension
     );
   }

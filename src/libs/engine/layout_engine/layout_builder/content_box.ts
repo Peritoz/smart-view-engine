@@ -21,6 +21,8 @@ export class ContentBox {
     horizontalAlignment: Alignment = Alignment.START,
     verticalAlignment: Alignment = Alignment.START,
     spaceBetween: number = DEFAULT.DEFAULT_PADDING,
+    onChangeWidth: (width: number) => void,
+    onChangeHeight: (height: number) => void,
     dimension?: Partial<Dimension>
   ) {
     this.dimension = new ContentBoxDimension(
@@ -30,6 +32,8 @@ export class ContentBox {
       spaceBetween,
       horizontalAlignment === Alignment.EXPANDED,
       verticalAlignment === Alignment.EXPANDED,
+      onChangeWidth,
+      onChangeHeight,
       dimension
     );
     this.children = [];

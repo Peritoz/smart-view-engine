@@ -12,7 +12,9 @@ describe("Content Box Dimension", () => {
         Direction.HORIZONTAL,
         5,
         false,
-        false
+        false,
+        () => {},
+        () => {}
       );
 
       expect(contentBoxDimension).toBeDefined();
@@ -96,6 +98,8 @@ describe("Content Box Dimension", () => {
         5,
         true,
         false,
+        () => {},
+        () => {},
         { width: MAX_WIDTH }
       );
 
@@ -146,7 +150,9 @@ describe("Content Box Dimension", () => {
         Direction.VERTICAL,
         5,
         false,
-        false
+        false,
+        () => {},
+        () => {}
       );
 
       expect(contentBoxDimension).toBeDefined();
@@ -230,6 +236,8 @@ describe("Content Box Dimension", () => {
         5,
         false,
         true,
+        () => {},
+        () => {},
         { height: MAX_HEIGHT }
       );
 

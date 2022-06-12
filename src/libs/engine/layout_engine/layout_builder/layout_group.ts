@@ -47,6 +47,12 @@ export class LayoutGroup extends Block {
       horizontalAlignment,
       verticalAlignment,
       settings.spaceBetween,
+      () => {
+        this.adjustWidthToContent();
+      },
+      () => {
+        this.adjustHeightToContent();
+      },
       initialDimension
     ); // Content box limits
     this.offset = offset;
@@ -118,12 +124,14 @@ export class LayoutGroup extends Block {
   setWidth(value: number) {
     const currentWidth = this.getWidth();
 
-    if (value > currentWidth) {
-      super.setWidth(value);
+    if (value >= currentWidth) {
+      if (value > currentWidth) {
+        super.setWidth(value);
 
-      this.contentBox.setWidth(
-        value - (this.offset.leftOffset + this.offset.rightOffset)
-      );
+        this.contentBox.setWidth(
+          value - (this.offset.leftOffset + this.offset.rightOffset)
+        );
+      }
     } else {
       throw new Error("The new Width can´t be smaller than current Width");
     }
@@ -136,12 +144,14 @@ export class LayoutGroup extends Block {
   setHeight(value: number) {
     const currentHeight = this.getHeight();
 
-    if (value > currentHeight) {
-      super.setHeight(value);
+    if (value >= currentHeight) {
+      if (value > currentHeight) {
+        super.setHeight(value);
 
-      this.contentBox.setHeight(
-        value - (this.offset.topOffset + this.offset.bottomOffset)
-      );
+        this.contentBox.setHeight(
+          value - (this.offset.topOffset + this.offset.bottomOffset)
+        );
+      }
     } else {
       throw new Error("The new Height can´t be smaller than current Height");
     }
@@ -181,12 +191,6 @@ export class LayoutGroup extends Block {
       if (isBaseElement) {
         container.setParentId(this.id);
       }
-
-      // Updating group Width
-      this.adjustWidthToContent();
-
-      // Updating group Height
-      this.adjustHeightToContent();
     }
   }
 
@@ -197,7 +201,11 @@ export class LayoutGroup extends Block {
       this.offset.rightOffset;
 
     if (super.getWidth() !== candidateWidth) {
-      super.setWidth(candidateWidth);
+      this.setWidth(candidateWidth);
+
+      if (this.parent) {
+        this.parent.adjustWidthToContent();
+      }
     }
   }
 
@@ -208,7 +216,11 @@ export class LayoutGroup extends Block {
       this.offset.bottomOffset;
 
     if (super.getHeight() !== candidateHeight) {
-      super.setHeight(candidateHeight);
+      this.setHeight(candidateHeight);
+
+      if (this.parent) {
+        this.parent.adjustWidthToContent();
+      }
     }
   }
 

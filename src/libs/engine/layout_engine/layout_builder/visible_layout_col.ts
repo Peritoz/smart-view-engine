@@ -76,6 +76,12 @@ export class VisibleLayoutCol extends LayoutCol {
       horizontalAlignment,
       verticalAlignment,
       settings.spaceBetween,
+      () => {
+        this.adjustWidthToContent();
+      },
+      () => {
+        this.adjustHeightToContent();
+      },
       dimension
     );
   }

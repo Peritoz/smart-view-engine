@@ -14,7 +14,9 @@ describe("Horizontal Layout", () => {
       Direction.HORIZONTAL,
       Alignment.START,
       Alignment.START,
-      5
+      5,
+      () => {},
+      () => {}
     );
 
     group.addContainer(
@@ -64,7 +66,9 @@ describe("Horizontal Layout", () => {
       Direction.HORIZONTAL,
       Alignment.END,
       Alignment.START,
-      5
+      5,
+      () => {},
+      () => {}
     );
 
     group.addContainer(
@@ -114,7 +118,9 @@ describe("Horizontal Layout", () => {
       Direction.HORIZONTAL,
       Alignment.CENTER,
       Alignment.START,
-      5
+      5,
+      () => {},
+      () => {}
     );
 
     group.addContainer(
@@ -165,6 +171,8 @@ describe("Horizontal Layout", () => {
       Alignment.EXPANDED,
       Alignment.EXPANDED,
       5,
+      () => {},
+      () => {},
       {
         width: 400,
         height: 60,
@@ -216,7 +224,9 @@ describe("Horizontal Layout", () => {
       Direction.HORIZONTAL,
       Alignment.START,
       Alignment.START,
-      5
+      5,
+      () => {},
+      () => {}
     );
 
     group.addContainer(
@@ -266,7 +276,9 @@ describe("Horizontal Layout", () => {
       Direction.HORIZONTAL,
       Alignment.START,
       Alignment.END,
-      5
+      5,
+      () => {},
+      () => {}
     );
 
     group.addContainer(
@@ -316,7 +328,9 @@ describe("Horizontal Layout", () => {
       Direction.HORIZONTAL,
       Alignment.START,
       Alignment.CENTER,
-      5
+      5,
+      () => {},
+      () => {}
     );
 
     group.addContainer(
@@ -367,6 +381,8 @@ describe("Horizontal Layout", () => {
       Alignment.START,
       Alignment.EXPANDED,
       5,
+      () => {},
+      () => {},
       {
         height: 60,
       }
@@ -420,6 +436,8 @@ describe("Horizontal Layout", () => {
       Alignment.EXPANDED,
       Alignment.EXPANDED,
       5,
+      () => {},
+      () => {},
       { width: 400, height: 100 }
     );
 
