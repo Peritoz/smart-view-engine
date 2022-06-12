@@ -23,7 +23,8 @@ describe("Visible Layout Row", () => {
       settings,
       "ROW",
       "T1",
-      false
+      false,
+      null
     );
     let children = [];
 
@@ -170,7 +171,8 @@ describe("Visible Layout Row", () => {
       settings,
       "ROW",
       "T1",
-      true
+      true,
+      null
     );
     let children = [];
 

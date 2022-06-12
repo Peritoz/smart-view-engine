@@ -12,7 +12,7 @@ const uniqId = require("uniqid");
 
 export class LayoutGroup extends Block {
   protected id: string;
-  protected parent: LayoutGroup;
+  protected parent: LayoutGroup | null;
   protected horizontalAlignment: Alignment;
   protected verticalAlignment: Alignment;
   protected contentBox: ContentBox;
@@ -25,7 +25,7 @@ export class LayoutGroup extends Block {
     distribution: Direction,
     settings: Settings,
     offset: Offset,
-    parent: LayoutGroup,
+    parent: LayoutGroup | null,
     initialDimension?: Partial<Dimension>
   ) {
     super({

@@ -20,7 +20,7 @@ export class VisibleLayoutCol extends LayoutCol {
     name: string,
     type: string,
     lateralLabel: boolean,
-    parent: LayoutGroup,
+    parent: LayoutGroup | null,
     initialDimension?: Dimension
   ) {
     super(

@@ -23,7 +23,8 @@ describe("Visible Layout Col", () => {
       settings,
       "COL",
       "T1",
-      false
+      false,
+      null
     );
     let children = [];
 
@@ -47,28 +48,28 @@ describe("Visible Layout Col", () => {
 
     it("Should Add 3 Nodes", (done) => {
       group.addContainer(
-          new BaseElement({
-            name: "A",
-            type: "T",
-            width: 20,
-            height: 15,
-          })
+        new BaseElement({
+          name: "A",
+          type: "T",
+          width: 20,
+          height: 15,
+        })
       );
       group.addContainer(
-          new BaseElement({
-            name: "B",
-            type: "T",
-            width: 20,
-            height: 15,
-          })
+        new BaseElement({
+          name: "B",
+          type: "T",
+          width: 20,
+          height: 15,
+        })
       );
       group.addContainer(
-          new BaseElement({
-            name: "C",
-            type: "T",
-            width: 20,
-            height: 15,
-          })
+        new BaseElement({
+          name: "C",
+          type: "T",
+          width: 20,
+          height: 15,
+        })
       );
 
       children = group.getChildren();
@@ -170,34 +171,35 @@ describe("Visible Layout Col", () => {
       settings,
       "COL",
       "T1",
-      true
+      true,
+        null
     );
     let children = [];
 
     it("Should Add 3 Nodes", (done) => {
       group.addContainer(
-          new BaseElement({
-            name: "A",
-            type: "T",
-            width: 20,
-            height: 15,
-          })
+        new BaseElement({
+          name: "A",
+          type: "T",
+          width: 20,
+          height: 15,
+        })
       );
       group.addContainer(
-          new BaseElement({
-            name: "B",
-            type: "T",
-            width: 20,
-            height: 15,
-          })
+        new BaseElement({
+          name: "B",
+          type: "T",
+          width: 20,
+          height: 15,
+        })
       );
       group.addContainer(
-          new BaseElement({
-            name: "C",
-            type: "T",
-            width: 20,
-            height: 15,
-          })
+        new BaseElement({
+          name: "C",
+          type: "T",
+          width: 20,
+          height: 15,
+        })
       );
 
       children = group.getChildren();

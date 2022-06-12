@@ -5,10 +5,11 @@ import { LayoutGroup } from "@libs/engine/layout_engine/layout_builder/layout_gr
 import { Alignment } from "@libs/common/alignment.enum";
 import { DEFAULT } from "@libs/common/size_reference.const";
 import { Dimension } from "@libs/model/dimension";
+import { ContentBoxElement } from "@libs/model/content_box_element";
 
 export class ContentBox {
   protected dimension: ContentBoxDimension;
-  protected children: Array<LayoutGroup | BaseElement>;
+  protected children: Array<ContentBoxElement>;
   protected horizontalAlignment: Alignment;
   protected verticalAlignment: Alignment;
   protected direction: Direction;
@@ -43,13 +44,13 @@ export class ContentBox {
     this.hasNestedGroup = false; // Indicates if the element has as child another LayoutElementGroup
   }
 
-  getChildren(): Array<LayoutGroup | BaseElement> {
-    return this.children;
+  getChildren(): Array<BaseElement | LayoutGroup> {
+    return this.children.map((child) => child.getContent());
   }
 
-  getChildAtIndex(index: number) {
+  getChildAtIndex(index: number): BaseElement | LayoutGroup | undefined {
     if (this.children.length > index) {
-      return this.children[index];
+      return this.children[index].getContent();
     }
   }
 
@@ -63,7 +64,13 @@ export class ContentBox {
 
   addContainer(container: BaseElement | LayoutGroup) {
     // Adding container as child
-    this.children.push(container);
+    this.children.push(
+      new ContentBoxElement(
+        container,
+        () => {},
+        () => {}
+      )
+    );
 
     this.hasNestedGroup =
       this.hasNestedGroup || container instanceof LayoutGroup;
@@ -215,9 +222,9 @@ export class ContentBox {
     alignment: Alignment,
     totalSize: number,
     usedSize: number,
-    getChildSize: (child: LayoutGroup | BaseElement) => number,
-    setChildSize: (child: LayoutGroup | BaseElement, value: number) => void,
-    setChildPosition: (child: LayoutGroup | BaseElement, value: number) => void,
+    getChildSize: (child: ContentBoxElement) => number,
+    setChildSize: (child: ContentBoxElement, value: number) => void,
+    setChildPosition: (child: ContentBoxElement, value: number) => void,
     offsetBefore: number = 0,
     offsetAfter: number = 0
   ) {
@@ -275,9 +282,9 @@ export class ContentBox {
   alignElements(
     alignment: Alignment,
     totalSize: number,
-    getChildSize: (child: LayoutGroup | BaseElement) => number,
-    setChildSize: (child: LayoutGroup | BaseElement, value: number) => void,
-    setChildPosition: (child: LayoutGroup | BaseElement, value: number) => void,
+    getChildSize: (child: ContentBoxElement) => number,
+    setChildSize: (child: ContentBoxElement, value: number) => void,
+    setChildPosition: (child: ContentBoxElement, value: number) => void,
     offsetBefore: number = 0,
     offsetAfter: number = 0
   ) {

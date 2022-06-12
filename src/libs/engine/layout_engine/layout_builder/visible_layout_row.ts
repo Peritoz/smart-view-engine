@@ -20,7 +20,7 @@ export class VisibleLayoutRow extends LayoutRow {
     name: string,
     type: string,
     lateralLabel: boolean,
-    parent: LayoutGroup,
+    parent: LayoutGroup | null,
     initialDimension?: Dimension
   ) {
     super(

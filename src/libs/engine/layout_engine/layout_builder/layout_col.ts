@@ -9,7 +9,7 @@ export class LayoutCol extends LayoutGroup {
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
     settings: Settings,
-    parent: LayoutGroup,
+    parent: LayoutGroup | null,
     initialDimension?: Dimension
   ) {
     super(
