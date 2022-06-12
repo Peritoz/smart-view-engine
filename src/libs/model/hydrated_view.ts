@@ -199,7 +199,7 @@ export class HydratedView {
   }
 
   /**
-   * Validates and removes all inconsistences from the view
+   * Validates and removes all inconsistencies from the view
    * @return void
    */
   clear(): void {

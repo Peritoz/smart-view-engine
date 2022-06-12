@@ -1,6 +1,7 @@
-import { Position } from "@libs/model/block";
+import { Position } from "@libs/model/position";
+import { Dimension } from "@libs/model/dimension";
 
-export interface NodeBlock extends Position {
+export interface NodeBlock extends Position, Dimension {
   name: string;
   type: string;
   parentId: string | null;
