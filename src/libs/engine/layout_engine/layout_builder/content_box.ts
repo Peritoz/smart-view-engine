@@ -14,6 +14,8 @@ export class ContentBox {
   protected verticalAlignment: Alignment;
   protected direction: Direction;
   protected hasNestedGroup: boolean;
+  protected onChangeWidth: (width: number) => void;
+  protected onChangeHeight: (height: number) => void;
 
   constructor(
     topBoundary: number = DEFAULT.DEFAULT_PADDING,
@@ -42,6 +44,8 @@ export class ContentBox {
     this.verticalAlignment = verticalAlignment;
     this.direction = direction;
     this.hasNestedGroup = false; // Indicates if the element has as child another LayoutElementGroup
+    this.onChangeWidth = onChangeWidth;
+    this.onChangeHeight = onChangeHeight;
   }
 
   getChildren(): Array<BaseElement | LayoutGroup> {
@@ -67,8 +71,12 @@ export class ContentBox {
     this.children.push(
       new ContentBoxElement(
         container,
-        () => {},
-        () => {}
+        () => {
+          this.onChangeWidth(this.getWidth());
+        },
+        () => {
+          this.onChangeHeight(this.getHeight());
+        }
       )
     );
 
