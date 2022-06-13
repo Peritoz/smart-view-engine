@@ -18,8 +18,6 @@ export class ContentBoxDimension {
   protected maxChildHeight: number;
   protected hasFixedWidth: boolean;
   protected hasFixedHeight: boolean;
-  protected onChangeWidth: (width: number) => void;
-  protected onChangeHeight: (height: number) => void;
 
   /**
    * Constructs an instance of ContentBoxDimension
@@ -29,8 +27,6 @@ export class ContentBoxDimension {
    * @param spaceBetween Length between content elements
    * @param hasFixedWidth Flag to handle the width as a fixed dimension
    * @param hasFixedHeight Flag to handle the height as a fixed dimension
-   * @param onChangeWidth Callback to be called when the width has changed
-   * @param onChangeHeight Callback to be called when the height has changed
    * @param dimension Maximum dimension (Width or/and Height) for the content area. If passed, the dimension will be fixed
    */
   constructor(
@@ -40,8 +36,6 @@ export class ContentBoxDimension {
     spaceBetween: number = DEFAULT.DEFAULT_PADDING,
     hasFixedWidth: boolean,
     hasFixedHeight: boolean,
-    onChangeWidth: (width: number) => void,
-    onChangeHeight: (height: number) => void,
     dimension?: Partial<Dimension>
   ) {
     if (hasFixedWidth && dimension?.width === undefined) {
@@ -65,8 +59,6 @@ export class ContentBoxDimension {
     this.maxChildHeight = 0; // Represents the height of the biggest child
     this.hasFixedWidth = hasFixedWidth;
     this.hasFixedHeight = hasFixedHeight;
-    this.onChangeWidth = onChangeWidth;
-    this.onChangeHeight = onChangeHeight;
   }
 
   getContentBoxWidth(): number {
@@ -159,14 +151,10 @@ export class ContentBoxDimension {
 
   setBottomBoundary(value: number) {
     this.bottomRight.y = value;
-
-    this.onChangeHeight(this.getContentBoxHeight());
   }
 
   setRightBoundary(value: number) {
     this.bottomRight.x = value;
-
-    this.onChangeWidth(this.getContentBoxWidth());
   }
 
   setUsedWidth(value: number) {
