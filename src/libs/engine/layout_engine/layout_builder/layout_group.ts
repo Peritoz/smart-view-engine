@@ -48,14 +48,14 @@ export class LayoutGroup extends Block {
       verticalAlignment,
       settings.spaceBetween,
       (oldValue, newValue) => {
-        const diff = newValue - oldValue;
-
-        super.setWidth(super.getWidth() + diff);
+        super.setWidth(
+          newValue + this.offset.leftOffset + this.offset.rightOffset
+        );
       },
       (oldValue, newValue) => {
-        const diff = newValue - oldValue;
-
-        super.setHeight(super.getHeight() + diff);
+        super.setHeight(
+          newValue + this.offset.topOffset + this.offset.bottomOffset
+        );
       },
       initialDimension
     ); // Content box limits
