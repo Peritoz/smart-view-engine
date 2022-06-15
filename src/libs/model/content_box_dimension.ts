@@ -217,20 +217,35 @@ export class ContentBoxDimension {
     }
   }
 
-  addContent(content: Dimension, isFirstContent: boolean = false) {
+  addContent(
+    content: Dimension,
+    isFirstContent: boolean = false,
+    onChangeWidth: (oldValue: number, newValue: number) => void = () => {},
+    onChangeHeight: (oldValue: number, newValue: number) => void = () => {}
+  ) {
+    const oldWidth = this.getContentBoxWidth();
+    const oldHeight = this.getContentBoxHeight();
     const isHorizontal = this.direction === Direction.HORIZONTAL;
 
     if (isHorizontal) {
       this.incrementWidth(content.width, isFirstContent);
 
+      onChangeWidth(oldWidth, this.getContentBoxWidth());
+
       if (content.height > this.usedHeight) {
         this.setUsedHeight(content.height);
+
+        onChangeHeight(oldHeight, this.getContentBoxHeight());
       }
     } else {
       this.incrementHeight(content.height, isFirstContent);
 
+      onChangeHeight(oldHeight, this.getContentBoxHeight());
+
       if (content.width > this.usedWidth) {
         this.setUsedWidth(content.width);
+
+        onChangeWidth(oldWidth, this.getContentBoxWidth());
       }
     }
   }

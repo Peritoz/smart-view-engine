@@ -5,7 +5,7 @@ import { LayoutTree } from "../../../src/libs/engine/layout_engine/layout_builde
 import { ElementBuilder } from "../../../src/libs/engine/layout_engine/layout_builder/element_builder";
 import { LayoutRow } from "../../../src/libs/engine/layout_engine/layout_builder/layout_row";
 import { LayoutCol } from "../../../src/libs/engine/layout_engine/layout_builder/layout_col";
-import {DEFAULT} from "../../../src/libs/common/size_reference.const";
+import { DEFAULT } from "../../../src/libs/common/size_reference.const";
 
 describe("Mixed Rendering", () => {
   const settings = new Settings({
@@ -22,21 +22,12 @@ describe("Mixed Rendering", () => {
   const elementBuilder = new ElementBuilder(DEFAULT.SIZE_UNIT);
 
   it("Horizontal - Row Resizing - After Insert Cols", async () => {
-    let row1 = new LayoutRow(
-      Alignment.START,
-      Alignment.START,
-      settings
-    );
-    let col1 = new LayoutCol(
-      Alignment.START,
-      Alignment.START,
-      settings
-    );
-    let col2 = new LayoutCol(
-      Alignment.START,
-      Alignment.START,
-      settings
-    );
+    let row1 = new LayoutRow(Alignment.START, Alignment.START, settings, null);
+    let col1 = new LayoutCol(Alignment.START, Alignment.START, settings, null);
+    let col2 = new LayoutCol(Alignment.START, Alignment.START, settings, null);
+
+    row1.addContainer(col1);
+    row1.addContainer(col2);
 
     col1.addContainer(
       elementBuilder.buildElement({
@@ -60,36 +51,21 @@ describe("Mixed Rendering", () => {
       })
     );
 
-    row1.addContainer(col1);
-    row1.addContainer(col2);
-
     const cols = row1.getChildren();
     const col1Children = cols[0].getChildren();
     const col2Children = cols[1].getChildren();
 
-    expect(row1.getHeight()).toBe(80);
-    expect(row1.getWidth()).toBe(90);
     expect(col1Children[0].getWidth()).toBe(50);
     expect(col1Children[1].getWidth()).toBe(60);
     expect(col2Children[0].getWidth()).toBe(25);
+    expect(row1.getWidth()).toBe(90);
+    expect(row1.getHeight()).toBe(80);
   });
 
   it("Horizontal - Row Resizing - Imposed Size", async () => {
-    let row1 = new LayoutRow(
-      Alignment.START,
-      Alignment.START,
-      settings
-    );
-    let col1 = new LayoutCol(
-      Alignment.START,
-      Alignment.START,
-      settings
-    );
-    let col2 = new LayoutCol(
-      Alignment.START,
-      Alignment.START,
-      settings
-    );
+    let row1 = new LayoutRow(Alignment.START, Alignment.START, settings, null);
+    let col1 = new LayoutCol(Alignment.START, Alignment.START, settings, null);
+    let col2 = new LayoutCol(Alignment.START, Alignment.START, settings, null);
 
     col1.addContainer(
       elementBuilder.buildElement({
@@ -229,12 +205,12 @@ describe("Mixed Rendering", () => {
     const el1 = elementBuilder.buildElement({
       name: "A",
       width: 30,
-      height: 10
+      height: 10,
     });
     const el2 = elementBuilder.buildElement({
       name: "B",
       width: 40,
-      height: 15
+      height: 15,
     });
 
     set.addToCurrentGroup(el1);
@@ -245,7 +221,7 @@ describe("Mixed Rendering", () => {
     const el3 = elementBuilder.buildElement({
       name: "A",
       width: 60,
-      height: 10
+      height: 10,
     });
 
     set.addToCurrentGroup(el3);
@@ -257,7 +233,7 @@ describe("Mixed Rendering", () => {
     const el4 = elementBuilder.buildElement({
       name: "A",
       width: 30,
-      height: 20
+      height: 20,
     });
 
     set.addToCurrentGroup(el4);

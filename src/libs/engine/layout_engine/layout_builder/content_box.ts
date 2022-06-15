@@ -5,17 +5,18 @@ import { LayoutGroup } from "@libs/engine/layout_engine/layout_builder/layout_gr
 import { Alignment } from "@libs/common/alignment.enum";
 import { DEFAULT } from "@libs/common/size_reference.const";
 import { Dimension } from "@libs/model/dimension";
-import { ContentBoxElement } from "@libs/model/content_box_element";
+
+type ContentElement = LayoutGroup | BaseElement;
 
 export class ContentBox {
   protected dimension: ContentBoxDimension;
-  protected children: Array<ContentBoxElement>;
+  protected children: Array<ContentElement>;
   protected horizontalAlignment: Alignment;
   protected verticalAlignment: Alignment;
   protected direction: Direction;
   protected hasNestedGroup: boolean;
-  protected onChangeWidth: (width: number) => void;
-  protected onChangeHeight: (height: number) => void;
+  protected onChangeWidth: (oldValue: number, newValue: number) => void;
+  protected onChangeHeight: (oldValue: number, newValue: number) => void;
 
   constructor(
     topBoundary: number = DEFAULT.DEFAULT_PADDING,
@@ -24,10 +25,12 @@ export class ContentBox {
     horizontalAlignment: Alignment = Alignment.START,
     verticalAlignment: Alignment = Alignment.START,
     spaceBetween: number = DEFAULT.DEFAULT_PADDING,
-    onChangeWidth: (width: number) => void,
-    onChangeHeight: (height: number) => void,
+    onChangeWidth: (oldValue: number, newValue: number) => void,
+    onChangeHeight: (oldValue: number, newValue: number) => void,
     dimension?: Partial<Dimension>
   ) {
+    this.onChangeWidth = onChangeWidth;
+    this.onChangeHeight = onChangeHeight;
     this.dimension = new ContentBoxDimension(
       topBoundary,
       leftBoundary,
@@ -35,8 +38,6 @@ export class ContentBox {
       spaceBetween,
       horizontalAlignment === Alignment.EXPANDED,
       verticalAlignment === Alignment.EXPANDED,
-      onChangeWidth,
-      onChangeHeight,
       dimension
     );
     this.children = [];
@@ -44,17 +45,51 @@ export class ContentBox {
     this.verticalAlignment = verticalAlignment;
     this.direction = direction;
     this.hasNestedGroup = false; // Indicates if the element has as child another LayoutElementGroup
-    this.onChangeWidth = onChangeWidth;
-    this.onChangeHeight = onChangeHeight;
   }
 
-  getChildren(): Array<BaseElement | LayoutGroup> {
-    return this.children.map((child) => child.getContent());
+  private onChangeChildWidth(oldValue: number, newValue: number) {
+    const diff = newValue - oldValue;
+    const oldSize = this.getWidth();
+    const usedSize = this.dimension.getUsedWidth();
+
+    if (this.direction === Direction.HORIZONTAL) {
+      if (usedSize + diff > oldSize) {
+        this.onChangeWidth(oldSize, usedSize + diff);
+      }
+
+      this.dimension.setUsedWidth(usedSize + diff);
+    } else if (newValue > oldSize) {
+      this.dimension.setContentBoxWidth(newValue);
+      this.dimension.setUsedWidth(newValue);
+      this.onChangeWidth(oldSize, newValue);
+    }
   }
 
-  getChildAtIndex(index: number): BaseElement | LayoutGroup | undefined {
+  private onChangeChildHeight(oldValue: number, newValue: number) {
+    const diff = newValue - oldValue;
+    const oldSize = this.getHeight();
+    const usedSize = this.dimension.getUsedHeight();
+
+    if (this.direction === Direction.VERTICAL) {
+      if (usedSize + diff > oldSize) {
+        this.onChangeHeight(oldSize, usedSize + diff);
+      }
+
+      this.dimension.setUsedHeight(usedSize + diff);
+    } else if (newValue > oldSize) {
+      this.dimension.setContentBoxHeight(newValue);
+      this.dimension.setUsedHeight(newValue);
+      this.onChangeHeight(oldSize, newValue);
+    }
+  }
+
+  getChildren(): Array<ContentElement> {
+    return this.children;
+  }
+
+  getChildAtIndex(index: number): ContentElement | undefined {
     if (this.children.length > index) {
-      return this.children[index].getContent();
+      return this.children[index];
     }
   }
 
@@ -66,29 +101,37 @@ export class ContentBox {
     return this.dimension;
   }
 
-  addContainer(container: BaseElement | LayoutGroup) {
+  addContainer(container: ContentElement) {
     // Adding container as child
-    this.children.push(
-      new ContentBoxElement(
-        container,
-        () => {
-          this.onChangeWidth(this.getWidth());
-        },
-        () => {
-          this.onChangeHeight(this.getHeight());
-        }
-      )
-    );
+    this.children.push(container);
 
     this.hasNestedGroup =
       this.hasNestedGroup || container instanceof LayoutGroup;
 
     // Adjusting content box dimensions
-    this.dimension.addContent(container, this.children.length === 1);
+    this.dimension.addContent(
+      container,
+      this.children.length === 1,
+      this.onChangeWidth,
+      this.onChangeHeight
+    );
 
     // Arranging elements
     this.applyDistribution();
     this.applyAlignment();
+
+    container.subscribeOnChangeWidthHandler((oldValue, newValue) => {
+      this.onChangeChildWidth(oldValue, newValue);
+      // const diff = newValue - oldValue;
+      //
+      // this.setWidth(this.getWidth() + diff);
+    });
+    container.subscribeOnChangeHeightHandler((oldValue, newValue) => {
+      this.onChangeChildHeight(oldValue, newValue);
+      // const diff = newValue - oldValue;
+      //
+      // this.setHeight(this.getHeight() + diff);
+    });
   }
 
   setWidth(value: number) {
@@ -102,6 +145,8 @@ export class ContentBox {
       } else {
         this.applyAlignment();
       }
+
+      this.onChangeWidth(currentWidth, this.getWidth());
     } else {
       throw new Error("The new Width can´t be smaller than current Width");
     }
@@ -118,6 +163,8 @@ export class ContentBox {
       } else {
         this.applyDistribution();
       }
+
+      this.onChangeHeight(currentHeight, this.getHeight());
     } else {
       throw new Error("The new Height can´t be smaller than current Height");
     }
@@ -230,9 +277,9 @@ export class ContentBox {
     alignment: Alignment,
     totalSize: number,
     usedSize: number,
-    getChildSize: (child: ContentBoxElement) => number,
-    setChildSize: (child: ContentBoxElement, value: number) => void,
-    setChildPosition: (child: ContentBoxElement, value: number) => void,
+    getChildSize: (child: ContentElement) => number,
+    setChildSize: (child: ContentElement, value: number) => void,
+    setChildPosition: (child: ContentElement, value: number) => void,
     offsetBefore: number = 0,
     offsetAfter: number = 0
   ) {
@@ -290,9 +337,9 @@ export class ContentBox {
   alignElements(
     alignment: Alignment,
     totalSize: number,
-    getChildSize: (child: ContentBoxElement) => number,
-    setChildSize: (child: ContentBoxElement, value: number) => void,
-    setChildPosition: (child: ContentBoxElement, value: number) => void,
+    getChildSize: (child: ContentElement) => number,
+    setChildSize: (child: ContentElement, value: number) => void,
+    setChildPosition: (child: ContentElement, value: number) => void,
     offsetBefore: number = 0,
     offsetAfter: number = 0
   ) {

@@ -47,11 +47,15 @@ export class LayoutGroup extends Block {
       horizontalAlignment,
       verticalAlignment,
       settings.spaceBetween,
-      () => {
-        this.adjustWidthToContent();
+      (oldValue, newValue) => {
+        const diff = newValue - oldValue;
+
+        super.setWidth(super.getWidth() + diff);
       },
-      () => {
-        this.adjustHeightToContent();
+      (oldValue, newValue) => {
+        const diff = newValue - oldValue;
+
+        super.setHeight(super.getHeight() + diff);
       },
       initialDimension
     ); // Content box limits
@@ -105,8 +109,16 @@ export class LayoutGroup extends Block {
     return this.contentBox.getChildrenCount();
   }
 
+  getContentBox(): ContentBox {
+    return this.contentBox;
+  }
+
   getChildren() {
     return this.contentBox.getChildren();
+  }
+
+  setParent(parent: LayoutGroup) {
+    this.parent = parent;
   }
 
   setPosition({ x, y }: Partial<Position>) {
@@ -190,6 +202,8 @@ export class LayoutGroup extends Block {
       // Setting parent
       if (isBaseElement) {
         container.setParentId(this.id);
+      } else {
+        (container as LayoutGroup).setParent(this);
       }
     }
   }
