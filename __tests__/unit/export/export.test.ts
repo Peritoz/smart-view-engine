@@ -68,13 +68,13 @@ describe("Complex Rendering", () => {
     const view = director.convertToView("Test", "1");
     const viewNodes = view.getViewNodes();
 
-    expect(viewNodes[0].x).toBe(5);
-    expect(viewNodes[0].y).toBe(5);
-    expect(viewNodes[1].x).toBe(5);
-    expect(viewNodes[1].y).toBe(35);
-    expect(viewNodes[2].x).toBe(80);
-    expect(viewNodes[2].y).toBe(5);
-    expect(viewNodes[3].x).toBe(80);
-    expect(viewNodes[3].y).toBe(70);
+    expect(viewNodes[0].x).toBe(0);
+    expect(viewNodes[0].y).toBe(0);
+    expect(viewNodes[1].x).toBe(0);
+    expect(viewNodes[1].y).toBe(30);
+    expect(viewNodes[2].x).toBe(65);
+    expect(viewNodes[2].y).toBe(0);
+    expect(viewNodes[3].x).toBe(65);
+    expect(viewNodes[3].y).toBe(65);
   });
 });
