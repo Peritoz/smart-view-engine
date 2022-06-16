@@ -221,7 +221,7 @@ describe("Nested Layout Rendering", () => {
   it("Complex View Construction - Long Nested Chain", async () => {
     const director = new LayoutDirector(layoutSettings);
 
-    const rowA1 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED, true);
+    const rowA1 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED);
     const A = director.newVisibleRow(
       "A",
       "T",
