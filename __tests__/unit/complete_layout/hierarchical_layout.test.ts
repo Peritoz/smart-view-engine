@@ -189,27 +189,27 @@ describe("Hierarchical Layout Rendering", () => {
   it("Complex View Construction - Long Hierarchical Chain", async () => {
     const director = new LayoutDirector(layoutSettings);
 
-    const rowA1 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED, true);
-    const colA1 = director.newCol(Alignment.START, Alignment.EXPANDED, true);
-    const rowA2 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED, true);
-    const colB1 = director.newCol(Alignment.START, Alignment.EXPANDED, true);
-    const rowB1 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED, true);
-    const colB2 = director.newCol(Alignment.START, Alignment.EXPANDED, true);
-    const rowB2 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED, true);
+    const rowA1 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED);
+    const colA1 = director.newCol(Alignment.START, Alignment.EXPANDED);
+    const rowA2 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED);
+    const colB1 = director.newCol(Alignment.START, Alignment.EXPANDED);
+    const rowB1 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED);
+    const colB2 = director.newCol(Alignment.START, Alignment.EXPANDED);
+    const rowB2 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED);
     director.addMediumElementToCurrent("B1-1", "T", false);
     director.navigateToParent();
     director.addMediumElementToCurrent("B1", "T", false);
     director.navigateToParent();
-    const colB3 = director.newCol(Alignment.START, Alignment.EXPANDED, true);
-    const rowB3 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED, true);
+    const colB3 = director.newCol(Alignment.START, Alignment.EXPANDED);
+    const rowB3 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED);
     director.addMediumElementToCurrent("B2-1", "T", false);
     director.navigateToParent();
     director.addMediumElementToCurrent("B2", "T", false);
     director.navigateToParent(2);
     director.addMediumElementToCurrent("B", "T", false);
     director.navigateToParent();
-    const colC1 = director.newCol(Alignment.START, Alignment.EXPANDED, true);
-    const rowC1 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED, true);
+    const colC1 = director.newCol(Alignment.START, Alignment.EXPANDED);
+    const rowC1 = director.newRow(Alignment.EXPANDED, Alignment.EXPANDED);
     director.addMediumElementToCurrent("C1", "T", false);
     director.navigateToParent();
     director.addMediumElementToCurrent("C", "T", false);
