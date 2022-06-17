@@ -48,8 +48,14 @@ export class ContentBoxDimension {
 
     this.topLeft = { x: left, y: top };
     this.bottomRight = {
-      x: hasFixedWidth ? dimension!.width! + left : left,
-      y: hasFixedHeight ? dimension!.height! + top : top,
+      x:
+        dimension && dimension.width !== undefined
+          ? dimension!.width + left
+          : left,
+      y:
+        dimension && dimension.height !== undefined
+          ? dimension!.height + top
+          : top,
     };
     this.usedWidth = 0;
     this.usedHeight = 0;
@@ -158,7 +164,9 @@ export class ContentBoxDimension {
   }
 
   setUsedWidth(value: number) {
-    if (this.hasFixedWidth && value > this.getContentBoxWidth()) {
+    const hasValueOverflow = value > this.getContentBoxWidth();
+
+    if (this.hasFixedWidth && hasValueOverflow) {
       throw new Error(
         `Content box dimension width overflow. Maximum width is ${this.getContentBoxWidth()}`
       );
@@ -166,7 +174,7 @@ export class ContentBoxDimension {
 
     this.usedWidth = value;
 
-    if (!this.hasFixedWidth) {
+    if (!this.hasFixedWidth && hasValueOverflow) {
       this.setRightBoundary(
         this.bottomRight.x + this.usedWidth - this.getContentBoxWidth()
       );
@@ -174,7 +182,9 @@ export class ContentBoxDimension {
   }
 
   setUsedHeight(value: number) {
-    if (this.hasFixedHeight && value > this.getContentBoxHeight()) {
+    const hasValueOverflow = value > this.getContentBoxHeight();
+
+    if (this.hasFixedHeight && hasValueOverflow) {
       throw new Error(
         `Content box dimension height overflow. Maximum height is ${this.getContentBoxHeight()}`
       );
@@ -182,7 +192,7 @@ export class ContentBoxDimension {
 
     this.usedHeight = value;
 
-    if (!this.hasFixedHeight) {
+    if (!this.hasFixedHeight && hasValueOverflow) {
       this.setBottomBoundary(
         this.bottomRight.y + this.usedHeight - this.getContentBoxHeight()
       );

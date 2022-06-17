@@ -29,6 +29,10 @@ export class ContentBox {
     onChangeHeight: (oldValue: number, newValue: number) => void,
     dimension?: Partial<Dimension>
   ) {
+    const isHorizontal = direction === Direction.HORIZONTAL;
+    const hasHorizontalExpansion = horizontalAlignment === Alignment.EXPANDED;
+    const hasVerticalExpansion = verticalAlignment === Alignment.EXPANDED;
+
     this.onChangeWidth = onChangeWidth;
     this.onChangeHeight = onChangeHeight;
     this.dimension = new ContentBoxDimension(
@@ -36,8 +40,8 @@ export class ContentBox {
       leftBoundary,
       direction,
       spaceBetween,
-      horizontalAlignment === Alignment.EXPANDED,
-      verticalAlignment === Alignment.EXPANDED,
+      isHorizontal && hasHorizontalExpansion,
+      !isHorizontal && hasVerticalExpansion,
       dimension
     );
     this.children = [];
@@ -103,6 +107,10 @@ export class ContentBox {
 
   getDimension(): ContentBoxDimension {
     return this.dimension;
+  }
+
+  getDirection(): Direction {
+    return this.direction;
   }
 
   addContainer(container: ContentElement) {
