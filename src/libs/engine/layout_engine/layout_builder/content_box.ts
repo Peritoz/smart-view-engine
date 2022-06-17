@@ -55,6 +55,7 @@ export class ContentBox {
     if (this.direction === Direction.HORIZONTAL) {
       if (usedSize + diff > oldSize) {
         this.onChangeWidth(oldSize, usedSize + diff);
+        this.applyDistribution();
       }
 
       this.dimension.setUsedWidth(usedSize + diff);
@@ -62,6 +63,7 @@ export class ContentBox {
       this.dimension.setContentBoxWidth(newValue);
       this.dimension.setUsedWidth(newValue);
       this.onChangeWidth(oldSize, newValue);
+      this.applyAlignment();
     }
   }
 
@@ -73,6 +75,7 @@ export class ContentBox {
     if (this.direction === Direction.VERTICAL) {
       if (usedSize + diff > oldSize) {
         this.onChangeHeight(oldSize, usedSize + diff);
+        this.applyDistribution();
       }
 
       this.dimension.setUsedHeight(usedSize + diff);
@@ -80,6 +83,7 @@ export class ContentBox {
       this.dimension.setContentBoxHeight(newValue);
       this.dimension.setUsedHeight(newValue);
       this.onChangeHeight(oldSize, newValue);
+      this.applyAlignment();
     }
   }
 
@@ -122,15 +126,9 @@ export class ContentBox {
 
     container.subscribeOnChangeWidthHandler((oldValue, newValue) => {
       this.onChangeChildWidth(oldValue, newValue);
-      // const diff = newValue - oldValue;
-      //
-      // this.setWidth(this.getWidth() + diff);
     });
     container.subscribeOnChangeHeightHandler((oldValue, newValue) => {
       this.onChangeChildHeight(oldValue, newValue);
-      // const diff = newValue - oldValue;
-      //
-      // this.setHeight(this.getHeight() + diff);
     });
   }
 

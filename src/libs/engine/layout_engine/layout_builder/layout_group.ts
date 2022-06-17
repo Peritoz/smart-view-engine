@@ -173,8 +173,8 @@ export class LayoutGroup extends Block {
     if (container) {
       const isBaseElement = container instanceof BaseElement;
 
-      // Checking horizontal alignment compatibility
       if (!isBaseElement) {
+        // Checking horizontal alignment compatibility
         if (
           this.horizontalAlignment === Alignment.EXPANDED &&
           (container as LayoutGroup).horizontalAlignment !== Alignment.EXPANDED
