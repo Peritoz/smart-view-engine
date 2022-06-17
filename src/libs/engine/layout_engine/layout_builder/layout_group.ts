@@ -173,30 +173,6 @@ export class LayoutGroup extends Block {
     if (container) {
       const isBaseElement = container instanceof BaseElement;
 
-      if (!isBaseElement) {
-        // Checking horizontal alignment compatibility
-        if (
-          this.horizontalAlignment === Alignment.EXPANDED &&
-          (container as LayoutGroup).horizontalAlignment !== Alignment.EXPANDED
-        ) {
-          throw new Error(
-            `Cannot insert container. The container has EXPANDED horizontal alignment and should be 
-            added only to containers with EXPANDED horizontal alignment`
-          );
-        }
-
-        // Checking vertical alignment compatibility
-        if (
-          this.verticalAlignment === Alignment.EXPANDED &&
-          (container as LayoutGroup).verticalAlignment !== Alignment.EXPANDED
-        ) {
-          throw new Error(
-            `Cannot insert container. The container has EXPANDED vertical alignment and should be 
-            added only to containers with EXPANDED vertical alignment`
-          );
-        }
-      }
-
       this.contentBox.addContainer(container);
 
       // Setting parent
