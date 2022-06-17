@@ -56,10 +56,34 @@ describe("Mixed Rendering", () => {
     const col2Children = cols[1].getChildren();
 
     expect(col1Children[0].getWidth()).toBe(50);
+    expect(col1Children[0].getHeight()).toBe(25);
+    expect(col1Children[0].getX()).toBe(0);
+    expect(col1Children[0].getY()).toBe(0);
+
     expect(col1Children[1].getWidth()).toBe(60);
+    expect(col1Children[1].getHeight()).toBe(50);
+    expect(col1Children[1].getX()).toBe(0);
+    expect(col1Children[1].getY()).toBe(30);
+
     expect(col2Children[0].getWidth()).toBe(25);
+    expect(col2Children[0].getHeight()).toBe(60);
+    expect(col2Children[0].getX()).toBe(0);
+    expect(col2Children[0].getY()).toBe(0);
+
+    expect(col1.getWidth()).toBe(60);
+    expect(col1.getHeight()).toBe(80);
+    expect(col1.getX()).toBe(0);
+    expect(col1.getY()).toBe(0);
+
+    expect(col2.getWidth()).toBe(25);
+    expect(col2.getHeight()).toBe(60);
+    expect(col2.getX()).toBe(65);
+    expect(col2.getY()).toBe(0);
+
     expect(row1.getWidth()).toBe(90);
     expect(row1.getHeight()).toBe(80);
+    expect(row1.getX()).toBe(0);
+    expect(row1.getY()).toBe(0);
   });
 
   it("Horizontal - Row Resizing - Imposed Size", async () => {
@@ -99,17 +123,35 @@ describe("Mixed Rendering", () => {
     const col1Children = cols[0].getChildren();
     const col2Children = cols[1].getChildren();
 
-    expect(col1Children[0].getY()).toBe(0);
-    expect(col1Children[1].getY()).toBe(30);
-    expect(col2Children[0].getY()).toBe(0);
-    expect(col1Children[0].getHeight()).toBe(25);
-    expect(col1Children[1].getHeight()).toBe(50);
-    expect(col2Children[0].getHeight()).toBe(60);
     expect(col1Children[0].getWidth()).toBe(50);
+    expect(col1Children[0].getHeight()).toBe(25);
+    expect(col1Children[0].getX()).toBe(0);
+    expect(col1Children[0].getY()).toBe(0);
+
     expect(col1Children[1].getWidth()).toBe(60);
+    expect(col1Children[1].getHeight()).toBe(50);
+    expect(col1Children[1].getX()).toBe(0);
+    expect(col1Children[1].getY()).toBe(30);
+
     expect(col2Children[0].getWidth()).toBe(25);
+    expect(col2Children[0].getHeight()).toBe(60);
+    expect(col2Children[0].getX()).toBe(0);
+    expect(col2Children[0].getY()).toBe(0);
+
+    expect(col1.getWidth()).toBe(60);
+    expect(col1.getHeight()).toBe(80);
+    expect(col1.getX()).toBe(0);
+    expect(col1.getY()).toBe(0);
+
+    expect(col2.getWidth()).toBe(25);
+    expect(col2.getHeight()).toBe(60);
+    expect(col2.getX()).toBe(65);
+    expect(col2.getY()).toBe(0);
+
     expect(row1.getWidth()).toBe(120);
     expect(row1.getHeight()).toBe(100);
+    expect(row1.getX()).toBe(0);
+    expect(row1.getY()).toBe(0);
   });
 
   it("Horizontal and Vertical - Simple Resizing", async () => {
@@ -143,12 +185,21 @@ describe("Mixed Rendering", () => {
     expect(row1Children.length).toBe(2);
     expect(col1Children.length).toBe(1);
     expect(col2Children.length).toBe(1);
+
     expect(col1.getWidth()).toBe(15);
     expect(col1.getHeight()).toBe(5);
+    expect(col1.getX()).toBe(0);
+    expect(col1.getY()).toBe(0);
+
     expect(col2.getWidth()).toBe(15);
     expect(col2.getHeight()).toBe(5);
+    expect(col2.getX()).toBe(20);
+    expect(col2.getY()).toBe(0);
+
     expect(row1.getWidth()).toBe(35);
     expect(row1.getHeight()).toBe(5);
+    expect(row1.getX()).toBe(0);
+    expect(row1.getY()).toBe(0);
   });
 
   it("Horizontal and Vertical - Mixed Elements Resizing", async () => {
@@ -186,14 +237,36 @@ describe("Mixed Rendering", () => {
     expect(col1Children.length).toBe(2);
     expect(row2Children.length).toBe(1);
     expect(col2Children.length).toBe(1);
+
+    expect(col2Children[0].getWidth()).toBe(15);
+    expect(col2Children[0].getHeight()).toBe(5);
+    expect(col2Children[0].getX()).toBe(0);
+    expect(col2Children[0].getY()).toBe(0);
+
+    expect(col1Children[1].getWidth()).toBe(15);
+    expect(col1Children[1].getHeight()).toBe(5);
+    expect(col1Children[1].getX()).toBe(0);
+    expect(col1Children[1].getY()).toBe(10);
+
     expect(col1.getWidth()).toBe(15);
     expect(col1.getHeight()).toBe(15);
+    expect(col1.getX()).toBe(0);
+    expect(col1.getY()).toBe(0);
+
     expect(row2.getWidth()).toBe(15);
     expect(row2.getHeight()).toBe(5);
+    expect(row2.getX()).toBe(0);
+    expect(row2.getY()).toBe(0);
+
     expect(col2.getWidth()).toBe(15);
     expect(col2.getHeight()).toBe(5);
+    expect(col2.getX()).toBe(0);
+    expect(col2.getY()).toBe(0);
+
     expect(row1.getWidth()).toBe(15);
     expect(row1.getHeight()).toBe(15);
+    expect(row1.getX()).toBe(0);
+    expect(row1.getY()).toBe(0);
   });
 
   it("Horizontal - Insertion Resize (Global Distribution)", async () => {
@@ -240,31 +313,51 @@ describe("Mixed Rendering", () => {
 
     expect(row2.getHeight()).toBe(15);
     expect(row2.getWidth()).toBe(75);
+    expect(row2.getX()).toBe(0);
+    expect(row2.getY()).toBe(0);
+
     expect(row3.getHeight()).toBe(10);
     expect(row3.getWidth()).toBe(60);
+    expect(row3.getX()).toBe(0);
+    expect(row3.getY()).toBe(20);
+
     expect(col1.getHeight()).toBe(30);
     expect(col1.getWidth()).toBe(75);
+    expect(col1.getX()).toBe(0);
+    expect(col1.getY()).toBe(0);
+
     expect(row4.getHeight()).toBe(20);
     expect(row4.getWidth()).toBe(30);
+    expect(row4.getX()).toBe(0);
+    expect(row4.getY()).toBe(0);
+
     expect(col2.getHeight()).toBe(20);
     expect(col2.getWidth()).toBe(30);
+    expect(col2.getX()).toBe(80);
+    expect(col2.getY()).toBe(0);
+
     expect(row1.getHeight()).toBe(30);
     expect(row1.getWidth()).toBe(110);
+    expect(row1.getX()).toBe(0);
+    expect(row1.getY()).toBe(0);
+
     expect(el1.getHeight()).toBe(10);
     expect(el1.getWidth()).toBe(30);
-    expect(el2.getHeight()).toBe(15);
-    expect(el2.getWidth()).toBe(40);
-    expect(el3.getHeight()).toBe(10);
-    expect(el3.getWidth()).toBe(60);
-    expect(el4.getHeight()).toBe(20);
-    expect(el4.getWidth()).toBe(30);
-
     expect(el1.getX()).toBe(0);
     expect(el1.getY()).toBe(0);
+
+    expect(el2.getHeight()).toBe(15);
+    expect(el2.getWidth()).toBe(40);
     expect(el2.getX()).toBe(35);
     expect(el2.getY()).toBe(0);
+
+    expect(el3.getHeight()).toBe(10);
+    expect(el3.getWidth()).toBe(60);
     expect(el3.getX()).toBe(0);
     expect(el3.getY()).toBe(0);
+
+    expect(el4.getHeight()).toBe(20);
+    expect(el4.getWidth()).toBe(30);
     expect(el4.getX()).toBe(0);
     expect(el4.getY()).toBe(0);
   });
