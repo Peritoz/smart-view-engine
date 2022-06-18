@@ -48,15 +48,21 @@ export class SmartViewEngine {
         // Sort all view nodes hierarchically
         hydratedView.sortViewNodesParentsFirst();
 
-        // Validates and removes inconsistences
+        // Validates and removes inconsistencies
         hydratedView.clear();
 
         return hydratedView.getView();
       } else {
         return null;
       }
-    } catch (e) {
-      throw new Error("Unable to render smart view");
+    } catch (error) {
+      let message = "Unknown error";
+
+      if (error instanceof Error) {
+        message = error.message;
+      }
+
+      throw new Error(`Unable to render smart view: ${message}`);
     }
   }
 }
