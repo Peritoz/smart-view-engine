@@ -82,13 +82,19 @@ export class LayoutGroup extends Block {
           );
         }
       }
-    } else if (horizontalAlignment === Alignment.EXPANDED) {
+    } else if (
+      distribution === Direction.HORIZONTAL &&
+      horizontalAlignment === Alignment.EXPANDED
+    ) {
       throw new Error(
-        "Layout group with Expanded Horizontal Alignment. Width should be defined in the construction."
+        "Layout group with Expanded Horizontal Alignment. Width should be defined during the construction."
       );
-    } else if (verticalAlignment === Alignment.EXPANDED) {
+    } else if (
+      distribution === Direction.VERTICAL &&
+      verticalAlignment === Alignment.EXPANDED
+    ) {
       throw new Error(
-        "Layout group with Expanded Vertical Alignment. Height should be defined in the construction."
+        "Layout group with Expanded Vertical Alignment. Height should be defined during the construction."
       );
     }
   }
