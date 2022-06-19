@@ -23,6 +23,10 @@ export class VisibleLayoutRow extends LayoutRow {
     parent: LayoutGroup | null,
     initialDimension?: Dimension
   ) {
+    if (!(settings instanceof Settings)) {
+      throw new Error("A Visible Row should be created based on a valid instance of Settings");
+    }
+
     super(
       horizontalAlignment,
       verticalAlignment,

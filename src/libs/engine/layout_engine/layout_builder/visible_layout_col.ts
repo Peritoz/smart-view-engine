@@ -23,6 +23,10 @@ export class VisibleLayoutCol extends LayoutCol {
     parent: LayoutGroup | null,
     initialDimension?: Dimension
   ) {
+    if (!(settings instanceof Settings)) {
+      throw new Error("A Visible Col should be created based on a valid instance of Settings");
+    }
+
     super(
       horizontalAlignment,
       verticalAlignment,
