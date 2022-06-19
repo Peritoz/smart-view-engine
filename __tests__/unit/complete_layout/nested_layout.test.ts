@@ -45,11 +45,13 @@ describe("Nested Layout Rendering", () => {
       ],
     ];
 
-    const engine = new SmartViewEngine({
-      layoutType: LayoutTypes.NESTED,
-      maxHorizontalCount: 2,
-      maxChildHorizontalCount: 2,
-    });
+    const engine = new SmartViewEngine(
+      new Settings({
+        layoutType: LayoutTypes.NESTED,
+        maxHorizontalCount: 2,
+        maxChildHorizontalCount: 2,
+      })
+    );
 
     const view: View = engine.generateView(paths, "Case A");
     const nodes = view.viewNodes;
