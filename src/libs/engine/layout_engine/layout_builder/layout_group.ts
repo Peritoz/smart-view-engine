@@ -59,7 +59,12 @@ export class LayoutGroup extends Block {
       },
       initialDimension
     ); // Content box limits
-    this.offset = offset;
+    this.offset = {
+      topOffset: offset.topOffset || 0,
+      leftOffset: offset.leftOffset || 0,
+      bottomOffset: offset.bottomOffset || 0,
+      rightOffset: offset.rightOffset || 0,
+    };
     this.subTreeCounting = -1; // Total number of elements inside the subtree formed by its children. Starts with -1 to not consider the element itself
 
     if (initialDimension !== undefined) {
