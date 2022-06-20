@@ -102,45 +102,45 @@ describe("Nested Layout Rendering", () => {
     expect(C).toBeDefined();
     expect(C1).toBeDefined();
 
-    expect(B11.width).toBe(15);
-    expect(B11.height).toBe(5);
-    expect(B11.x).toBe(3);
-    expect(B11.y).toBe(12);
-
-    expect(B1.width).toBe(17);
-    expect(B1.height).toBe(10);
-    expect(B1.x).toBe(2);
-    expect(B1.y).toBe(8);
-
-    expect(B21.width).toBe(15);
-    expect(B21.height).toBe(5);
-    expect(B21.x).toBe(22);
-    expect(B21.y).toBe(12);
-
-    expect(B2.width).toBe(17);
-    expect(B2.height).toBe(10);
-    expect(B2.x).toBe(21);
-    expect(B2.y).toBe(8);
+    expect(A.width).toBe(59);
+    expect(A.height).toBe(20);
+    expect(A.x).toBe(0);
+    expect(A.y).toBe(0);
 
     expect(B.width).toBe(38);
     expect(B.height).toBe(15);
     expect(B.x).toBe(1);
     expect(B.y).toBe(4);
 
-    expect(C1.width).toBe(15);
-    expect(C1.height).toBe(10);
-    expect(C1.x).toBe(42);
-    expect(C1.y).toBe(8);
-
     expect(C.width).toBe(17);
     expect(C.height).toBe(15);
     expect(C.x).toBe(41);
     expect(C.y).toBe(4);
 
-    expect(A.width).toBe(59);
-    expect(A.height).toBe(20);
-    expect(A.x).toBe(0);
-    expect(A.y).toBe(0);
+    expect(B1.width).toBe(17);
+    expect(B1.height).toBe(10);
+    expect(B1.x).toBe(2);
+    expect(B1.y).toBe(8);
+
+    expect(B2.width).toBe(17);
+    expect(B2.height).toBe(10);
+    expect(B2.x).toBe(21);
+    expect(B2.y).toBe(8);
+
+    expect(C1.width).toBe(15);
+    expect(C1.height).toBe(10);
+    expect(C1.x).toBe(42);
+    expect(C1.y).toBe(8);
+
+    expect(B11.width).toBe(15);
+    expect(B11.height).toBe(5);
+    expect(B11.x).toBe(3);
+    expect(B11.y).toBe(12);
+
+    expect(B21.width).toBe(15);
+    expect(B21.height).toBe(5);
+    expect(B21.x).toBe(22);
+    expect(B21.y).toBe(12);
 
     done();
   });
