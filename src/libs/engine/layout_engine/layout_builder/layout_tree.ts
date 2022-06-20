@@ -132,17 +132,10 @@ export class LayoutTree {
   }
 
   /**
-   * Calculates the absolute position for layout groups that aren't rendered elements (Rows and Cols)
+   * Calculates the absolute position for visible layout groups and base elements
    */
   toAbsolutePosition() {
-    const plainElements = Array.from(this.containerMap.values());
-    const visibleGroups = plainElements.filter((e) => e instanceof LayoutGroup);
-
-    for (let i = 0; i < visibleGroups.length; i++) {
-      const group = visibleGroups[i];
-
-      (group as LayoutGroup).toAbsolutePosition();
-    }
+    this.root?.toAbsolutePosition(5, 5); // TODO: Make it configurable
   }
 
   getCurrentLayoutGroup() {

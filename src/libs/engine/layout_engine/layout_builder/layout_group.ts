@@ -132,14 +132,6 @@ export class LayoutGroup extends Block {
     this.parent = parent;
   }
 
-  setPosition({ x, y }: Partial<Position>) {
-    const deltaX = x !== undefined ? x - this.getX() : 0;
-    const deltaY = y !== undefined ? y - this.getY() : 0;
-
-    super.setPosition({ x, y });
-    this.contentBox.translateChildrenPosition(deltaX, deltaY);
-  }
-
   /**
    * Sets the total width of the Layout Element Group
    * @param value Total width value
@@ -229,6 +221,11 @@ export class LayoutGroup extends Block {
     this.subTreeCounting++;
   }
 
+  setAbsolutePosition({ x, y }: Partial<Position>) {
+    super.setPosition({ x, y });
+    this.toAbsolutePosition();
+  }
+
   /**
    * Applies translation over the position of the element and its nested children
    * @param deltaX Number of points to be translated on the X axis
@@ -238,13 +235,16 @@ export class LayoutGroup extends Block {
     const newX = this.getX() + deltaX;
     const newY = this.getY() + deltaY;
 
-    this.setPosition({ x: newX, y: newY });
+    this.setAbsolutePosition({ x: newX, y: newY });
   }
 
   /**
    * Calculates the absolute position for layout groups that aren't rendered elements (Rows and Cols)
    */
-  toAbsolutePosition() {
-    this.contentBox.translateChildrenPosition(this.getX(), this.getY());
+  toAbsolutePosition(initialX: number = 0, initialY: number = 0) {
+    this.contentBox.translateChildrenPosition(
+      initialX + this.getX(),
+      initialY + this.getY()
+    );
   }
 }
