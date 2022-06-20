@@ -89,7 +89,7 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
     // Initializing layout
     const director = new LayoutDirector(this.settings);
 
-    director.newRow(Alignment.START, Alignment.EXPANDED);
+    director.newCol(Alignment.EXPANDED, Alignment.START);
 
     this.renderElements(nestedTree, director, false);
 
