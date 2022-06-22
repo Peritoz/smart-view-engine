@@ -150,70 +150,90 @@ describe("Nested Layout Rendering", () => {
 
     const view = smartView.generateView(complexPaths, "T1");
 
-    const Analyst = view.viewNodes.find(
+    const Analyst = view.viewNodes.filter(
       (n: HydratedViewNode) => n.name === "Analyst"
     );
-    const Guest = view.viewNodes.find(
+    const Guest = view.viewNodes.filter(
       (n: HydratedViewNode) => n.name === "Guest"
     );
-    const PerformAnalysis = view.viewNodes.find(
+    const PerformAnalysis = view.viewNodes.filter(
       (n: HydratedViewNode) => n.name === "Perform Corporative Analysis"
     );
-    const ProvideData = view.viewNodes.find(
+    const ProvideData = view.viewNodes.filter(
       (n: HydratedViewNode) => n.name === "Provide Updated Data"
     );
-    const ModellingTool = view.viewNodes.find(
+    const ModellingTool = view.viewNodes.filter(
       (n: HydratedViewNode) => n.name === "Modelling Tool"
     );
-    const GitClient = view.viewNodes.find(
+    const GitClient = view.viewNodes.filter(
       (n: HydratedViewNode) => n.name === "Git Client"
     );
-    const Company = view.viewNodes.find(
+    const Company = view.viewNodes.filter(
       (n: HydratedViewNode) => n.name === "Company"
     );
 
-    expect(Analyst).toBeDefined();
-    expect(Guest).toBeDefined();
-    expect(PerformAnalysis).toBeDefined();
-    expect(ProvideData).toBeDefined();
-    expect(ModellingTool).toBeDefined();
-    expect(GitClient).toBeDefined();
-    expect(Company).toBeDefined();
+    expect(Analyst[0]).toBeDefined();
+    expect(Guest[0]).toBeDefined();
+    expect(PerformAnalysis[0]).toBeDefined();
+    expect(ProvideData[0]).toBeDefined();
+    expect(ModellingTool[0]).toBeDefined();
+    expect(GitClient[0]).toBeDefined();
+    expect(Company[0]).toBeDefined();
 
-    expect(Analyst.width).toBe(49);
-    expect(Analyst.height).toBe(5);
-    expect(Analyst.x).toBe(0);
-    expect(Analyst.y).toBe(0);
+    expect(Analyst[0].width).toBe(72);
+    expect(Analyst[0].height).toBe(15);
+    expect(Analyst[0].x).toBe(0);
+    expect(Analyst[0].y).toBe(0);
 
-    expect(Guest.width).toBe(32);
-    expect(Guest.height).toBe(5);
-    expect(Guest.x).toBe(0);
-    expect(Guest.y).toBe(7);
+    expect(Guest[0].width).toBe(36);
+    expect(Guest[0].height).toBe(15);
+    expect(Guest[0].x).toBe(74);
+    expect(Guest[0].y).toBe(0);
 
-    expect(PerformAnalysis.width).toBe(15);
-    expect(PerformAnalysis.height).toBe(5);
-    expect(PerformAnalysis.x).toBe(0);
-    expect(PerformAnalysis.y).toBe(14);
+    expect(PerformAnalysis[0].width).toBe(51);
+    expect(PerformAnalysis[0].height).toBe(10);
+    expect(PerformAnalysis[0].x).toBe(1);
+    expect(PerformAnalysis[0].y).toBe(4);
 
-    expect(ProvideData.width).toBe(15);
-    expect(ProvideData.height).toBe(5);
-    expect(ProvideData.x).toBe(0);
-    expect(ProvideData.y).toBe(21);
+    expect(PerformAnalysis[1].width).toBe(34);
+    expect(PerformAnalysis[1].height).toBe(10);
+    expect(PerformAnalysis[1].x).toBe(75);
+    expect(PerformAnalysis[1].y).toBe(4);
 
-    expect(ModellingTool.width).toBe(15);
-    expect(ModellingTool.height).toBe(5);
-    expect(ModellingTool.x).toBe(17);
-    expect(ModellingTool.y).toBe(14);
+    expect(ProvideData[0].width).toBe(17);
+    expect(ProvideData[0].height).toBe(10);
+    expect(ProvideData[0].x).toBe(54);
+    expect(ProvideData[0].y).toBe(4);
 
-    expect(GitClient.width).toBe(15);
-    expect(GitClient.height).toBe(5);
-    expect(GitClient.x).toBe(17);
-    expect(GitClient.y).toBe(21);
+    expect(ModellingTool[0].width).toBe(15);
+    expect(ModellingTool[0].height).toBe(5);
+    expect(ModellingTool[0].x).toBe(2);
+    expect(ModellingTool[0].y).toBe(8);
 
-    expect(Company.width).toBe(15);
-    expect(Company.height).toBe(5);
-    expect(Company.x).toBe(34);
-    expect(Company.y).toBe(7);
+    expect(ModellingTool[1].width).toBe(15);
+    expect(ModellingTool[1].height).toBe(5);
+    expect(ModellingTool[1].x).toBe(76);
+    expect(ModellingTool[1].y).toBe(8);
+
+    expect(GitClient[0].width).toBe(15);
+    expect(GitClient[0].height).toBe(5);
+    expect(GitClient[0].x).toBe(19);
+    expect(GitClient[0].y).toBe(8);
+
+    expect(GitClient[1].width).toBe(15);
+    expect(GitClient[1].height).toBe(5);
+    expect(GitClient[1].x).toBe(93);
+    expect(GitClient[1].y).toBe(8);
+
+    expect(Company[0].width).toBe(15);
+    expect(Company[0].height).toBe(5);
+    expect(Company[0].x).toBe(36);
+    expect(Company[0].y).toBe(8);
+
+    expect(Company[1].width).toBe(15);
+    expect(Company[1].height).toBe(5);
+    expect(Company[1].x).toBe(55);
+    expect(Company[1].y).toBe(8);
 
     done();
   });

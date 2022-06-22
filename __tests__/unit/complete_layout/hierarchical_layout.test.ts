@@ -43,6 +43,7 @@ describe("Hierarchical Layout Rendering", () => {
     expect(outputView.getName()).toBeDefined();
     expect(outputView.getViewNodes().length).toBe(3);
     expect(outputView.getHorizontalBounds().max).toBe(49);
+    expect(outputView.getVerticalBounds().max).toBe(5);
 
     done();
   });
@@ -118,70 +119,90 @@ describe("Hierarchical Layout Rendering", () => {
 
     const view = smartView.generateView(complexPaths, "T1");
 
-    const Analyst = view.viewNodes.find(
-      (n: HydratedViewNode) => n.name === "Analyst"
+    const Analyst = view.viewNodes.filter(
+        (n: HydratedViewNode) => n.name === "Analyst"
     );
-    const Guest = view.viewNodes.find(
-      (n: HydratedViewNode) => n.name === "Guest"
+    const Guest = view.viewNodes.filter(
+        (n: HydratedViewNode) => n.name === "Guest"
     );
-    const PerformAnalysis = view.viewNodes.find(
-      (n: HydratedViewNode) => n.name === "Perform Corporative Analysis"
+    const PerformAnalysis = view.viewNodes.filter(
+        (n: HydratedViewNode) => n.name === "Perform Corporative Analysis"
     );
-    const ProvideData = view.viewNodes.find(
-      (n: HydratedViewNode) => n.name === "Provide Updated Data"
+    const ProvideData = view.viewNodes.filter(
+        (n: HydratedViewNode) => n.name === "Provide Updated Data"
     );
-    const ModellingTool = view.viewNodes.find(
-      (n: HydratedViewNode) => n.name === "Modelling Tool"
+    const ModellingTool = view.viewNodes.filter(
+        (n: HydratedViewNode) => n.name === "Modelling Tool"
     );
-    const GitClient = view.viewNodes.find(
-      (n: HydratedViewNode) => n.name === "Git Client"
+    const GitClient = view.viewNodes.filter(
+        (n: HydratedViewNode) => n.name === "Git Client"
     );
-    const Company = view.viewNodes.find(
-      (n: HydratedViewNode) => n.name === "Company"
+    const Company = view.viewNodes.filter(
+        (n: HydratedViewNode) => n.name === "Company"
     );
 
-    expect(Analyst).toBeDefined();
-    expect(Guest).toBeDefined();
-    expect(PerformAnalysis).toBeDefined();
-    expect(ProvideData).toBeDefined();
-    expect(ModellingTool).toBeDefined();
-    expect(GitClient).toBeDefined();
-    expect(Company).toBeDefined();
+    expect(Analyst[0]).toBeDefined();
+    expect(Guest[0]).toBeDefined();
+    expect(PerformAnalysis[0]).toBeDefined();
+    expect(ProvideData[0]).toBeDefined();
+    expect(ModellingTool[0]).toBeDefined();
+    expect(GitClient[0]).toBeDefined();
+    expect(Company[0]).toBeDefined();
 
-    expect(Analyst.width).toBe(49);
-    expect(Analyst.height).toBe(5);
-    expect(Analyst.x).toBe(0);
-    expect(Analyst.y).toBe(0);
+    expect(Analyst[0].width).toBe(66);
+    expect(Analyst[0].height).toBe(5);
+    expect(Analyst[0].x).toBe(0);
+    expect(Analyst[0].y).toBe(0);
 
-    expect(Guest.width).toBe(32);
-    expect(Guest.height).toBe(5);
-    expect(Guest.x).toBe(0);
-    expect(Guest.y).toBe(7);
+    expect(Guest[0].width).toBe(32);
+    expect(Guest[0].height).toBe(5);
+    expect(Guest[0].x).toBe(68);
+    expect(Guest[0].y).toBe(0);
 
-    expect(PerformAnalysis.width).toBe(15);
-    expect(PerformAnalysis.height).toBe(5);
-    expect(PerformAnalysis.x).toBe(0);
-    expect(PerformAnalysis.y).toBe(14);
+    expect(PerformAnalysis[0].width).toBe(49);
+    expect(PerformAnalysis[0].height).toBe(5);
+    expect(PerformAnalysis[0].x).toBe(0);
+    expect(PerformAnalysis[0].y).toBe(7);
 
-    expect(ProvideData.width).toBe(15);
-    expect(ProvideData.height).toBe(5);
-    expect(ProvideData.x).toBe(0);
-    expect(ProvideData.y).toBe(21);
+    expect(PerformAnalysis[1].width).toBe(32);
+    expect(PerformAnalysis[1].height).toBe(5);
+    expect(PerformAnalysis[1].x).toBe(68);
+    expect(PerformAnalysis[1].y).toBe(7);
 
-    expect(ModellingTool.width).toBe(15);
-    expect(ModellingTool.height).toBe(5);
-    expect(ModellingTool.x).toBe(17);
-    expect(ModellingTool.y).toBe(14);
+    expect(ProvideData[0].width).toBe(15);
+    expect(ProvideData[0].height).toBe(5);
+    expect(ProvideData[0].x).toBe(51);
+    expect(ProvideData[0].y).toBe(7);
 
-    expect(GitClient.width).toBe(15);
-    expect(GitClient.height).toBe(5);
-    expect(GitClient.x).toBe(17);
-    expect(GitClient.y).toBe(21);
+    expect(ModellingTool[0].width).toBe(15);
+    expect(ModellingTool[0].height).toBe(5);
+    expect(ModellingTool[0].x).toBe(0);
+    expect(ModellingTool[0].y).toBe(14);
 
-    expect(Company.width).toBe(15);
-    expect(Company.height).toBe(5);
-    expect(Company.x).toBe(34);
-    expect(Company.y).toBe(7);
+    expect(ModellingTool[1].width).toBe(15);
+    expect(ModellingTool[1].height).toBe(5);
+    expect(ModellingTool[1].x).toBe(68);
+    expect(ModellingTool[1].y).toBe(14);
+
+    expect(GitClient[0].width).toBe(15);
+    expect(GitClient[0].height).toBe(5);
+    expect(GitClient[0].x).toBe(17);
+    expect(GitClient[0].y).toBe(14);
+
+    expect(GitClient[1].width).toBe(15);
+    expect(GitClient[1].height).toBe(5);
+    expect(GitClient[1].x).toBe(85);
+    expect(GitClient[1].y).toBe(14);
+
+    expect(Company[0].width).toBe(15);
+    expect(Company[0].height).toBe(5);
+    expect(Company[0].x).toBe(34);
+    expect(Company[0].y).toBe(14);
+
+    expect(Company[1].width).toBe(15);
+    expect(Company[1].height).toBe(5);
+    expect(Company[1].x).toBe(51);
+    expect(Company[1].y).toBe(14);
 
     done();
   });
@@ -221,7 +242,7 @@ describe("Hierarchical Layout Rendering", () => {
     expect(rowA1.getChildren().length).toBe(1);
     expect(colA1.getChildren().length).toBe(2);
     expect(colA1.getChildren()[1].getName()).toBe("A");
-    expect(colA1.getChildren()[1].getWidth()).toBe(66);
+    expect(colA1.getChildren()[1].getWidth()).toBe(49);
     expect(colA1.getChildren()[1].getHeight()).toBe(5);
     expect(colA1.getSubTreeCounting()).toBe(7);
     expect(rowA2.getChildren().length).toBe(2);
@@ -253,12 +274,12 @@ describe("Hierarchical Layout Rendering", () => {
     expect(rowB3.getSubTreeCounting()).toBe(0);
     expect(colC1.getChildren().length).toBe(2);
     expect(colC1.getChildren()[1].getName()).toBe("C");
-    expect(colC1.getChildren()[1].getWidth()).toBe(32);
+    expect(colC1.getChildren()[1].getWidth()).toBe(15);
     expect(colC1.getChildren()[1].getHeight()).toBe(5);
     expect(colC1.getSubTreeCounting()).toBe(1);
     expect(rowC1.getChildren().length).toBe(1);
     expect(rowC1.getChildren()[0].getName()).toBe("C1");
-    expect(rowC1.getChildren()[0].getWidth()).toBe(32);
+    expect(rowC1.getChildren()[0].getWidth()).toBe(15);
     expect(rowC1.getChildren()[0].getHeight()).toBe(5);
     expect(rowC1.getSubTreeCounting()).toBe(0);
   });
