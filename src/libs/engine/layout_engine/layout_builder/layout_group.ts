@@ -137,7 +137,7 @@ export class LayoutGroup extends Block {
    * @param value Total width value
    */
   setWidth(value: number) {
-    const currentWidth = this.getWidth();
+    const currentWidth = super.getWidth();
 
     if (value >= currentWidth) {
       if (value > currentWidth) {
@@ -157,7 +157,7 @@ export class LayoutGroup extends Block {
    * @param value Total height value
    */
   setHeight(value: number) {
-    const currentHeight = this.getHeight();
+    const currentHeight = super.getHeight();
 
     if (value >= currentHeight) {
       if (value > currentHeight) {
@@ -232,8 +232,8 @@ export class LayoutGroup extends Block {
    * @param deltaY Number of points to be translated on the Y axis
    */
   translatePosition(deltaX: number, deltaY: number) {
-    const newX = this.getX() + deltaX;
-    const newY = this.getY() + deltaY;
+    const newX = super.getX() + deltaX;
+    const newY = super.getY() + deltaY;
 
     this.setAbsolutePosition({ x: newX, y: newY });
   }
@@ -243,8 +243,8 @@ export class LayoutGroup extends Block {
    */
   toAbsolutePosition(initialX: number = 0, initialY: number = 0) {
     this.contentBox.translateChildrenPosition(
-      initialX + this.getX(),
-      initialY + this.getY()
+      initialX + super.getX(),
+      initialY + super.getY()
     );
   }
 }

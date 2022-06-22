@@ -41,7 +41,7 @@ export class BaseElement extends Block {
   }
 
   translatePosition(deltaX: number, deltaY: number) {
-    this.setX(this.getX() + deltaX);
-    this.setY(this.getY() + deltaY);
+    super.setX(super.getX() + deltaX);
+    super.setY(super.getY() + deltaY);
   }
 }
