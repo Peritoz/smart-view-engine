@@ -134,8 +134,8 @@ export class LayoutTree {
   /**
    * Calculates the absolute position for visible layout groups and base elements
    */
-  toAbsolutePosition() {
-    this.root?.toAbsolutePosition(5, 5); // TODO: Make it configurable
+  toAbsolutePosition(initialX: number = 0, initialY: number = 0) {
+    this.root?.toAbsolutePosition(initialX, initialY); // TODO: Make it configurable
   }
 
   getCurrentLayoutGroup() {
