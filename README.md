@@ -5,9 +5,8 @@ Advanced automatic layout generator for better graph visualization.
 ## Getting Started
 
 You can pass relationship paths as input to generate advanced views. A relationship path
-can be represented as an array of elements, where the leftest (first) element is considered the 
-main element. The subsequent elements form a relationship chain with the main element. An example
-of a relationship chain is presented below:
+can be represented as an array of elements, where the most left (first) element is considered the
+main element. For example, the following elements form a relationship chain with the main element. An example of a relationship chain is presented below:
 
 ```
 (Customer)->(Product)<-(Supplier)
@@ -19,7 +18,7 @@ The situation presented could be translated as:
 [Customer, Product, Supplier]
 ```
 
-For proper rendering, additional information are required when describing
+For proper rendering, additional information is required when describing
 an element in the relationship chain. Elements must be described as follows:
 
 ```
@@ -32,7 +31,7 @@ an element in the relationship chain. Elements must be described as follows:
 
 ### Generating a View from Paths
 
-Define the paths to be processed, in this case a simple example is provided:
+Define the paths to be processed; in this case, a simple example is provided:
 
 ```
 const paths = [
@@ -84,6 +83,6 @@ The result is a View description containing View Nodes and Relationships with
 proper Width, Height and Position to be drawn using a drawing tool from your
 preference.
 
-> You can use [archimate-diagram-engine](https://www.npmjs.com/package/@arktect-co/archimate-diagram-engine) to 
+> You can use [archimate-diagram-engine](https://www.npmjs.com/package/@arktect-co/archimate-diagram-engine) to
 > render Archimate views using JointJS
 

@@ -1,181 +1,135 @@
 [
   [
     {
-      "_id": "",
       "identifier": "cf933aa8",
       "name": "Analyst",
-      "type": "businessrole",
-      "ispatternnode": true
+      "type": "businessrole"
     },
     {
-      "_id": "",
       "identifier": "fe87eaab",
       "name": "Perform Corporative Analysis",
-      "type": "businessprocess",
-      "ispatternnode": true
+      "type": "businessprocess"
     },
     {
-      "_id": "",
       "identifier": "d5ce0709",
       "name": "Modelling Tool",
-      "type": "applicationcomponent",
-      "ispatternnode": true
+      "type": "applicationcomponent"
     }
   ],
   [
     {
-      "_id": "",
       "identifier": "cf933aa8",
       "name": "Analyst",
-      "type": "businessrole",
-      "ispatternnode": true
+      "type": "businessrole"
     },
     {
-      "_id": "",
       "identifier": "fe87eaab",
       "name": "Perform Corporative Analysis",
-      "type": "businessprocess",
-      "ispatternnode": true
+      "type": "businessprocess"
     },
     {
-      "_id": "",
       "identifier": "d361cefb",
       "name": "Git Client",
-      "type": "applicationcomponent",
-      "ispatternnode": true
+      "type": "applicationcomponent"
     }
   ],
   [
     {
-      "_id": "",
       "identifier": "cf933aa8",
       "name": "Analyst",
-      "type": "businessrole",
-      "ispatternnode": true
+      "type": "businessrole"
     },
     {
-      "_id": "",
       "identifier": "fe87eaab",
       "name": "Perform Corporative Analysis",
-      "type": "businessprocess",
-      "ispatternnode": true
+      "type": "businessprocess"
     },
     {
-      "_id": "",
       "identifier": "63a1ccd0",
       "name": "Company",
-      "type": "applicationcomponent",
-      "ispatternnode": true
+      "type": "applicationcomponent"
     }
   ],
   [
     {
-      "_id": "",
       "identifier": "89e202e0",
       "name": "Guest",
-      "type": "businessrole",
-      "ispatternnode": true
+      "type": "businessrole"
     },
     {
-      "_id": "",
       "identifier": "fe87eaab",
       "name": "Perform Corporative Analysis",
-      "type": "businessprocess",
-      "ispatternnode": true
+      "type": "businessprocess"
     },
     {
-      "_id": "",
       "identifier": "d5ce0709",
       "name": "Modelling Tool",
-      "type": "applicationcomponent",
-      "ispatternnode": true
+      "type": "applicationcomponent"
     }
   ],
   [
     {
-      "_id": "",
       "identifier": "89e202e0",
       "name": "Guest",
-      "type": "businessrole",
-      "ispatternnode": true
+      "type": "businessrole"
     },
     {
-      "_id": "",
       "identifier": "fe87eaab",
       "name": "Perform Corporative Analysis",
-      "type": "businessprocess",
-      "ispatternnode": true
+      "type": "businessprocess"
     },
     {
-      "_id": "",
       "identifier": "d361cefb",
       "name": "Git Client",
-      "type": "applicationcomponent",
-      "ispatternnode": true
+      "type": "applicationcomponent"
     }
   ],
   [
     {
-      "_id": "",
       "identifier": "89e202e0",
       "name": "Guest",
-      "type": "businessrole",
-      "ispatternnode": true
+      "type": "businessrole"
     },
     {
-      "_id": "",
       "identifier": "fe87eaab",
       "name": "Perform Corporative Analysis",
-      "type": "businessprocess",
-      "ispatternnode": true
+      "type": "businessprocess"
     },
     {
-      "_id": "",
       "identifier": "63a1ccd0",
       "name": "Company",
-      "type": "applicationcomponent",
-      "ispatternnode": true
+      "type": "applicationcomponent"
     }
   ],
   [
     {
-      "_id": "",
       "identifier": "cf933aa8",
       "name": "Analyst",
-      "type": "businessrole",
-      "ispatternnode": true
+      "type": "businessrole"
     }
   ],
   [
     {
-      "_id": "",
       "identifier": "cf933aa8",
       "name": "Analyst",
-      "type": "businessrole",
-      "ispatternnode": true
+      "type": "businessrole"
     }
   ],
   [
     {
-      "_id": "",
       "identifier": "cf933aa8",
       "name": "Analyst",
-      "type": "businessrole",
-      "ispatternnode": true
+      "type": "businessrole"
     },
     {
-      "_id": "",
       "identifier": "7c4941eb",
       "name": "Provide Updated Data",
-      "type": "businessprocess",
-      "ispatternnode": true
+      "type": "businessprocess"
     },
     {
-      "_id": "",
       "identifier": "63a1ccd0",
       "name": "Company",
-      "type": "applicationcomponent",
-      "ispatternnode": true
+      "type": "applicationcomponent"
     }
   ]
 ]

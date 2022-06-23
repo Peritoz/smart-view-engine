@@ -1,85 +1,63 @@
 [
   [
     {
-      "_id": "",
       "identifier": "2cdb720a",
       "name": "A",
-      "type": "businessactor",
-      "ispatternnode": true
+      "type": "businessactor"
     },
     {
-      "_id": "",
       "identifier": "46f5e647",
       "name": "B",
-      "type": "businessprocess",
-      "ispatternnode": true
+      "type": "businessprocess"
     },
     {
-      "_id": "",
       "identifier": "11fec68d",
       "name": "B1",
-      "type": "applicationcomponent",
-      "ispatternnode": true
+      "type": "applicationcomponent"
     },
     {
-      "_id": "",
       "identifier": "10fec68d",
       "name": "B1-1",
-      "type": "artifact",
-      "ispatternnode": true
+      "type": "artifact"
     }
   ],
   [
     {
-      "_id": "",
       "identifier": "2cdb720a",
       "name": "A",
-      "type": "businessactor",
-      "ispatternnode": true
+      "type": "businessactor"
     },
     {
-      "_id": "",
       "identifier": "46f5e647",
       "name": "B",
-      "type": "businessprocess",
-      "ispatternnode": true
+      "type": "businessprocess"
     },
     {
-      "_id": "",
       "identifier": "a1fec68a",
       "name": "B2",
-      "type": "applicationcomponent",
-      "ispatternnode": true
+      "type": "applicationcomponent"
     },
     {
-      "_id": "",
       "identifier": "a2fec68b",
       "name": "B2-1",
-      "type": "artifact",
-      "ispatternnode": true
+      "type": "artifact"
     }
   ],
   [
     {
-      "_id": "",
       "identifier": "2cdb720a",
       "name": "A",
-      "type": "businessactor",
-      "ispatternnode": true
+      "type": "businessactor"
     },
     {
-      "_id": "",
       "identifier": "46f5e646",
       "name": "C",
-      "type": "businessprocess",
-      "ispatternnode": true
+      "type": "businessprocess"
     },
     {
-      "_id": "",
       "identifier": "9722d024",
       "name": "C1",
-      "type": "applicationcomponent",
-      "ispatternnode": true
+      "type": "applicationcomponent"
     }
   ]
 ]
