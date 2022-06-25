@@ -2,6 +2,7 @@ import { ViewRelationship } from "@libs/model/view_relationship";
 import { HydratedViewNode } from "@libs/model/view_node";
 
 export interface View {
+  id: string;
   viewRelationships: Array<ViewRelationship>;
   viewNodes: Array<HydratedViewNode>;
   name: string;
@@ -9,5 +10,4 @@ export interface View {
     horizontal: { min: number; max: number };
     vertical: { min: number; max: number };
   };
-  id: string;
 }
