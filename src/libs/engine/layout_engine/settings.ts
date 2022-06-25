@@ -16,9 +16,6 @@ export interface LayoutSettings {
   layoutType: LayoutTypes;
   maxHorizontalCount: number;
   maxChildHorizontalCount: number;
-  defaultWidth: number;
-  defaultHeight: number;
-  pageWidth: number;
   spaceBetween: number;
   spaceToOuterLabel: number;
   sizeUnit: number;
@@ -38,9 +35,6 @@ export class Settings implements LayoutSettings, VisibleGroupSettings {
   layoutType: LayoutTypes;
   maxHorizontalCount: number;
   maxChildHorizontalCount: number;
-  defaultWidth: number;
-  defaultHeight: number;
-  pageWidth: number;
   spaceBetween: number;
   spaceToOuterLabel: number;
   sizeUnit: number;
@@ -60,9 +54,6 @@ export class Settings implements LayoutSettings, VisibleGroupSettings {
     rightPadding,
     topPadding,
     bottomPadding,
-    defaultWidth,
-    defaultHeight,
-    pageWidth,
     spaceBetween,
     spaceToOuterLabel,
     labelWidth,
@@ -82,14 +73,11 @@ export class Settings implements LayoutSettings, VisibleGroupSettings {
     this.rightPadding = rightPadding || DEFAULT.DEFAULT_PADDING;
     this.topPadding = topPadding || DEFAULT.DEFAULT_PADDING;
     this.bottomPadding = bottomPadding || DEFAULT.DEFAULT_PADDING;
-    this.defaultWidth = defaultWidth || DEFAULT.DEFAULT_WIDTH;
-    this.defaultHeight = defaultHeight || DEFAULT.DEFAULT_HEIGHT;
     this.labelWidth = labelWidth || DEFAULT.LABEL_WIDTH;
     this.labelHeight = labelHeight || DEFAULT.LABEL_HEIGHT;
     this.lateralLabel = lateralLabel || false;
     this.spaceToOuterLabel =
       spaceToOuterLabel || DEFAULT.INNER_BOTTOM_PADDING_Y;
-    this.pageWidth = pageWidth || 1200;
     this.sizeUnit = sizeUnit || DEFAULT.SIZE_UNIT;
   }
 }
