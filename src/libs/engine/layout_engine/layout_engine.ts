@@ -14,11 +14,11 @@ export class LayoutEngine {
 
   private generateView = (
     view: HydratedView,
-    lowerElements: Array<HydratedViewNode>
+    children: Array<HydratedViewNode>
   ) => {
-    if (lowerElements) {
-      for (let i = 0; i < lowerElements.length; i++) {
-        const childViewNode = lowerElements[i];
+    if (children) {
+      for (let i = 0; i < children.length; i++) {
+        const childViewNode = children[i];
         let parents = this.semanticEngine.getParents(childViewNode.modelNodeId);
         let upperElements: Array<HydratedViewNode> = [];
 
@@ -61,7 +61,7 @@ export class LayoutEngine {
     try {
       let view = new HydratedView(viewName, viewName);
       let leaves = this.semanticEngine.getLeaves();
-      let lowerElements: Array<HydratedViewNode> = [];
+      let children: Array<HydratedViewNode> = [];
 
       // Initializing the creation of all leaves (viewNodes)
       if (leaves) {
@@ -78,12 +78,12 @@ export class LayoutEngine {
 
           view.addViewNode(viewNode);
 
-          lowerElements.push(viewNode);
+          children.push(viewNode);
         });
       }
 
       // Recursive processing for create View
-      this.generateView(view, lowerElements);
+      this.generateView(view, children);
 
       return view;
     } catch (e) {
