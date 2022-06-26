@@ -180,56 +180,67 @@ describe("Nested Layout Rendering", () => {
     expect(GitClient[0]).toBeDefined();
     expect(Company[0]).toBeDefined();
 
+    expect(Analyst[0].modelNodeId).toBe("cf933aa8");
     expect(Analyst[0].width).toBe(72);
     expect(Analyst[0].height).toBe(15);
     expect(Analyst[0].x).toBe(0);
     expect(Analyst[0].y).toBe(0);
 
+    expect(Guest[0].modelNodeId).toBe("89e202e0");
     expect(Guest[0].width).toBe(36);
     expect(Guest[0].height).toBe(15);
     expect(Guest[0].x).toBe(74);
     expect(Guest[0].y).toBe(0);
 
+    expect(PerformAnalysis[0].modelNodeId).toBe("fe87eaab");
     expect(PerformAnalysis[0].width).toBe(51);
     expect(PerformAnalysis[0].height).toBe(10);
     expect(PerformAnalysis[0].x).toBe(1);
     expect(PerformAnalysis[0].y).toBe(4);
 
+    expect(PerformAnalysis[1].modelNodeId).toBe("fe87eaab");
     expect(PerformAnalysis[1].width).toBe(34);
     expect(PerformAnalysis[1].height).toBe(10);
     expect(PerformAnalysis[1].x).toBe(75);
     expect(PerformAnalysis[1].y).toBe(4);
 
+    expect(ProvideData[0].modelNodeId).toBe("7c4941eb");
     expect(ProvideData[0].width).toBe(17);
     expect(ProvideData[0].height).toBe(10);
     expect(ProvideData[0].x).toBe(54);
     expect(ProvideData[0].y).toBe(4);
 
+    expect(ModellingTool[0].modelNodeId).toBe("d5ce0709");
     expect(ModellingTool[0].width).toBe(15);
     expect(ModellingTool[0].height).toBe(5);
     expect(ModellingTool[0].x).toBe(2);
     expect(ModellingTool[0].y).toBe(8);
 
+    expect(ModellingTool[1].modelNodeId).toBe("d5ce0709");
     expect(ModellingTool[1].width).toBe(15);
     expect(ModellingTool[1].height).toBe(5);
     expect(ModellingTool[1].x).toBe(76);
     expect(ModellingTool[1].y).toBe(8);
 
+    expect(GitClient[0].modelNodeId).toBe("d361cefb");
     expect(GitClient[0].width).toBe(15);
     expect(GitClient[0].height).toBe(5);
     expect(GitClient[0].x).toBe(19);
     expect(GitClient[0].y).toBe(8);
 
+    expect(GitClient[1].modelNodeId).toBe("d361cefb");
     expect(GitClient[1].width).toBe(15);
     expect(GitClient[1].height).toBe(5);
     expect(GitClient[1].x).toBe(93);
     expect(GitClient[1].y).toBe(8);
 
+    expect(Company[0].modelNodeId).toBe("63a1ccd0");
     expect(Company[0].width).toBe(15);
     expect(Company[0].height).toBe(5);
     expect(Company[0].x).toBe(36);
     expect(Company[0].y).toBe(8);
 
+    expect(Company[1].modelNodeId).toBe("63a1ccd0");
     expect(Company[1].width).toBe(15);
     expect(Company[1].height).toBe(5);
     expect(Company[1].x).toBe(55);
