@@ -120,25 +120,25 @@ describe("Hierarchical Layout Rendering", () => {
     const view = smartView.generateView(complexPaths, "T1");
 
     const Analyst = view.viewNodes.filter(
-        (n: HydratedViewNode) => n.name === "Analyst"
+      (n: HydratedViewNode) => n.name === "Analyst"
     );
     const Guest = view.viewNodes.filter(
-        (n: HydratedViewNode) => n.name === "Guest"
+      (n: HydratedViewNode) => n.name === "Guest"
     );
     const PerformAnalysis = view.viewNodes.filter(
-        (n: HydratedViewNode) => n.name === "Perform Corporative Analysis"
+      (n: HydratedViewNode) => n.name === "Perform Corporative Analysis"
     );
     const ProvideData = view.viewNodes.filter(
-        (n: HydratedViewNode) => n.name === "Provide Updated Data"
+      (n: HydratedViewNode) => n.name === "Provide Updated Data"
     );
     const ModellingTool = view.viewNodes.filter(
-        (n: HydratedViewNode) => n.name === "Modelling Tool"
+      (n: HydratedViewNode) => n.name === "Modelling Tool"
     );
     const GitClient = view.viewNodes.filter(
-        (n: HydratedViewNode) => n.name === "Git Client"
+      (n: HydratedViewNode) => n.name === "Git Client"
     );
     const Company = view.viewNodes.filter(
-        (n: HydratedViewNode) => n.name === "Company"
+      (n: HydratedViewNode) => n.name === "Company"
     );
 
     expect(Analyst[0]).toBeDefined();
@@ -167,7 +167,7 @@ describe("Hierarchical Layout Rendering", () => {
     expect(PerformAnalysis[0].x).toBe(0);
     expect(PerformAnalysis[0].y).toBe(7);
 
-    expect(PerformAnalysis[0].modelNodeId).toBe("fe87eaab");
+    expect(PerformAnalysis[1].modelNodeId).toBe("fe87eaab");
     expect(PerformAnalysis[1].width).toBe(32);
     expect(PerformAnalysis[1].height).toBe(5);
     expect(PerformAnalysis[1].x).toBe(68);
@@ -185,7 +185,7 @@ describe("Hierarchical Layout Rendering", () => {
     expect(ModellingTool[0].x).toBe(0);
     expect(ModellingTool[0].y).toBe(14);
 
-    expect(ModellingTool[0].modelNodeId).toBe("d5ce0709");
+    expect(ModellingTool[1].modelNodeId).toBe("d5ce0709");
     expect(ModellingTool[1].width).toBe(15);
     expect(ModellingTool[1].height).toBe(5);
     expect(ModellingTool[1].x).toBe(68);
@@ -202,6 +202,125 @@ describe("Hierarchical Layout Rendering", () => {
     expect(GitClient[1].height).toBe(5);
     expect(GitClient[1].x).toBe(85);
     expect(GitClient[1].y).toBe(14);
+
+    expect(Company[0].modelNodeId).toBe("63a1ccd0");
+    expect(Company[0].width).toBe(15);
+    expect(Company[0].height).toBe(5);
+    expect(Company[0].x).toBe(34);
+    expect(Company[0].y).toBe(14);
+
+    expect(Company[1].modelNodeId).toBe("63a1ccd0");
+    expect(Company[1].width).toBe(15);
+    expect(Company[1].height).toBe(5);
+    expect(Company[1].x).toBe(51);
+    expect(Company[1].y).toBe(14);
+
+    done();
+  });
+
+  it("Complex - Breaking line", (done) => {
+    let smartView = new SmartViewEngine(
+      new Settings({
+        layoutType: "hierarchy",
+        maxHorizontalCount: 1,
+        maxChildHorizontalCount: 2,
+        spaceBetween: 2,
+        sizeUnit: 5,
+        leftPadding: 1,
+        rightPadding: 1,
+        topPadding: 1,
+        bottomPadding: 1,
+        spaceToOuterLabel: 1,
+        labelWidth: 4,
+        labelHeight: 2,
+      })
+    );
+
+    const view = smartView.generateView(complexPaths, "T1");
+
+    const Analyst = view.viewNodes.filter(
+      (n: HydratedViewNode) => n.name === "Analyst"
+    );
+    const Guest = view.viewNodes.filter(
+      (n: HydratedViewNode) => n.name === "Guest"
+    );
+    const PerformAnalysis = view.viewNodes.filter(
+      (n: HydratedViewNode) => n.name === "Perform Corporative Analysis"
+    );
+    const ProvideData = view.viewNodes.filter(
+      (n: HydratedViewNode) => n.name === "Provide Updated Data"
+    );
+    const ModellingTool = view.viewNodes.filter(
+      (n: HydratedViewNode) => n.name === "Modelling Tool"
+    );
+    const GitClient = view.viewNodes.filter(
+      (n: HydratedViewNode) => n.name === "Git Client"
+    );
+    const Company = view.viewNodes.filter(
+      (n: HydratedViewNode) => n.name === "Company"
+    );
+
+    expect(Analyst[0]).toBeDefined();
+    expect(Guest[0]).toBeDefined();
+    expect(PerformAnalysis[0]).toBeDefined();
+    expect(ProvideData[0]).toBeDefined();
+    expect(ModellingTool[0]).toBeDefined();
+    expect(GitClient[0]).toBeDefined();
+    expect(Company[0]).toBeDefined();
+
+    expect(Analyst[0].modelNodeId).toBe("cf933aa8");
+    expect(Analyst[0].width).toBe(66);
+    expect(Analyst[0].height).toBe(5);
+    expect(Analyst[0].x).toBe(0);
+    expect(Analyst[0].y).toBe(0);
+
+    expect(Guest[0].modelNodeId).toBe("89e202e0");
+    expect(Guest[0].width).toBe(66);
+    expect(Guest[0].height).toBe(5);
+    expect(Guest[0].x).toBe(0);
+    expect(Guest[0].y).toBe(21);
+
+    expect(PerformAnalysis[0].modelNodeId).toBe("fe87eaab");
+    expect(PerformAnalysis[0].width).toBe(49);
+    expect(PerformAnalysis[0].height).toBe(5);
+    expect(PerformAnalysis[0].x).toBe(0);
+    expect(PerformAnalysis[0].y).toBe(7);
+
+    expect(PerformAnalysis[1].modelNodeId).toBe("fe87eaab");
+    expect(PerformAnalysis[1].width).toBe(32);
+    expect(PerformAnalysis[1].height).toBe(5);
+    expect(PerformAnalysis[1].x).toBe(0);
+    expect(PerformAnalysis[1].y).toBe(28);
+
+    expect(ProvideData[0].modelNodeId).toBe("7c4941eb");
+    expect(ProvideData[0].width).toBe(15);
+    expect(ProvideData[0].height).toBe(5);
+    expect(ProvideData[0].x).toBe(51);
+    expect(ProvideData[0].y).toBe(7);
+
+    expect(ModellingTool[0].modelNodeId).toBe("d5ce0709");
+    expect(ModellingTool[0].width).toBe(15);
+    expect(ModellingTool[0].height).toBe(5);
+    expect(ModellingTool[0].x).toBe(0);
+    expect(ModellingTool[0].y).toBe(14);
+
+    expect(ModellingTool[1].modelNodeId).toBe("d5ce0709");
+    expect(ModellingTool[1].width).toBe(15);
+    expect(ModellingTool[1].height).toBe(5);
+    expect(ModellingTool[1].x).toBe(0);
+    expect(ModellingTool[1].y).toBe(35);
+
+    expect(GitClient[0].modelNodeId).toBe("d361cefb");
+    expect(GitClient[0].width).toBe(15);
+    expect(GitClient[0].height).toBe(5);
+    expect(GitClient[0].x).toBe(17);
+    expect(GitClient[0].y).toBe(14);
+
+    expect(GitClient[1].modelNodeId).toBe("d361cefb");
+    expect(GitClient[1].width).toBe(15);
+    expect(GitClient[1].height).toBe(5);
+    expect(GitClient[1].x).toBe(17);
+    expect(GitClient[1].y).toBe(35);
 
     expect(Company[0].modelNodeId).toBe("63a1ccd0");
     expect(Company[0].width).toBe(15);
