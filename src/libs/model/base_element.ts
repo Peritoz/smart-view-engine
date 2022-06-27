@@ -3,6 +3,7 @@ import { Block } from "@libs/model/block";
 
 export class BaseElement extends Block {
   id: string;
+  externalId: string | null;
   name: string;
   type: string;
   parentId: string | null;
@@ -18,10 +19,15 @@ export class BaseElement extends Block {
     this.type = viewNode.type || "";
     this.parentId = viewNode.parentId || null;
     this.id = uniqId();
+    this.externalId = viewNode.externalId || null;
   }
 
   getId() {
     return this.id;
+  }
+
+  getExternalId(): string | null {
+    return this.externalId;
   }
 
   getName() {

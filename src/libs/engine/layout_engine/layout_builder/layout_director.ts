@@ -107,8 +107,8 @@ export class LayoutDirector {
     this.layoutSet.addToCurrentGroup(container);
   }
 
-  addTinyElementToCurrent(name: string, type: string) {
-    const element = this.builder.buildTinyElement(name, type);
+  addTinyElementToCurrent(name: string, type: string, externalId?: string) {
+    const element = this.builder.buildTinyElement(name, type, externalId);
     this.addToCurrentGroup(element);
     return element;
   }
@@ -116,12 +116,14 @@ export class LayoutDirector {
   addSmallElementToCurrent(
     name: string,
     type: string,
-    verticalOrientation: boolean = false
+    verticalOrientation: boolean = false,
+    externalId?: string
   ) {
     const element = this.builder.buildSmallElement(
       name,
       type,
-      verticalOrientation
+      verticalOrientation,
+      externalId
     );
     this.addToCurrentGroup(element);
     return element;
@@ -130,12 +132,14 @@ export class LayoutDirector {
   addMediumElementToCurrent(
     name: string,
     type: string,
-    verticalOrientation: boolean = false
+    verticalOrientation: boolean = false,
+    externalId?: string
   ) {
     const element = this.builder.buildMediumElement(
       name,
       type,
-      verticalOrientation
+      verticalOrientation,
+      externalId
     );
     this.addToCurrentGroup(element);
     return element;
@@ -144,12 +148,14 @@ export class LayoutDirector {
   addBigElementToCurrent(
     name: string,
     type: string,
-    verticalOrientation: boolean = false
+    verticalOrientation: boolean = false,
+    externalId?: string
   ) {
     const element = this.builder.buildBigElement(
       name,
       type,
-      verticalOrientation
+      verticalOrientation,
+      externalId
     );
     this.addToCurrentGroup(element);
     return element;

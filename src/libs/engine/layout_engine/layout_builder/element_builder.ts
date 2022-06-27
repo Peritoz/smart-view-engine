@@ -9,7 +9,11 @@ export class ElementBuilder {
     return new BaseElement(node);
   }
 
-  buildTinyElement(name: string, type: string): BaseElement {
+  buildTinyElement(
+    name: string,
+    type: string,
+    externalId?: string
+  ): BaseElement {
     return new BaseElement({
       name,
       type,
@@ -18,13 +22,15 @@ export class ElementBuilder {
       x: 0,
       y: 0,
       parentId: null,
+      externalId,
     });
   }
 
   buildSmallElement(
     name: string,
     type: string,
-    verticalOrientation: boolean
+    verticalOrientation: boolean,
+    externalId?: string
   ): BaseElement {
     if (verticalOrientation) {
       return new BaseElement({
@@ -35,6 +41,7 @@ export class ElementBuilder {
         x: 0,
         y: 0,
         parentId: null,
+        externalId,
       });
     } else {
       return new BaseElement({
@@ -45,6 +52,7 @@ export class ElementBuilder {
         x: 0,
         y: 0,
         parentId: null,
+        externalId,
       });
     }
   }
@@ -52,7 +60,8 @@ export class ElementBuilder {
   buildMediumElement(
     name: string,
     type: string,
-    verticalOrientation: boolean
+    verticalOrientation: boolean,
+    externalId?: string
   ): BaseElement {
     if (verticalOrientation) {
       return new BaseElement({
@@ -63,6 +72,7 @@ export class ElementBuilder {
         x: 0,
         y: 0,
         parentId: null,
+        externalId,
       });
     } else {
       return new BaseElement({
@@ -73,6 +83,7 @@ export class ElementBuilder {
         x: 0,
         y: 0,
         parentId: null,
+        externalId,
       });
     }
   }
@@ -80,7 +91,8 @@ export class ElementBuilder {
   buildBigElement(
     name: string,
     type: string,
-    verticalOrientation: boolean
+    verticalOrientation: boolean,
+    externalId?: string
   ): BaseElement {
     if (verticalOrientation) {
       return new BaseElement({
@@ -91,6 +103,7 @@ export class ElementBuilder {
         x: 0,
         y: 0,
         parentId: null,
+        externalId,
       });
     } else {
       return new BaseElement({
@@ -101,6 +114,7 @@ export class ElementBuilder {
         x: 0,
         y: 0,
         parentId: null,
+        externalId,
       });
     }
   }
