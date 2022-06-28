@@ -10,10 +10,10 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
     super(settings, semanticEngine);
   }
 
-  renderElements(
+  protected renderElements(
     nestedTree: Array<HydratedViewNode>,
     layoutDirector: LayoutDirector
-  ) {
+  ): void {
     if (nestedTree && nestedTree.length > 0) {
       for (let i = 0; i < nestedTree.length; i++) {
         const child = nestedTree[i];

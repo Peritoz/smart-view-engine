@@ -72,17 +72,28 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
     return upperNestedCount;
   }
 
-  renderElements(
+  /**
+   * Layouts a given view adjusting its nodes' dimensions and position
+   * @param nestedTree Tree containing View Node data and some extra metadata for better processing
+   * @param layoutDirector Orchestrator for layout building
+   * @protected
+   */
+  protected renderElements(
     nestedTree: Array<HydratedViewNode>,
-    layoutDirector: LayoutDirector,
-    renderAsCol: boolean
-  ) {
+    layoutDirector: LayoutDirector
+  ): void {
     throw new Error(
       "Base class can't render Hierarchy properly. Use specialized class instead."
     );
   }
 
-  processLayout(inputView: HydratedView) {
+  /**
+   * Orchestrates the complete layout processing. It's the start point to adjust the dimension and position of the nodes
+   * from a given View passed as parameter
+   * @param inputView View to be processed
+   * @return View with new layout
+   */
+  processLayout(inputView: HydratedView): HydratedView {
     // Generating a tree of nested elements
     let nestedTree = this.groupParentNodes(inputView.getViewNodes());
 
@@ -92,7 +103,7 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
     director.newCol(Alignment.EXPANDED, Alignment.START);
     director.newRow(Alignment.START, Alignment.EXPANDED);
 
-    this.renderElements(nestedTree, director, false);
+    this.renderElements(nestedTree, director);
 
     director.toAbsolutePosition();
 
