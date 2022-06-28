@@ -8,42 +8,6 @@ import { HydratedView } from "@libs/model/hydrated_view";
 import { ElementBuilder } from "@libs/engine/layout_engine/layout_builder/element_builder";
 import { Alignment } from "@libs/common/alignment.enum";
 
-function extractToView(
-  view: HydratedView,
-  container: BaseElement | LayoutGroup
-) {
-  const isNestedElement =
-    container instanceof VisibleLayoutRow ||
-    container instanceof VisibleLayoutCol;
-  const isBaseElement = container instanceof BaseElement;
-
-  if (isNestedElement || isBaseElement) {
-    view.addViewNode(
-      view.createViewNode(
-        container.getId(),
-        container.getId(),
-        container.getName(),
-        container.getType(),
-        container.getX(),
-        container.getY(),
-        isBaseElement ? container.getParentId() : null,
-        container.getWidth(),
-        container.getHeight()
-      )
-    );
-  }
-
-  if (container instanceof LayoutGroup) {
-    for (let i = 0; i < container.getChildrenLength(); i++) {
-      const child = container.getChildAtIndex(i);
-
-      if (child) {
-        extractToView(view, child);
-      }
-    }
-  }
-}
-
 export class LayoutDirector {
   private settings: Settings;
   private builder: ElementBuilder;
@@ -55,10 +19,50 @@ export class LayoutDirector {
     this.layoutSet = new LayoutTree(settings);
   }
 
+  private extractToView(
+    view: HydratedView,
+    container: BaseElement | LayoutGroup
+  ) {
+    const isNestedElement =
+      container instanceof VisibleLayoutRow ||
+      container instanceof VisibleLayoutCol;
+    const isBaseElement = container instanceof BaseElement;
+    const externalId =
+      isBaseElement && container.getExternalId()
+        ? container.getExternalId()
+        : null;
+
+    if (isNestedElement || isBaseElement) {
+      view.addViewNode(
+        view.createViewNode(
+          externalId || container.getId(),
+          container.getId(),
+          container.getName(),
+          container.getType(),
+          container.getX(),
+          container.getY(),
+          isBaseElement ? container.getParentId() : null,
+          container.getWidth(),
+          container.getHeight()
+        )
+      );
+    }
+
+    if (container instanceof LayoutGroup) {
+      for (let i = 0; i < container.getChildrenLength(); i++) {
+        const child = container.getChildAtIndex(i);
+
+        if (child) {
+          this.extractToView(view, child);
+        }
+      }
+    }
+  }
+
   convertToView(viewName: string, viewId: string) {
     const view = new HydratedView(viewId || viewName, viewName);
 
-    extractToView(view, this.layoutSet.getRoot());
+    this.extractToView(view, this.layoutSet.getRoot());
 
     return view;
   }
