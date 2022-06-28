@@ -40,7 +40,7 @@ export class SmartViewEngine {
 
       semanticEngine.processPaths();
 
-      const view = layoutEngine.convertToView(title || "Unknown");
+      const view = layoutEngine.convertPathsToView(title || "Unknown");
       const hydratedView: HydratedView | undefined =
         layoutEngine.processLayout(view);
 

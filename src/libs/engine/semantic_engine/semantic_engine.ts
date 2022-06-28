@@ -34,7 +34,7 @@ export class SemanticEngine {
   };
 
   /**
-   * Extracts all Level 0 elements from query response
+   * Extracts all Level 0 elements from paths
    */
   processPaths = (): void => {
     let objectMap: Map<string, number> = new Map();
@@ -50,7 +50,7 @@ export class SemanticEngine {
           indexFirstElementFound = objectMap.get(firstElement.identifier);
           indexSecondElementFound = objectMap.get(secondElement.identifier);
 
-          // If Semantic element doesn't exists then create it
+          // If Semantic element doesn't exist then create it
           if (indexFirstElementFound === undefined) {
             objectMap.set(firstElement.identifier, this.modelElements.length);
 
@@ -97,7 +97,7 @@ export class SemanticEngine {
             ]);
           }
 
-          // If the second element doesn't exists then create it
+          // If the second element doesn't exist then create it
           if (indexSecondElementFound === undefined) {
             objectMap.set(secondElement.identifier, this.modelElements.length);
 

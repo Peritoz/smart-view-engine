@@ -2,6 +2,7 @@ import { Settings } from "@libs/engine/layout_engine/settings";
 import { HydratedView } from "../../model/hydrated_view";
 import { SemanticEngine } from "@libs/engine/semantic_engine/semantic_engine";
 import { HydratedViewNode } from "@libs/model/view_node";
+import uniqId from "uniqid";
 
 export class LayoutEngine {
   protected settings: Settings;
@@ -57,7 +58,12 @@ export class LayoutEngine {
     }
   };
 
-  convertToView = (viewName: string) => {
+  /**
+   * Generates an initial View. The elements (View Nodes) are created with default dimension and position
+   * @param viewName View name
+   * @return HydratedView
+   */
+  convertPathsToView = (viewName: string): HydratedView => {
     try {
       let view = new HydratedView(viewName, viewName);
       let leaves = this.semanticEngine.getLeaves();
@@ -68,7 +74,7 @@ export class LayoutEngine {
         leaves.forEach((leaf) => {
           let viewNode = view.createViewNode(
             leaf.identifier,
-            `${leaf.identifier}_1`,
+            `${leaf.identifier}-${uniqId()}`,
             leaf.name,
             leaf.type,
             0,

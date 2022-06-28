@@ -32,7 +32,8 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
           layoutDirector.addMediumElementToCurrent(
             child.name,
             child.type,
-            false
+            false,
+            child.modelNodeId
           );
         }
       }
