@@ -18,6 +18,7 @@ const settings = new Settings({
 describe("Visible Layout Row", () => {
   describe("Simple Visible Row - Top Label - Only Base Elements", () => {
     let group = new VisibleLayoutRow(
+      null,
       Alignment.START,
       Alignment.START,
       settings,
@@ -166,6 +167,7 @@ describe("Visible Layout Row", () => {
 
   describe("Simple Visible Row - Lateral Label - Only Base Elements", () => {
     let group = new VisibleLayoutRow(
+      null,
       Alignment.START,
       Alignment.START,
       settings,

@@ -69,9 +69,14 @@ export class LayoutTree {
     return elementGroup;
   }
 
-  newRow(horizontalAlignment: Alignment, verticalAlignment: Alignment) {
+  newRow(
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment,
+    externalId: string | null = null
+  ) {
     return this.newElementGroup((parent: LayoutGroup) => {
       return new LayoutRow(
+        externalId,
         horizontalAlignment,
         verticalAlignment,
         this.settings,
@@ -80,9 +85,14 @@ export class LayoutTree {
     });
   }
 
-  newCol(horizontalAlignment: Alignment, verticalAlignment: Alignment) {
+  newCol(
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment,
+    externalId: string | null = null
+  ) {
     return this.newElementGroup((parent: LayoutGroup) => {
       return new LayoutCol(
+        externalId,
         horizontalAlignment,
         verticalAlignment,
         this.settings,
@@ -96,10 +106,12 @@ export class LayoutTree {
     type: string,
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
-    lateralLabel: boolean
+    lateralLabel: boolean,
+    externalId: string | null = null
   ) {
     return this.newElementGroup((parent: LayoutGroup) => {
       return new VisibleLayoutRow(
+        externalId,
         horizontalAlignment,
         verticalAlignment,
         this.settings,
@@ -116,10 +128,12 @@ export class LayoutTree {
     type: string,
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
-    lateralLabel: boolean
+    lateralLabel: boolean,
+    externalId: string | null = null
   ) {
     return this.newElementGroup((parent: LayoutGroup) => {
       return new VisibleLayoutCol(
+        externalId,
         horizontalAlignment,
         verticalAlignment,
         this.settings,

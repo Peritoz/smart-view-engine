@@ -18,6 +18,7 @@ const settings = new Settings({
 describe("Visible Layout Col", () => {
   describe("Simple Visible Col - Top Label - Only Base Elements", () => {
     let group = new VisibleLayoutCol(
+      null,
       Alignment.START,
       Alignment.START,
       settings,
@@ -166,13 +167,14 @@ describe("Visible Layout Col", () => {
 
   describe("Simple Visible Col - Lateral Label - Only Base Elements", () => {
     let group = new VisibleLayoutCol(
+      null,
       Alignment.START,
       Alignment.START,
       settings,
       "COL",
       "T1",
       true,
-        null
+      null
     );
     let children = [];
 

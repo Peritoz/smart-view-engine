@@ -14,6 +14,7 @@ export class VisibleLayoutRow extends LayoutRow {
   protected lateralLabel: boolean;
 
   constructor(
+    externalId: string | null,
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
     settings: Settings,
@@ -24,10 +25,13 @@ export class VisibleLayoutRow extends LayoutRow {
     initialDimension?: Dimension
   ) {
     if (!(settings instanceof Settings)) {
-      throw new Error("A Visible Row should be created based on a valid instance of Settings");
+      throw new Error(
+        "A Visible Row should be created based on a valid instance of Settings"
+      );
     }
 
     super(
+      externalId,
       horizontalAlignment,
       verticalAlignment,
       settings,

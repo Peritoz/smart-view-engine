@@ -14,6 +14,7 @@ export class VisibleLayoutCol extends LayoutCol {
   protected lateralLabel: boolean;
 
   constructor(
+    externalId: string | null,
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
     settings: Settings,
@@ -24,10 +25,13 @@ export class VisibleLayoutCol extends LayoutCol {
     initialDimension?: Dimension
   ) {
     if (!(settings instanceof Settings)) {
-      throw new Error("A Visible Col should be created based on a valid instance of Settings");
+      throw new Error(
+        "A Visible Col should be created based on a valid instance of Settings"
+      );
     }
 
     super(
+      externalId,
       horizontalAlignment,
       verticalAlignment,
       settings,

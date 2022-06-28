@@ -22,9 +22,27 @@ describe("Mixed Rendering", () => {
   const elementBuilder = new ElementBuilder(DEFAULT.SIZE_UNIT);
 
   it("Horizontal - Row Resizing - After Insert Cols", async () => {
-    let row1 = new LayoutRow(Alignment.START, Alignment.START, settings, null);
-    let col1 = new LayoutCol(Alignment.START, Alignment.START, settings, null);
-    let col2 = new LayoutCol(Alignment.START, Alignment.START, settings, null);
+    let row1 = new LayoutRow(
+      null,
+      Alignment.START,
+      Alignment.START,
+      settings,
+      null
+    );
+    let col1 = new LayoutCol(
+      null,
+      Alignment.START,
+      Alignment.START,
+      settings,
+      null
+    );
+    let col2 = new LayoutCol(
+      null,
+      Alignment.START,
+      Alignment.START,
+      settings,
+      null
+    );
 
     row1.addContainer(col1);
     row1.addContainer(col2);
@@ -87,9 +105,27 @@ describe("Mixed Rendering", () => {
   });
 
   it("Horizontal - Row Resizing - Imposed Size", async () => {
-    let row1 = new LayoutRow(Alignment.START, Alignment.START, settings, null);
-    let col1 = new LayoutCol(Alignment.START, Alignment.START, settings, null);
-    let col2 = new LayoutCol(Alignment.START, Alignment.START, settings, null);
+    let row1 = new LayoutRow(
+      null,
+      Alignment.START,
+      Alignment.START,
+      settings,
+      null
+    );
+    let col1 = new LayoutCol(
+      null,
+      Alignment.START,
+      Alignment.START,
+      settings,
+      null
+    );
+    let col2 = new LayoutCol(
+      null,
+      Alignment.START,
+      Alignment.START,
+      settings,
+      null
+    );
 
     col1.addContainer(
       elementBuilder.buildElement({

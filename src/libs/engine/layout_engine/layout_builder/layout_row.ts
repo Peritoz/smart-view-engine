@@ -6,6 +6,7 @@ import { Dimension } from "@libs/model/dimension";
 
 export class LayoutRow extends LayoutGroup {
   constructor(
+    externalId: string | null,
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
     settings: Settings,
@@ -13,6 +14,7 @@ export class LayoutRow extends LayoutGroup {
     initialDimension?: Dimension
   ) {
     super(
+      externalId,
       horizontalAlignment,
       verticalAlignment,
       Direction.HORIZONTAL,

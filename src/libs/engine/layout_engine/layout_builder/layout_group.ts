@@ -12,14 +12,16 @@ const uniqId = require("uniqid");
 
 export class LayoutGroup extends Block {
   protected id: string;
+  protected externalId: string | null;
   protected parent: LayoutGroup | null;
   protected horizontalAlignment: Alignment;
   protected verticalAlignment: Alignment;
   protected contentBox: ContentBox;
   protected subTreeCounting: number;
   protected offset: Offset;
-
+  // TODO: Ajustar código para usar LayoutGroup passando externalId
   constructor(
+    externalId: string | null,
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
     distribution: Direction,
@@ -37,6 +39,7 @@ export class LayoutGroup extends Block {
     });
 
     this.id = uniqId();
+    this.externalId = externalId;
     this.parent = parent;
     this.horizontalAlignment = horizontalAlignment;
     this.verticalAlignment = verticalAlignment;
@@ -106,6 +109,10 @@ export class LayoutGroup extends Block {
 
   getId() {
     return this.id;
+  }
+
+  getExternalId(): string | null {
+    return this.externalId;
   }
 
   getSubTreeCounting() {

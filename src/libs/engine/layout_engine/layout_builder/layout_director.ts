@@ -67,12 +67,28 @@ export class LayoutDirector {
     return view;
   }
 
-  newRow(horizontalAlignment: Alignment, verticalAlignment: Alignment) {
-    return this.layoutSet.newRow(horizontalAlignment, verticalAlignment);
+  newRow(
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment,
+    externalId: string | null = null
+  ) {
+    return this.layoutSet.newRow(
+      horizontalAlignment,
+      verticalAlignment,
+      externalId
+    );
   }
 
-  newCol(horizontalAlignment: Alignment, verticalAlignment: Alignment) {
-    return this.layoutSet.newCol(horizontalAlignment, verticalAlignment);
+  newCol(
+    horizontalAlignment: Alignment,
+    verticalAlignment: Alignment,
+    externalId: string | null = null
+  ) {
+    return this.layoutSet.newCol(
+      horizontalAlignment,
+      verticalAlignment,
+      externalId
+    );
   }
 
   newVisibleRow(
@@ -80,14 +96,16 @@ export class LayoutDirector {
     type: string,
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
-    lateralLabel: boolean
+    lateralLabel: boolean,
+    externalId: string | null = null
   ) {
     return this.layoutSet.newVisibleRow(
       name,
       type,
       horizontalAlignment,
       verticalAlignment,
-      lateralLabel
+      lateralLabel,
+      externalId
     );
   }
 
@@ -96,14 +114,16 @@ export class LayoutDirector {
     type: string,
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
-    lateralLabel: boolean
+    lateralLabel: boolean,
+    externalId: string | null = null
   ) {
     return this.layoutSet.newVisibleCol(
       name,
       type,
       horizontalAlignment,
       verticalAlignment,
-      lateralLabel
+      lateralLabel,
+      externalId
     );
   }
 
