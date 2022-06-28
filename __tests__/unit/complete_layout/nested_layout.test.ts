@@ -68,13 +68,13 @@ describe("Nested Layout Rendering", () => {
     expect(b).toBeDefined();
     expect(b?.parentId).toBeNull();
     expect(a1).toBeDefined();
-    expect(a1?.parentId).toBe(a.modelNodeId);
+    expect(a1?.parentId).toBe(a.viewNodeId);
     expect(a2).toBeDefined();
-    expect(a2?.parentId).toBe(a.modelNodeId);
+    expect(a2?.parentId).toBe(a.viewNodeId);
     expect(b1).toBeDefined();
-    expect(b1?.parentId).toBe(b.modelNodeId);
+    expect(b1?.parentId).toBe(b.viewNodeId);
     expect(b2).toBeDefined();
-    expect(b2?.parentId).toBe(b.modelNodeId);
+    expect(b2?.parentId).toBe(b.viewNodeId);
 
     done();
   });

@@ -27,10 +27,7 @@ export class LayoutDirector {
       container instanceof VisibleLayoutRow ||
       container instanceof VisibleLayoutCol;
     const isBaseElement = container instanceof BaseElement;
-    const externalId =
-      isBaseElement && container.getExternalId()
-        ? container.getExternalId()
-        : null;
+    const externalId = container.getExternalId();
 
     if (isNestedElement || isBaseElement) {
       view.addViewNode(

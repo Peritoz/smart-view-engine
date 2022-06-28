@@ -24,7 +24,8 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
             child.type,
             Alignment.START,
             Alignment.EXPANDED,
-            false
+            false,
+            child.modelNodeId
           );
 
           this.renderElements(child.children, layoutDirector);
