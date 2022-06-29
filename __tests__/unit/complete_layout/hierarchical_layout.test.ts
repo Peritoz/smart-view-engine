@@ -51,7 +51,7 @@ describe("Hierarchical Layout Rendering", () => {
   it("Basic", (done) => {
     let smartView = new SmartViewEngine(layoutSettings);
 
-    const view = smartView.generateView(basicPaths, "T1");
+    const view = smartView.generateViewFromPaths(basicPaths, "T1");
 
     const A = view.viewNodes.find((n: HydratedViewNode) => n.name === "A");
     const B = view.viewNodes.find((n: HydratedViewNode) => n.name === "B");
@@ -117,7 +117,7 @@ describe("Hierarchical Layout Rendering", () => {
   it("Complex", (done) => {
     let smartView = new SmartViewEngine(layoutSettings);
 
-    const view = smartView.generateView(complexPaths, "T1");
+    const view = smartView.generateViewFromPaths(complexPaths, "T1");
 
     const Analyst = view.viewNodes.filter(
       (n: HydratedViewNode) => n.name === "Analyst"
@@ -236,7 +236,7 @@ describe("Hierarchical Layout Rendering", () => {
       })
     );
 
-    const view = smartView.generateView(complexPaths, "T1");
+    const view = smartView.generateViewFromPaths(complexPaths, "T1");
 
     const Analyst = view.viewNodes.filter(
       (n: HydratedViewNode) => n.name === "Analyst"

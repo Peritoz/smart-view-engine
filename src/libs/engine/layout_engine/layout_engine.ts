@@ -13,7 +13,12 @@ export class LayoutEngine {
     this.semanticEngine = semanticEngine;
   }
 
-  private generateView = (
+  /**
+   * Applies the chosen layout to a given View recursively
+   * @param view Input view to be processed
+   * @param children Current level elements
+   */
+  private applyLayoutToView = (
     view: HydratedView,
     children: Array<HydratedViewNode>
   ) => {
@@ -52,7 +57,7 @@ export class LayoutEngine {
             view.nestViewNode(parentViewNode, copyChildViewNode);
           }
 
-          this.generateView(view, upperElements);
+          this.applyLayoutToView(view, upperElements);
         }
       }
     }
@@ -89,7 +94,7 @@ export class LayoutEngine {
       }
 
       // Recursive processing for create View
-      this.generateView(view, children);
+      this.applyLayoutToView(view, children);
 
       return view;
     } catch (e) {

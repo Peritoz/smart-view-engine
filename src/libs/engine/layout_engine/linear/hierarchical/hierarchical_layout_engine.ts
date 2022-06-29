@@ -48,7 +48,13 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
     return roots;
   };
 
-  private calculateNestedCount(nestedTree: Array<HydratedViewNode>) {
+  /**
+   * Calculates how many elements are in a subtree
+   * @param nestedTree Subtree
+   * @return Number of elements in a subtree
+   * @private
+   */
+  private calculateNestedCount(nestedTree: Array<HydratedViewNode>): number { // TODO: Optimize algorithm
     let upperNestedCount = 0;
 
     for (let i = 0; i < nestedTree.length; i++) {

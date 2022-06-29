@@ -19,7 +19,12 @@ export class SmartViewEngine {
     this.settings = settings;
   }
 
-  generateView(paths: Array<Array<PathElement>>, title: string): View | null {
+  /**
+   * Generates a View from relationship paths, with the specified layout
+   * @param paths Array of paths
+   * @param title View title
+   */
+  generateViewFromPaths(paths: Array<Array<PathElement>>, title: string): View | null {
     try {
       let layoutEngine;
       let semanticEngine = new SemanticEngine(paths);
