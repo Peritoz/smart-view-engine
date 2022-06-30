@@ -12,19 +12,24 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
 
   /**
    * Layouts a given view adjusting its nodes' dimensions and position
-   * @param nestedTree Tree containing View Node data and some extra metadata for better processing
+   * @param nestedTrees Array of trees containing View Node data and some extra metadata for better processing
    * @param layoutDirector Orchestrator for layout building
    * @param childrenLimitPerGroup The maximum number of children per group. When exceeded another group will be created after
    * @protected
    */
   protected renderElements(
-    nestedTree: Array<HydratedViewNode>,
+    nestedTrees: Array<HydratedViewNode>,
     layoutDirector: LayoutDirector,
     childrenLimitPerGroup: number = -1
   ): void {
-    if (nestedTree && nestedTree.length > 0) {
-      for (let i = 0; i < nestedTree.length; i++) {
-        const child = nestedTree[i];
+    const thereIsChildrenLimit: boolean =
+        !isNaN(childrenLimitPerGroup) &&
+        childrenLimitPerGroup !== -1 &&
+        childrenLimitPerGroup > 0;
+
+    if (nestedTrees && nestedTrees.length > 0) {
+      for (let i = 0; i < nestedTrees.length; i++) {
+        const child = nestedTrees[i];
 
         if (child.children && child.children.length > 0) {
           layoutDirector.newVisibleRow(
@@ -48,6 +53,12 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
             false,
             child.modelNodeId
           );
+        }
+
+        if (thereIsChildrenLimit && (i + 1) % childrenLimitPerGroup === 0) {
+          layoutDirector.navigateToParent(2);
+
+          layoutDirector.newRow(Alignment.START, Alignment.EXPANDED);
         }
       }
 

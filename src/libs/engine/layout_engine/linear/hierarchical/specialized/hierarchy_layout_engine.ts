@@ -12,13 +12,13 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
 
   /**
    * Layouts a given view adjusting its nodes' dimensions and position
-   * @param nestedTree Tree containing View Node data and some extra metadata for better processing
+   * @param nestedTrees Array of trees containing View Node data and some extra metadata for better processing
    * @param layoutDirector Orchestrator for layout building
    * @param childrenLimitPerGroup The maximum number of children per group. When exceeded another group will be created after
    * @protected
    */
   protected renderElements(
-    nestedTree: Array<HydratedViewNode>,
+    nestedTrees: Array<HydratedViewNode>,
     layoutDirector: LayoutDirector,
     childrenLimitPerGroup: number = -1
   ): void {
@@ -27,9 +27,9 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
       childrenLimitPerGroup !== -1 &&
       childrenLimitPerGroup > 0;
 
-    if (nestedTree && nestedTree.length > 0) {
-      for (let i = 0; i < nestedTree.length; i++) {
-        const child = nestedTree[i];
+    if (nestedTrees && nestedTrees.length > 0) {
+      for (let i = 0; i < nestedTrees.length; i++) {
+        const child = nestedTrees[i];
 
         layoutDirector.newCol(Alignment.EXPANDED, Alignment.START);
         layoutDirector.addMediumElementToCurrent(

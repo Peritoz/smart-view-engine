@@ -81,13 +81,13 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
 
   /**
    * Layouts a given view adjusting its nodes' dimensions and position
-   * @param nestedTree Tree containing View Node data and some extra metadata for better processing
+   * @param nestedTrees Array of trees containing View Node data and some extra metadata for better processing
    * @param layoutDirector Orchestrator for layout building
    * @param childrenLimitPerGroup The maximum number of children per group. When exceeded another group will be created after
    * @protected
    */
   protected renderElements(
-    nestedTree: Array<HydratedViewNode>,
+    nestedTrees: Array<HydratedViewNode>,
     layoutDirector: LayoutDirector,
     childrenLimitPerGroup: number = -1
   ): void {
@@ -104,7 +104,7 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
    */
   processLayout(inputView: HydratedView): HydratedView {
     // Generating a tree of nested elements
-    let nestedTree = this.groupParentNodes(inputView.getViewNodes());
+    let nestedTrees = this.groupParentNodes(inputView.getViewNodes());
 
     // Initializing layout
     const director = new LayoutDirector(this.settings);
@@ -112,7 +112,7 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
     director.newCol(Alignment.EXPANDED, Alignment.START);
     director.newRow(Alignment.START, Alignment.EXPANDED);
 
-    this.renderElements(nestedTree, director, this.settings.maxHorizontalCount);
+    this.renderElements(nestedTrees, director, this.settings.maxHorizontalCount);
 
     director.toAbsolutePosition();
 
