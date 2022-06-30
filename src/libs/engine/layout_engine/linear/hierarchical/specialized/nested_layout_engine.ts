@@ -10,8 +10,47 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
     super(settings, semanticEngine);
   }
 
+  private renderNestedChildrenElements(
+    nestedTrees: Array<HydratedViewNode>,
+    layoutDirector: LayoutDirector,
+    childrenLimitPerGroup: number = -1
+  ): void {
+    if (nestedTrees && nestedTrees.length > 0) {
+      for (let i = 0; i < nestedTrees.length; i++) {
+        const currentElement = nestedTrees[i];
+
+        // Rendering element. If contains children, then render as a Visible Row, else render as Base Element
+        if (currentElement.children && currentElement.children.length > 0) {
+          layoutDirector.newVisibleRow(
+            currentElement.name,
+            currentElement.type,
+            Alignment.START,
+            Alignment.EXPANDED,
+            false,
+            currentElement.modelNodeId
+          );
+
+          this.renderNestedChildrenElements(
+            currentElement.children,
+            layoutDirector,
+            this.settings.maxChildHorizontalCount
+          );
+        } else {
+          layoutDirector.addMediumElementToCurrent(
+            currentElement.name,
+            currentElement.type,
+            false,
+            currentElement.modelNodeId
+          );
+        }
+      }
+
+      layoutDirector.navigateToParent(1);
+    }
+  }
+
   /**
-   * Layouts a given view adjusting its nodes' dimensions and position
+   * Layouts a given view adjusting its nodes' dimensions and position. Processes the top level elements only
    * @param nestedTrees Array of trees containing View Node data and some extra metadata for better processing
    * @param layoutDirector Orchestrator for layout building
    * @param childrenLimitPerGroup The maximum number of children per group. When exceeded another group will be created after
@@ -23,46 +62,26 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
     childrenLimitPerGroup: number = -1
   ): void {
     const thereIsChildrenLimit: boolean =
-        !isNaN(childrenLimitPerGroup) &&
-        childrenLimitPerGroup !== -1 &&
-        childrenLimitPerGroup > 0;
+      !isNaN(childrenLimitPerGroup) &&
+      childrenLimitPerGroup !== -1 &&
+      childrenLimitPerGroup > 0;
 
     if (nestedTrees && nestedTrees.length > 0) {
       for (let i = 0; i < nestedTrees.length; i++) {
         const child = nestedTrees[i];
 
-        if (child.children && child.children.length > 0) {
-          layoutDirector.newVisibleRow(
-            child.name,
-            child.type,
-            Alignment.START,
-            Alignment.EXPANDED,
-            false,
-            child.modelNodeId
-          );
-
-          this.renderElements(
-            child.children,
+        // Rendering element
+        this.renderNestedChildrenElements(
+            [child],
             layoutDirector,
             this.settings.maxChildHorizontalCount
-          );
-        } else {
-          layoutDirector.addMediumElementToCurrent(
-            child.name,
-            child.type,
-            false,
-            child.modelNodeId
-          );
-        }
+        );
 
+        // Breaking line
         if (thereIsChildrenLimit && (i + 1) % childrenLimitPerGroup === 0) {
-          layoutDirector.navigateToParent(2);
-
           layoutDirector.newRow(Alignment.START, Alignment.EXPANDED);
         }
       }
-
-      layoutDirector.navigateToParent(1);
     }
   }
 }

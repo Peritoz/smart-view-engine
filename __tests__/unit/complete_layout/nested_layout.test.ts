@@ -306,7 +306,7 @@ describe("Nested Layout Rendering", () => {
     expect(Analyst[0].y).toBe(0);
 
     expect(Guest[0].modelNodeId).toBe("89e202e0");
-    expect(Guest[0].width).toBe(72);
+    expect(Guest[0].width).toBe(36);
     expect(Guest[0].height).toBe(15);
     expect(Guest[0].x).toBe(0);
     expect(Guest[0].y).toBe(17);

@@ -49,6 +49,7 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
 
         layoutDirector.navigateToParent(1);
 
+        // Breaking line
         if (thereIsChildrenLimit && (i + 1) % childrenLimitPerGroup === 0) {
           layoutDirector.navigateToParent(1);
 
