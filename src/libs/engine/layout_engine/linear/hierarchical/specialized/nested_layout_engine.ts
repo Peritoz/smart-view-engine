@@ -35,6 +35,8 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
             layoutDirector,
             this.settings.maxChildHorizontalCount
           );
+
+          layoutDirector.navigateToParent();
         } else {
           layoutDirector.addMediumElementToCurrent(
             currentElement.name,
@@ -44,8 +46,6 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
           );
         }
       }
-
-      layoutDirector.navigateToParent(1);
     }
   }
 
@@ -79,6 +79,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
 
         // Breaking line
         if (thereIsChildrenLimit && (i + 1) % childrenLimitPerGroup === 0) {
+          layoutDirector.navigateToParent();
           layoutDirector.newRow(Alignment.START, Alignment.EXPANDED);
         }
       }

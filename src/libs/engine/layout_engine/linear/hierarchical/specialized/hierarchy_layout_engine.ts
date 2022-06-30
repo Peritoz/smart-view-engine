@@ -44,14 +44,14 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
 
           this.renderElements(child.children, layoutDirector);
 
-          layoutDirector.navigateToParent(1);
+          layoutDirector.navigateToParent();
         }
 
-        layoutDirector.navigateToParent(1);
+        layoutDirector.navigateToParent();
 
         // Breaking line
         if (thereIsChildrenLimit && (i + 1) % childrenLimitPerGroup === 0) {
-          layoutDirector.navigateToParent(1);
+          layoutDirector.navigateToParent();
 
           layoutDirector.newRow(Alignment.START, Alignment.EXPANDED);
         }
