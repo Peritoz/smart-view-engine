@@ -275,7 +275,7 @@ describe("Hierarchical Layout Rendering", () => {
     expect(Analyst[0].y).toBe(0);
 
     expect(Guest[0].modelNodeId).toBe("89e202e0");
-    expect(Guest[0].width).toBe(66);
+    expect(Guest[0].width).toBe(32);
     expect(Guest[0].height).toBe(5);
     expect(Guest[0].x).toBe(0);
     expect(Guest[0].y).toBe(21);

@@ -10,9 +10,17 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
     super(settings, semanticEngine);
   }
 
+  /**
+   * Layouts a given view adjusting its nodes' dimensions and position
+   * @param nestedTree Tree containing View Node data and some extra metadata for better processing
+   * @param layoutDirector Orchestrator for layout building
+   * @param childrenLimitPerGroup The maximum number of children per group. When exceeded another group will be created after
+   * @protected
+   */
   protected renderElements(
     nestedTree: Array<HydratedViewNode>,
-    layoutDirector: LayoutDirector
+    layoutDirector: LayoutDirector,
+    childrenLimitPerGroup: number = -1
   ): void {
     if (nestedTree && nestedTree.length > 0) {
       for (let i = 0; i < nestedTree.length; i++) {
@@ -28,7 +36,11 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
             child.modelNodeId
           );
 
-          this.renderElements(child.children, layoutDirector);
+          this.renderElements(
+            child.children,
+            layoutDirector,
+            this.settings.maxChildHorizontalCount
+          );
         } else {
           layoutDirector.addMediumElementToCurrent(
             child.name,

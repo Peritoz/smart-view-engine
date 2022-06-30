@@ -54,7 +54,8 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
    * @return Number of elements in a subtree
    * @private
    */
-  private calculateNestedCount(nestedTree: Array<HydratedViewNode>): number { // TODO: Optimize algorithm
+  private calculateNestedCount(nestedTree: Array<HydratedViewNode>): number {
+    // TODO: Optimize algorithm
     let upperNestedCount = 0;
 
     for (let i = 0; i < nestedTree.length; i++) {
@@ -82,11 +83,13 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
    * Layouts a given view adjusting its nodes' dimensions and position
    * @param nestedTree Tree containing View Node data and some extra metadata for better processing
    * @param layoutDirector Orchestrator for layout building
+   * @param childrenLimitPerGroup The maximum number of children per group. When exceeded another group will be created after
    * @protected
    */
   protected renderElements(
     nestedTree: Array<HydratedViewNode>,
-    layoutDirector: LayoutDirector
+    layoutDirector: LayoutDirector,
+    childrenLimitPerGroup: number = -1
   ): void {
     throw new Error(
       "Base class can't render Hierarchy properly. Use specialized class instead."
@@ -109,7 +112,7 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
     director.newCol(Alignment.EXPANDED, Alignment.START);
     director.newRow(Alignment.START, Alignment.EXPANDED);
 
-    this.renderElements(nestedTree, director);
+    this.renderElements(nestedTree, director, this.settings.maxHorizontalCount);
 
     director.toAbsolutePosition();
 
