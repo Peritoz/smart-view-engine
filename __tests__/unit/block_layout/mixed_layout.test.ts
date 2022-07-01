@@ -342,6 +342,8 @@ describe("Mixed Rendering", () => {
     );
     const C = director.newMediumElementToCurrent("C", "T", false);
 
+    director.toAbsolutePosition();
+
     expect(col1.getContentBox().getChildren().length).toBe(1);
     expect(row1.getContentBox().getChildren().length).toBe(1);
     expect(col2.getContentBox().getChildren().length).toBe(1);
