@@ -347,25 +347,25 @@ describe("Hierarchical Layout Rendering", () => {
     const rowB1 = director.newRow(Alignment.START, Alignment.EXPANDED);
     const colB2 = director.newCol(Alignment.EXPANDED, Alignment.START);
     const rowB2 = director.newRow(Alignment.START, Alignment.EXPANDED);
-    director.addMediumElementToCurrent("B1-1", "T", false);
+    director.newMediumElementToCurrent("B1-1", "T", false);
     director.navigateToParent();
-    director.addMediumElementToCurrent("B1", "T", false);
+    director.newMediumElementToCurrent("B1", "T", false);
     director.navigateToParent();
     const colB3 = director.newCol(Alignment.EXPANDED, Alignment.START);
     const rowB3 = director.newRow(Alignment.START, Alignment.EXPANDED);
-    director.addMediumElementToCurrent("B2-1", "T", false);
+    director.newMediumElementToCurrent("B2-1", "T", false);
     director.navigateToParent();
-    director.addMediumElementToCurrent("B2", "T", false);
+    director.newMediumElementToCurrent("B2", "T", false);
     director.navigateToParent(2);
-    director.addMediumElementToCurrent("B", "T", false);
+    director.newMediumElementToCurrent("B", "T", false);
     director.navigateToParent();
     const colC1 = director.newCol(Alignment.EXPANDED, Alignment.START);
     const rowC1 = director.newRow(Alignment.START, Alignment.EXPANDED);
-    director.addMediumElementToCurrent("C1", "T", false);
+    director.newMediumElementToCurrent("C1", "T", false);
     director.navigateToParent();
-    director.addMediumElementToCurrent("C", "T", false);
+    director.newMediumElementToCurrent("C", "T", false);
     director.navigateToParent(2);
-    director.addMediumElementToCurrent("A", "T", false);
+    director.newMediumElementToCurrent("A", "T", false);
 
     director.toAbsolutePosition();
 

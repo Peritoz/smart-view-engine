@@ -23,13 +23,13 @@ describe("Layout Group", () => {
     const director = new LayoutDirector(settings);
     const row = director.newRow(Alignment.START, Alignment.START);
 
-    director.addTinyElementToCurrent("el1", "t1");
-    director.addSmallElementToCurrent("el2", "t1");
-    director.addMediumElementToCurrent("el3", "t1");
-    director.addBigElementToCurrent("el4", "t1");
-    director.addSmallElementToCurrent("el5", "t1", true);
-    director.addMediumElementToCurrent("el6", "t1", true);
-    director.addBigElementToCurrent("el7", "t1", true);
+    director.newTinyElementToCurrent("el1", "t1");
+    director.newSmallElementToCurrent("el2", "t1");
+    director.newMediumElementToCurrent("el3", "t1");
+    director.newBigElementToCurrent("el4", "t1");
+    director.newSmallElementToCurrent("el5", "t1", true);
+    director.newMediumElementToCurrent("el6", "t1", true);
+    director.newBigElementToCurrent("el7", "t1", true);
 
     const children = row.getChildren();
 

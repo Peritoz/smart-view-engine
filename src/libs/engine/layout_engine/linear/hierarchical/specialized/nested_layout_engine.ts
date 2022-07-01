@@ -49,7 +49,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
           //layoutDirector.navigateToParent(3);
           layoutDirector.navigateToParent();
         } else {
-          layoutDirector.addMediumElementToCurrent(
+          layoutDirector.newMediumElementToCurrent(
             currentElement.name,
             currentElement.type,
             false,

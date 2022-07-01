@@ -209,10 +209,10 @@ describe("Mixed Rendering", () => {
 
     const row1 = director.newRow(Alignment.START, Alignment.START);
     const col1 = director.newCol(Alignment.START, Alignment.START);
-    director.addMediumElementToCurrent("A", "T", false);
+    director.newMediumElementToCurrent("A", "T", false);
     director.navigateToParent();
     const col2 = director.newCol(Alignment.START, Alignment.START);
-    director.addMediumElementToCurrent("A", "T", false);
+    director.newMediumElementToCurrent("A", "T", false);
 
     const row1Children = row1.getChildren();
     const col1Children = col1.getChildren();
@@ -259,10 +259,10 @@ describe("Mixed Rendering", () => {
     const col1 = director.newCol(Alignment.START, Alignment.START);
     const row2 = director.newRow(Alignment.START, Alignment.START);
     const col2 = director.newCol(Alignment.START, Alignment.START);
-    director.addMediumElementToCurrent("B", "T", false);
+    director.newMediumElementToCurrent("B", "T", false);
     director.navigateToParent();
     director.navigateToParent();
-    director.addMediumElementToCurrent("A", "T", false);
+    director.newMediumElementToCurrent("A", "T", false);
 
     const row1Children = row1.getChildren();
     const col1Children = col1.getChildren();
@@ -303,6 +303,64 @@ describe("Mixed Rendering", () => {
     expect(row1.getHeight()).toBe(15);
     expect(row1.getX()).toBe(0);
     expect(row1.getY()).toBe(0);
+  });
+
+  it("Nested Chain with Many Layers", async () => {
+    const layoutSettings = new Settings({
+      maxHorizontalCount: 4,
+      maxChildHorizontalCount: 2,
+      spaceBetween: 2,
+      sizeUnit: 5,
+      leftPadding: 1,
+      rightPadding: 1,
+      topPadding: 1,
+      bottomPadding: 1,
+      spaceToOuterLabel: 1,
+      labelWidth: 4,
+      labelHeight: 2,
+    });
+
+    const director = new LayoutDirector(layoutSettings);
+
+    const col1 = director.newCol(Alignment.EXPANDED, Alignment.START);
+    const row1 = director.newRow(Alignment.START, Alignment.EXPANDED);
+    const A = director.newVisibleRow(
+      "A",
+      "T",
+      Alignment.START,
+      Alignment.EXPANDED,
+      false
+    );
+    const col2 = director.newCol(Alignment.EXPANDED, Alignment.START);
+    const row2 = director.newRow(Alignment.START, Alignment.EXPANDED);
+    const B = director.newVisibleRow(
+        "B",
+        "T",
+        Alignment.START,
+        Alignment.EXPANDED,
+        false
+    );
+    const C = director.newMediumElementToCurrent("C", "T", false);
+
+    expect(col1.getContentBox().getChildren().length).toBe(1);
+    expect(row1.getContentBox().getChildren().length).toBe(1);
+    expect(col2.getContentBox().getChildren().length).toBe(1);
+    expect(row2.getContentBox().getChildren().length).toBe(1);
+
+    expect(A.getWidth()).toBe(19);
+    expect(A.getHeight()).toBe(15);
+    expect(A.getX()).toBe(0);
+    expect(A.getY()).toBe(0);
+
+    expect(B.getWidth()).toBe(17);
+    expect(B.getHeight()).toBe(10);
+    expect(B.getX()).toBe(1);
+    expect(B.getY()).toBe(4);
+
+    expect(C.getWidth()).toBe(15);
+    expect(C.getHeight()).toBe(5);
+    expect(C.getX()).toBe(2);
+    expect(C.getY()).toBe(8);
   });
 
   it("Horizontal - Insertion Resize (Global Distribution)", async () => {

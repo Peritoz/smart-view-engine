@@ -95,7 +95,7 @@ export class LayoutDirector {
     verticalAlignment: Alignment,
     lateralLabel: boolean,
     externalId: string | null = null
-  ) {
+  ): LayoutGroup {
     return this.layoutSet.newVisibleRow(
       name,
       type,
@@ -113,7 +113,7 @@ export class LayoutDirector {
     verticalAlignment: Alignment,
     lateralLabel: boolean,
     externalId: string | null = null
-  ) {
+  ): LayoutGroup {
     return this.layoutSet.newVisibleCol(
       name,
       type,
@@ -128,18 +128,22 @@ export class LayoutDirector {
     this.layoutSet.addToCurrentGroup(container);
   }
 
-  addTinyElementToCurrent(name: string, type: string, externalId?: string) {
+  newTinyElementToCurrent(
+    name: string,
+    type: string,
+    externalId?: string
+  ): BaseElement {
     const element = this.builder.buildTinyElement(name, type, externalId);
     this.addToCurrentGroup(element);
     return element;
   }
 
-  addSmallElementToCurrent(
+  newSmallElementToCurrent(
     name: string,
     type: string,
     verticalOrientation: boolean = false,
     externalId?: string
-  ) {
+  ): BaseElement {
     const element = this.builder.buildSmallElement(
       name,
       type,
@@ -150,12 +154,12 @@ export class LayoutDirector {
     return element;
   }
 
-  addMediumElementToCurrent(
+  newMediumElementToCurrent(
     name: string,
     type: string,
     verticalOrientation: boolean = false,
     externalId?: string
-  ) {
+  ): BaseElement {
     const element = this.builder.buildMediumElement(
       name,
       type,
@@ -166,12 +170,12 @@ export class LayoutDirector {
     return element;
   }
 
-  addBigElementToCurrent(
+  newBigElementToCurrent(
     name: string,
     type: string,
     verticalOrientation: boolean = false,
     externalId?: string
-  ) {
+  ): BaseElement {
     const element = this.builder.buildBigElement(
       name,
       type,

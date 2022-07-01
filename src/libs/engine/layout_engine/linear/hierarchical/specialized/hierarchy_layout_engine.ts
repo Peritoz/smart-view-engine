@@ -32,7 +32,7 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
         const child = nestedTrees[i];
 
         layoutDirector.newCol(Alignment.EXPANDED, Alignment.START);
-        layoutDirector.addMediumElementToCurrent(
+        layoutDirector.newMediumElementToCurrent(
           child.name,
           child.type,
           false,
