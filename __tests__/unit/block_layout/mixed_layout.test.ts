@@ -334,12 +334,14 @@ describe("Mixed Rendering", () => {
     const col2 = director.newCol(Alignment.EXPANDED, Alignment.START);
     const row2 = director.newRow(Alignment.START, Alignment.EXPANDED);
     const B = director.newVisibleRow(
-        "B",
-        "T",
-        Alignment.START,
-        Alignment.EXPANDED,
-        false
+      "B",
+      "T",
+      Alignment.START,
+      Alignment.EXPANDED,
+      false
     );
+    const col3 = director.newCol(Alignment.EXPANDED, Alignment.START);
+    const row3 = director.newRow(Alignment.START, Alignment.EXPANDED);
     const C = director.newMediumElementToCurrent("C", "T", false);
 
     director.toAbsolutePosition();
@@ -348,6 +350,8 @@ describe("Mixed Rendering", () => {
     expect(row1.getContentBox().getChildren().length).toBe(1);
     expect(col2.getContentBox().getChildren().length).toBe(1);
     expect(row2.getContentBox().getChildren().length).toBe(1);
+    expect(col3.getContentBox().getChildren().length).toBe(1);
+    expect(row3.getContentBox().getChildren().length).toBe(1);
 
     expect(A.getWidth()).toBe(19);
     expect(A.getHeight()).toBe(15);

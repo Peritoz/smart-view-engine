@@ -8,15 +8,18 @@ import { Dimension } from "@libs/model/dimension";
 
 type ContentElement = LayoutGroup | BaseElement;
 
+/**
+ * Content box manages the distribution and alignment of children inside a dimension box
+ */
 export class ContentBox {
-  protected dimension: ContentBoxDimension;
-  protected children: Array<ContentElement>;
-  protected horizontalAlignment: Alignment;
-  protected verticalAlignment: Alignment;
-  protected direction: Direction;
-  protected hasNestedGroup: boolean;
-  protected onChangeWidth: (oldValue: number, newValue: number) => void;
-  protected onChangeHeight: (oldValue: number, newValue: number) => void;
+  protected dimension: ContentBoxDimension; // Virtual box responsible to manage Content Box dimension
+  protected children: Array<ContentElement>; // Children elements
+  protected horizontalAlignment: Alignment; // Horizontal axis alignment option
+  protected verticalAlignment: Alignment; // Vertical axis alignment option
+  protected direction: Direction; // Indicates the main axis direction: Horizontal or Vertical
+  protected hasNestedGroup: boolean; // Indicates if there is a group as child
+  protected onChangeWidth: (oldValue: number, newValue: number) => void; // Event subscription callback width changes
+  protected onChangeHeight: (oldValue: number, newValue: number) => void; // Event subscription callback height changes
 
   constructor(
     topBoundary: number = DEFAULT.DEFAULT_PADDING,
@@ -132,6 +135,7 @@ export class ContentBox {
     this.applyDistribution();
     this.applyAlignment();
 
+    // Subscribing to width and height changes
     container.subscribeOnChangeWidthHandler((oldValue, newValue) => {
       this.onChangeChildWidth(oldValue, newValue);
     });

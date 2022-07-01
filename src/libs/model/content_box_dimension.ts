@@ -7,17 +7,21 @@ interface Point {
   y: number;
 }
 
+/**
+ * Content Box Dimension manages the changes in the used width and height, as well as the limits (max width and height)
+ * of a virtual box
+ */
 export class ContentBoxDimension {
-  protected topLeft: Point;
-  protected bottomRight: Point;
-  protected usedWidth: number;
-  protected usedHeight: number;
-  protected direction: Direction;
-  protected spaceBetween: number;
-  protected maxChildWidth: number;
-  protected maxChildHeight: number;
-  protected hasFixedWidth: boolean;
-  protected hasFixedHeight: boolean;
+  protected topLeft: Point; // Top left point to define the start X and Y box's limits
+  protected bottomRight: Point; // Bottom right point to define the end X and Y box's limits
+  protected usedWidth: number; // Current horizontal size used (in points)
+  protected usedHeight: number; // Current vertical size used (in points)
+  protected direction: Direction; // Indicates the main axis direction: Horizontal or Vertical
+  protected spaceBetween: number; // Points between elements
+  protected maxChildWidth: number; // Width of the biggest element
+  protected maxChildHeight: number; // Height of the biggest element
+  protected hasFixedWidth: boolean; // Indicates if the width is fixed or flexible; Flexible width will be adjusted when adding elements
+  protected hasFixedHeight: boolean; // Indicates if the height is fixed or flexible; Flexible height will be adjusted when adding elements
 
   /**
    * Constructs an instance of ContentBoxDimension

@@ -19,7 +19,7 @@ export class LayoutGroup extends Block {
   protected contentBox: ContentBox;
   protected subTreeCounting: number;
   protected offset: Offset;
-  // TODO: Ajustar código para usar LayoutGroup passando externalId
+
   constructor(
     externalId: string | null,
     horizontalAlignment: Alignment,
