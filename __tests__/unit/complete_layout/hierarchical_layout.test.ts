@@ -26,7 +26,7 @@ describe("Hierarchical Layout Rendering", () => {
     labelHeight: 2,
   });
 
-  it("Inserting different elements in a Row", (done) => {
+  it("One Row", (done) => {
     const hierarchyLayoutProcessor = new HierarchyLayoutEngine(
       layoutSettings,
       new SemanticEngine([])
