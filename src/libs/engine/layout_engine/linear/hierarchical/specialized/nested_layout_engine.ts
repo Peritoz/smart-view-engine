@@ -15,16 +15,16 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
     layoutDirector: LayoutDirector,
     childrenLimitPerGroup: number = -1
   ): void {
-    // const thereIsChildrenLimit: boolean =
-    //   !isNaN(childrenLimitPerGroup) &&
-    //   childrenLimitPerGroup !== -1 &&
-    //   childrenLimitPerGroup > 0;
+    const thereIsChildrenLimit: boolean =
+      !isNaN(childrenLimitPerGroup) &&
+      childrenLimitPerGroup !== -1 &&
+      childrenLimitPerGroup > 0;
     const treesLength = nestedTrees.length;
 
     if (nestedTrees && treesLength > 0) {
       for (let i = 0; i < treesLength; i++) {
         const currentElement = nestedTrees[i];
-        // const isLastElement = i === treesLength - 1;
+        const isLastElement = i === treesLength - 1;
 
         // Rendering element. If contains children, then render as a Visible Row, else render as Base Element
         if (currentElement.children && currentElement.children.length > 0) {
@@ -37,8 +37,8 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
             currentElement.modelNodeId
           );
 
-          // layoutDirector.newCol(Alignment.EXPANDED, Alignment.START);
-          // layoutDirector.newRow(Alignment.START, Alignment.EXPANDED);
+          layoutDirector.newCol(Alignment.EXPANDED, Alignment.START);
+          layoutDirector.newRow(Alignment.START, Alignment.EXPANDED);
 
           this.renderNestedChildrenElements(
             currentElement.children,
@@ -46,8 +46,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
             this.settings.maxChildHorizontalCount
           );
 
-          //layoutDirector.navigateToParent(3);
-          layoutDirector.navigateToParent();
+          layoutDirector.navigateToParent(3);
         } else {
           layoutDirector.newMediumElementToCurrent(
             currentElement.name,
@@ -58,14 +57,14 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
         }
 
         // Breaking line
-        // if (
-        //   thereIsChildrenLimit &&
-        //   (i + 1) % childrenLimitPerGroup === 0 &&
-        //   !isLastElement
-        // ) {
-        //   layoutDirector.navigateToParent();
-        //   layoutDirector.newRow(Alignment.START, Alignment.EXPANDED);
-        // }
+        if (
+          thereIsChildrenLimit &&
+          (i + 1) % childrenLimitPerGroup === 0 &&
+          !isLastElement
+        ) {
+          layoutDirector.navigateToParent();
+          layoutDirector.newRow(Alignment.START, Alignment.EXPANDED);
+        }
       }
     }
   }

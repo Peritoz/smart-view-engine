@@ -128,7 +128,7 @@ describe("Nested Layout Rendering", () => {
     expect(B2.y).toBe(8);
 
     expect(C1.width).toBe(15);
-    expect(C1.height).toBe(10);
+    expect(C1.height).toBe(5);
     expect(C1.x).toBe(42);
     expect(C1.y).toBe(8);
 
@@ -444,7 +444,7 @@ describe("Nested Layout Rendering", () => {
 
     expect(ProvideData[0].modelNodeId).toBe("7c4941eb");
     expect(ProvideData[0].width).toBe(17);
-    expect(ProvideData[0].height).toBe(10);
+    expect(ProvideData[0].height).toBe(17);
     expect(ProvideData[0].x).toBe(37);
     expect(ProvideData[0].y).toBe(4);
 
