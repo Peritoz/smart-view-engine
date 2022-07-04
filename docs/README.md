@@ -1,5 +1,10 @@
 # Smart View Dev Docs
 
+## Motivation
+
+
+## Goal
+
 ## Assumptions
 
 - 3 Categories of elements
@@ -20,3 +25,39 @@
 - It must not be possible to arbitrarily specify width or height for children of a group with Extended alignment option. Note that these constraints only applies to the related axis. For example, you can't arbitrarily change the width of a child if the horizontal axis alignment option is *Extended*.
 - Groups with *Extended* must be initialized with the maximum size of the axis with *Extended* characteristic (this way, regardless of what happens internally in the group, the size will not change)
 - If during the insertion of an element the size of the parent changes, it must be adjusted the size of the parent of the parent, performing redistribution and realignment. If the size of the parent of the parent changes, the algorithm must be applied again recursively
+
+## Project Overview
+
+### Settings
+
+![Detailed settings overview](./img/detailed_settings_overview.jpg)
+
+#### Main Axis Alignment Options
+
+![Main Axis row alignment option](./img/main_align_row.jpg)
+
+![Main Axis col alignment option](./img/main_align_col.jpg)
+
+#### Cross Axis Alignment Options
+
+![Cross Axis row alignment option](./img/cross_align_row.jpg)
+
+![Cross Axis col alignment option](./img/cross_align_col.jpg)
+
+#### The Process of Adding a Container
+
+![Size adjustments visualized](./img/size_adjustment.jpg)
+
+## Main Elements
+
+### Layout Director
+
+
+### Layout Group
+
+![Layout Group Anatomy](./img/anatomy_layout_group.jpg)
+
+### Content Box
+
+
+### Base Element
