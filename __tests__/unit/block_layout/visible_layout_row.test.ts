@@ -1,7 +1,7 @@
 import { Settings } from "../../../src/libs/engine/layout_engine/settings";
 import { Alignment } from "../../../src/libs/common/alignment.enum";
 import { BaseElement } from "../../../src/libs/model/base_element";
-import { VisibleLayoutRow } from "../../../src/libs/engine/layout_engine/layout_builder/visible_layout_row";
+import { VisibleLayoutRow } from "../../../src/libs/engine/layout_engine/builder/groups/visible_layout_row";
 
 const settings = new Settings({
   layoutType: "nested",

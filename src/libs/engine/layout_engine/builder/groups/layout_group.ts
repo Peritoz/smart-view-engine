@@ -3,7 +3,7 @@ import { Settings } from "@libs/engine/layout_engine/settings";
 import { BaseElement } from "@libs/model/base_element";
 import { Direction } from "@libs/common/distribution.enum";
 import { Block } from "@libs/model/block";
-import { ContentBox } from "@libs/engine/layout_engine/layout_builder/content_box";
+import { ContentBox } from "@libs/engine/layout_engine/builder/groups/content_box/content_box";
 import { Offset } from "@libs/model/offset";
 import { Position } from "@libs/model/position";
 import { Dimension } from "@libs/model/dimension";

@@ -3,7 +3,7 @@ import { SmartViewEngine } from "../../../src";
 import { View } from "../../../src/libs/model/view";
 import { HydratedViewNode, ViewNode } from "../../../src/libs/model/view_node";
 import { Settings } from "../../../src/libs/engine/layout_engine/settings";
-import { LayoutDirector } from "../../../src/libs/engine/layout_engine/layout_builder/layout_director";
+import { LayoutDirector } from "../../../src/libs/engine/layout_engine/builder/layout_director";
 import { Alignment } from "../../../src/libs/common/alignment.enum";
 
 const basicPaths = require("../../data/paths/basic.json");

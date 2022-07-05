@@ -1,5 +1,5 @@
 import { LayoutEngine } from "../../layout_engine";
-import { LayoutDirector } from "@libs/engine/layout_engine/layout_builder/layout_director";
+import { LayoutDirector } from "@libs/engine/layout_engine/builder/layout_director";
 import { Alignment } from "@libs/common/alignment.enum";
 import { HydratedViewNode } from "@libs/model/view_node";
 import { Settings } from "@libs/engine/layout_engine/settings";

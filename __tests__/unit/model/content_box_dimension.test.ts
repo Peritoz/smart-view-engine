@@ -1,4 +1,4 @@
-import { ContentBoxDimension } from "../../../src/libs/model/content_box_dimension";
+import { ContentBoxDimension } from "../../../src/libs/engine/layout_engine/builder/groups/content_box/content_box_dimension";
 import { Direction } from "../../../src/libs/common/distribution.enum";
 
 describe("Content Box Dimension", () => {

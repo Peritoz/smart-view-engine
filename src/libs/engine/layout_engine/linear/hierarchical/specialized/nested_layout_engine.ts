@@ -2,7 +2,7 @@ import { HierarchicalLayoutEngine } from "../hierarchical_layout_engine";
 import { Settings } from "@libs/engine/layout_engine/settings";
 import { SemanticEngine } from "@libs/engine/semantic_engine/semantic_engine";
 import { HydratedViewNode } from "@libs/model/view_node";
-import { LayoutDirector } from "@libs/engine/layout_engine/layout_builder/layout_director";
+import { LayoutDirector } from "@libs/engine/layout_engine/builder/layout_director";
 import { Alignment } from "@libs/common/alignment.enum";
 
 export class NestedLayoutEngine extends HierarchicalLayoutEngine {

@@ -1,5 +1,5 @@
 import { Alignment } from "../../../src/libs/common/alignment.enum";
-import { ContentBox } from "../../../src/libs/engine/layout_engine/layout_builder/content_box";
+import { ContentBox } from "../../../src/libs/engine/layout_engine/builder/groups/content_box/content_box";
 import { Direction } from "../../../src/libs/common/distribution.enum";
 
 describe("Content Box", () => {

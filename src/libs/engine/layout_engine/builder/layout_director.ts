@@ -1,11 +1,11 @@
-import { VisibleLayoutRow } from "@libs/engine/layout_engine/layout_builder/visible_layout_row";
-import { VisibleLayoutCol } from "@libs/engine/layout_engine/layout_builder/visible_layout_col";
+import { VisibleLayoutRow } from "@libs/engine/layout_engine/builder/groups/visible_layout_row";
+import { VisibleLayoutCol } from "@libs/engine/layout_engine/builder/groups/visible_layout_col";
 import { BaseElement } from "@libs/model/base_element";
-import { LayoutGroup } from "@libs/engine/layout_engine/layout_builder/layout_group";
+import { LayoutGroup } from "@libs/engine/layout_engine/builder/groups/layout_group";
 import { Settings } from "@libs/engine/layout_engine/settings";
-import { LayoutTree } from "@libs/engine/layout_engine/layout_builder/layout_tree";
+import { LayoutTree } from "@libs/engine/layout_engine/builder/groups/layout_tree";
 import { HydratedView } from "@libs/model/hydrated_view";
-import { ElementBuilder } from "@libs/engine/layout_engine/layout_builder/element_builder";
+import { ElementBuilder } from "@libs/engine/layout_engine/builder/element_builder";
 import { Alignment } from "@libs/common/alignment.enum";
 
 export class LayoutDirector {

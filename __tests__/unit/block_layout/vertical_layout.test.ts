@@ -1,6 +1,6 @@
 import { Alignment } from "../../../src/libs/common/alignment.enum";
-import { ElementBuilder } from "../../../src/libs/engine/layout_engine/layout_builder/element_builder";
-import { ContentBox } from "../../../src/libs/engine/layout_engine/layout_builder/content_box";
+import { ElementBuilder } from "../../../src/libs/engine/layout_engine/builder/element_builder";
+import { ContentBox } from "../../../src/libs/engine/layout_engine/builder/groups/content_box/content_box";
 import { Direction } from "../../../src/libs/common/distribution.enum";
 import { DEFAULT } from "../../../src/libs/common/size_reference.const";
 

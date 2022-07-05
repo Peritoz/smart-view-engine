@@ -1,5 +1,5 @@
 import { Settings } from "../../../src/libs/engine/layout_engine/settings";
-import { LayoutDirector } from "../../../src/libs/engine/layout_engine/layout_builder/layout_director";
+import { LayoutDirector } from "../../../src/libs/engine/layout_engine/builder/layout_director";
 import { Alignment } from "../../../src/libs/common/alignment.enum";
 import { SmartViewEngine } from "../../../src";
 import { HydratedViewNode } from "../../../src/libs/model/view_node";

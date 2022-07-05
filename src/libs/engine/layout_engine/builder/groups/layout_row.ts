@@ -1,10 +1,10 @@
-import { Alignment } from "@libs/common/Alignment.enum";
+import { Alignment } from "@libs/common/alignment.enum";
 import { Settings } from "@libs/engine/layout_engine/settings";
-import { LayoutGroup } from "@libs/engine/layout_engine/layout_builder/layout_group";
+import { LayoutGroup } from "@libs/engine/layout_engine/builder/groups/layout_group";
 import { Direction } from "@libs/common/distribution.enum";
 import { Dimension } from "@libs/model/dimension";
 
-export class LayoutCol extends LayoutGroup {
+export class LayoutRow extends LayoutGroup {
   constructor(
     externalId: string | null,
     horizontalAlignment: Alignment,
@@ -17,7 +17,7 @@ export class LayoutCol extends LayoutGroup {
       externalId,
       horizontalAlignment,
       verticalAlignment,
-      Direction.VERTICAL,
+      Direction.HORIZONTAL,
       settings,
       {
         topOffset: 0,

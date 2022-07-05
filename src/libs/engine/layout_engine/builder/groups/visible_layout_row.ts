@@ -1,10 +1,10 @@
 import { Alignment } from "@libs/common/alignment.enum";
 import { Settings } from "@libs/engine/layout_engine/settings";
-import { LayoutRow } from "@libs/engine/layout_engine/layout_builder/layout_row";
+import { LayoutRow } from "@libs/engine/layout_engine/builder/groups/layout_row";
 import { Direction } from "@libs/common/distribution.enum";
-import { ContentBox } from "@libs/engine/layout_engine/layout_builder/content_box";
+import { ContentBox } from "@libs/engine/layout_engine/builder/groups/content_box/content_box";
 import { Dimension } from "@libs/model/dimension";
-import { LayoutGroup } from "@libs/engine/layout_engine/layout_builder/layout_group";
+import { LayoutGroup } from "@libs/engine/layout_engine/builder/groups/layout_group";
 
 export class VisibleLayoutRow extends LayoutRow {
   protected name: string;

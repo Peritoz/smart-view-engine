@@ -1,9 +1,9 @@
-import { LayoutDirector } from "../../../src/libs/engine/layout_engine/layout_builder/layout_director";
+import { LayoutDirector } from "../../../src/libs/engine/layout_engine/builder/layout_director";
 import { Settings } from "../../../src/libs/engine/layout_engine/settings";
 import { Alignment } from "../../../src/libs/common/alignment.enum";
 import { DEFAULT } from "../../../src/libs/common/size_reference.const";
-import { LayoutTree } from "../../../src/libs/engine/layout_engine/layout_builder/layout_tree";
-import { ElementBuilder } from "../../../src/libs/engine/layout_engine/layout_builder/element_builder";
+import { LayoutTree } from "../../../src/libs/engine/layout_engine/builder/groups/layout_tree";
+import { ElementBuilder } from "../../../src/libs/engine/layout_engine/builder/element_builder";
 
 const settings = new Settings({
   layoutType: "hierarchy",

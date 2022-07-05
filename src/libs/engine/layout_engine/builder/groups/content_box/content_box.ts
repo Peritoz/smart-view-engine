@@ -1,7 +1,7 @@
-import { ContentBoxDimension } from "@libs/model/content_box_dimension";
+import { ContentBoxDimension } from "@libs/engine/layout_engine/builder/groups/content_box/content_box_dimension";
 import { BaseElement } from "@libs/model/base_element";
 import { Direction } from "@libs/common/distribution.enum";
-import { LayoutGroup } from "@libs/engine/layout_engine/layout_builder/layout_group";
+import { LayoutGroup } from "@libs/engine/layout_engine/builder/groups/layout_group";
 import { Alignment } from "@libs/common/alignment.enum";
 import { DEFAULT } from "@libs/common/size_reference.const";
 import { Dimension } from "@libs/model/dimension";

@@ -1,11 +1,11 @@
 import { Settings } from "@libs/engine/layout_engine/settings";
-import { LayoutGroup } from "@libs/engine/layout_engine/layout_builder/layout_group";
+import { LayoutGroup } from "@libs/engine/layout_engine/builder/groups/layout_group";
 import { Alignment } from "@libs/common/alignment.enum";
 import { BaseElement } from "@libs/model/base_element";
-import { LayoutRow } from "@libs/engine/layout_engine/layout_builder/layout_row";
-import { LayoutCol } from "@libs/engine/layout_engine/layout_builder/layout_col";
-import { VisibleLayoutCol } from "@libs/engine/layout_engine/layout_builder/visible_layout_col";
-import { VisibleLayoutRow } from "@libs/engine/layout_engine/layout_builder/visible_layout_row";
+import { LayoutRow } from "@libs/engine/layout_engine/builder/groups/layout_row";
+import { LayoutCol } from "@libs/engine/layout_engine/builder/groups/layout_col";
+import { VisibleLayoutCol } from "@libs/engine/layout_engine/builder/groups/visible_layout_col";
+import { VisibleLayoutRow } from "@libs/engine/layout_engine/builder/groups/visible_layout_row";
 
 export class LayoutTree {
   protected settings: Settings;
