@@ -1,6 +1,10 @@
-# Smart View
+# Smart View Engine
 
 Advanced automatic layout generator for better graph visualization.
+
+## About
+
+This lib was created after observing how hard it can be for some experts to communicate an architecture accurately. Architecture representation and visualization are part of the process of solution design. However, sometimes it is challenging to juggle the discussion of content with the effort it takes to style and organize all elements properly for many audiences. Smart View Engine illuminates this activity by providing views automatically generated from raw architecture models.
 
 ## Getting Started
 

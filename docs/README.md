@@ -2,8 +2,28 @@
 
 ## Motivation
 
+This lib was created after observing how hard it can be for some experts to communicate
+an architecture accurately. Architecture representation and visualization are part of the process
+of solution design. However, sometimes it is challenging to juggle the discussion of content with the effort
+it takes to style and organize all elements properly for many audiences. **Smart View Engine** illuminates
+this activity by providing views automatically generated from raw architecture models.
 
 ## Goal
+
+> To provide a tool to auto-generate powerful and precise architecture representations for everyone
+
+## The Future
+
+Currently, the **Smart View Engine** only supports generating views following two layout options: Hierarchy and Nested.
+In the future, it is planned to release more layout support such as:
+
+- Stack: Elements positioned on top of each other.
+- Process: Elements are presented as a sequence of elements. Reading from left to right.
+- Tabular: Elements are presented as a table.
+- Linked: Elements linked by relationships, presented with an auto-routing feature.
+
+In addition, support for hybrid layouts is also planned, mixing different layout styles to generate views 
+of complex architectures.
 
 ## Assumptions
 
