@@ -111,5 +111,8 @@ The following image illustrates how alignment options affect elements on the *cr
 
 ### Content Box
 
+The most important layout component. It applies distribution and alignment processing on each container 
+insertion. The Content Box is mainly responsible for keeping the dimensions of the box compatible with 
+its content. In addition, it contains children in which its dimensions and positions are managed.
 
 ### Base Element
