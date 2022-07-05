@@ -86,7 +86,13 @@ elements on the *main axis*.
 
 #### Cross Axis Alignment Options
 
+While the horizontal axis of a **Row** is called the *main axis*, the vertical axis is called the *cross axis*.
+The following image illustrates how alignment options affect elements on the *cross axis*.
+
 ![Cross Axis row alignment option](./img/cross_align_row.jpg)
+
+While the vertical axis of a **Column** is called the *main axis*, the horizontal axis is called the *cross axis*.
+The following image illustrates how alignment options affect elements on the *cross axis*.
 
 ![Cross Axis col alignment option](./img/cross_align_col.jpg)
 
