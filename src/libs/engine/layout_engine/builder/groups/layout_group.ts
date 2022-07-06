@@ -1,5 +1,5 @@
 import { Alignment } from "@libs/common/alignment.enum";
-import { Settings } from "@libs/engine/layout_engine/settings";
+import { Settings } from "@libs/engine/settings";
 import { BaseElement } from "@libs/model/base_element";
 import { Direction } from "@libs/common/distribution.enum";
 import { Block } from "@libs/model/block";

@@ -1,4 +1,4 @@
-import { Settings } from "../../../src/libs/engine/layout_engine/settings";
+import { Settings } from "../../../src/libs/engine/settings";
 import { Alignment } from "../../../src/libs/common/alignment.enum";
 import { VisibleLayoutCol } from "../../../src/libs/engine/layout_engine/builder/groups/visible_layout_col";
 import { BaseElement } from "../../../src/libs/model/base_element";

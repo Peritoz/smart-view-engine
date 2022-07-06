@@ -1,4 +1,4 @@
-import { Settings } from "@libs/engine/layout_engine/settings";
+import { Settings } from "@libs/engine/settings";
 import { HydratedView } from "../../model/hydrated_view";
 import { SemanticEngine } from "@libs/engine/semantic_engine/semantic_engine";
 import { HydratedViewNode } from "@libs/model/view_node";

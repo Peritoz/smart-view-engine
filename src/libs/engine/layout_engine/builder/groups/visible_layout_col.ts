@@ -1,6 +1,6 @@
 import { LayoutCol } from "@libs/engine/layout_engine/builder/groups/layout_col";
 import { Alignment } from "@libs/common/alignment.enum";
-import { Settings } from "@libs/engine/layout_engine/settings";
+import { Settings } from "@libs/engine/settings";
 import { Direction } from "@libs/common/distribution.enum";
 import { ContentBox } from "@libs/engine/layout_engine/builder/groups/content_box/content_box";
 import { Dimension } from "@libs/model/dimension";

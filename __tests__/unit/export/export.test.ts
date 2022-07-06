@@ -1,5 +1,5 @@
 import { LayoutDirector } from "../../../src/libs/engine/layout_engine/builder/layout_director";
-import { Settings } from "../../../src/libs/engine/layout_engine/settings";
+import { Settings } from "../../../src/libs/engine/settings";
 import { Alignment } from "../../../src/libs/common/alignment.enum";
 import { ElementBuilder } from "../../../src/libs/engine/layout_engine/builder/element_builder";
 

@@ -2,7 +2,7 @@ import { VisibleLayoutRow } from "@libs/engine/layout_engine/builder/groups/visi
 import { VisibleLayoutCol } from "@libs/engine/layout_engine/builder/groups/visible_layout_col";
 import { BaseElement } from "@libs/model/base_element";
 import { LayoutGroup } from "@libs/engine/layout_engine/builder/groups/layout_group";
-import { Settings } from "@libs/engine/layout_engine/settings";
+import { Settings } from "@libs/engine/settings";
 import { LayoutTree } from "@libs/engine/layout_engine/builder/groups/layout_tree";
 import { HydratedView } from "@libs/model/hydrated_view";
 import { ElementBuilder } from "@libs/engine/layout_engine/builder/element_builder";

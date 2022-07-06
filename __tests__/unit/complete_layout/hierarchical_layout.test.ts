@@ -1,4 +1,4 @@
-import { Settings } from "../../../src/libs/engine/layout_engine/settings";
+import { Settings } from "../../../src/libs/engine/settings";
 import { LayoutDirector } from "../../../src/libs/engine/layout_engine/builder/layout_director";
 import { Alignment } from "../../../src/libs/common/alignment.enum";
 import { SmartViewEngine } from "../../../src";

@@ -1,5 +1,5 @@
 import { SemanticEngine } from "@libs/engine/semantic_engine/semantic_engine";
-import { Settings } from "@libs/engine/layout_engine/settings";
+import { Settings } from "@libs/engine/settings";
 import { HierarchicalLayoutEngine } from "../hierarchical_layout_engine";
 import { LayoutDirector } from "@libs/engine/layout_engine/builder/layout_director";
 import { HydratedViewNode } from "@libs/model/view_node";
