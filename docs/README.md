@@ -107,18 +107,17 @@ The following image illustrates how alignment options affect elements on the *cr
 
 ### Layout Group
 
-A **Layout Group** groups other elements in a nested manner. Its children can be 
-other groups or base elements. A **Layout Group** contains a **Content Box**, which
-keeps all of its children. This is illustrated in the image below.
+A **Layout Group** groups other elements in a nested way. Its children can be other groups or base elements. 
+It contains a **Content Box**, which holds all of its children. This is illustrated in the image below.
 
 ![Layout Group Anatomy](./img/anatomy_layout_group.jpg)
 
 There are four specialized Layout Groups:
 
-- **Layout Row**: Invisible group. Used only for layout composition. Organizes its children horizontally.
-- **Layout Col**: Invisible group. Used only for layout composition. Organizes its children vertically.
-- **Visible Layout Row**: Visible group (treated as a node when rendering Views). As a Row, groups children horizontally.
-- **Visible Layout Col**: Visible group (treated as a node when rendering Views). As a Col, groups children vertically.
+- **Layout Row**: Invisible group. It is only used for layout composition. It organizes the children horizontally.
+- **Layout Col**: Invisible group. It is only used for layout composition. It organizes the children vertically.
+- **Visible Layout Row**: Visible group (treated as a node when rendering Views). As a Row, it organizes the children horizontally.
+- **Visible Layout Col**: Visible group (treated as a node when rendering Views). As a Col, it organizes the children vertically.
 
 ### Content Box
 
