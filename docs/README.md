@@ -98,12 +98,16 @@ The following image illustrates how alignment options affect elements on the *cr
 
 #### The Process of Adding a Container
 
+The image below illustrates a sequence of inserting containers. It covers Column and Base Element insert processing.
+
 ![Size adjustments visualized](./img/size_adjustment.jpg)
 
 ## Main Elements
 
 ### Layout Director
 
+The Layout Director is responsible for building layout elements. This includes Layout Groups and Base Elements.
+It also provides utilities for exporting Views. It should be used by specialized Layout Engines when processing layouts.
 
 ### Layout Group
 
