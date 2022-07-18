@@ -6,6 +6,20 @@ Advanced automatic layout generator for better graph visualization.
 
 This lib was created after observing how hard it can be for some experts to communicate an architecture accurately. Architecture representation and visualization are part of the process of solution design. However, sometimes it is challenging to juggle the discussion of content with the effort it takes to style and organize all elements properly for many audiences. Smart View Engine illuminates this activity by providing views automatically generated from raw architecture models.
 
+## Installation
+
+Using npm:
+
+``
+npm i --save @peritoz/smart-view-engine
+``
+
+Using Yarn:
+
+``
+yarn add @peritoz/smart-view-engine
+``
+
 ## Getting Started
 
 This lib allows you to easily generate diagrams from a graph description. You can choose from different 
@@ -101,7 +115,7 @@ let smartView = new SmartViewEngine(layoutSettings);
 Finally, generate a View description from your paths.
 
 ```
-const view = smartView.generateView(paths, "View Name");
+const view = smartView.generateViewFromPaths(paths, "View Name");
 ```
 
 The result is a View description containing View Nodes and Relationships with
