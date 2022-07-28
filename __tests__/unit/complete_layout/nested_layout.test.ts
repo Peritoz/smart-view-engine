@@ -13,7 +13,7 @@ describe("Nested Layout Rendering", () => {
   const layoutSettings = new Settings({
     layoutType: "nested",
     maxHorizontalCount: 4,
-    maxChildHorizontalCount: 4,
+    maxChildrenHorizontalCount: 4,
     spaceBetween: 2,
     sizeUnit: 5,
     leftPadding: 1,
@@ -49,7 +49,7 @@ describe("Nested Layout Rendering", () => {
       new Settings({
         layoutType: LayoutTypes.NESTED,
         maxHorizontalCount: 2,
-        maxChildHorizontalCount: 2,
+        maxChildrenHorizontalCount: 2,
       })
     );
 
@@ -254,7 +254,7 @@ describe("Nested Layout Rendering", () => {
       new Settings({
         layoutType: "nested",
         maxHorizontalCount: 1,
-        maxChildHorizontalCount: 4,
+        maxChildrenHorizontalCount: 4,
         spaceBetween: 2,
         sizeUnit: 5,
         leftPadding: 1,
@@ -373,7 +373,7 @@ describe("Nested Layout Rendering", () => {
         new Settings({
           layoutType: "nested",
           maxHorizontalCount: 1,
-          maxChildHorizontalCount: 2,
+          maxChildrenHorizontalCount: 2,
           spaceBetween: 2,
           sizeUnit: 5,
           leftPadding: 1,
