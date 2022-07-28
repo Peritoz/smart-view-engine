@@ -8,7 +8,7 @@ import { ElementBuilder } from "../../../src/libs/engine/layout_engine/builder/e
 const settings = new Settings({
   layoutType: "hierarchy",
   maxHorizontalCount: 4,
-  maxChildHorizontalCount: 2,
+  maxChildrenHorizontalCount: 2,
   spaceBetween: 5,
   leftPadding: 5,
   rightPadding: 5,

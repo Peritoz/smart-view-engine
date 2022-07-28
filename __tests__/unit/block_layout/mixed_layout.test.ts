@@ -11,7 +11,7 @@ describe("Mixed Rendering", () => {
   const settings = new Settings({
     layoutType: "hierarchy",
     maxHorizontalCount: 4,
-    maxChildHorizontalCount: 2,
+    maxChildrenHorizontalCount: 2,
     spaceBetween: 5,
     leftPadding: 5,
     rightPadding: 5,
@@ -193,7 +193,7 @@ describe("Mixed Rendering", () => {
   it("Horizontal and Vertical - Simple Resizing", async () => {
     const layoutSettings = new Settings({
       maxHorizontalCount: 4,
-      maxChildHorizontalCount: 2,
+      maxChildrenHorizontalCount: 2,
       spaceBetween: 5,
       sizeUnit: 5,
       leftPadding: 1,
@@ -241,7 +241,7 @@ describe("Mixed Rendering", () => {
   it("Horizontal and Vertical - Mixed Elements Resizing", async () => {
     const layoutSettings = new Settings({
       maxHorizontalCount: 4,
-      maxChildHorizontalCount: 2,
+      maxChildrenHorizontalCount: 2,
       spaceBetween: 5,
       sizeUnit: 5,
       leftPadding: 1,
@@ -308,7 +308,7 @@ describe("Mixed Rendering", () => {
   it("Nested Chain with Many Layers", async () => {
     const layoutSettings = new Settings({
       maxHorizontalCount: 4,
-      maxChildHorizontalCount: 2,
+      maxChildrenHorizontalCount: 2,
       spaceBetween: 2,
       sizeUnit: 5,
       leftPadding: 1,
