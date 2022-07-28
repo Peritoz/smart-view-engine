@@ -43,7 +43,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
           this.renderNestedChildrenElements(
             currentElement.children,
             layoutDirector,
-            this.settings.maxChildHorizontalCount
+            this.settings.maxChildrenHorizontalCount
           );
 
           layoutDirector.navigateToParent(3);
@@ -96,7 +96,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
         this.renderNestedChildrenElements(
           [child],
           layoutDirector,
-          this.settings.maxChildHorizontalCount
+          this.settings.maxChildrenHorizontalCount
         );
 
         // Breaking line

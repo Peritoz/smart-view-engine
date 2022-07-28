@@ -6,7 +6,7 @@ import { VisibleLayoutRow } from "../../../src/libs/engine/layout_engine/builder
 const settings = new Settings({
   layoutType: "nested",
   maxHorizontalCount: 4,
-  maxChildHorizontalCount: 2,
+  maxChildrenHorizontalCount: 2,
   spaceBetween: 5,
   leftPadding: 5,
   rightPadding: 5,

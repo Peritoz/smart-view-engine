@@ -14,7 +14,7 @@ describe("Hierarchical Layout Rendering", () => {
   const layoutSettings = new Settings({
     layoutType: "hierarchy",
     maxHorizontalCount: 4,
-    maxChildHorizontalCount: 2,
+    maxChildrenHorizontalCount: 2,
     spaceBetween: 2,
     sizeUnit: 5,
     leftPadding: 1,
@@ -223,7 +223,7 @@ describe("Hierarchical Layout Rendering", () => {
       new Settings({
         layoutType: "hierarchy",
         maxHorizontalCount: 1,
-        maxChildHorizontalCount: 2,
+        maxChildrenHorizontalCount: 2,
         spaceBetween: 2,
         sizeUnit: 5,
         leftPadding: 1,

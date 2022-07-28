@@ -15,7 +15,7 @@ function layoutToCode(layout: string) {
 export interface LayoutSettings {
   layoutType: LayoutTypes;
   maxHorizontalCount: number;
-  maxChildHorizontalCount: number;
+  maxChildrenHorizontalCount: number;
   spaceBetween: number;
   spaceToOuterLabel: number;
   sizeUnit: number;
@@ -34,7 +34,7 @@ export interface VisibleGroupSettings {
 export class Settings implements LayoutSettings, VisibleGroupSettings {
   layoutType: LayoutTypes;
   maxHorizontalCount: number;
-  maxChildHorizontalCount: number;
+  maxChildrenHorizontalCount: number;
   spaceBetween: number;
   spaceToOuterLabel: number;
   sizeUnit: number;
@@ -49,7 +49,7 @@ export class Settings implements LayoutSettings, VisibleGroupSettings {
   constructor({
     layoutType,
     maxHorizontalCount,
-    maxChildHorizontalCount,
+    maxChildrenHorizontalCount,
     leftPadding,
     rightPadding,
     topPadding,
@@ -66,8 +66,8 @@ export class Settings implements LayoutSettings, VisibleGroupSettings {
       : LayoutTypes.NESTED;
     this.maxHorizontalCount =
       maxHorizontalCount || DEFAULT.MAX_HORIZONTAL_COUNT;
-    this.maxChildHorizontalCount =
-      maxChildHorizontalCount || DEFAULT.MAX_CHILD_HORIZONTAL_COUNT;
+    this.maxChildrenHorizontalCount =
+      maxChildrenHorizontalCount || DEFAULT.MAX_CHILD_HORIZONTAL_COUNT;
     this.spaceBetween = spaceBetween || DEFAULT.DEFAULT_PADDING;
     this.leftPadding = leftPadding || DEFAULT.DEFAULT_PADDING;
     this.rightPadding = rightPadding || DEFAULT.DEFAULT_PADDING;
