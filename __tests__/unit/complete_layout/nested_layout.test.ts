@@ -55,26 +55,73 @@ describe("Nested Layout Rendering", () => {
 
     const view: View = engine.generateViewFromPaths(paths, "Case A");
     const nodes = view.viewNodes;
-    const a = nodes.find((node: ViewNode) => node.name === "A");
-    const b = nodes.find((node: ViewNode) => node.name === "B");
-    const a1 = nodes.find((node: ViewNode) => node.name === "A1");
-    const b1 = nodes.find((node: ViewNode) => node.name === "B1");
-    const a2 = nodes.find((node: ViewNode) => node.name === "A2");
-    const b2 = nodes.find((node: ViewNode) => node.name === "B2");
+    const A = nodes.find((node: ViewNode) => node.name === "A");
+    const B = nodes.find((node: ViewNode) => node.name === "B");
+    const A1 = nodes.find((node: ViewNode) => node.name === "A1");
+    const B1 = nodes.find((node: ViewNode) => node.name === "B1");
+    const A2 = nodes.find((node: ViewNode) => node.name === "A2");
+    const B2 = nodes.find((node: ViewNode) => node.name === "B2");
 
     expect(nodes.length).toBe(6);
-    expect(a).toBeDefined();
-    expect(a?.parentId).toBeNull();
-    expect(b).toBeDefined();
-    expect(b?.parentId).toBeNull();
-    expect(a1).toBeDefined();
-    //expect(a1?.parentId).toBe(a.viewNodeId);
-    expect(a2).toBeDefined();
-    //expect(a2?.parentId).toBe(a.viewNodeId);
-    expect(b1).toBeDefined();
-    //expect(b1?.parentId).toBe(b.viewNodeId);
-    expect(b2).toBeDefined();
-    //expect(b2?.parentId).toBe(b.viewNodeId);
+    expect(A).toBeDefined();
+    expect(A?.parentId).toBeNull();
+    expect(B).toBeDefined();
+    expect(B?.parentId).toBeNull();
+    expect(A1).toBeDefined();
+    // expect(A1?.parentId).toBe(A.viewNodeId);
+    expect(A2).toBeDefined();
+    //expect(A2?.parentId).toBe(A.viewNodeId);
+    expect(B1).toBeDefined();
+    //expect(B1?.parentId).toBe(B.viewNodeId);
+    expect(B2).toBeDefined();
+    //expect(B2?.parentId).toBe(B.viewNodeId);
+
+    done();
+  });
+
+  it("Childless Paths", (done) => {
+    const paths = [
+      [
+        { identifier: "A", name: "A", type: "TA" },
+      ],
+      [
+        { identifier: "B", name: "B", type: "TB" },
+      ],
+      [
+        { identifier: "C", name: "C", type: "TC" },
+      ]
+    ];
+
+    const engine = new SmartViewEngine(layoutSettings);
+
+    const view: View = engine.generateViewFromPaths(paths, "Childless Case");
+    const nodes = view.viewNodes;
+    const A = nodes.find((node: ViewNode) => node.name === "A");
+    const B = nodes.find((node: ViewNode) => node.name === "B");
+    const C = nodes.find((node: ViewNode) => node.name === "C");
+
+    expect(nodes.length).toBe(3);
+    expect(A).toBeDefined();
+    expect(A?.parentId).toBeNull();
+    expect(B).toBeDefined();
+    expect(B?.parentId).toBeNull();
+    expect(C).toBeDefined();
+    expect(C?.parentId).toBeNull();
+
+    expect(A.width).toBe(15);
+    expect(A.height).toBe(5);
+    expect(A.x).toBe(0);
+    expect(A.y).toBe(0);
+
+    expect(B.width).toBe(15);
+    expect(B.height).toBe(5);
+    expect(B.x).toBe(17);
+    expect(B.y).toBe(0);
+
+    expect(C.width).toBe(15);
+    expect(C.height).toBe(5);
+    expect(C.x).toBe(34);
+    expect(C.y).toBe(0);
 
     done();
   });

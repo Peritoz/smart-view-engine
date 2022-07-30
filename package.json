@@ -1,6 +1,6 @@
 {
   "name": "@peritoz/smart-view-engine",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Advanced automatic layout generator for better graph visualization",
   "author": "diorbert.pereira",
   "main": "dist/lib/index.js",
