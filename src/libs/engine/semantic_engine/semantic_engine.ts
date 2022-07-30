@@ -33,12 +33,51 @@ export class SemanticEngine {
     });
   };
 
+  private addNode(
+    isRoot: boolean,
+    objectMap: Map<string, number>,
+    node: PathElement,
+    child?: PathElement
+  ) {
+    objectMap.set(node.identifier, this.modelElements.length);
+
+    this.modelElements.push({
+      parent: node,
+      children: child ? [child] : [],
+      isRoot: isRoot,
+    });
+
+    // Mapping node for fast lookup
+    if (!this.maps.nodes.get(node.identifier)) {
+      this.maps.nodes.set(node.identifier, node);
+    }
+
+    // Mapping child for fast lookup
+    if (child) {
+      if (!this.maps.nodes.get(child.identifier)) {
+        this.maps.nodes.set(child.identifier, child);
+      }
+    }
+  }
+
+  private addChildToNode(indexFirstElement: number, secondElement: PathElement) {
+    const indexChild: number | undefined = this.modelElements[
+        indexFirstElement
+        ].children.findIndex(
+        (e: PathElement) => e.identifier === secondElement.identifier
+    );
+
+    if (indexChild === -1) {
+      this.modelElements[indexFirstElement].children.push(secondElement);
+    }
+  }
+
   /**
    * Extracts all Level 0 elements from paths
    */
   processPaths = (): void => {
     let objectMap: Map<string, number> = new Map();
-    let indexFirstElementFound, indexSecondElementFound, indexChildFound;
+    let indexFirstElement, indexSecondElement;
 
     // Separates parent nodes, with its children
     this.paths.forEach((path: Array<PathElement>) => {
@@ -47,39 +86,14 @@ export class SemanticEngine {
           let firstElement: PathElement = path[j];
           let secondElement: PathElement = path[j + 1];
 
-          indexFirstElementFound = objectMap.get(firstElement.identifier);
-          indexSecondElementFound = objectMap.get(secondElement.identifier);
+          indexFirstElement = objectMap.get(firstElement.identifier);
+          indexSecondElement = objectMap.get(secondElement.identifier);
 
           // If Semantic element doesn't exist then create it
-          if (indexFirstElementFound === undefined) {
-            objectMap.set(firstElement.identifier, this.modelElements.length);
-
-            this.modelElements.push({
-              parent: firstElement,
-              children: [secondElement],
-              isRoot: j === 0,
-            });
-
-            // Including in Hash for fast lookup
-            if (!this.maps.nodes.get(secondElement.identifier)) {
-              this.maps.nodes.set(secondElement.identifier, secondElement);
-            }
-
-            if (!this.maps.nodes.get(firstElement.identifier)) {
-              this.maps.nodes.set(firstElement.identifier, firstElement);
-            }
+          if (indexFirstElement === undefined) {
+            this.addNode(j === 0, objectMap, firstElement, secondElement);
           } else {
-            indexChildFound = this.modelElements[
-              indexFirstElementFound
-            ].children.findIndex(
-              (e: PathElement) => e.identifier === secondElement.identifier
-            );
-
-            if (indexChildFound === -1) {
-              this.modelElements[indexFirstElementFound].children.push(
-                secondElement
-              );
-            }
+            this.addChildToNode(indexFirstElement, secondElement);
           }
 
           // Mapping parents
@@ -98,19 +112,8 @@ export class SemanticEngine {
           }
 
           // If the second element doesn't exist then create it
-          if (indexSecondElementFound === undefined) {
-            objectMap.set(secondElement.identifier, this.modelElements.length);
-
-            this.modelElements.push({
-              parent: secondElement,
-              children: [],
-              isRoot: false,
-            });
-
-            // Mapping for fast lookup
-            if (!this.maps.nodes.get(secondElement.identifier)) {
-              this.maps.nodes.set(secondElement.identifier, secondElement);
-            }
+          if (indexSecondElement === undefined) {
+            this.addNode(false, objectMap, secondElement);
           }
         }
       }
