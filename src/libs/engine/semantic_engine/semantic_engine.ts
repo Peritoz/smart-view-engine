@@ -60,11 +60,14 @@ export class SemanticEngine {
     }
   }
 
-  private addChildToNode(indexFirstElement: number, secondElement: PathElement) {
+  private addChildToNode(
+    indexFirstElement: number,
+    secondElement: PathElement
+  ) {
     const indexChild: number | undefined = this.modelElements[
-        indexFirstElement
-        ].children.findIndex(
-        (e: PathElement) => e.identifier === secondElement.identifier
+      indexFirstElement
+    ].children.findIndex(
+      (e: PathElement) => e.identifier === secondElement.identifier
     );
 
     if (indexChild === -1) {
@@ -81,10 +84,11 @@ export class SemanticEngine {
 
     // Separates parent nodes, with its children
     this.paths.forEach((path: Array<PathElement>) => {
+      // Length >= 2: it handles the parent/child chain
       if (path.length >= 2) {
         for (let j = 0; j < path.length - 1; j++) {
-          let firstElement: PathElement = path[j];
-          let secondElement: PathElement = path[j + 1];
+          const firstElement: PathElement = path[j];
+          const secondElement: PathElement = path[j + 1];
 
           indexFirstElement = objectMap.get(firstElement.identifier);
           indexSecondElement = objectMap.get(secondElement.identifier);
@@ -115,6 +119,13 @@ export class SemanticEngine {
           if (indexSecondElement === undefined) {
             this.addNode(false, objectMap, secondElement);
           }
+        }
+      } else if (path.length === 1) { // Length === 1: it handles elements with no children
+        const element: PathElement = path[0];
+        const indexElement = objectMap.get(element.identifier);
+
+        if (indexElement === undefined) {
+          this.addNode(true, objectMap, element);
         }
       }
     });
