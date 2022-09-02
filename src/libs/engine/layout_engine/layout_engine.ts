@@ -46,14 +46,14 @@ export class LayoutEngine {
             view.addViewNode(parentViewNode);
             upperElements.push(parentViewNode);
 
-            // Creating deep copy of Child node and its children
+            // Creating a deep copy of the Child node and its children
             if (childViewNode.parentId) {
-              // If already there is a set parent
+              // If there is a set parent...
               copyChildViewNode =
                 view.copyViewNodeAndItsChildren(childViewNode);
             }
 
-            // Relating with parent
+            // Relating to parent
             view.nestViewNode(parentViewNode, copyChildViewNode);
           }
 
@@ -93,7 +93,7 @@ export class LayoutEngine {
         });
       }
 
-      // Recursive processing for create View
+      // Recursive processing for create a View
       this.applyLayoutToView(view, children);
 
       return view;

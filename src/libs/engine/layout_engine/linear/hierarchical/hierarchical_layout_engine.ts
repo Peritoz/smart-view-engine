@@ -42,7 +42,7 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
       }
     }
 
-    // Third pass: Calculates nested count
+    // Third pass: Calculates the amount of nested elements
     this.calculateNestedCount(roots);
 
     return roots;
