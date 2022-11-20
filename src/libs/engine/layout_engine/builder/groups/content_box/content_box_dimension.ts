@@ -1,19 +1,14 @@
-import { Direction } from "@libs/common/distribution.enum";
-import { DEFAULT } from "@libs/common/size_reference.const";
-import { Dimension } from "@libs/model/dimension";
-
-interface Point {
-  x: number;
-  y: number;
-}
+import { Direction } from '@libs/common/distribution.enum';
+import { DEFAULT } from '@libs/common/size_reference.const';
+import { Dimension } from '@libs/model/dimension';
+import { BoxDimension } from '@libs/engine/layout_engine/builder/groups/content_box/box_dimension';
 
 /**
  * Content Box Dimension manages the changes in the used width and height, as well as the limits (max width and height)
  * of a virtual box
  */
 export class ContentBoxDimension {
-  protected topLeft: Point; // Top left point to define the start X and Y box's limits
-  protected bottomRight: Point; // Bottom right point to define the end X and Y box's limits
+  protected boxDimension: BoxDimension; // Top left point to define the start X and Y box's limits
   protected usedWidth: number; // Current horizontal size used (in points)
   protected usedHeight: number; // Current vertical size used (in points)
   protected direction: Direction; // Indicates the main axis direction: Horizontal or Vertical
@@ -40,27 +35,17 @@ export class ContentBoxDimension {
     spaceBetween: number = DEFAULT.DEFAULT_PADDING,
     hasFixedWidth: boolean,
     hasFixedHeight: boolean,
-    dimension?: Partial<Dimension>
+    dimension?: Partial<Dimension>,
   ) {
     if (hasFixedWidth && dimension?.width === undefined) {
-      throw new Error("Has fixed width but no width was indicated");
+      throw new Error('Has fixed width but no width was indicated');
     }
 
     if (hasFixedHeight && dimension?.height === undefined) {
-      throw new Error("Has fixed height but no height was indicated");
+      throw new Error('Has fixed height but no height was indicated');
     }
 
-    this.topLeft = { x: left, y: top };
-    this.bottomRight = {
-      x:
-        dimension && dimension.width !== undefined
-          ? dimension!.width + left
-          : left,
-      y:
-        dimension && dimension.height !== undefined
-          ? dimension!.height + top
-          : top,
-    };
+    this.boxDimension = new BoxDimension(top, left, dimension);
     this.usedWidth = 0;
     this.usedHeight = 0;
     this.direction = direction;
@@ -72,11 +57,11 @@ export class ContentBoxDimension {
   }
 
   getContentBoxWidth(): number {
-    return this.bottomRight.x - this.topLeft.x;
+    return this.boxDimension.getContentBoxWidth();
   }
 
   getContentBoxHeight(): number {
-    return this.bottomRight.y - this.topLeft.y;
+    return this.boxDimension.getContentBoxHeight();
   }
 
   getSpaceBetween(): number {
@@ -88,15 +73,17 @@ export class ContentBoxDimension {
       const currentContentWidth = this.getContentBoxWidth();
 
       if (width >= currentContentWidth) {
-        this.bottomRight.x = this.bottomRight.x + width - currentContentWidth;
+        this.boxDimension.setRightBoundary(
+          this.boxDimension.getRightBoundary() + width - currentContentWidth,
+        );
       } else {
         throw new Error(
-          "The new content box width can not be smaller than previous value"
+          'The new content box width can not be smaller than previous value',
         );
       }
     } else {
       throw new Error(
-        "It is not possible to update the width of a Content box dimension with fixed width"
+        'It is not possible to update the width of a Content box dimension with fixed width',
       );
     }
   }
@@ -106,33 +93,35 @@ export class ContentBoxDimension {
       const currentContentHeight = this.getContentBoxHeight();
 
       if (height >= currentContentHeight) {
-        this.bottomRight.y = this.bottomRight.y + height - currentContentHeight;
+        this.setBottomBoundary(
+          this.boxDimension.getBottomBoundary() + height - currentContentHeight,
+        );
       } else {
         throw new Error(
-          "The new content box height can not be smaller than previous value"
+          'The new content box height can not be smaller than previous value',
         );
       }
     } else {
       throw new Error(
-        "It is not possible to update the height of a Content box dimension with fixed height"
+        'It is not possible to update the height of a Content box dimension with fixed height',
       );
     }
   }
 
   getTopBoundary(): number {
-    return this.topLeft.y;
+    return this.boxDimension.getTopBoundary();
   }
 
   getLeftBoundary(): number {
-    return this.topLeft.x;
+    return this.boxDimension.getLeftBoundary();
   }
 
   getBottomBoundary(): number {
-    return this.bottomRight.y;
+    return this.boxDimension.getBottomBoundary();
   }
 
   getRightBoundary(): number {
-    return this.bottomRight.x;
+    return this.boxDimension.getRightBoundary();
   }
 
   getUsedWidth(): number {
@@ -143,28 +132,20 @@ export class ContentBoxDimension {
     return this.usedHeight;
   }
 
-  getTotalWidthOffset(width: number) {
-    return width - this.bottomRight.x + this.topLeft.x;
-  }
-
-  getTotalHeightOffset(height: number) {
-    return height - this.bottomRight.y + this.topLeft.y;
-  }
-
   getRightOffset(width: number) {
-    return width - this.bottomRight.x;
+    return this.boxDimension.getRightOffset(width);
   }
 
   getBottomOffset(height: number) {
-    return height - this.bottomRight.y;
+    return this.boxDimension.getBottomOffset(height);
   }
 
   setBottomBoundary(value: number) {
-    this.bottomRight.y = value;
+    this.boxDimension.setBottomBoundary(value);
   }
 
   setRightBoundary(value: number) {
-    this.bottomRight.x = value;
+    this.boxDimension.setRightBoundary(value);
   }
 
   setUsedWidth(value: number) {
@@ -172,7 +153,7 @@ export class ContentBoxDimension {
 
     if (this.hasFixedWidth && hasValueOverflow) {
       throw new Error(
-        `Content box dimension width overflow. Maximum width is ${this.getContentBoxWidth()}`
+        `Content box dimension width overflow. Maximum width is ${this.getContentBoxWidth()}`,
       );
     }
 
@@ -180,7 +161,7 @@ export class ContentBoxDimension {
 
     if (!this.hasFixedWidth && hasValueOverflow) {
       this.setRightBoundary(
-        this.bottomRight.x + this.usedWidth - this.getContentBoxWidth()
+        this.boxDimension.getRightBoundary() + this.usedWidth - this.getContentBoxWidth(),
       );
     }
   }
@@ -190,7 +171,7 @@ export class ContentBoxDimension {
 
     if (this.hasFixedHeight && hasValueOverflow) {
       throw new Error(
-        `Content box dimension height overflow. Maximum height is ${this.getContentBoxHeight()}`
+        `Content box dimension height overflow. Maximum height is ${this.getContentBoxHeight()}`,
       );
     }
 
@@ -198,7 +179,7 @@ export class ContentBoxDimension {
 
     if (!this.hasFixedHeight && hasValueOverflow) {
       this.setBottomBoundary(
-        this.bottomRight.y + this.usedHeight - this.getContentBoxHeight()
+        this.boxDimension.getBottomBoundary() + this.usedHeight - this.getContentBoxHeight(),
       );
     }
   }
@@ -234,8 +215,10 @@ export class ContentBoxDimension {
   addContent(
     content: Dimension,
     isFirstContent: boolean = false,
-    onChangeWidth: (oldValue: number, newValue: number) => void = () => {},
-    onChangeHeight: (oldValue: number, newValue: number) => void = () => {}
+    onChangeWidth: (oldValue: number, newValue: number) => void = () => {
+    },
+    onChangeHeight: (oldValue: number, newValue: number) => void = () => {
+    },
   ) {
     const oldWidth = this.getContentBoxWidth();
     const oldHeight = this.getContentBoxHeight();
