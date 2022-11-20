@@ -133,7 +133,7 @@ describe('Content Box Dimension', () => {
       expect(() => {
         contentBoxDimension.addContent({ width: 10, height: 15 });
       }).toThrow(
-        `Content box dimension width overflow. Maximum width is ${MAX_WIDTH}`,
+        `Dimension overflow. Maximum size is ${MAX_WIDTH}`,
       );
 
       done();
@@ -267,7 +267,7 @@ describe('Content Box Dimension', () => {
       expect(() => {
         contentBoxDimension.addContent({ width: 15, height: 10 });
       }).toThrow(
-        `Content box dimension height overflow. Maximum height is ${MAX_HEIGHT}`,
+        `Dimension overflow. Maximum size is ${MAX_HEIGHT}`,
       );
 
       done();
