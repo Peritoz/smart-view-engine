@@ -1,5 +1,5 @@
-import uniqId from "uniqid";
-import { Block } from "@libs/model/block";
+import uniqId from 'uniqid';
+import { Block } from '@libs/model/block';
 
 export class BaseElement extends Block {
   id: string;
@@ -10,13 +10,13 @@ export class BaseElement extends Block {
 
   constructor(viewNode: Partial<BaseElement>) {
     if (!viewNode.name) {
-      throw new Error("Name is required when creating Base Element");
+      throw new Error('Name is required when creating Base Element');
     }
 
     super(viewNode);
 
     this.name = viewNode.name;
-    this.type = viewNode.type || "";
+    this.type = viewNode.type || '';
     this.parentId = viewNode.parentId || null;
     this.id = uniqId();
     this.externalId = viewNode.externalId || null;

@@ -1,10 +1,10 @@
-import { ContentBoxDimension } from "@libs/engine/layout_engine/builder/groups/content_box/content_box_dimension";
-import { BaseElement } from "@libs/model/base_element";
-import { Direction } from "@libs/common/distribution.enum";
-import { LayoutGroup } from "@libs/engine/layout_engine/builder/groups/layout_group";
-import { Alignment } from "@libs/common/alignment.enum";
-import { DEFAULT } from "@libs/common/size_reference.const";
-import { Dimension } from "@libs/model/dimension";
+import { ContentBoxDimension } from '@libs/engine/layout_engine/builder/groups/content_box/content_box_dimension';
+import { BaseElement } from '@libs/model/base_element';
+import { Direction } from '@libs/common/distribution.enum';
+import { LayoutGroup } from '@libs/engine/layout_engine/builder/groups/layout_group';
+import { Alignment } from '@libs/common/alignment.enum';
+import { DEFAULT } from '@libs/common/size_reference.const';
+import { Dimension } from '@libs/model/dimension';
 
 type ContentElement = LayoutGroup | BaseElement;
 
@@ -30,7 +30,7 @@ export class ContentBox {
     spaceBetween: number = DEFAULT.DEFAULT_PADDING,
     onChangeWidth: (oldValue: number, newValue: number) => void,
     onChangeHeight: (oldValue: number, newValue: number) => void,
-    dimension?: Partial<Dimension>
+    dimension?: Partial<Dimension>,
   ) {
     const isHorizontal = direction === Direction.HORIZONTAL;
     const hasHorizontalExpansion = horizontalAlignment === Alignment.EXPANDED;
@@ -45,7 +45,7 @@ export class ContentBox {
       spaceBetween,
       isHorizontal && hasHorizontalExpansion,
       !isHorizontal && hasVerticalExpansion,
-      dimension
+      dimension,
     );
     this.children = [];
     this.horizontalAlignment = horizontalAlignment;
@@ -128,7 +128,7 @@ export class ContentBox {
       container,
       this.children.length === 1,
       this.onChangeWidth,
-      this.onChangeHeight
+      this.onChangeHeight,
     );
 
     // Arranging elements
@@ -158,7 +158,7 @@ export class ContentBox {
 
       this.onChangeWidth(currentWidth, this.getWidth());
     } else {
-      throw new Error("The new Width can´t be smaller than current Width");
+      throw new Error('The new Width can´t be smaller than current Width');
     }
   }
 
@@ -176,7 +176,7 @@ export class ContentBox {
 
       this.onChangeHeight(currentHeight, this.getHeight());
     } else {
-      throw new Error("The new Height can´t be smaller than current Height");
+      throw new Error('The new Height can´t be smaller than current Height');
     }
   }
 
@@ -227,7 +227,7 @@ export class ContentBox {
         (child, value) => child.setWidth(value),
         (child, value) => child.setX(value),
         this.dimension.getLeftBoundary(),
-        this.dimension.getRightOffset(totalSize)
+        this.dimension.getRightOffset(totalSize),
       );
     } else {
       const totalSize = this.getHeight();
@@ -240,7 +240,7 @@ export class ContentBox {
         (child, value) => child.setHeight(value),
         (child, value) => child.setY(value),
         this.dimension.getTopBoundary(),
-        this.dimension.getBottomOffset(totalSize)
+        this.dimension.getBottomOffset(totalSize),
       );
     }
   }
@@ -257,7 +257,7 @@ export class ContentBox {
         (child, value) => child.setHeight(value),
         (child, value) => child.setY(value),
         this.dimension.getTopBoundary(),
-        this.dimension.getBottomOffset(totalSize)
+        this.dimension.getBottomOffset(totalSize),
       );
     } else {
       this.alignElements(
@@ -267,7 +267,7 @@ export class ContentBox {
         (child, value) => child.setWidth(value),
         (child, value) => child.setX(value),
         this.dimension.getLeftBoundary(),
-        this.dimension.getRightOffset(totalSize)
+        this.dimension.getRightOffset(totalSize),
       );
     }
   }
@@ -291,7 +291,7 @@ export class ContentBox {
     setChildSize: (child: ContentElement, value: number) => void,
     setChildPosition: (child: ContentElement, value: number) => void,
     offsetBefore: number = 0,
-    offsetAfter: number = 0
+    offsetAfter: number = 0,
   ) {
     const spaceBetween = this.dimension.getSpaceBetween();
     let cursor;
@@ -351,7 +351,7 @@ export class ContentBox {
     setChildSize: (child: ContentElement, value: number) => void,
     setChildPosition: (child: ContentElement, value: number) => void,
     offsetBefore: number = 0,
-    offsetAfter: number = 0
+    offsetAfter: number = 0,
   ) {
     // Adjusting size and position for all children
     for (let i = 0; i < this.children.length; i++) {

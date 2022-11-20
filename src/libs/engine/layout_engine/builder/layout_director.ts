@@ -1,12 +1,12 @@
-import { VisibleLayoutRow } from "@libs/engine/layout_engine/builder/groups/visible_layout_row";
-import { VisibleLayoutCol } from "@libs/engine/layout_engine/builder/groups/visible_layout_col";
-import { BaseElement } from "@libs/model/base_element";
-import { LayoutGroup } from "@libs/engine/layout_engine/builder/groups/layout_group";
-import { Settings } from "@libs/engine/settings";
-import { LayoutTree } from "@libs/engine/layout_engine/builder/groups/layout_tree";
-import { HydratedView } from "@libs/model/hydrated_view";
-import { ElementBuilder } from "@libs/engine/layout_engine/builder/element_builder";
-import { Alignment } from "@libs/common/alignment.enum";
+import { VisibleLayoutRow } from '@libs/engine/layout_engine/builder/groups/visible_layout_row';
+import { VisibleLayoutCol } from '@libs/engine/layout_engine/builder/groups/visible_layout_col';
+import { BaseElement } from '@libs/model/base_element';
+import { LayoutGroup } from '@libs/engine/layout_engine/builder/groups/layout_group';
+import { Settings } from '@libs/engine/settings';
+import { LayoutTree } from '@libs/engine/layout_engine/builder/groups/layout_tree';
+import { HydratedView } from '@libs/model/hydrated_view';
+import { ElementBuilder } from '@libs/engine/layout_engine/builder/element_builder';
+import { Alignment } from '@libs/common/alignment.enum';
 
 export class LayoutDirector {
   private settings: Settings;
@@ -21,7 +21,7 @@ export class LayoutDirector {
 
   private extractToView(
     view: HydratedView,
-    container: BaseElement | LayoutGroup
+    container: BaseElement | LayoutGroup,
   ) {
     const isNestedElement =
       container instanceof VisibleLayoutRow ||
@@ -40,8 +40,8 @@ export class LayoutDirector {
           container.getY(),
           isBaseElement ? container.getParentId() : null,
           container.getWidth(),
-          container.getHeight()
-        )
+          container.getHeight(),
+        ),
       );
     }
 
@@ -67,24 +67,24 @@ export class LayoutDirector {
   newRow(
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
-    externalId: string | null = null
+    externalId: string | null = null,
   ) {
     return this.layoutSet.newRow(
       horizontalAlignment,
       verticalAlignment,
-      externalId
+      externalId,
     );
   }
 
   newCol(
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
-    externalId: string | null = null
+    externalId: string | null = null,
   ) {
     return this.layoutSet.newCol(
       horizontalAlignment,
       verticalAlignment,
-      externalId
+      externalId,
     );
   }
 
@@ -94,7 +94,7 @@ export class LayoutDirector {
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
     lateralLabel: boolean,
-    externalId: string | null = null
+    externalId: string | null = null,
   ): LayoutGroup {
     return this.layoutSet.newVisibleRow(
       name,
@@ -102,7 +102,7 @@ export class LayoutDirector {
       horizontalAlignment,
       verticalAlignment,
       lateralLabel,
-      externalId
+      externalId,
     );
   }
 
@@ -112,7 +112,7 @@ export class LayoutDirector {
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
     lateralLabel: boolean,
-    externalId: string | null = null
+    externalId: string | null = null,
   ): LayoutGroup {
     return this.layoutSet.newVisibleCol(
       name,
@@ -120,7 +120,7 @@ export class LayoutDirector {
       horizontalAlignment,
       verticalAlignment,
       lateralLabel,
-      externalId
+      externalId,
     );
   }
 
@@ -131,7 +131,7 @@ export class LayoutDirector {
   newTinyElementToCurrent(
     name: string,
     type: string,
-    externalId?: string
+    externalId?: string,
   ): BaseElement {
     const element = this.builder.buildTinyElement(name, type, externalId);
     this.addToCurrentGroup(element);
@@ -142,13 +142,13 @@ export class LayoutDirector {
     name: string,
     type: string,
     verticalOrientation: boolean = false,
-    externalId?: string
+    externalId?: string,
   ): BaseElement {
     const element = this.builder.buildSmallElement(
       name,
       type,
       verticalOrientation,
-      externalId
+      externalId,
     );
     this.addToCurrentGroup(element);
     return element;
@@ -158,13 +158,13 @@ export class LayoutDirector {
     name: string,
     type: string,
     verticalOrientation: boolean = false,
-    externalId?: string
+    externalId?: string,
   ): BaseElement {
     const element = this.builder.buildMediumElement(
       name,
       type,
       verticalOrientation,
-      externalId
+      externalId,
     );
     this.addToCurrentGroup(element);
     return element;
@@ -174,13 +174,13 @@ export class LayoutDirector {
     name: string,
     type: string,
     verticalOrientation: boolean = false,
-    externalId?: string
+    externalId?: string,
   ): BaseElement {
     const element = this.builder.buildBigElement(
       name,
       type,
       verticalOrientation,
-      externalId
+      externalId,
     );
     this.addToCurrentGroup(element);
     return element;

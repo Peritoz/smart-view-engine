@@ -1,5 +1,5 @@
-import { Position } from "@libs/model/position";
-import { Dimension } from "@libs/model/dimension";
+import { Position } from '@libs/model/position';
+import { Dimension } from '@libs/model/dimension';
 
 export interface NodeBlock extends Position, Dimension {
   name: string;

@@ -1,8 +1,8 @@
-import { Settings } from "@libs/engine/settings";
-import { HydratedView } from "../../model/hydrated_view";
-import { SemanticEngine } from "@libs/engine/semantic_engine/semantic_engine";
-import { HydratedViewNode } from "@libs/model/view_node";
-import uniqId from "uniqid";
+import { Settings } from '@libs/engine/settings';
+import { HydratedView } from '../../model/hydrated_view';
+import { SemanticEngine } from '@libs/engine/semantic_engine/semantic_engine';
+import { HydratedViewNode } from '@libs/model/view_node';
+import uniqId from 'uniqid';
 
 export class LayoutEngine {
   protected settings: Settings;
@@ -20,7 +20,7 @@ export class LayoutEngine {
    */
   private applyLayoutToView = (
     view: HydratedView,
-    children: Array<HydratedViewNode>
+    children: Array<HydratedViewNode>,
   ) => {
     if (children) {
       for (let i = 0; i < children.length; i++) {
@@ -39,7 +39,7 @@ export class LayoutEngine {
               parent.type,
               0,
               0,
-              null
+              null,
             );
             let copyChildViewNode = childViewNode;
 
@@ -84,7 +84,7 @@ export class LayoutEngine {
             leaf.type,
             0,
             0,
-            null
+            null,
           );
 
           view.addViewNode(viewNode);

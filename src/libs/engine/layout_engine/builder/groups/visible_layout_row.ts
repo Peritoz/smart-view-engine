@@ -1,10 +1,10 @@
-import { Alignment } from "@libs/common/alignment.enum";
-import { Settings } from "@libs/engine/settings";
-import { LayoutRow } from "@libs/engine/layout_engine/builder/groups/layout_row";
-import { Direction } from "@libs/common/distribution.enum";
-import { ContentBox } from "@libs/engine/layout_engine/builder/groups/content_box/content_box";
-import { Dimension } from "@libs/model/dimension";
-import { LayoutGroup } from "@libs/engine/layout_engine/builder/groups/layout_group";
+import { Alignment } from '@libs/common/alignment.enum';
+import { Settings } from '@libs/engine/settings';
+import { LayoutRow } from '@libs/engine/layout_engine/builder/groups/layout_row';
+import { Direction } from '@libs/common/distribution.enum';
+import { ContentBox } from '@libs/engine/layout_engine/builder/groups/content_box/content_box';
+import { Dimension } from '@libs/model/dimension';
+import { LayoutGroup } from '@libs/engine/layout_engine/builder/groups/layout_group';
 
 export class VisibleLayoutRow extends LayoutRow {
   protected name: string;
@@ -22,11 +22,11 @@ export class VisibleLayoutRow extends LayoutRow {
     type: string,
     lateralLabel: boolean,
     parent: LayoutGroup | null,
-    initialDimension?: Dimension
+    initialDimension?: Dimension,
   ) {
     if (!(settings instanceof Settings)) {
       throw new Error(
-        "A Visible Row should be created based on a valid instance of Settings"
+        'A Visible Row should be created based on a valid instance of Settings',
       );
     }
 
@@ -36,19 +36,19 @@ export class VisibleLayoutRow extends LayoutRow {
       verticalAlignment,
       settings,
       parent,
-      initialDimension
+      initialDimension,
     );
 
     this.offset = {
       topOffset: !lateralLabel
         ? settings.topPadding +
-          settings.labelHeight +
-          settings.spaceToOuterLabel
+        settings.labelHeight +
+        settings.spaceToOuterLabel
         : settings.topPadding,
       leftOffset: lateralLabel
         ? settings.leftPadding +
-          settings.labelWidth +
-          settings.spaceToOuterLabel
+        settings.labelWidth +
+        settings.spaceToOuterLabel
         : settings.leftPadding,
       bottomOffset: settings.bottomPadding,
       rightOffset: settings.rightPadding,
@@ -90,7 +90,7 @@ export class VisibleLayoutRow extends LayoutRow {
       () => {
         this.adjustHeightToContent();
       },
-      dimension
+      dimension,
     );
   }
 

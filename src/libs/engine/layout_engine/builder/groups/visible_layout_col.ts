@@ -1,10 +1,10 @@
-import { LayoutCol } from "@libs/engine/layout_engine/builder/groups/layout_col";
-import { Alignment } from "@libs/common/alignment.enum";
-import { Settings } from "@libs/engine/settings";
-import { Direction } from "@libs/common/distribution.enum";
-import { ContentBox } from "@libs/engine/layout_engine/builder/groups/content_box/content_box";
-import { Dimension } from "@libs/model/dimension";
-import { LayoutGroup } from "@libs/engine/layout_engine/builder/groups/layout_group";
+import { LayoutCol } from '@libs/engine/layout_engine/builder/groups/layout_col';
+import { Alignment } from '@libs/common/alignment.enum';
+import { Settings } from '@libs/engine/settings';
+import { Direction } from '@libs/common/distribution.enum';
+import { ContentBox } from '@libs/engine/layout_engine/builder/groups/content_box/content_box';
+import { Dimension } from '@libs/model/dimension';
+import { LayoutGroup } from '@libs/engine/layout_engine/builder/groups/layout_group';
 
 export class VisibleLayoutCol extends LayoutCol {
   protected name: string;
@@ -22,11 +22,11 @@ export class VisibleLayoutCol extends LayoutCol {
     type: string,
     lateralLabel: boolean,
     parent: LayoutGroup | null,
-    initialDimension?: Dimension
+    initialDimension?: Dimension,
   ) {
     if (!(settings instanceof Settings)) {
       throw new Error(
-        "A Visible Col should be created based on a valid instance of Settings"
+        'A Visible Col should be created based on a valid instance of Settings',
       );
     }
 
@@ -36,19 +36,19 @@ export class VisibleLayoutCol extends LayoutCol {
       verticalAlignment,
       settings,
       parent,
-      initialDimension
+      initialDimension,
     );
 
     this.offset = {
       topOffset: !lateralLabel
         ? settings.topPadding +
-          settings.labelHeight +
-          settings.spaceToOuterLabel
+        settings.labelHeight +
+        settings.spaceToOuterLabel
         : settings.topPadding,
       leftOffset: lateralLabel
         ? settings.leftPadding +
-          settings.labelWidth +
-          settings.spaceToOuterLabel
+        settings.labelWidth +
+        settings.spaceToOuterLabel
         : settings.leftPadding,
       bottomOffset: settings.bottomPadding,
       rightOffset: settings.rightPadding,
@@ -90,7 +90,7 @@ export class VisibleLayoutCol extends LayoutCol {
       () => {
         this.adjustHeightToContent();
       },
-      dimension
+      dimension,
     );
   }
 

@@ -1,9 +1,9 @@
-import { SemanticEngine } from "@libs/engine/semantic_engine/semantic_engine";
-import { Settings } from "@libs/engine/settings";
-import { HierarchicalLayoutEngine } from "../hierarchical_layout_engine";
-import { LayoutDirector } from "@libs/engine/layout_engine/builder/layout_director";
-import { HydratedViewNode } from "@libs/model/view_node";
-import { Alignment } from "@libs/common/alignment.enum";
+import { SemanticEngine } from '@libs/engine/semantic_engine/semantic_engine';
+import { Settings } from '@libs/engine/settings';
+import { HierarchicalLayoutEngine } from '../hierarchical_layout_engine';
+import { LayoutDirector } from '@libs/engine/layout_engine/builder/layout_director';
+import { HydratedViewNode } from '@libs/model/view_node';
+import { Alignment } from '@libs/common/alignment.enum';
 
 export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
   constructor(settings: Settings, semanticEngine: SemanticEngine) {
@@ -20,7 +20,7 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
   protected renderElements(
     nestedTrees: Array<HydratedViewNode>,
     layoutDirector: LayoutDirector,
-    childrenLimitPerGroup: number = -1
+    childrenLimitPerGroup: number = -1,
   ): void {
     const thereIsChildrenLimit: boolean =
       !isNaN(childrenLimitPerGroup) &&
@@ -36,7 +36,7 @@ export class HierarchyLayoutEngine extends HierarchicalLayoutEngine {
           child.name,
           child.type,
           false,
-          child.modelNodeId
+          child.modelNodeId,
         );
 
         if (child.children && child.children.length > 0) {

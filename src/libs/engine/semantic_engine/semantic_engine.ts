@@ -1,4 +1,4 @@
-import { PathElement } from "@libs/engine/smart_view_engine";
+import { PathElement } from '@libs/engine/smart_view_engine';
 
 export interface SemanticElement {
   parent: PathElement;
@@ -37,7 +37,7 @@ export class SemanticEngine {
     isRoot: boolean,
     objectMap: Map<string, number>,
     node: PathElement,
-    child?: PathElement
+    child?: PathElement,
   ) {
     objectMap.set(node.identifier, this.modelElements.length);
 
@@ -62,12 +62,12 @@ export class SemanticEngine {
 
   private addChildToNode(
     indexFirstElement: number,
-    secondElement: PathElement
+    secondElement: PathElement,
   ) {
     const indexChild: number | undefined = this.modelElements[
       indexFirstElement
-    ].children.findIndex(
-      (e: PathElement) => e.identifier === secondElement.identifier
+      ].children.findIndex(
+      (e: PathElement) => e.identifier === secondElement.identifier,
     );
 
     if (indexChild === -1) {
@@ -158,7 +158,7 @@ export class SemanticEngine {
 
   getChildren = (identifier: string) => {
     const element = this.modelElements.find(
-      (e) => e.parent.identifier === identifier
+      (e) => e.parent.identifier === identifier,
     );
 
     if (element) {
