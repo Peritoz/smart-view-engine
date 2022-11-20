@@ -9,10 +9,7 @@ import { BoxDimension } from '@libs/engine/layout_engine/builder/groups/content_
  */
 export class ContentBoxDimension {
   protected boxDimension: BoxDimension; // Top left point to define the start X and Y box's limits
-  protected usedWidth: number; // Current horizontal size used (in points)
-  protected usedHeight: number; // Current vertical size used (in points)
   protected direction: Direction; // Indicates the main axis direction: Horizontal or Vertical
-  protected spaceBetween: number; // Points between elements
   protected maxChildWidth: number; // Width of the biggest element
   protected maxChildHeight: number; // Height of the biggest element
   protected hasFixedWidth: boolean; // Indicates if the width is fixed or flexible; Flexible width will be adjusted when adding elements
@@ -45,15 +42,17 @@ export class ContentBoxDimension {
       throw new Error('Has fixed height but no height was indicated');
     }
 
-    this.boxDimension = new BoxDimension(top, left, dimension);
-    this.usedWidth = 0;
-    this.usedHeight = 0;
+    this.boxDimension = new BoxDimension(
+      top,
+      left,
+      spaceBetween,
+      hasFixedWidth,
+      hasFixedHeight,
+      dimension,
+    );
     this.direction = direction;
-    this.spaceBetween = spaceBetween;
     this.maxChildWidth = 0; // Represents the width of the biggest child
     this.maxChildHeight = 0; // Represents the height of the biggest child
-    this.hasFixedWidth = hasFixedWidth;
-    this.hasFixedHeight = hasFixedHeight;
   }
 
   getContentBoxWidth(): number {
@@ -65,47 +64,15 @@ export class ContentBoxDimension {
   }
 
   getSpaceBetween(): number {
-    return this.spaceBetween;
+    return this.boxDimension.getSpaceBetween();
   }
 
   setContentBoxWidth(width: number) {
-    if (!this.hasFixedWidth) {
-      const currentContentWidth = this.getContentBoxWidth();
-
-      if (width >= currentContentWidth) {
-        this.boxDimension.setRightBoundary(
-          this.boxDimension.getRightBoundary() + width - currentContentWidth,
-        );
-      } else {
-        throw new Error(
-          'The new content box width can not be smaller than previous value',
-        );
-      }
-    } else {
-      throw new Error(
-        'It is not possible to update the width of a Content box dimension with fixed width',
-      );
-    }
+    this.boxDimension.setWidth(width);
   }
 
   setContentBoxHeight(height: number) {
-    if (!this.hasFixedHeight) {
-      const currentContentHeight = this.getContentBoxHeight();
-
-      if (height >= currentContentHeight) {
-        this.setBottomBoundary(
-          this.boxDimension.getBottomBoundary() + height - currentContentHeight,
-        );
-      } else {
-        throw new Error(
-          'The new content box height can not be smaller than previous value',
-        );
-      }
-    } else {
-      throw new Error(
-        'It is not possible to update the height of a Content box dimension with fixed height',
-      );
-    }
+    this.boxDimension.setHeight(height);
   }
 
   getTopBoundary(): number {
@@ -125,11 +92,11 @@ export class ContentBoxDimension {
   }
 
   getUsedWidth(): number {
-    return this.usedWidth;
+    return this.boxDimension.getUsedWidth();
   }
 
   getUsedHeight(): number {
-    return this.usedHeight;
+    return this.boxDimension.getUsedHeight();
   }
 
   getRightOffset(width: number) {
@@ -140,48 +107,12 @@ export class ContentBoxDimension {
     return this.boxDimension.getBottomOffset(height);
   }
 
-  setBottomBoundary(value: number) {
-    this.boxDimension.setBottomBoundary(value);
-  }
-
-  setRightBoundary(value: number) {
-    this.boxDimension.setRightBoundary(value);
-  }
-
   setUsedWidth(value: number) {
-    const hasValueOverflow = value > this.getContentBoxWidth();
-
-    if (this.hasFixedWidth && hasValueOverflow) {
-      throw new Error(
-        `Content box dimension width overflow. Maximum width is ${this.getContentBoxWidth()}`,
-      );
-    }
-
-    this.usedWidth = value;
-
-    if (!this.hasFixedWidth && hasValueOverflow) {
-      this.setRightBoundary(
-        this.boxDimension.getRightBoundary() + this.usedWidth - this.getContentBoxWidth(),
-      );
-    }
+    this.boxDimension.setUsedWidth(value);
   }
 
   setUsedHeight(value: number) {
-    const hasValueOverflow = value > this.getContentBoxHeight();
-
-    if (this.hasFixedHeight && hasValueOverflow) {
-      throw new Error(
-        `Content box dimension height overflow. Maximum height is ${this.getContentBoxHeight()}`,
-      );
-    }
-
-    this.usedHeight = value;
-
-    if (!this.hasFixedHeight && hasValueOverflow) {
-      this.setBottomBoundary(
-        this.boxDimension.getBottomBoundary() + this.usedHeight - this.getContentBoxHeight(),
-      );
-    }
+    this.boxDimension.setUsedHeight(value);
   }
 
   getBiggestContentWidth(): number {
@@ -193,8 +124,7 @@ export class ContentBoxDimension {
   }
 
   incrementWidth(value: number, isFirstContent: boolean) {
-    const spaceBetween = isFirstContent ? 0 : this.spaceBetween;
-    this.setUsedWidth(this.usedWidth + value + spaceBetween);
+    this.boxDimension.incrementWidth(value, isFirstContent);
 
     // Updating maximum element width
     if (value > this.maxChildWidth) {
@@ -203,8 +133,7 @@ export class ContentBoxDimension {
   }
 
   incrementHeight(value: number, isFirstContent: boolean) {
-    const spaceBetween = isFirstContent ? 0 : this.spaceBetween;
-    this.setUsedHeight(this.usedHeight + value + spaceBetween);
+    this.boxDimension.incrementHeight(value, isFirstContent);
 
     // Updating maximum element height
     if (value > this.maxChildHeight) {
@@ -229,7 +158,7 @@ export class ContentBoxDimension {
 
       onChangeWidth(oldWidth, this.getContentBoxWidth());
 
-      if (content.height > this.usedHeight) {
+      if (content.height > this.getUsedHeight()) {
         this.setUsedHeight(content.height);
 
         onChangeHeight(oldHeight, this.getContentBoxHeight());
@@ -239,7 +168,7 @@ export class ContentBoxDimension {
 
       onChangeHeight(oldHeight, this.getContentBoxHeight());
 
-      if (content.width > this.usedWidth) {
+      if (content.width > this.getUsedWidth()) {
         this.setUsedWidth(content.width);
 
         onChangeWidth(oldWidth, this.getContentBoxWidth());
