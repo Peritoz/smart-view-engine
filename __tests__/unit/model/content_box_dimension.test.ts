@@ -1,18 +1,20 @@
-import { ContentBoxDimension } from "../../../src/libs/engine/layout_engine/builder/groups/content_box/content_box_dimension";
-import { Direction } from "../../../src/libs/common/distribution.enum";
+import {
+  ContentBoxDimension,
+} from '../../../src/libs/engine/layout_engine/builder/groups/content_box/content_box_dimension';
+import { Direction } from '../../../src/libs/common/distribution.enum';
 
-describe("Content Box Dimension", () => {
+describe('Content Box Dimension', () => {
   let contentBoxDimension = null;
 
-  describe("Horizontal", () => {
-    it("Should create a Content Box Dimension", (done) => {
+  describe('Horizontal', () => {
+    it('Should create a Content Box Dimension', (done) => {
       contentBoxDimension = new ContentBoxDimension(
         10,
         5,
         Direction.HORIZONTAL,
         5,
         false,
-        false
+        false,
       );
 
       expect(contentBoxDimension).toBeDefined();
@@ -20,7 +22,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should add the first content and update used width and height", (done) => {
+    it('Should add the first content and update used width and height', (done) => {
       contentBoxDimension.addContent({ width: 15, height: 10 }, true);
 
       expect(contentBoxDimension.getUsedWidth()).toBe(15);
@@ -31,7 +33,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should add the second content and update used width and height", (done) => {
+    it('Should add the second content and update used width and height', (done) => {
       contentBoxDimension.addContent({ width: 10, height: 15 });
 
       expect(contentBoxDimension.getUsedWidth()).toBe(30);
@@ -42,7 +44,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should add the third content and update used width and height", (done) => {
+    it('Should add the third content and update used width and height', (done) => {
       contentBoxDimension.addContent({ width: 20, height: 10 });
 
       expect(contentBoxDimension.getUsedWidth()).toBe(55);
@@ -53,7 +55,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should set the right boundary and keep the same used with", (done) => {
+    it('Should set the right boundary and keep the same used with', (done) => {
       contentBoxDimension.setContentBoxWidth(60);
 
       expect(contentBoxDimension.getUsedWidth()).toBe(55);
@@ -63,7 +65,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should set the bottom boundary and keep the same used with", (done) => {
+    it('Should set the bottom boundary and keep the same used with', (done) => {
       contentBoxDimension.setContentBoxHeight(20);
 
       expect(contentBoxDimension.getUsedHeight()).toBe(15);
@@ -73,7 +75,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should add the last content and update used width and height", (done) => {
+    it('Should add the last content and update used width and height', (done) => {
       contentBoxDimension.addContent({ width: 10, height: 30 });
 
       expect(contentBoxDimension.getUsedWidth()).toBe(70);
@@ -85,10 +87,10 @@ describe("Content Box Dimension", () => {
     });
   });
 
-  describe("Fixed Horizontal", () => {
+  describe('Fixed Horizontal', () => {
     const MAX_WIDTH = 30;
 
-    it("Should create a Content Box Dimension", (done) => {
+    it('Should create a Content Box Dimension', (done) => {
       contentBoxDimension = new ContentBoxDimension(
         5,
         10,
@@ -96,7 +98,7 @@ describe("Content Box Dimension", () => {
         5,
         true,
         false,
-        { width: MAX_WIDTH }
+        { width: MAX_WIDTH },
       );
 
       expect(contentBoxDimension).toBeDefined();
@@ -105,7 +107,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should add the first content and keep up the same height", (done) => {
+    it('Should add the first content and keep up the same height', (done) => {
       contentBoxDimension.addContent({ width: 15, height: 10 }, true);
 
       expect(contentBoxDimension.getUsedWidth()).toBe(15);
@@ -116,7 +118,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should add the second content and update used width and height", (done) => {
+    it('Should add the second content and update used width and height', (done) => {
       contentBoxDimension.addContent({ width: 10, height: 15 });
 
       expect(contentBoxDimension.getUsedWidth()).toBe(30);
@@ -127,26 +129,26 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should throw an overflow error", (done) => {
+    it('Should throw an overflow error', (done) => {
       expect(() => {
         contentBoxDimension.addContent({ width: 10, height: 15 });
       }).toThrow(
-        `Content box dimension width overflow. Maximum width is ${MAX_WIDTH}`
+        `Content box dimension width overflow. Maximum width is ${MAX_WIDTH}`,
       );
 
       done();
     });
   });
 
-  describe("Vertical", () => {
-    it("Should create a Content Box Dimension", (done) => {
+  describe('Vertical', () => {
+    it('Should create a Content Box Dimension', (done) => {
       contentBoxDimension = new ContentBoxDimension(
         10,
         5,
         Direction.VERTICAL,
         5,
         false,
-        false
+        false,
       );
 
       expect(contentBoxDimension).toBeDefined();
@@ -154,7 +156,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should add the first content and update used width and height", (done) => {
+    it('Should add the first content and update used width and height', (done) => {
       contentBoxDimension.addContent({ width: 10, height: 15 }, true);
 
       expect(contentBoxDimension.getUsedWidth()).toBe(10);
@@ -165,7 +167,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should add the second content and update used width and height", (done) => {
+    it('Should add the second content and update used width and height', (done) => {
       contentBoxDimension.addContent({ width: 15, height: 10 });
 
       expect(contentBoxDimension.getUsedWidth()).toBe(15);
@@ -176,7 +178,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should add the third content and update used width and height", (done) => {
+    it('Should add the third content and update used width and height', (done) => {
       contentBoxDimension.addContent({ width: 10, height: 20 });
 
       expect(contentBoxDimension.getUsedWidth()).toBe(15);
@@ -187,7 +189,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should set the right boundary and keep the same used with", (done) => {
+    it('Should set the right boundary and keep the same used with', (done) => {
       contentBoxDimension.setContentBoxWidth(20);
 
       expect(contentBoxDimension.getUsedWidth()).toBe(15);
@@ -197,7 +199,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should set the bottom boundary and keep the same used with", (done) => {
+    it('Should set the bottom boundary and keep the same used with', (done) => {
       contentBoxDimension.setContentBoxHeight(60);
 
       expect(contentBoxDimension.getUsedHeight()).toBe(55);
@@ -207,7 +209,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should add the last content and update used width and height", (done) => {
+    it('Should add the last content and update used width and height', (done) => {
       contentBoxDimension.addContent({ width: 30, height: 10 });
 
       expect(contentBoxDimension.getUsedWidth()).toBe(30);
@@ -219,10 +221,10 @@ describe("Content Box Dimension", () => {
     });
   });
 
-  describe("Fixed Vertical", () => {
+  describe('Fixed Vertical', () => {
     const MAX_HEIGHT = 30;
 
-    it("Should create a Content Box Dimension", (done) => {
+    it('Should create a Content Box Dimension', (done) => {
       contentBoxDimension = new ContentBoxDimension(
         10,
         5,
@@ -230,7 +232,7 @@ describe("Content Box Dimension", () => {
         5,
         false,
         true,
-        { height: MAX_HEIGHT }
+        { height: MAX_HEIGHT },
       );
 
       expect(contentBoxDimension).toBeDefined();
@@ -239,7 +241,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should add the first content and keep up the same height", (done) => {
+    it('Should add the first content and keep up the same height', (done) => {
       contentBoxDimension.addContent({ width: 10, height: 15 }, true);
 
       expect(contentBoxDimension.getUsedWidth()).toBe(10);
@@ -250,7 +252,7 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should add the second content and update used width and height", (done) => {
+    it('Should add the second content and update used width and height', (done) => {
       contentBoxDimension.addContent({ width: 15, height: 10 });
 
       expect(contentBoxDimension.getUsedWidth()).toBe(15);
@@ -261,11 +263,11 @@ describe("Content Box Dimension", () => {
       done();
     });
 
-    it("Should throw an overflow error", (done) => {
+    it('Should throw an overflow error', (done) => {
       expect(() => {
         contentBoxDimension.addContent({ width: 15, height: 10 });
       }).toThrow(
-        `Content box dimension height overflow. Maximum height is ${MAX_HEIGHT}`
+        `Content box dimension height overflow. Maximum height is ${MAX_HEIGHT}`,
       );
 
       done();

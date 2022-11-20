@@ -1,13 +1,13 @@
-import { Alignment } from "../../../src/libs/common/alignment.enum";
-import { ElementBuilder } from "../../../src/libs/engine/layout_engine/builder/element_builder";
-import { ContentBox } from "../../../src/libs/engine/layout_engine/builder/groups/content_box/content_box";
-import { Direction } from "../../../src/libs/common/distribution.enum";
-import { DEFAULT } from "../../../src/libs/common/size_reference.const";
+import { Alignment } from '../../../src/libs/common/alignment.enum';
+import { ElementBuilder } from '../../../src/libs/engine/layout_engine/builder/element_builder';
+import { ContentBox } from '../../../src/libs/engine/layout_engine/builder/groups/content_box/content_box';
+import { Direction } from '../../../src/libs/common/distribution.enum';
+import { DEFAULT } from '../../../src/libs/common/size_reference.const';
 
 const elementBuilder = new ElementBuilder(DEFAULT.SIZE_UNIT);
 
-describe("Horizontal Layout", () => {
-  it("Horizontal - Main Axis - Start Alignment", async () => {
+describe('Horizontal Layout', () => {
+  it('Horizontal - Main Axis - Start Alignment', async () => {
     let group: ContentBox = new ContentBox(
       0,
       0,
@@ -15,30 +15,32 @@ describe("Horizontal Layout", () => {
       Alignment.START,
       Alignment.START,
       5,
-      () => {},
-      () => {}
+      () => {
+      },
+      () => {
+      },
     );
 
     group.addContainer(
       elementBuilder.buildElement({
-        name: "A",
+        name: 'A',
         width: 50,
         height: 25,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "B",
+        name: 'B',
         width: 100,
         height: 50,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "C",
+        name: 'C',
         width: 150,
         height: 60,
-      })
+      }),
     );
 
     group.setWidth(500);
@@ -59,7 +61,7 @@ describe("Horizontal Layout", () => {
     expect(children[2].getHeight()).toBe(60);
   });
 
-  it("Horizontal - Main Axis - End Alignment", async () => {
+  it('Horizontal - Main Axis - End Alignment', async () => {
     let group: ContentBox = new ContentBox(
       0,
       0,
@@ -67,30 +69,32 @@ describe("Horizontal Layout", () => {
       Alignment.END,
       Alignment.START,
       5,
-      () => {},
-      () => {}
+      () => {
+      },
+      () => {
+      },
     );
 
     group.addContainer(
       elementBuilder.buildElement({
-        name: "A",
+        name: 'A',
         width: 50,
         height: 25,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "B",
+        name: 'B',
         width: 100,
         height: 50,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "C",
+        name: 'C',
         width: 150,
         height: 60,
-      })
+      }),
     );
 
     group.setWidth(500);
@@ -111,7 +115,7 @@ describe("Horizontal Layout", () => {
     expect(children[2].getHeight()).toBe(60);
   });
 
-  it("Horizontal - Main Axis - Center Alignment", async () => {
+  it('Horizontal - Main Axis - Center Alignment', async () => {
     let group: ContentBox = new ContentBox(
       0,
       0,
@@ -119,30 +123,32 @@ describe("Horizontal Layout", () => {
       Alignment.CENTER,
       Alignment.START,
       5,
-      () => {},
-      () => {}
+      () => {
+      },
+      () => {
+      },
     );
 
     group.addContainer(
       elementBuilder.buildElement({
-        name: "A",
+        name: 'A',
         width: 50,
         height: 25,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "B",
+        name: 'B',
         width: 50,
         height: 50,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "C",
+        name: 'C',
         width: 50,
         height: 60,
-      })
+      }),
     );
 
     group.setWidth(500);
@@ -163,7 +169,7 @@ describe("Horizontal Layout", () => {
     expect(children[2].getHeight()).toBe(60);
   });
 
-  it("Horizontal - Main Axis - Space Between Alignment", async () => {
+  it('Horizontal - Main Axis - Space Between Alignment', async () => {
     let group: ContentBox = new ContentBox(
       0,
       0,
@@ -171,34 +177,36 @@ describe("Horizontal Layout", () => {
       Alignment.EXPANDED,
       Alignment.EXPANDED,
       5,
-      () => {},
-      () => {},
+      () => {
+      },
+      () => {
+      },
       {
         width: 400,
         height: 60,
-      }
+      },
     );
 
     group.addContainer(
       elementBuilder.buildElement({
-        name: "A",
+        name: 'A',
         width: 50,
         height: 25,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "B",
+        name: 'B',
         width: 100,
         height: 50,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "C",
+        name: 'C',
         width: 150,
         height: 60,
-      })
+      }),
     );
 
     const children = group.getChildren();
@@ -217,7 +225,7 @@ describe("Horizontal Layout", () => {
     expect(children[2].getHeight()).toBe(60);
   });
 
-  it("Horizontal - Cross Axis - Start Alignment", async () => {
+  it('Horizontal - Cross Axis - Start Alignment', async () => {
     let group: ContentBox = new ContentBox(
       0,
       0,
@@ -225,30 +233,32 @@ describe("Horizontal Layout", () => {
       Alignment.START,
       Alignment.START,
       5,
-      () => {},
-      () => {}
+      () => {
+      },
+      () => {
+      },
     );
 
     group.addContainer(
       elementBuilder.buildElement({
-        name: "A",
+        name: 'A',
         width: 50,
         height: 25,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "B",
+        name: 'B',
         width: 50,
         height: 50,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "C",
+        name: 'C',
         width: 50,
         height: 60,
-      })
+      }),
     );
 
     group.setWidth(500);
@@ -269,7 +279,7 @@ describe("Horizontal Layout", () => {
     expect(children[2].getHeight()).toBe(60);
   });
 
-  it("Horizontal - Cross Axis - End Alignment", async () => {
+  it('Horizontal - Cross Axis - End Alignment', async () => {
     let group: ContentBox = new ContentBox(
       0,
       0,
@@ -277,30 +287,32 @@ describe("Horizontal Layout", () => {
       Alignment.START,
       Alignment.END,
       5,
-      () => {},
-      () => {}
+      () => {
+      },
+      () => {
+      },
     );
 
     group.addContainer(
       elementBuilder.buildElement({
-        name: "A",
+        name: 'A',
         width: 50,
         height: 25,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "B",
+        name: 'B',
         width: 50,
         height: 50,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "C",
+        name: 'C',
         width: 50,
         height: 60,
-      })
+      }),
     );
 
     group.setWidth(500);
@@ -321,7 +333,7 @@ describe("Horizontal Layout", () => {
     expect(children[2].getHeight()).toBe(60);
   });
 
-  it("Horizontal - Cross Axis - Center Alignment", async () => {
+  it('Horizontal - Cross Axis - Center Alignment', async () => {
     let group: ContentBox = new ContentBox(
       0,
       0,
@@ -329,30 +341,32 @@ describe("Horizontal Layout", () => {
       Alignment.START,
       Alignment.CENTER,
       5,
-      () => {},
-      () => {}
+      () => {
+      },
+      () => {
+      },
     );
 
     group.addContainer(
       elementBuilder.buildElement({
-        name: "A",
+        name: 'A',
         width: 50,
         height: 25,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "B",
+        name: 'B',
         width: 50,
         height: 50,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "C",
+        name: 'C',
         width: 50,
         height: 60,
-      })
+      }),
     );
 
     group.setWidth(500);
@@ -373,7 +387,7 @@ describe("Horizontal Layout", () => {
     expect(children[2].getHeight()).toBe(60);
   });
 
-  it("Horizontal - Cross Axis - Space Between Alignment", async () => {
+  it('Horizontal - Cross Axis - Space Between Alignment', async () => {
     let group: ContentBox = new ContentBox(
       0,
       0,
@@ -381,33 +395,35 @@ describe("Horizontal Layout", () => {
       Alignment.START,
       Alignment.EXPANDED,
       5,
-      () => {},
-      () => {},
+      () => {
+      },
+      () => {
+      },
       {
         height: 60,
-      }
+      },
     );
 
     group.addContainer(
       elementBuilder.buildElement({
-        name: "A",
+        name: 'A',
         width: 50,
         height: 25,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "B",
+        name: 'B',
         width: 50,
         height: 50,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "C",
+        name: 'C',
         width: 50,
         height: 60,
-      })
+      }),
     );
 
     group.setWidth(500);
@@ -428,7 +444,7 @@ describe("Horizontal Layout", () => {
     expect(children[2].getHeight()).toBe(60);
   });
 
-  it("Horizontal - Row Resizing - Elements Adjust to the Size", async () => {
+  it('Horizontal - Row Resizing - Elements Adjust to the Size', async () => {
     let group: ContentBox = new ContentBox(
       0,
       0,
@@ -436,31 +452,33 @@ describe("Horizontal Layout", () => {
       Alignment.EXPANDED,
       Alignment.EXPANDED,
       5,
-      () => {},
-      () => {},
-      { width: 400, height: 100 }
+      () => {
+      },
+      () => {
+      },
+      { width: 400, height: 100 },
     );
 
     group.addContainer(
       elementBuilder.buildElement({
-        name: "A",
+        name: 'A',
         width: 50,
         height: 25,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "B",
+        name: 'B',
         width: 50,
         height: 50,
-      })
+      }),
     );
     group.addContainer(
       elementBuilder.buildElement({
-        name: "C",
+        name: 'C',
         width: 50,
         height: 60,
-      })
+      }),
     );
 
     const children = group.getChildren();
