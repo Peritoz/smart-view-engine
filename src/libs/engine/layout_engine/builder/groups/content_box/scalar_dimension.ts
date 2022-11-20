@@ -9,7 +9,7 @@ export class ScalarDimension {
   protected interval: ScalarInterval;
   protected usedSize: number; // in points
   protected spaceBetween: number; // Points between elements
-  protected isFixed: boolean;
+  public isFixed: boolean;
 
   constructor(
     interval: ScalarInterval,
@@ -65,8 +65,8 @@ export class ScalarDimension {
     }
   }
 
-  incrementSize(value: number) {
-    const spaceBetween = this.usedSize === 0 ? 0 : this.spaceBetween;
+  incrementSize(value: number, isFirstIncrement: boolean) {
+    const spaceBetween = isFirstIncrement ? 0 : this.spaceBetween;
     this.setUsedSize(this.usedSize + value + spaceBetween);
   }
 }
