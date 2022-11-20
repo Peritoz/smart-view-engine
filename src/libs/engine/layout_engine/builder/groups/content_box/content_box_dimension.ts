@@ -33,8 +33,8 @@ export class ContentBoxDimension {
     left: number = DEFAULT.DEFAULT_PADDING,
     direction: Direction = Direction.HORIZONTAL,
     spaceBetween: number = DEFAULT.DEFAULT_PADDING,
-    hasFixedWidth: boolean,
-    hasFixedHeight: boolean,
+    hasFixedWidth: boolean = false,
+    hasFixedHeight: boolean = false,
     dimension?: Partial<Dimension>,
   ) {
     if (hasFixedWidth && dimension?.width === undefined) {

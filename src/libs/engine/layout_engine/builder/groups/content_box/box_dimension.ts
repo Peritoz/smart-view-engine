@@ -1,14 +1,10 @@
 import { DEFAULT } from '@libs/common/size_reference.const';
 import { Dimension } from '@libs/model/dimension';
-
-interface Point {
-  x: number;
-  y: number;
-}
+import { ScalarDimension } from '@libs/engine/layout_engine/builder/groups/content_box/scalar_dimension';
 
 export class BoxDimension {
-  protected topLeft: Point; // Top left point to define the start X and Y box's limits
-  protected bottomRight: Point; // Bottom right point to define the end X and Y box's limits
+  protected xAxis: ScalarDimension;
+  protected yAxis: ScalarDimension;
 
   /**
    * Constructs an instance of ContentBoxDimension
@@ -21,56 +17,55 @@ export class BoxDimension {
     left: number = DEFAULT.DEFAULT_PADDING,
     dimension?: Partial<Dimension>,
   ) {
-    this.topLeft = { x: left, y: top };
-    this.bottomRight = {
-      x:
-        dimension && dimension.width !== undefined
-          ? dimension!.width + left
-          : left,
-      y:
-        dimension && dimension.height !== undefined
-          ? dimension!.height + top
-          : top,
-    };
+    this.xAxis = new ScalarDimension({
+      from: left, to: dimension && dimension.width !== undefined
+        ? dimension!.width + left
+        : left,
+    });
+    this.yAxis = new ScalarDimension({
+      from: top, to: dimension && dimension.height !== undefined
+        ? dimension!.height + top
+        : top,
+    });
   }
 
   getContentBoxWidth(): number {
-    return this.bottomRight.x - this.topLeft.x;
+    return this.xAxis.getSize();
   }
 
   getContentBoxHeight(): number {
-    return this.bottomRight.y - this.topLeft.y;
+    return this.yAxis.getSize();
   }
 
   getTopBoundary(): number {
-    return this.topLeft.y;
+    return this.yAxis.getInitialValue();
   }
 
   getLeftBoundary(): number {
-    return this.topLeft.x;
+    return this.xAxis.getInitialValue();
   }
 
   getBottomBoundary(): number {
-    return this.bottomRight.y;
+    return this.yAxis.getFinalValue();
   }
 
   getRightBoundary(): number {
-    return this.bottomRight.x;
+    return this.xAxis.getFinalValue();
   }
 
   getRightOffset(width: number) {
-    return width - this.bottomRight.x;
+    return width - this.xAxis.getFinalValue();
   }
 
   getBottomOffset(height: number) {
-    return height - this.bottomRight.y;
+    return height - this.yAxis.getFinalValue();
   }
 
   setBottomBoundary(value: number) {
-    this.bottomRight.y = value;
+    this.yAxis.setFinalValue(value);
   }
 
   setRightBoundary(value: number) {
-    this.bottomRight.x = value;
+    this.xAxis.setFinalValue(value);
   }
 }
