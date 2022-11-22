@@ -1,7 +1,7 @@
 import { Direction } from '@libs/common/distribution.enum';
 import { DEFAULT } from '@libs/common/size_reference.const';
 import { Dimension } from '@libs/model/dimension';
-import { BoxDimension } from '@libs/engine/layout_engine/builder/groups/content_box/box_dimension';
+import { BoxDimension, BoxManager } from '@libs/engine/layout_engine/builder/groups/content_box/box_dimension';
 
 /**
  * Content Box Dimension manages the changes in the used width and height, as well as the limits (max width and height)
@@ -55,6 +55,10 @@ export class ContentBoxDimension {
     this.maxChildHeight = 0; // Represents the height of the biggest child
   }
 
+  getBoxManager(): BoxManager {
+    return this.boxDimension;
+  }
+
   getContentBoxWidth(): number {
     return this.boxDimension.getContentBoxWidth();
   }
@@ -75,36 +79,12 @@ export class ContentBoxDimension {
     this.boxDimension.setHeight(height);
   }
 
-  getTopBoundary(): number {
-    return this.boxDimension.getTopBoundary();
-  }
-
-  getLeftBoundary(): number {
-    return this.boxDimension.getLeftBoundary();
-  }
-
-  getBottomBoundary(): number {
-    return this.boxDimension.getBottomBoundary();
-  }
-
-  getRightBoundary(): number {
-    return this.boxDimension.getRightBoundary();
-  }
-
   getUsedWidth(): number {
     return this.boxDimension.getUsedWidth();
   }
 
   getUsedHeight(): number {
     return this.boxDimension.getUsedHeight();
-  }
-
-  getRightOffset(width: number) {
-    return this.boxDimension.getRightOffset(width);
-  }
-
-  getBottomOffset(height: number) {
-    return this.boxDimension.getBottomOffset(height);
   }
 
   setUsedWidth(value: number) {

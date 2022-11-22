@@ -112,10 +112,6 @@ export class ContentBox {
     return this.dimension;
   }
 
-  getDirection(): Direction {
-    return this.direction;
-  }
-
   addContainer(container: ContentElement) {
     // Adding container as child
     this.children.push(container);
@@ -226,8 +222,8 @@ export class ContentBox {
         (child) => child.getWidth(),
         (child, value) => child.setWidth(value),
         (child, value) => child.setX(value),
-        this.dimension.getLeftBoundary(),
-        this.dimension.getRightOffset(totalSize),
+        this.dimension.getBoxManager().getLeftBoundary(),
+        this.dimension.getBoxManager().getRightOffset(totalSize),
       );
     } else {
       const totalSize = this.getHeight();
@@ -239,8 +235,8 @@ export class ContentBox {
         (child) => child.getHeight(),
         (child, value) => child.setHeight(value),
         (child, value) => child.setY(value),
-        this.dimension.getTopBoundary(),
-        this.dimension.getBottomOffset(totalSize),
+        this.dimension.getBoxManager().getTopBoundary(),
+        this.dimension.getBoxManager().getBottomOffset(totalSize),
       );
     }
   }
@@ -256,8 +252,8 @@ export class ContentBox {
         (child) => child.getHeight(),
         (child, value) => child.setHeight(value),
         (child, value) => child.setY(value),
-        this.dimension.getTopBoundary(),
-        this.dimension.getBottomOffset(totalSize),
+        this.dimension.getBoxManager().getTopBoundary(),
+        this.dimension.getBoxManager().getBottomOffset(totalSize),
       );
     } else {
       this.alignElements(
@@ -266,8 +262,8 @@ export class ContentBox {
         (child) => child.getWidth(),
         (child, value) => child.setWidth(value),
         (child, value) => child.setX(value),
-        this.dimension.getLeftBoundary(),
-        this.dimension.getRightOffset(totalSize),
+        this.dimension.getBoxManager().getLeftBoundary(),
+        this.dimension.getBoxManager().getRightOffset(totalSize),
       );
     }
   }

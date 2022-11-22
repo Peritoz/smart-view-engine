@@ -2,7 +2,21 @@ import { DEFAULT } from '@libs/common/size_reference.const';
 import { Dimension } from '@libs/model/dimension';
 import { ScalarDimension } from '@libs/engine/layout_engine/builder/groups/content_box/scalar_dimension';
 
-export class BoxDimension {
+export interface BoxManager {
+  getTopBoundary(): number;
+
+  getLeftBoundary(): number;
+
+  getBottomBoundary(): number;
+
+  getRightBoundary(): number;
+
+  getRightOffset(width: number): void;
+
+  getBottomOffset(height: number): void;
+}
+
+export class BoxDimension implements BoxManager {
   protected xAxis: ScalarDimension;
   protected yAxis: ScalarDimension;
   protected spaceBetween: number;
