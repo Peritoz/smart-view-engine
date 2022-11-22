@@ -1,14 +1,14 @@
-import { Alignment } from "@libs/common/alignment.enum";
-import { Settings } from "@libs/engine/settings";
-import { BaseElement } from "@libs/model/base_element";
-import { Direction } from "@libs/common/distribution.enum";
-import { Block } from "@libs/model/block";
-import { ContentBox } from "@libs/engine/layout_engine/builder/groups/content_box/content_box";
-import { Offset } from "@libs/model/offset";
-import { Position } from "@libs/model/position";
-import { Dimension } from "@libs/model/dimension";
+import { Alignment } from '@libs/common/alignment.enum';
+import { Settings } from '@libs/engine/settings';
+import { BaseElement } from '@libs/model/base_element';
+import { Direction } from '@libs/common/distribution.enum';
+import { Block } from '@libs/model/block';
+import { ContentBox } from '@libs/engine/layout_engine/builder/groups/content_box/content_box';
+import { Offset } from '@libs/model/offset';
+import { Position } from '@libs/model/position';
+import { Dimension } from '@libs/model/dimension';
 
-const uniqId = require("uniqid");
+const uniqId = require('uniqid');
 
 export class LayoutGroup extends Block {
   protected id: string;
@@ -28,7 +28,7 @@ export class LayoutGroup extends Block {
     settings: Settings,
     offset: Offset,
     parent: LayoutGroup | null,
-    initialDimension?: Partial<Dimension>
+    initialDimension?: Partial<Dimension>,
   ) {
     super({
       x: 0,
@@ -52,15 +52,15 @@ export class LayoutGroup extends Block {
       settings.spaceBetween,
       (oldValue, newValue) => {
         super.setWidth(
-          newValue + this.offset.leftOffset + this.offset.rightOffset
+          newValue + this.offset.leftOffset + this.offset.rightOffset,
         );
       },
       (oldValue, newValue) => {
         super.setHeight(
-          newValue + this.offset.topOffset + this.offset.bottomOffset
+          newValue + this.offset.topOffset + this.offset.bottomOffset,
         );
       },
-      initialDimension
+      initialDimension,
     ); // Content box limits
     this.offset = {
       topOffset: offset.topOffset || 0,
@@ -76,7 +76,7 @@ export class LayoutGroup extends Block {
           this.setWidth(initialDimension!.width);
         } else {
           throw new Error(
-            "Layout group initial width should be greater than 0"
+            'Layout group initial width should be greater than 0',
           );
         }
       }
@@ -86,7 +86,7 @@ export class LayoutGroup extends Block {
           this.setHeight(initialDimension!.height);
         } else {
           throw new Error(
-            "Layout group initial height should be greater than 0"
+            'Layout group initial height should be greater than 0',
           );
         }
       }
@@ -95,14 +95,14 @@ export class LayoutGroup extends Block {
       horizontalAlignment === Alignment.EXPANDED
     ) {
       throw new Error(
-        "Layout group with Expanded Horizontal Alignment. Width should be defined during the construction."
+        'Layout group with Expanded Horizontal Alignment. Width should be defined during the construction.',
       );
     } else if (
       distribution === Direction.VERTICAL &&
       verticalAlignment === Alignment.EXPANDED
     ) {
       throw new Error(
-        "Layout group with Expanded Vertical Alignment. Height should be defined during the construction."
+        'Layout group with Expanded Vertical Alignment. Height should be defined during the construction.',
       );
     }
   }
@@ -151,11 +151,11 @@ export class LayoutGroup extends Block {
         super.setWidth(value);
 
         this.contentBox.setWidth(
-          value - (this.offset.leftOffset + this.offset.rightOffset)
+          value - (this.offset.leftOffset + this.offset.rightOffset),
         );
       }
     } else {
-      throw new Error("The new Width can´t be smaller than current Width");
+      throw new Error('The new Width can´t be smaller than current Width');
     }
   }
 
@@ -171,11 +171,11 @@ export class LayoutGroup extends Block {
         super.setHeight(value);
 
         this.contentBox.setHeight(
-          value - (this.offset.topOffset + this.offset.bottomOffset)
+          value - (this.offset.topOffset + this.offset.bottomOffset),
         );
       }
     } else {
-      throw new Error("The new Height can´t be smaller than current Height");
+      throw new Error('The new Height can´t be smaller than current Height');
     }
   }
 
@@ -251,7 +251,7 @@ export class LayoutGroup extends Block {
   toAbsolutePosition(initialX: number = 0, initialY: number = 0) {
     this.contentBox.translateChildrenPosition(
       initialX + super.getX(),
-      initialY + super.getY()
+      initialY + super.getY(),
     );
   }
 }

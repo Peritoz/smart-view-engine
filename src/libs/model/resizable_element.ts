@@ -1,4 +1,4 @@
-import { Dimension } from "@libs/model/dimension";
+import { Dimension } from '@libs/model/dimension';
 
 export interface ResizableElement extends Dimension {
   onChangeWidth: (oldValue: number, newValue: number) => void;

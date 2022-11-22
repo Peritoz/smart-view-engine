@@ -1,10 +1,10 @@
-import { LayoutEngine } from "../../layout_engine";
-import { LayoutDirector } from "@libs/engine/layout_engine/builder/layout_director";
-import { Alignment } from "@libs/common/alignment.enum";
-import { HydratedViewNode } from "@libs/model/view_node";
-import { Settings } from "@libs/engine/settings";
-import { SemanticEngine } from "@libs/engine/semantic_engine/semantic_engine";
-import { HydratedView } from "@libs/model/hydrated_view";
+import { LayoutEngine } from '../../layout_engine';
+import { LayoutDirector } from '@libs/engine/layout_engine/builder/layout_director';
+import { Alignment } from '@libs/common/alignment.enum';
+import { HydratedViewNode } from '@libs/model/view_node';
+import { Settings } from '@libs/engine/settings';
+import { SemanticEngine } from '@libs/engine/semantic_engine/semantic_engine';
+import { HydratedView } from '@libs/model/hydrated_view';
 
 export class HierarchicalLayoutEngine extends LayoutEngine {
   constructor(settings: Settings, semanticEngine: SemanticEngine) {
@@ -89,10 +89,10 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
   protected renderElements(
     nestedTrees: Array<HydratedViewNode>,
     layoutDirector: LayoutDirector,
-    childrenLimitPerGroup: number = -1
+    childrenLimitPerGroup: number = -1,
   ): void {
     throw new Error(
-      "Base class can't render Hierarchy properly. Use specialized class instead."
+      'Base class can\'t render Hierarchy properly. Use specialized class instead.',
     );
   }
 
@@ -118,7 +118,7 @@ export class HierarchicalLayoutEngine extends LayoutEngine {
 
     const outputView = director.convertToView(
       inputView.getName(),
-      inputView.getId()
+      inputView.getId(),
     );
 
     // Setting the "paper" dimension

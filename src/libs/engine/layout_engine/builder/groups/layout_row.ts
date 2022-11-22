@@ -1,8 +1,8 @@
-import { Alignment } from "@libs/common/alignment.enum";
-import { Settings } from "@libs/engine/settings";
-import { LayoutGroup } from "@libs/engine/layout_engine/builder/groups/layout_group";
-import { Direction } from "@libs/common/distribution.enum";
-import { Dimension } from "@libs/model/dimension";
+import { Alignment } from '@libs/common/alignment.enum';
+import { Settings } from '@libs/engine/settings';
+import { LayoutGroup } from '@libs/engine/layout_engine/builder/groups/layout_group';
+import { Direction } from '@libs/common/distribution.enum';
+import { Dimension } from '@libs/model/dimension';
 
 export class LayoutRow extends LayoutGroup {
   constructor(
@@ -11,7 +11,7 @@ export class LayoutRow extends LayoutGroup {
     verticalAlignment: Alignment,
     settings: Settings,
     parent: LayoutGroup | null,
-    initialDimension?: Dimension
+    initialDimension?: Dimension,
   ) {
     super(
       externalId,
@@ -26,7 +26,7 @@ export class LayoutRow extends LayoutGroup {
         rightOffset: 0,
       },
       parent,
-      initialDimension
+      initialDimension,
     );
   }
 }

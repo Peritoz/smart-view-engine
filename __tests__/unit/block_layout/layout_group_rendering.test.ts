@@ -1,12 +1,12 @@
-import { LayoutDirector } from "../../../src/libs/engine/layout_engine/builder/layout_director";
-import { Settings } from "../../../src/libs/engine/settings";
-import { Alignment } from "../../../src/libs/common/alignment.enum";
-import { DEFAULT } from "../../../src/libs/common/size_reference.const";
-import { LayoutTree } from "../../../src/libs/engine/layout_engine/builder/groups/layout_tree";
-import { ElementBuilder } from "../../../src/libs/engine/layout_engine/builder/element_builder";
+import { LayoutDirector } from '../../../src/libs/engine/layout_engine/builder/layout_director';
+import { Settings } from '../../../src/libs/engine/settings';
+import { Alignment } from '../../../src/libs/common/alignment.enum';
+import { DEFAULT } from '../../../src/libs/common/size_reference.const';
+import { LayoutTree } from '../../../src/libs/engine/layout_engine/builder/groups/layout_tree';
+import { ElementBuilder } from '../../../src/libs/engine/layout_engine/builder/element_builder';
 
 const settings = new Settings({
-  layoutType: "hierarchy",
+  layoutType: 'hierarchy',
   maxHorizontalCount: 4,
   maxChildrenHorizontalCount: 2,
   spaceBetween: 5,
@@ -18,18 +18,18 @@ const settings = new Settings({
 });
 const elementBuilder = new ElementBuilder(DEFAULT.SIZE_UNIT);
 
-describe("Layout Group", () => {
-  it("Element Insertion", async () => {
+describe('Layout Group', () => {
+  it('Element Insertion', async () => {
     const director = new LayoutDirector(settings);
     const row = director.newRow(Alignment.START, Alignment.START);
 
-    director.newTinyElementToCurrent("el1", "t1");
-    director.newSmallElementToCurrent("el2", "t1");
-    director.newMediumElementToCurrent("el3", "t1");
-    director.newBigElementToCurrent("el4", "t1");
-    director.newSmallElementToCurrent("el5", "t1", true);
-    director.newMediumElementToCurrent("el6", "t1", true);
-    director.newBigElementToCurrent("el7", "t1", true);
+    director.newTinyElementToCurrent('el1', 't1');
+    director.newSmallElementToCurrent('el2', 't1');
+    director.newMediumElementToCurrent('el3', 't1');
+    director.newBigElementToCurrent('el4', 't1');
+    director.newSmallElementToCurrent('el5', 't1', true);
+    director.newMediumElementToCurrent('el6', 't1', true);
+    director.newBigElementToCurrent('el7', 't1', true);
 
     const children = row.getChildren();
 
@@ -49,24 +49,24 @@ describe("Layout Group", () => {
     expect(children[6].getHeight()).toBe(4 * DEFAULT.SIZE_UNIT);
   });
 
-  it("Global Position - Absolute Positioning Calculation", async () => {
+  it('Global Position - Absolute Positioning Calculation', async () => {
     const set = new LayoutTree(settings);
     set.newRow(Alignment.START, Alignment.START);
     const col1 = set.newCol(Alignment.START, Alignment.START);
 
     set.addToCurrentGroup(
       elementBuilder.buildElement({
-        name: "A",
+        name: 'A',
         width: 50,
         height: 25,
-      })
+      }),
     );
     set.addToCurrentGroup(
       elementBuilder.buildElement({
-        name: "B",
+        name: 'B',
         width: 60,
         height: 50,
-      })
+      }),
     );
 
     set.navigateToParent();
@@ -74,65 +74,65 @@ describe("Layout Group", () => {
 
     set.addToCurrentGroup(
       elementBuilder.buildElement({
-        name: "C",
+        name: 'C',
         width: 25,
         height: 60,
-      })
+      }),
     );
     set.addToCurrentGroup(
       elementBuilder.buildElement({
-        name: "D",
+        name: 'D',
         width: 50,
         height: 40,
-      })
+      }),
     );
 
     set.navigateToParent();
     const col3 = set.newVisibleCol(
-      "el1",
-      "t1",
+      'el1',
+      't1',
       Alignment.START,
       Alignment.START,
-      true
+      true,
     );
 
     set.addToCurrentGroup(
       elementBuilder.buildElement({
-        name: "E",
+        name: 'E',
         width: 20,
         height: 20,
-      })
+      }),
     );
     set.addToCurrentGroup(
       elementBuilder.buildElement({
-        name: "F",
+        name: 'F',
         width: 30,
         height: 50,
-      })
+      }),
     );
 
     set.navigateToParent();
     const col4 = set.newVisibleCol(
-      "el2",
-      "t2",
+      'el2',
+      't2',
       Alignment.START,
       Alignment.START,
-      false
+      false,
     );
 
     set.addToCurrentGroup(
       elementBuilder.buildElement({
-        name: "G",
+        name: 'G',
         width: 20,
         height: 20,
-      })
+      }),
     );
     set.addToCurrentGroup(
       elementBuilder.buildElement({
-        name: "H",
+        name: 'H',
         width: 30,
         height: 50,
-      })
+      }),
     );
 
     set.toAbsolutePosition();

@@ -1,11 +1,11 @@
-import { LayoutTypes } from "@libs/common/layout_types.enum";
-import { DEFAULT } from "@libs/common/size_reference.const";
+import { LayoutTypes } from '@libs/common/layout_types.enum';
+import { DEFAULT } from '@libs/common/size_reference.const';
 
 function layoutToCode(layout: string) {
   switch (layout.toLowerCase()) {
-    case "nested":
+    case 'nested':
       return LayoutTypes.NESTED;
-    case "hierarchy":
+    case 'hierarchy':
       return LayoutTypes.HIERARCHY;
     default:
       return LayoutTypes.NESTED;
@@ -47,20 +47,20 @@ export class Settings implements LayoutSettings, VisibleGroupSettings {
   lateralLabel: boolean;
 
   constructor({
-    layoutType,
-    maxHorizontalCount,
-    maxChildrenHorizontalCount,
-    leftPadding,
-    rightPadding,
-    topPadding,
-    bottomPadding,
-    spaceBetween,
-    spaceToOuterLabel,
-    labelWidth,
-    labelHeight,
-    lateralLabel,
-    sizeUnit,
-  }: Partial<Settings>) {
+                layoutType,
+                maxHorizontalCount,
+                maxChildrenHorizontalCount,
+                leftPadding,
+                rightPadding,
+                topPadding,
+                bottomPadding,
+                spaceBetween,
+                spaceToOuterLabel,
+                labelWidth,
+                labelHeight,
+                lateralLabel,
+                sizeUnit,
+              }: Partial<Settings>) {
     this.layoutType = layoutType
       ? layoutToCode(layoutType)
       : LayoutTypes.NESTED;

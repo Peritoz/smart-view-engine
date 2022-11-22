@@ -1,12 +1,12 @@
-import { BaseElement } from "../../../src/libs/model/base_element";
+import { BaseElement } from '../../../src/libs/model/base_element';
 
-describe("Base Element", () => {
+describe('Base Element', () => {
   let baseElement = null;
 
-  it("Should create a Base Element", (done) => {
+  it('Should create a Base Element', (done) => {
     baseElement = new BaseElement({
-      name: "A",
-      type: "T1",
+      name: 'A',
+      type: 'T1',
       x: 0,
       y: 0,
       width: 0,
@@ -19,29 +19,29 @@ describe("Base Element", () => {
     done();
   });
 
-  it("Should get Id value", (done) => {
+  it('Should get Id value', (done) => {
     const id = baseElement.getId();
 
     expect(id).toBeDefined();
-    expect(id).not.toBe("");
-    expect(typeof id).toBe("string");
+    expect(id).not.toBe('');
+    expect(typeof id).toBe('string');
 
     done();
   });
 
-  it("Should get Name value", (done) => {
-    expect(baseElement.getName()).toBe("A");
+  it('Should get Name value', (done) => {
+    expect(baseElement.getName()).toBe('A');
 
     done();
   });
 
-  it("Should get Type value", (done) => {
-    expect(baseElement.getType()).toBe("T1");
+  it('Should get Type value', (done) => {
+    expect(baseElement.getType()).toBe('T1');
 
     done();
   });
 
-  it("Should set and get X value", (done) => {
+  it('Should set and get X value', (done) => {
     baseElement.setX(10);
 
     expect(baseElement.getX()).toBe(10);
@@ -49,7 +49,7 @@ describe("Base Element", () => {
     done();
   });
 
-  it("Should set and get Y value", (done) => {
+  it('Should set and get Y value', (done) => {
     baseElement.setY(20);
 
     expect(baseElement.getY()).toBe(20);
@@ -57,7 +57,7 @@ describe("Base Element", () => {
     done();
   });
 
-  it("Should set and get Width value", (done) => {
+  it('Should set and get Width value', (done) => {
     baseElement.setWidth(200);
 
     expect(baseElement.getWidth()).toBe(200);
@@ -65,15 +65,15 @@ describe("Base Element", () => {
     done();
   });
 
-  it("Should get error when setting negative Width", (done) => {
+  it('Should get error when setting negative Width', (done) => {
     expect(() => {
       baseElement.setWidth(-10);
-    }).toThrow("Width cannot be negative");
+    }).toThrow('Width cannot be negative');
 
     done();
   });
 
-  it("Should set and get Height value", (done) => {
+  it('Should set and get Height value', (done) => {
     baseElement.setHeight(100);
 
     expect(baseElement.getHeight()).toBe(100);
@@ -81,23 +81,23 @@ describe("Base Element", () => {
     done();
   });
 
-  it("Should get error when setting negative Height", (done) => {
+  it('Should get error when setting negative Height', (done) => {
     expect(() => {
       baseElement.setHeight(-10);
-    }).toThrow("Height cannot be negative");
+    }).toThrow('Height cannot be negative');
 
     done();
   });
 
-  it("Should set and get ParentId value", (done) => {
-    baseElement.setParentId("1");
+  it('Should set and get ParentId value', (done) => {
+    baseElement.setParentId('1');
 
-    expect(baseElement.getParentId()).toBe("1");
+    expect(baseElement.getParentId()).toBe('1');
 
     done();
   });
 
-  it("Should translate position - Positive Delta X and Delta Y", (done) => {
+  it('Should translate position - Positive Delta X and Delta Y', (done) => {
     baseElement.translatePosition(10, 5);
 
     expect(baseElement.getX()).toBe(20);
@@ -106,7 +106,7 @@ describe("Base Element", () => {
     done();
   });
 
-  it("Should translate position - Negative Delta X and Delta Y", (done) => {
+  it('Should translate position - Negative Delta X and Delta Y', (done) => {
     baseElement.translatePosition(-10, -5);
 
     expect(baseElement.getX()).toBe(10);

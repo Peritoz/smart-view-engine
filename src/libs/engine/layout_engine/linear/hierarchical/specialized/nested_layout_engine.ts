@@ -1,9 +1,9 @@
-import { HierarchicalLayoutEngine } from "../hierarchical_layout_engine";
-import { Settings } from "@libs/engine/settings";
-import { SemanticEngine } from "@libs/engine/semantic_engine/semantic_engine";
-import { HydratedViewNode } from "@libs/model/view_node";
-import { LayoutDirector } from "@libs/engine/layout_engine/builder/layout_director";
-import { Alignment } from "@libs/common/alignment.enum";
+import { HierarchicalLayoutEngine } from '../hierarchical_layout_engine';
+import { Settings } from '@libs/engine/settings';
+import { SemanticEngine } from '@libs/engine/semantic_engine/semantic_engine';
+import { HydratedViewNode } from '@libs/model/view_node';
+import { LayoutDirector } from '@libs/engine/layout_engine/builder/layout_director';
+import { Alignment } from '@libs/common/alignment.enum';
 
 export class NestedLayoutEngine extends HierarchicalLayoutEngine {
   constructor(settings: Settings, semanticEngine: SemanticEngine) {
@@ -13,7 +13,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
   private renderNestedChildrenElements(
     nestedTrees: Array<HydratedViewNode>,
     layoutDirector: LayoutDirector,
-    childrenLimitPerGroup: number = -1
+    childrenLimitPerGroup: number = -1,
   ): void {
     const thereIsChildrenLimit: boolean =
       !isNaN(childrenLimitPerGroup) &&
@@ -34,7 +34,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
             Alignment.START,
             Alignment.EXPANDED,
             false,
-            currentElement.modelNodeId
+            currentElement.modelNodeId,
           );
 
           layoutDirector.newCol(Alignment.EXPANDED, Alignment.START);
@@ -43,7 +43,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
           this.renderNestedChildrenElements(
             currentElement.children,
             layoutDirector,
-            this.settings.maxChildrenHorizontalCount
+            this.settings.maxChildrenHorizontalCount,
           );
 
           layoutDirector.navigateToParent(3);
@@ -52,7 +52,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
             currentElement.name,
             currentElement.type,
             false,
-            currentElement.modelNodeId
+            currentElement.modelNodeId,
           );
         }
 
@@ -79,7 +79,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
   protected renderElements(
     nestedTrees: Array<HydratedViewNode>,
     layoutDirector: LayoutDirector,
-    childrenLimitPerGroup: number = -1
+    childrenLimitPerGroup: number = -1,
   ): void {
     const thereIsChildrenLimit: boolean =
       !isNaN(childrenLimitPerGroup) &&
@@ -96,7 +96,7 @@ export class NestedLayoutEngine extends HierarchicalLayoutEngine {
         this.renderNestedChildrenElements(
           [child],
           layoutDirector,
-          this.settings.maxChildrenHorizontalCount
+          this.settings.maxChildrenHorizontalCount,
         );
 
         // Breaking line

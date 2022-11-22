@@ -1,7 +1,7 @@
-import { DEFAULT } from "@libs/common/size_reference.const";
-import { Position } from "@libs/model/position";
-import { PositionalElement } from "@libs/model/positional_element";
-import { ResizableElement } from "@libs/model/resizable_element";
+import { DEFAULT } from '@libs/common/size_reference.const';
+import { Position } from '@libs/model/position';
+import { PositionalElement } from '@libs/model/positional_element';
+import { ResizableElement } from '@libs/model/resizable_element';
 
 type PlotElement = PositionalElement & ResizableElement;
 
@@ -15,8 +15,10 @@ export abstract class Block implements PlotElement {
 
   protected constructor(
     { x, y, width, height }: Partial<PlotElement>,
-    onChangeWidth: (oldValue: number, newValue: number) => void = () => {},
-    onChangeHeight: (oldValue: number, newValue: number) => void = () => {}
+    onChangeWidth: (oldValue: number, newValue: number) => void = () => {
+    },
+    onChangeHeight: (oldValue: number, newValue: number) => void = () => {
+    },
   ) {
     this.x = x || 0;
     this.y = y || 0;
@@ -27,13 +29,13 @@ export abstract class Block implements PlotElement {
   }
 
   subscribeOnChangeWidthHandler(
-    handler: (oldValue: number, newValue: number) => void
+    handler: (oldValue: number, newValue: number) => void,
   ) {
     this.onChangeWidth = handler;
   }
 
   subscribeOnChangeHeightHandler(
-    handler: (oldValue: number, newValue: number) => void
+    handler: (oldValue: number, newValue: number) => void,
   ) {
     this.onChangeHeight = handler;
   }
@@ -50,7 +52,7 @@ export abstract class Block implements PlotElement {
 
       this.onChangeWidth(oldWidth, width);
     } else {
-      throw new Error("Width cannot be negative");
+      throw new Error('Width cannot be negative');
     }
   }
 
@@ -66,7 +68,7 @@ export abstract class Block implements PlotElement {
 
       this.onChangeHeight(oldHeight, height);
     } else {
-      throw new Error("Height cannot be negative");
+      throw new Error('Height cannot be negative');
     }
   }
 

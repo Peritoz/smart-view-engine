@@ -1,17 +1,17 @@
-import { LayoutTypes } from "../../../src/libs/common/layout_types.enum";
-import { SmartViewEngine } from "../../../src";
-import { View } from "../../../src/libs/model/view";
-import { HydratedViewNode, ViewNode } from "../../../src/libs/model/view_node";
-import { Settings } from "../../../src/libs/engine/settings";
-import { LayoutDirector } from "../../../src/libs/engine/layout_engine/builder/layout_director";
-import { Alignment } from "../../../src/libs/common/alignment.enum";
+import { LayoutTypes } from '../../../src/libs/common/layout_types.enum';
+import { SmartViewEngine } from '../../../src';
+import { View } from '../../../src/libs/model/view';
+import { HydratedViewNode, ViewNode } from '../../../src/libs/model/view_node';
+import { Settings } from '../../../src/libs/engine/settings';
+import { LayoutDirector } from '../../../src/libs/engine/layout_engine/builder/layout_director';
+import { Alignment } from '../../../src/libs/common/alignment.enum';
 
-const basicPaths = require("../../data/paths/basic.json");
-const complexPaths = require("../../data/paths/complex.json");
+const basicPaths = require('../../data/paths/basic.json');
+const complexPaths = require('../../data/paths/complex.json');
 
-describe("Nested Layout Rendering", () => {
+describe('Nested Layout Rendering', () => {
   const layoutSettings = new Settings({
-    layoutType: "nested",
+    layoutType: 'nested',
     maxHorizontalCount: 4,
     maxChildrenHorizontalCount: 4,
     spaceBetween: 2,
@@ -25,23 +25,23 @@ describe("Nested Layout Rendering", () => {
     labelHeight: 2,
   });
 
-  it("One row", (done) => {
+  it('One row', (done) => {
     const paths = [
       [
-        { identifier: "A", name: "A", type: "T1" },
-        { identifier: "A1", name: "A1", type: "T2" },
+        { identifier: 'A', name: 'A', type: 'T1' },
+        { identifier: 'A1', name: 'A1', type: 'T2' },
       ],
       [
-        { identifier: "A", name: "A", type: "T1" },
-        { identifier: "A2", name: "A2", type: "T2" },
+        { identifier: 'A', name: 'A', type: 'T1' },
+        { identifier: 'A2', name: 'A2', type: 'T2' },
       ],
       [
-        { identifier: "B", name: "B", type: "T1" },
-        { identifier: "B1", name: "B1", type: "T2" },
+        { identifier: 'B', name: 'B', type: 'T1' },
+        { identifier: 'B1', name: 'B1', type: 'T2' },
       ],
       [
-        { identifier: "B", name: "B", type: "T1" },
-        { identifier: "B2", name: "B2", type: "T2" },
+        { identifier: 'B', name: 'B', type: 'T1' },
+        { identifier: 'B2', name: 'B2', type: 'T2' },
       ],
     ];
 
@@ -50,17 +50,17 @@ describe("Nested Layout Rendering", () => {
         layoutType: LayoutTypes.NESTED,
         maxHorizontalCount: 2,
         maxChildrenHorizontalCount: 2,
-      })
+      }),
     );
 
-    const view: View = engine.generateViewFromPaths(paths, "Case A");
+    const view: View = engine.generateViewFromPaths(paths, 'Case A');
     const nodes = view.viewNodes;
-    const A = nodes.find((node: ViewNode) => node.name === "A");
-    const B = nodes.find((node: ViewNode) => node.name === "B");
-    const A1 = nodes.find((node: ViewNode) => node.name === "A1");
-    const B1 = nodes.find((node: ViewNode) => node.name === "B1");
-    const A2 = nodes.find((node: ViewNode) => node.name === "A2");
-    const B2 = nodes.find((node: ViewNode) => node.name === "B2");
+    const A = nodes.find((node: ViewNode) => node.name === 'A');
+    const B = nodes.find((node: ViewNode) => node.name === 'B');
+    const A1 = nodes.find((node: ViewNode) => node.name === 'A1');
+    const B1 = nodes.find((node: ViewNode) => node.name === 'B1');
+    const A2 = nodes.find((node: ViewNode) => node.name === 'A2');
+    const B2 = nodes.find((node: ViewNode) => node.name === 'B2');
 
     expect(nodes.length).toBe(6);
     expect(A).toBeDefined();
@@ -79,26 +79,26 @@ describe("Nested Layout Rendering", () => {
     done();
   });
 
-  it("Childless Paths", (done) => {
+  it('Childless Paths', (done) => {
     const paths = [
       [
-        { identifier: "A", name: "A", type: "TA" },
+        { identifier: 'A', name: 'A', type: 'TA' },
       ],
       [
-        { identifier: "B", name: "B", type: "TB" },
+        { identifier: 'B', name: 'B', type: 'TB' },
       ],
       [
-        { identifier: "C", name: "C", type: "TC" },
-      ]
+        { identifier: 'C', name: 'C', type: 'TC' },
+      ],
     ];
 
     const engine = new SmartViewEngine(layoutSettings);
 
-    const view: View = engine.generateViewFromPaths(paths, "Childless Case");
+    const view: View = engine.generateViewFromPaths(paths, 'Childless Case');
     const nodes = view.viewNodes;
-    const A = nodes.find((node: ViewNode) => node.name === "A");
-    const B = nodes.find((node: ViewNode) => node.name === "B");
-    const C = nodes.find((node: ViewNode) => node.name === "C");
+    const A = nodes.find((node: ViewNode) => node.name === 'A');
+    const B = nodes.find((node: ViewNode) => node.name === 'B');
+    const C = nodes.find((node: ViewNode) => node.name === 'C');
 
     expect(nodes.length).toBe(3);
     expect(A).toBeDefined();
@@ -126,19 +126,19 @@ describe("Nested Layout Rendering", () => {
     done();
   });
 
-  it("Basic", (done) => {
+  it('Basic', (done) => {
     let smartView = new SmartViewEngine(layoutSettings);
 
-    const view = smartView.generateViewFromPaths(basicPaths, "T1");
+    const view = smartView.generateViewFromPaths(basicPaths, 'T1');
 
-    const A = view.viewNodes.find((n: HydratedViewNode) => n.name === "A");
-    const B = view.viewNodes.find((n: HydratedViewNode) => n.name === "B");
-    const B1 = view.viewNodes.find((n: HydratedViewNode) => n.name === "B1");
-    const B11 = view.viewNodes.find((n: HydratedViewNode) => n.name === "B1-1");
-    const B2 = view.viewNodes.find((n: HydratedViewNode) => n.name === "B2");
-    const B21 = view.viewNodes.find((n: HydratedViewNode) => n.name === "B2-1");
-    const C = view.viewNodes.find((n: HydratedViewNode) => n.name === "C");
-    const C1 = view.viewNodes.find((n: HydratedViewNode) => n.name === "C1");
+    const A = view.viewNodes.find((n: HydratedViewNode) => n.name === 'A');
+    const B = view.viewNodes.find((n: HydratedViewNode) => n.name === 'B');
+    const B1 = view.viewNodes.find((n: HydratedViewNode) => n.name === 'B1');
+    const B11 = view.viewNodes.find((n: HydratedViewNode) => n.name === 'B1-1');
+    const B2 = view.viewNodes.find((n: HydratedViewNode) => n.name === 'B2');
+    const B21 = view.viewNodes.find((n: HydratedViewNode) => n.name === 'B2-1');
+    const C = view.viewNodes.find((n: HydratedViewNode) => n.name === 'C');
+    const C1 = view.viewNodes.find((n: HydratedViewNode) => n.name === 'C1');
 
     expect(A).toBeDefined();
     expect(B).toBeDefined();
@@ -192,31 +192,31 @@ describe("Nested Layout Rendering", () => {
     done();
   });
 
-  it("Complex", (done) => {
+  it('Complex', (done) => {
     let smartView = new SmartViewEngine(layoutSettings);
 
-    const view = smartView.generateViewFromPaths(complexPaths, "T1");
+    const view = smartView.generateViewFromPaths(complexPaths, 'T1');
 
     const Analyst = view.viewNodes.filter(
-      (n: HydratedViewNode) => n.name === "Analyst"
+      (n: HydratedViewNode) => n.name === 'Analyst',
     );
     const Guest = view.viewNodes.filter(
-      (n: HydratedViewNode) => n.name === "Guest"
+      (n: HydratedViewNode) => n.name === 'Guest',
     );
     const PerformAnalysis = view.viewNodes.filter(
-      (n: HydratedViewNode) => n.name === "Perform Corporative Analysis"
+      (n: HydratedViewNode) => n.name === 'Perform Corporative Analysis',
     );
     const ProvideData = view.viewNodes.filter(
-      (n: HydratedViewNode) => n.name === "Provide Updated Data"
+      (n: HydratedViewNode) => n.name === 'Provide Updated Data',
     );
     const ModellingTool = view.viewNodes.filter(
-      (n: HydratedViewNode) => n.name === "Modelling Tool"
+      (n: HydratedViewNode) => n.name === 'Modelling Tool',
     );
     const GitClient = view.viewNodes.filter(
-      (n: HydratedViewNode) => n.name === "Git Client"
+      (n: HydratedViewNode) => n.name === 'Git Client',
     );
     const Company = view.viewNodes.filter(
-      (n: HydratedViewNode) => n.name === "Company"
+      (n: HydratedViewNode) => n.name === 'Company',
     );
 
     expect(Analyst[0]).toBeDefined();
@@ -227,67 +227,67 @@ describe("Nested Layout Rendering", () => {
     expect(GitClient[0]).toBeDefined();
     expect(Company[0]).toBeDefined();
 
-    expect(Analyst[0].modelNodeId).toBe("cf933aa8");
+    expect(Analyst[0].modelNodeId).toBe('cf933aa8');
     expect(Analyst[0].width).toBe(72);
     expect(Analyst[0].height).toBe(15);
     expect(Analyst[0].x).toBe(0);
     expect(Analyst[0].y).toBe(0);
 
-    expect(Guest[0].modelNodeId).toBe("89e202e0");
+    expect(Guest[0].modelNodeId).toBe('89e202e0');
     expect(Guest[0].width).toBe(36);
     expect(Guest[0].height).toBe(15);
     expect(Guest[0].x).toBe(74);
     expect(Guest[0].y).toBe(0);
 
-    expect(PerformAnalysis[0].modelNodeId).toBe("fe87eaab");
+    expect(PerformAnalysis[0].modelNodeId).toBe('fe87eaab');
     expect(PerformAnalysis[0].width).toBe(51);
     expect(PerformAnalysis[0].height).toBe(10);
     expect(PerformAnalysis[0].x).toBe(1);
     expect(PerformAnalysis[0].y).toBe(4);
 
-    expect(PerformAnalysis[1].modelNodeId).toBe("fe87eaab");
+    expect(PerformAnalysis[1].modelNodeId).toBe('fe87eaab');
     expect(PerformAnalysis[1].width).toBe(34);
     expect(PerformAnalysis[1].height).toBe(10);
     expect(PerformAnalysis[1].x).toBe(75);
     expect(PerformAnalysis[1].y).toBe(4);
 
-    expect(ProvideData[0].modelNodeId).toBe("7c4941eb");
+    expect(ProvideData[0].modelNodeId).toBe('7c4941eb');
     expect(ProvideData[0].width).toBe(17);
     expect(ProvideData[0].height).toBe(10);
     expect(ProvideData[0].x).toBe(54);
     expect(ProvideData[0].y).toBe(4);
 
-    expect(ModellingTool[0].modelNodeId).toBe("d5ce0709");
+    expect(ModellingTool[0].modelNodeId).toBe('d5ce0709');
     expect(ModellingTool[0].width).toBe(15);
     expect(ModellingTool[0].height).toBe(5);
     expect(ModellingTool[0].x).toBe(2);
     expect(ModellingTool[0].y).toBe(8);
 
-    expect(ModellingTool[1].modelNodeId).toBe("d5ce0709");
+    expect(ModellingTool[1].modelNodeId).toBe('d5ce0709');
     expect(ModellingTool[1].width).toBe(15);
     expect(ModellingTool[1].height).toBe(5);
     expect(ModellingTool[1].x).toBe(76);
     expect(ModellingTool[1].y).toBe(8);
 
-    expect(GitClient[0].modelNodeId).toBe("d361cefb");
+    expect(GitClient[0].modelNodeId).toBe('d361cefb');
     expect(GitClient[0].width).toBe(15);
     expect(GitClient[0].height).toBe(5);
     expect(GitClient[0].x).toBe(19);
     expect(GitClient[0].y).toBe(8);
 
-    expect(GitClient[1].modelNodeId).toBe("d361cefb");
+    expect(GitClient[1].modelNodeId).toBe('d361cefb');
     expect(GitClient[1].width).toBe(15);
     expect(GitClient[1].height).toBe(5);
     expect(GitClient[1].x).toBe(93);
     expect(GitClient[1].y).toBe(8);
 
-    expect(Company[0].modelNodeId).toBe("63a1ccd0");
+    expect(Company[0].modelNodeId).toBe('63a1ccd0');
     expect(Company[0].width).toBe(15);
     expect(Company[0].height).toBe(5);
     expect(Company[0].x).toBe(36);
     expect(Company[0].y).toBe(8);
 
-    expect(Company[1].modelNodeId).toBe("63a1ccd0");
+    expect(Company[1].modelNodeId).toBe('63a1ccd0');
     expect(Company[1].width).toBe(15);
     expect(Company[1].height).toBe(5);
     expect(Company[1].x).toBe(55);
@@ -296,10 +296,10 @@ describe("Nested Layout Rendering", () => {
     done();
   });
 
-  it("Complex - Breaking Line", (done) => {
+  it('Complex - Breaking Line', (done) => {
     let smartView = new SmartViewEngine(
       new Settings({
-        layoutType: "nested",
+        layoutType: 'nested',
         maxHorizontalCount: 1,
         maxChildrenHorizontalCount: 4,
         spaceBetween: 2,
@@ -311,31 +311,31 @@ describe("Nested Layout Rendering", () => {
         spaceToOuterLabel: 1,
         labelWidth: 4,
         labelHeight: 2,
-      })
+      }),
     );
 
-    const view = smartView.generateViewFromPaths(complexPaths, "T1");
+    const view = smartView.generateViewFromPaths(complexPaths, 'T1');
 
     const Analyst = view.viewNodes.filter(
-      (n: HydratedViewNode) => n.name === "Analyst"
+      (n: HydratedViewNode) => n.name === 'Analyst',
     );
     const Guest = view.viewNodes.filter(
-      (n: HydratedViewNode) => n.name === "Guest"
+      (n: HydratedViewNode) => n.name === 'Guest',
     );
     const PerformAnalysis = view.viewNodes.filter(
-      (n: HydratedViewNode) => n.name === "Perform Corporative Analysis"
+      (n: HydratedViewNode) => n.name === 'Perform Corporative Analysis',
     );
     const ProvideData = view.viewNodes.filter(
-      (n: HydratedViewNode) => n.name === "Provide Updated Data"
+      (n: HydratedViewNode) => n.name === 'Provide Updated Data',
     );
     const ModellingTool = view.viewNodes.filter(
-      (n: HydratedViewNode) => n.name === "Modelling Tool"
+      (n: HydratedViewNode) => n.name === 'Modelling Tool',
     );
     const GitClient = view.viewNodes.filter(
-      (n: HydratedViewNode) => n.name === "Git Client"
+      (n: HydratedViewNode) => n.name === 'Git Client',
     );
     const Company = view.viewNodes.filter(
-      (n: HydratedViewNode) => n.name === "Company"
+      (n: HydratedViewNode) => n.name === 'Company',
     );
 
     expect(Analyst[0]).toBeDefined();
@@ -346,67 +346,67 @@ describe("Nested Layout Rendering", () => {
     expect(GitClient[0]).toBeDefined();
     expect(Company[0]).toBeDefined();
 
-    expect(Analyst[0].modelNodeId).toBe("cf933aa8");
+    expect(Analyst[0].modelNodeId).toBe('cf933aa8');
     expect(Analyst[0].width).toBe(72);
     expect(Analyst[0].height).toBe(15);
     expect(Analyst[0].x).toBe(0);
     expect(Analyst[0].y).toBe(0);
 
-    expect(Guest[0].modelNodeId).toBe("89e202e0");
+    expect(Guest[0].modelNodeId).toBe('89e202e0');
     expect(Guest[0].width).toBe(36);
     expect(Guest[0].height).toBe(15);
     expect(Guest[0].x).toBe(0);
     expect(Guest[0].y).toBe(17);
 
-    expect(PerformAnalysis[0].modelNodeId).toBe("fe87eaab");
+    expect(PerformAnalysis[0].modelNodeId).toBe('fe87eaab');
     expect(PerformAnalysis[0].width).toBe(51);
     expect(PerformAnalysis[0].height).toBe(10);
     expect(PerformAnalysis[0].x).toBe(1);
     expect(PerformAnalysis[0].y).toBe(4);
 
-    expect(PerformAnalysis[1].modelNodeId).toBe("fe87eaab");
+    expect(PerformAnalysis[1].modelNodeId).toBe('fe87eaab');
     expect(PerformAnalysis[1].width).toBe(34);
     expect(PerformAnalysis[1].height).toBe(10);
     expect(PerformAnalysis[1].x).toBe(1);
     expect(PerformAnalysis[1].y).toBe(21);
 
-    expect(ProvideData[0].modelNodeId).toBe("7c4941eb");
+    expect(ProvideData[0].modelNodeId).toBe('7c4941eb');
     expect(ProvideData[0].width).toBe(17);
     expect(ProvideData[0].height).toBe(10);
     expect(ProvideData[0].x).toBe(54);
     expect(ProvideData[0].y).toBe(4);
 
-    expect(ModellingTool[0].modelNodeId).toBe("d5ce0709");
+    expect(ModellingTool[0].modelNodeId).toBe('d5ce0709');
     expect(ModellingTool[0].width).toBe(15);
     expect(ModellingTool[0].height).toBe(5);
     expect(ModellingTool[0].x).toBe(2);
     expect(ModellingTool[0].y).toBe(8);
 
-    expect(ModellingTool[1].modelNodeId).toBe("d5ce0709");
+    expect(ModellingTool[1].modelNodeId).toBe('d5ce0709');
     expect(ModellingTool[1].width).toBe(15);
     expect(ModellingTool[1].height).toBe(5);
     expect(ModellingTool[1].x).toBe(2);
     expect(ModellingTool[1].y).toBe(25);
 
-    expect(GitClient[0].modelNodeId).toBe("d361cefb");
+    expect(GitClient[0].modelNodeId).toBe('d361cefb');
     expect(GitClient[0].width).toBe(15);
     expect(GitClient[0].height).toBe(5);
     expect(GitClient[0].x).toBe(19);
     expect(GitClient[0].y).toBe(8);
 
-    expect(GitClient[1].modelNodeId).toBe("d361cefb");
+    expect(GitClient[1].modelNodeId).toBe('d361cefb');
     expect(GitClient[1].width).toBe(15);
     expect(GitClient[1].height).toBe(5);
     expect(GitClient[1].x).toBe(19);
     expect(GitClient[1].y).toBe(25);
 
-    expect(Company[0].modelNodeId).toBe("63a1ccd0");
+    expect(Company[0].modelNodeId).toBe('63a1ccd0');
     expect(Company[0].width).toBe(15);
     expect(Company[0].height).toBe(5);
     expect(Company[0].x).toBe(36);
     expect(Company[0].y).toBe(8);
 
-    expect(Company[1].modelNodeId).toBe("63a1ccd0");
+    expect(Company[1].modelNodeId).toBe('63a1ccd0');
     expect(Company[1].width).toBe(15);
     expect(Company[1].height).toBe(5);
     expect(Company[1].x).toBe(55);
@@ -415,46 +415,46 @@ describe("Nested Layout Rendering", () => {
     done();
   });
 
-  it("Complex - Nested Children Rendered Breaking Lines", (done) => {
+  it('Complex - Nested Children Rendered Breaking Lines', (done) => {
     let smartView = new SmartViewEngine(
-        new Settings({
-          layoutType: "nested",
-          maxHorizontalCount: 1,
-          maxChildrenHorizontalCount: 2,
-          spaceBetween: 2,
-          sizeUnit: 5,
-          leftPadding: 1,
-          rightPadding: 1,
-          topPadding: 1,
-          bottomPadding: 1,
-          spaceToOuterLabel: 1,
-          labelWidth: 4,
-          labelHeight: 2,
-        })
+      new Settings({
+        layoutType: 'nested',
+        maxHorizontalCount: 1,
+        maxChildrenHorizontalCount: 2,
+        spaceBetween: 2,
+        sizeUnit: 5,
+        leftPadding: 1,
+        rightPadding: 1,
+        topPadding: 1,
+        bottomPadding: 1,
+        spaceToOuterLabel: 1,
+        labelWidth: 4,
+        labelHeight: 2,
+      }),
     );
 
-    const view = smartView.generateViewFromPaths(complexPaths, "T1");
+    const view = smartView.generateViewFromPaths(complexPaths, 'T1');
 
     const Analyst = view.viewNodes.filter(
-        (n: HydratedViewNode) => n.name === "Analyst"
+      (n: HydratedViewNode) => n.name === 'Analyst',
     );
     const Guest = view.viewNodes.filter(
-        (n: HydratedViewNode) => n.name === "Guest"
+      (n: HydratedViewNode) => n.name === 'Guest',
     );
     const PerformAnalysis = view.viewNodes.filter(
-        (n: HydratedViewNode) => n.name === "Perform Corporative Analysis"
+      (n: HydratedViewNode) => n.name === 'Perform Corporative Analysis',
     );
     const ProvideData = view.viewNodes.filter(
-        (n: HydratedViewNode) => n.name === "Provide Updated Data"
+      (n: HydratedViewNode) => n.name === 'Provide Updated Data',
     );
     const ModellingTool = view.viewNodes.filter(
-        (n: HydratedViewNode) => n.name === "Modelling Tool"
+      (n: HydratedViewNode) => n.name === 'Modelling Tool',
     );
     const GitClient = view.viewNodes.filter(
-        (n: HydratedViewNode) => n.name === "Git Client"
+      (n: HydratedViewNode) => n.name === 'Git Client',
     );
     const Company = view.viewNodes.filter(
-        (n: HydratedViewNode) => n.name === "Company"
+      (n: HydratedViewNode) => n.name === 'Company',
     );
 
     expect(Analyst[0]).toBeDefined();
@@ -465,67 +465,67 @@ describe("Nested Layout Rendering", () => {
     expect(GitClient[0]).toBeDefined();
     expect(Company[0]).toBeDefined();
 
-    expect(Analyst[0].modelNodeId).toBe("cf933aa8");
+    expect(Analyst[0].modelNodeId).toBe('cf933aa8');
     expect(Analyst[0].width).toBe(55);
     expect(Analyst[0].height).toBe(22);
     expect(Analyst[0].x).toBe(0);
     expect(Analyst[0].y).toBe(0);
 
-    expect(Guest[0].modelNodeId).toBe("89e202e0");
+    expect(Guest[0].modelNodeId).toBe('89e202e0');
     expect(Guest[0].width).toBe(36);
     expect(Guest[0].height).toBe(15);
     expect(Guest[0].x).toBe(0);
     expect(Guest[0].y).toBe(24);
 
-    expect(PerformAnalysis[0].modelNodeId).toBe("fe87eaab");
+    expect(PerformAnalysis[0].modelNodeId).toBe('fe87eaab');
     expect(PerformAnalysis[0].width).toBe(34);
     expect(PerformAnalysis[0].height).toBe(17);
     expect(PerformAnalysis[0].x).toBe(1);
     expect(PerformAnalysis[0].y).toBe(4);
 
-    expect(PerformAnalysis[1].modelNodeId).toBe("fe87eaab");
+    expect(PerformAnalysis[1].modelNodeId).toBe('fe87eaab');
     expect(PerformAnalysis[1].width).toBe(34);
     expect(PerformAnalysis[1].height).toBe(10);
     expect(PerformAnalysis[1].x).toBe(1);
     expect(PerformAnalysis[1].y).toBe(28);
 
-    expect(ProvideData[0].modelNodeId).toBe("7c4941eb");
+    expect(ProvideData[0].modelNodeId).toBe('7c4941eb');
     expect(ProvideData[0].width).toBe(17);
     expect(ProvideData[0].height).toBe(17);
     expect(ProvideData[0].x).toBe(37);
     expect(ProvideData[0].y).toBe(4);
 
-    expect(ModellingTool[0].modelNodeId).toBe("d5ce0709");
+    expect(ModellingTool[0].modelNodeId).toBe('d5ce0709');
     expect(ModellingTool[0].width).toBe(15);
     expect(ModellingTool[0].height).toBe(5);
     expect(ModellingTool[0].x).toBe(2);
     expect(ModellingTool[0].y).toBe(8);
 
-    expect(ModellingTool[1].modelNodeId).toBe("d5ce0709");
+    expect(ModellingTool[1].modelNodeId).toBe('d5ce0709');
     expect(ModellingTool[1].width).toBe(15);
     expect(ModellingTool[1].height).toBe(5);
     expect(ModellingTool[1].x).toBe(2);
     expect(ModellingTool[1].y).toBe(32);
 
-    expect(GitClient[0].modelNodeId).toBe("d361cefb");
+    expect(GitClient[0].modelNodeId).toBe('d361cefb');
     expect(GitClient[0].width).toBe(15);
     expect(GitClient[0].height).toBe(5);
     expect(GitClient[0].x).toBe(19);
     expect(GitClient[0].y).toBe(8);
 
-    expect(GitClient[1].modelNodeId).toBe("d361cefb");
+    expect(GitClient[1].modelNodeId).toBe('d361cefb');
     expect(GitClient[1].width).toBe(15);
     expect(GitClient[1].height).toBe(5);
     expect(GitClient[1].x).toBe(19);
     expect(GitClient[1].y).toBe(32);
 
-    expect(Company[0].modelNodeId).toBe("63a1ccd0");
+    expect(Company[0].modelNodeId).toBe('63a1ccd0');
     expect(Company[0].width).toBe(15);
     expect(Company[0].height).toBe(5);
     expect(Company[0].x).toBe(2);
     expect(Company[0].y).toBe(15);
 
-    expect(Company[1].modelNodeId).toBe("63a1ccd0");
+    expect(Company[1].modelNodeId).toBe('63a1ccd0');
     expect(Company[1].width).toBe(15);
     expect(Company[1].height).toBe(5);
     expect(Company[1].x).toBe(38);
@@ -534,54 +534,54 @@ describe("Nested Layout Rendering", () => {
     done();
   });
 
-  it("Complex View Construction - Long Nested Chain", async () => {
+  it('Complex View Construction - Long Nested Chain', async () => {
     const director = new LayoutDirector(layoutSettings);
 
     const rowA1 = director.newRow(Alignment.START, Alignment.EXPANDED);
     const A = director.newVisibleRow(
-      "A",
-      "T",
+      'A',
+      'T',
       Alignment.START,
       Alignment.EXPANDED,
-      false
+      false,
     );
     const B = director.newVisibleRow(
-      "B",
-      "T",
+      'B',
+      'T',
       Alignment.START,
       Alignment.EXPANDED,
-      false
+      false,
     );
     const B1 = director.newVisibleRow(
-      "B1",
-      "T",
+      'B1',
+      'T',
       Alignment.START,
       Alignment.EXPANDED,
-      false
+      false,
     );
-    const B11 = director.newMediumElementToCurrent("B1-1", "T", false);
+    const B11 = director.newMediumElementToCurrent('B1-1', 'T', false);
 
     director.navigateToParent(1);
 
     const B2 = director.newVisibleRow(
-      "B2",
-      "T",
+      'B2',
+      'T',
       Alignment.START,
       Alignment.EXPANDED,
-      false
+      false,
     );
-    const B21 = director.newMediumElementToCurrent("B2-1", "T", false);
+    const B21 = director.newMediumElementToCurrent('B2-1', 'T', false);
 
     director.navigateToParent(2);
 
     const C = director.newVisibleRow(
-      "C",
-      "T",
+      'C',
+      'T',
       Alignment.START,
       Alignment.EXPANDED,
-      false
+      false,
     );
-    const C1 = director.newMediumElementToCurrent("C1", "T", false);
+    const C1 = director.newMediumElementToCurrent('C1', 'T', false);
 
     director.toAbsolutePosition();
 
