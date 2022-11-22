@@ -1,11 +1,11 @@
-import { Settings } from "@libs/engine/settings";
-import { LayoutGroup } from "@libs/engine/layout_engine/builder/groups/layout_group";
-import { Alignment } from "@libs/common/alignment.enum";
-import { BaseElement } from "@libs/model/base_element";
-import { LayoutRow } from "@libs/engine/layout_engine/builder/groups/layout_row";
-import { LayoutCol } from "@libs/engine/layout_engine/builder/groups/layout_col";
-import { VisibleLayoutCol } from "@libs/engine/layout_engine/builder/groups/visible_layout_col";
-import { VisibleLayoutRow } from "@libs/engine/layout_engine/builder/groups/visible_layout_row";
+import { Settings } from '@libs/engine/settings';
+import { LayoutGroup } from '@libs/engine/layout_engine/builder/groups/layout_group';
+import { Alignment } from '@libs/common/alignment.enum';
+import { BaseElement } from '@libs/model/base_element';
+import { LayoutRow } from '@libs/engine/layout_engine/builder/groups/layout_row';
+import { LayoutCol } from '@libs/engine/layout_engine/builder/groups/layout_col';
+import { VisibleLayoutCol } from '@libs/engine/layout_engine/builder/groups/visible_layout_col';
+import { VisibleLayoutRow } from '@libs/engine/layout_engine/builder/groups/visible_layout_row';
 
 export class LayoutTree {
   protected settings: Settings;
@@ -34,10 +34,10 @@ export class LayoutTree {
       ) {
         this.root = layoutGroup;
       } else {
-        throw new Error("LayoutSets can only be initialize with LayoutGroups");
+        throw new Error('LayoutSets can only be initialize with LayoutGroups');
       }
     } else {
-      throw new Error("LayoutSet already initialized");
+      throw new Error('LayoutSet already initialized');
     }
   }
 
@@ -52,7 +52,7 @@ export class LayoutTree {
    * @returns LayoutGroup
    */
   private newElementGroup(
-    buildElement: (parent: LayoutGroup) => LayoutGroup
+    buildElement: (parent: LayoutGroup) => LayoutGroup,
   ): LayoutGroup {
     const currentLayoutGroup = this.getCurrentLayoutGroup();
     const elementGroup = buildElement(currentLayoutGroup);
@@ -72,7 +72,7 @@ export class LayoutTree {
   newRow(
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
-    externalId: string | null = null
+    externalId: string | null = null,
   ) {
     return this.newElementGroup((parent: LayoutGroup) => {
       return new LayoutRow(
@@ -80,7 +80,7 @@ export class LayoutTree {
         horizontalAlignment,
         verticalAlignment,
         this.settings,
-        parent
+        parent,
       );
     });
   }
@@ -88,7 +88,7 @@ export class LayoutTree {
   newCol(
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
-    externalId: string | null = null
+    externalId: string | null = null,
   ) {
     return this.newElementGroup((parent: LayoutGroup) => {
       return new LayoutCol(
@@ -96,7 +96,7 @@ export class LayoutTree {
         horizontalAlignment,
         verticalAlignment,
         this.settings,
-        parent
+        parent,
       );
     });
   }
@@ -107,7 +107,7 @@ export class LayoutTree {
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
     lateralLabel: boolean,
-    externalId: string | null = null
+    externalId: string | null = null,
   ) {
     return this.newElementGroup((parent: LayoutGroup) => {
       return new VisibleLayoutRow(
@@ -118,7 +118,7 @@ export class LayoutTree {
         name,
         type,
         lateralLabel,
-        parent
+        parent,
       );
     });
   }
@@ -129,7 +129,7 @@ export class LayoutTree {
     horizontalAlignment: Alignment,
     verticalAlignment: Alignment,
     lateralLabel: boolean,
-    externalId: string | null = null
+    externalId: string | null = null,
   ) {
     return this.newElementGroup((parent: LayoutGroup) => {
       return new VisibleLayoutCol(
@@ -140,7 +140,7 @@ export class LayoutTree {
         name,
         type,
         lateralLabel,
-        parent
+        parent,
       );
     });
   }
@@ -175,7 +175,7 @@ export class LayoutTree {
 
       this.updateSubTreeCountingChain();
     } else {
-      throw new Error("It's not possible to insert the same container twice");
+      throw new Error('It\'s not possible to insert the same container twice');
     }
   }
 

@@ -1,4 +1,4 @@
-import { Position } from "@libs/model/position";
+import { Position } from '@libs/model/position';
 
 export interface PositionalElement extends Position {
   getX: () => number;

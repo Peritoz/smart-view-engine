@@ -1,6 +1,6 @@
-import { DEFAULT } from "../common/size_reference.const";
-import { View } from "@libs/model/view";
-import { HydratedViewNode } from "@libs/model/view_node";
+import { DEFAULT } from '../common/size_reference.const';
+import { View } from '@libs/model/view';
+import { HydratedViewNode } from '@libs/model/view_node';
 
 export class HydratedView {
   protected view: View;
@@ -43,7 +43,7 @@ export class HydratedView {
     y?: number,
     parentId?: string | null,
     width?: number,
-    height?: number
+    height?: number,
   ): HydratedViewNode {
     return {
       modelNodeId: modelNodeId,
@@ -168,7 +168,7 @@ export class HydratedView {
       viewNode.y,
       viewNode.parentId,
       viewNode.width,
-      viewNode.height
+      viewNode.height,
     );
 
     this.addViewNode(viewNodeCopy);

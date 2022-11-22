@@ -1,10 +1,10 @@
-import { LayoutDirector } from "../../../src/libs/engine/layout_engine/builder/layout_director";
-import { Settings } from "../../../src/libs/engine/settings";
-import { Alignment } from "../../../src/libs/common/alignment.enum";
-import { ElementBuilder } from "../../../src/libs/engine/layout_engine/builder/element_builder";
+import { LayoutDirector } from '../../../src/libs/engine/layout_engine/builder/layout_director';
+import { Settings } from '../../../src/libs/engine/settings';
+import { Alignment } from '../../../src/libs/common/alignment.enum';
+import { ElementBuilder } from '../../../src/libs/engine/layout_engine/builder/element_builder';
 
 const settings = new Settings({
-  layoutType: "hierarchy",
+  layoutType: 'hierarchy',
   maxHorizontalCount: 4,
   maxChildrenHorizontalCount: 2,
   spaceBetween: 5,
@@ -16,29 +16,29 @@ const settings = new Settings({
 });
 const elementBuilder = new ElementBuilder(settings.sizeUnit);
 
-describe("Complex Rendering", () => {
-  it("Export to View", async () => {
+describe('Complex Rendering', () => {
+  it('Export to View', async () => {
     const director = new LayoutDirector(settings);
     director.newRow(Alignment.START, Alignment.START);
     director.newCol(Alignment.START, Alignment.START);
 
     director.addToCurrentGroup(
       elementBuilder.buildElement({
-        name: "A",
+        name: 'A',
         width: 50,
         height: 25,
         x: 0,
         y: 0,
-      })
+      }),
     );
     director.addToCurrentGroup(
       elementBuilder.buildElement({
-        name: "B",
+        name: 'B',
         width: 60,
         height: 50,
         x: 0,
         y: 0,
-      })
+      }),
     );
 
     director.navigateToParent();
@@ -46,26 +46,26 @@ describe("Complex Rendering", () => {
 
     director.addToCurrentGroup(
       elementBuilder.buildElement({
-        name: "C",
+        name: 'C',
         width: 25,
         height: 60,
         x: 0,
         y: 0,
-      })
+      }),
     );
     director.addToCurrentGroup(
       elementBuilder.buildElement({
-        name: "D",
+        name: 'D',
         width: 50,
         height: 40,
         x: 0,
         y: 0,
-      })
+      }),
     );
 
     director.toAbsolutePosition();
 
-    const view = director.convertToView("Test", "1");
+    const view = director.convertToView('Test', '1');
     const viewNodes = view.getViewNodes();
 
     expect(viewNodes[0].x).toBe(0);

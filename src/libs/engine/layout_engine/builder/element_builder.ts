@@ -1,9 +1,10 @@
-import { DEFAULT } from "@libs/common/size_reference.const";
-import { ViewNode } from "@libs/model/view_node";
-import { BaseElement } from "@libs/model/base_element";
+import { DEFAULT } from '@libs/common/size_reference.const';
+import { ViewNode } from '@libs/model/view_node';
+import { BaseElement } from '@libs/model/base_element';
 
 export class ElementBuilder {
-  constructor(protected sizeUnit: number = DEFAULT.SIZE_UNIT) {}
+  constructor(protected sizeUnit: number = DEFAULT.SIZE_UNIT) {
+  }
 
   buildElement(node: ViewNode): BaseElement {
     return new BaseElement(node);
@@ -12,7 +13,7 @@ export class ElementBuilder {
   buildTinyElement(
     name: string,
     type: string,
-    externalId?: string
+    externalId?: string,
   ): BaseElement {
     return new BaseElement({
       name,
@@ -30,7 +31,7 @@ export class ElementBuilder {
     name: string,
     type: string,
     verticalOrientation: boolean,
-    externalId?: string
+    externalId?: string,
   ): BaseElement {
     if (verticalOrientation) {
       return new BaseElement({
@@ -61,7 +62,7 @@ export class ElementBuilder {
     name: string,
     type: string,
     verticalOrientation: boolean,
-    externalId?: string
+    externalId?: string,
   ): BaseElement {
     if (verticalOrientation) {
       return new BaseElement({
@@ -92,7 +93,7 @@ export class ElementBuilder {
     name: string,
     type: string,
     verticalOrientation: boolean,
-    externalId?: string
+    externalId?: string,
   ): BaseElement {
     if (verticalOrientation) {
       return new BaseElement({

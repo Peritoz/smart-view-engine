@@ -1,9 +1,9 @@
-import { SemanticEngine } from "../../../src/libs/engine/semantic_engine/semantic_engine";
-import { PathElement } from "../../../src/libs/engine/smart_view_engine";
+import { SemanticEngine } from '../../../src/libs/engine/semantic_engine/semantic_engine';
+import { PathElement } from '../../../src/libs/engine/smart_view_engine';
 
 function validateSemanticTree(
   paths: Array<Array<PathElement>>,
-  semanticEngine: SemanticEngine
+  semanticEngine: SemanticEngine,
 ) {
   for (let i = 0; i < paths.length; i++) {
     for (let j = 0; j < paths[i].length - 1; j++) {
@@ -29,17 +29,17 @@ function validateSemanticTree(
   return true;
 }
 
-describe("Semantic Engine", () => {
-  describe("Paths Processing", () => {
-    it("Happy input", (done) => {
+describe('Semantic Engine', () => {
+  describe('Paths Processing', () => {
+    it('Happy input', (done) => {
       const paths = [
         [
-          { identifier: "1", name: "A", type: "T1" },
-          { identifier: "2", name: "B", type: "T2" },
+          { identifier: '1', name: 'A', type: 'T1' },
+          { identifier: '2', name: 'B', type: 'T2' },
         ],
         [
-          { identifier: "3", name: "C", type: "T1" },
-          { identifier: "4", name: "D", type: "T2" },
+          { identifier: '3', name: 'C', type: 'T1' },
+          { identifier: '4', name: 'D', type: 'T2' },
         ],
       ];
       const semanticEngine = new SemanticEngine(paths);
@@ -56,15 +56,15 @@ describe("Semantic Engine", () => {
       done();
     });
 
-    it("Common parent", (done) => {
+    it('Common parent', (done) => {
       const paths = [
         [
-          { identifier: "1", name: "A", type: "T1" },
-          { identifier: "2", name: "B", type: "T2" },
+          { identifier: '1', name: 'A', type: 'T1' },
+          { identifier: '2', name: 'B', type: 'T2' },
         ],
         [
-          { identifier: "1", name: "A", type: "T1" },
-          { identifier: "4", name: "D", type: "T2" },
+          { identifier: '1', name: 'A', type: 'T1' },
+          { identifier: '4', name: 'D', type: 'T2' },
         ],
       ];
       const semanticEngine = new SemanticEngine(paths);
@@ -81,15 +81,15 @@ describe("Semantic Engine", () => {
       done();
     });
 
-    it("Common child", (done) => {
+    it('Common child', (done) => {
       const paths = [
         [
-          { identifier: "1", name: "A", type: "T1" },
-          { identifier: "4", name: "D", type: "T2" },
+          { identifier: '1', name: 'A', type: 'T1' },
+          { identifier: '4', name: 'D', type: 'T2' },
         ],
         [
-          { identifier: "3", name: "C", type: "T1" },
-          { identifier: "4", name: "D", type: "T2" },
+          { identifier: '3', name: 'C', type: 'T1' },
+          { identifier: '4', name: 'D', type: 'T2' },
         ],
       ];
       const semanticEngine = new SemanticEngine(paths);
@@ -106,19 +106,19 @@ describe("Semantic Engine", () => {
       done();
     });
 
-    it("Mixed Cross Relationship: Common parent & Common child", (done) => {
+    it('Mixed Cross Relationship: Common parent & Common child', (done) => {
       const paths = [
         [
-          { identifier: "1", name: "A", type: "T1" },
-          { identifier: "2", name: "B", type: "T2" },
+          { identifier: '1', name: 'A', type: 'T1' },
+          { identifier: '2', name: 'B', type: 'T2' },
         ],
         [
-          { identifier: "1", name: "A", type: "T1" },
-          { identifier: "4", name: "D", type: "T2" },
+          { identifier: '1', name: 'A', type: 'T1' },
+          { identifier: '4', name: 'D', type: 'T2' },
         ],
         [
-          { identifier: "3", name: "C", type: "T1" },
-          { identifier: "4", name: "D", type: "T2" },
+          { identifier: '3', name: 'C', type: 'T1' },
+          { identifier: '4', name: 'D', type: 'T2' },
         ],
       ];
       const semanticEngine = new SemanticEngine(paths);
@@ -135,15 +135,15 @@ describe("Semantic Engine", () => {
       done();
     });
 
-    it("Heterogeneous Element Role: Parent and Child", (done) => {
+    it('Heterogeneous Element Role: Parent and Child', (done) => {
       const paths = [
         [
-          { identifier: "1", name: "A", type: "T1" },
-          { identifier: "4", name: "D", type: "T2" },
+          { identifier: '1', name: 'A', type: 'T1' },
+          { identifier: '4', name: 'D', type: 'T2' },
         ],
         [
-          { identifier: "3", name: "C", type: "T1" },
-          { identifier: "1", name: "A", type: "T1" },
+          { identifier: '3', name: 'C', type: 'T1' },
+          { identifier: '1', name: 'A', type: 'T1' },
         ],
       ];
       const semanticEngine = new SemanticEngine(paths);
@@ -160,16 +160,16 @@ describe("Semantic Engine", () => {
       done();
     });
 
-    it("Heterogeneous Input", (done) => {
+    it('Heterogeneous Input', (done) => {
       const paths = [
         [
-          { identifier: "1", name: "A", type: "T1" },
-          { identifier: "4", name: "D", type: "T2" },
-          { identifier: "2", name: "B", type: "T2" },
+          { identifier: '1', name: 'A', type: 'T1' },
+          { identifier: '4', name: 'D', type: 'T2' },
+          { identifier: '2', name: 'B', type: 'T2' },
         ],
         [
-          { identifier: "3", name: "C", type: "T1" },
-          { identifier: "4", name: "D", type: "T2" },
+          { identifier: '3', name: 'C', type: 'T1' },
+          { identifier: '4', name: 'D', type: 'T2' },
         ],
       ];
       const semanticEngine = new SemanticEngine(paths);
