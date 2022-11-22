@@ -27,8 +27,8 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedWidth()).toBe(15);
       expect(contentBoxDimension.getUsedHeight()).toBe(10);
-      expect(contentBoxDimension.getRightBoundary()).toBe(20);
-      expect(contentBoxDimension.getBottomBoundary()).toBe(20);
+      expect(contentBoxDimension.getBoxManager().getRightBoundary()).toBe(20);
+      expect(contentBoxDimension.getBoxManager().getBottomBoundary()).toBe(20);
 
       done();
     });
@@ -38,8 +38,8 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedWidth()).toBe(30);
       expect(contentBoxDimension.getUsedHeight()).toBe(15);
-      expect(contentBoxDimension.getRightBoundary()).toBe(35);
-      expect(contentBoxDimension.getBottomBoundary()).toBe(25);
+      expect(contentBoxDimension.getBoxManager().getRightBoundary()).toBe(35);
+      expect(contentBoxDimension.getBoxManager().getBottomBoundary()).toBe(25);
 
       done();
     });
@@ -49,8 +49,8 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedWidth()).toBe(55);
       expect(contentBoxDimension.getUsedHeight()).toBe(15);
-      expect(contentBoxDimension.getRightBoundary()).toBe(60);
-      expect(contentBoxDimension.getBottomBoundary()).toBe(25);
+      expect(contentBoxDimension.getBoxManager().getRightBoundary()).toBe(60);
+      expect(contentBoxDimension.getBoxManager().getBottomBoundary()).toBe(25);
 
       done();
     });
@@ -60,7 +60,7 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedWidth()).toBe(55);
       expect(contentBoxDimension.getContentBoxWidth()).toBe(60);
-      expect(contentBoxDimension.getRightBoundary()).toBe(65);
+      expect(contentBoxDimension.getBoxManager().getRightBoundary()).toBe(65);
 
       done();
     });
@@ -70,7 +70,7 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedHeight()).toBe(15);
       expect(contentBoxDimension.getContentBoxHeight()).toBe(20);
-      expect(contentBoxDimension.getBottomBoundary()).toBe(30);
+      expect(contentBoxDimension.getBoxManager().getBottomBoundary()).toBe(30);
 
       done();
     });
@@ -80,8 +80,8 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedWidth()).toBe(70);
       expect(contentBoxDimension.getUsedHeight()).toBe(30);
-      expect(contentBoxDimension.getRightBoundary()).toBe(75);
-      expect(contentBoxDimension.getBottomBoundary()).toBe(40);
+      expect(contentBoxDimension.getBoxManager().getRightBoundary()).toBe(75);
+      expect(contentBoxDimension.getBoxManager().getBottomBoundary()).toBe(40);
 
       done();
     });
@@ -112,8 +112,8 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedWidth()).toBe(15);
       expect(contentBoxDimension.getUsedHeight()).toBe(10);
-      expect(contentBoxDimension.getBottomBoundary()).toBe(15);
-      expect(contentBoxDimension.getContentBoxWidth()).toBe(MAX_WIDTH);
+      expect(contentBoxDimension.getBoxManager().getBottomBoundary()).toBe(15);
+      expect(contentBoxDimension.getBoxManager().getContentBoxWidth()).toBe(MAX_WIDTH);
 
       done();
     });
@@ -123,8 +123,8 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedWidth()).toBe(30);
       expect(contentBoxDimension.getUsedHeight()).toBe(15);
-      expect(contentBoxDimension.getBottomBoundary()).toBe(20);
-      expect(contentBoxDimension.getContentBoxWidth()).toBe(MAX_WIDTH);
+      expect(contentBoxDimension.getBoxManager().getBottomBoundary()).toBe(20);
+      expect(contentBoxDimension.getBoxManager().getContentBoxWidth()).toBe(MAX_WIDTH);
 
       done();
     });
@@ -161,8 +161,8 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedWidth()).toBe(10);
       expect(contentBoxDimension.getUsedHeight()).toBe(15);
-      expect(contentBoxDimension.getRightBoundary()).toBe(15);
-      expect(contentBoxDimension.getBottomBoundary()).toBe(25);
+      expect(contentBoxDimension.getBoxManager().getRightBoundary()).toBe(15);
+      expect(contentBoxDimension.getBoxManager().getBottomBoundary()).toBe(25);
 
       done();
     });
@@ -172,8 +172,8 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedWidth()).toBe(15);
       expect(contentBoxDimension.getUsedHeight()).toBe(30);
-      expect(contentBoxDimension.getRightBoundary()).toBe(20);
-      expect(contentBoxDimension.getBottomBoundary()).toBe(40);
+      expect(contentBoxDimension.getBoxManager().getRightBoundary()).toBe(20);
+      expect(contentBoxDimension.getBoxManager().getBottomBoundary()).toBe(40);
 
       done();
     });
@@ -183,8 +183,8 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedWidth()).toBe(15);
       expect(contentBoxDimension.getUsedHeight()).toBe(55);
-      expect(contentBoxDimension.getRightBoundary()).toBe(20);
-      expect(contentBoxDimension.getBottomBoundary()).toBe(65);
+      expect(contentBoxDimension.getBoxManager().getRightBoundary()).toBe(20);
+      expect(contentBoxDimension.getBoxManager().getBottomBoundary()).toBe(65);
 
       done();
     });
@@ -194,7 +194,7 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedWidth()).toBe(15);
       expect(contentBoxDimension.getContentBoxWidth()).toBe(20);
-      expect(contentBoxDimension.getRightBoundary()).toBe(25);
+      expect(contentBoxDimension.getBoxManager().getRightBoundary()).toBe(25);
 
       done();
     });
@@ -204,7 +204,7 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedHeight()).toBe(55);
       expect(contentBoxDimension.getContentBoxHeight()).toBe(60);
-      expect(contentBoxDimension.getBottomBoundary()).toBe(70);
+      expect(contentBoxDimension.getBoxManager().getBottomBoundary()).toBe(70);
 
       done();
     });
@@ -214,8 +214,8 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedWidth()).toBe(30);
       expect(contentBoxDimension.getUsedHeight()).toBe(70);
-      expect(contentBoxDimension.getRightBoundary()).toBe(35);
-      expect(contentBoxDimension.getBottomBoundary()).toBe(80);
+      expect(contentBoxDimension.getBoxManager().getRightBoundary()).toBe(35);
+      expect(contentBoxDimension.getBoxManager().getBottomBoundary()).toBe(80);
 
       done();
     });
@@ -246,7 +246,7 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedWidth()).toBe(10);
       expect(contentBoxDimension.getUsedHeight()).toBe(15);
-      expect(contentBoxDimension.getRightBoundary()).toBe(15);
+      expect(contentBoxDimension.getBoxManager().getRightBoundary()).toBe(15);
       expect(contentBoxDimension.getContentBoxHeight()).toBe(MAX_HEIGHT);
 
       done();
@@ -257,7 +257,7 @@ describe('Content Box Dimension', () => {
 
       expect(contentBoxDimension.getUsedWidth()).toBe(15);
       expect(contentBoxDimension.getUsedHeight()).toBe(30);
-      expect(contentBoxDimension.getRightBoundary()).toBe(20);
+      expect(contentBoxDimension.getBoxManager().getRightBoundary()).toBe(20);
       expect(contentBoxDimension.getContentBoxHeight()).toBe(MAX_HEIGHT);
 
       done();
