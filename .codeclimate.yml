@@ -1,25 +1,25 @@
 checks:
   argument-count:
     config:
-      threshold: 4
+      threshold: 3
   complex-logic:
     config:
       threshold: 4
   file-lines:
     config:
-      threshold: 600
+      threshold: 200
   method-complexity:
     config:
-      threshold: 20
+      threshold: 5
   method-count:
     config:
       threshold: 20
   method-lines:
     config:
-      threshold: 125
+      threshold: 25
   nested-control-flow:
     config:
-      threshold: 4
+      threshold: 3
   return-statements:
     config:
       threshold: 4
