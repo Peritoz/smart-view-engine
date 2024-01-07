@@ -40,7 +40,7 @@
     "prettier": "^3.1.1",
     "ts-jest": "^29.1.1",
     "tscpaths": "^0.0.9",
-    "typescript": "^4.5.4"
+    "typescript": "^4.8.4"
   },
   "keywords": []
 }
