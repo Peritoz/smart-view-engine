@@ -11,9 +11,9 @@ export interface BoxManager {
 
   getRightBoundary(): number;
 
-  getRightOffset(width: number): void;
+  getRightOffset(width: number): number;
 
-  getBottomOffset(height: number): void;
+  getBottomOffset(height: number): number;
 }
 
 export class BoxDimension implements BoxManager {
