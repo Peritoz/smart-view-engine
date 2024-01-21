@@ -53,6 +53,8 @@ export class ContentBoxDimension {
     this.direction = direction;
     this.maxChildWidth = 0; // Represents the width of the biggest child
     this.maxChildHeight = 0; // Represents the height of the biggest child
+    this.hasFixedWidth = hasFixedWidth;
+    this.hasFixedHeight = hasFixedHeight;
   }
 
   getBoxManager(): BoxManager {
